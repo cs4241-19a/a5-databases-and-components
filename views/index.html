@@ -47,6 +47,9 @@
             <label><input type="password" placeholder="Repeat Password" id="signup_password_2"></label>
             <lable><button style="width:100%" id="signup_submit">Submit</button></lable>
           </fieldset>
+          <h3 id="password_mismatch" class="toast-hidden"><span  class="label warning">Passwords don't match!</span></h3>
+          <h3 class="label error toast-hidden" id="signup_unsuccessful">Signup unsuccessful!</h3>
+          <h3 class="label warning toast-hidden" id="signup_successful">Signup successful, please login!</h3>
         </div>
         <div>
           <h2>
@@ -58,75 +61,11 @@
             <lable><button style="width:100%" class="success" id="login_submit">Submit</button></lable>
           </fieldset>
         </div>
-      </div>
-      
-      
-      
-      <div class="modal">
-        <input id="password_match_modal" type="checkbox" />
-        <label for="password_match_modal" class="overlay"></label>
-        <article>
-          <header>
-            <h3>Error:</h3>
-            <label for="password_match_modal" class="close">&times;</label>
-          </header>
-          <section class="content">
-            Passwords must match!
-          </section>
-          <footer>
-            <label for="password_match_modal" class="button dangerous">
-              Close
-            </label>
-          </footer>
-        </article>
-      </div>
-      
-      
-      
-      <div class="modal">
-        <input id="signup_successful_modal" type="checkbox" />
-        <label for="signup_successful_modal" class="overlay"></label>
-        <article>
-          <header>
-            <h3>Success!</h3>
-            <label for="signup_successful_modal" class="close">&times;</label>
-          </header>
-          <section class="content">
-            Signup successful, please login!
-          </section>
-          <footer>
-            <label for="signup_successful_modal" class="button dangerous">
-              Close
-            </label>
-          </footer>
-        </article>
-      </div>
-      
-      
-      
-      <div class="modal">
-        <input id="signup_unsuccessful_modal" type="checkbox" />
-        <label for="signup_unsuccessful_modal" class="overlay"></label>
-        <article>
-          <header>
-            <h3>Error:</h3>
-            <label for="signup_unsuccessful_modal" class="close">&times;</label>
-          </header>
-          <section class="content">
-            Could not signup. Please try again!
-          </section>
-          <footer>
-            <label for="signup_unsuccessful_modal" class="button dangerous">
-              Close
-            </label>
-          </footer>
-        </article>
-      </div>
-      
+      </div>      
     </main>
 
     <footer style="text-align: center">
-      Forgot your account? <span data-tooltip="Sorry about your progress!" class="tooltip-top">Make a new one!</span>
+      Forgot your password? <span data-tooltip="Sorry about your progress!" class="tooltip-top">Make a new one!</span>
     </footer>
   </body>
 </html>

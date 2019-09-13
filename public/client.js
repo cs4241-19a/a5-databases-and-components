@@ -12,10 +12,14 @@ const signUp = function() {
   const password_1 = document.querySelector( '#signup_password_1' )
   const password_2 = document.querySelector( '#signup_password_2' )
   
+  document.querySelector( '#signup_successful' ).className = "toast-hidden"
+  document.querySelector( '#signup_unsuccessful' ).className = "toast-hidden"
+  document.querySelector( '#password_mismatch' ).className = "toast-hidden"
+  
   if ( password_1.value !== password_2.value ) {
-    document.querySelector( '#password_match_modal' ).setAttribute('checked', true)
+    document.querySelector( '#password_mismatch' ).className = ""
   } else {
-    fetch( '/add_spacecraft', {
+    fetch( '/signup', {
       method:'POST',
       body:JSON.stringify({ username:username.value , password:password_1.value }),
       headers: { 'Content-Type': 'application/json' }
@@ -26,12 +30,12 @@ const signUp = function() {
         username.value = ""
         password_1.value = ""
         password_2.value = ""
-        document.querySelector( '#signup_successful_modal' ).setAttribute('checked', true)
+        document.querySelector( '#signup_successful' ).className = ""
       } else {
         username.value = ""
         password_1.value = ""
         password_2.value = ""
-        document.querySelector( '#signup_unsuccessful_modal' ).setAttribute('checked', true)
+        document.querySelector( '#signup_unsuccessful' ).className = ""
       }
     })
   }
