@@ -103,7 +103,7 @@ app.post(
     if (undefined === req.user) {
       res.json({status: req.message})
     } else {
-      res.redirect('/home')
+      res.json({status: 200})
     }
   }
 )
@@ -139,7 +139,7 @@ app.post(
 
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get('/', function(request, response) {
+app.get('/', isNotLoggedIn, function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
