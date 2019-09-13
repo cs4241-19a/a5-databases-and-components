@@ -24,7 +24,7 @@
     <!-- import the webpage's client-side javascript file -->
     <script src="/home.js" defer></script>
   </head>
-  <body>
+  <body style="height: 100%">
     <header style="text-align: center">
       <h1>
         HTTP Status Code Scanvenger Hunt
@@ -35,12 +35,12 @@
       <div class="flex four">
         <div class="">
           <fieldset class="flex">
-            <pre style="overflow: auto; height: 100%;">
-            </pre>
             <textarea placeholder="Write a comment..." id="message"></textarea>
             <button id="submit_message" style="width: 100%;">
               Submit
             </button>
+            <div style="overflow: scroll; height: 350px" id="message_display">
+            </div>
           </fieldset>
         </div>
         <div class="half">

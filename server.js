@@ -138,6 +138,7 @@ app.post(
 
 app.post('/add_comment', isLoggedIn, function (req, res) {
   const username = req.user.username
+  
   const new_comment = {id: shortid.generate(),
                        message: req.body.message,
                        timestamp: (new Date()).getTime(),
