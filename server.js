@@ -152,7 +152,6 @@ app.get('/comments', isLoggedIn, function (req, res) {
   res.json(db.get('comments').value())
 })
 
-
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', isNotLoggedIn, function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
