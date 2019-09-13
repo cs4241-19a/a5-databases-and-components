@@ -23,6 +23,20 @@ db.defaults({ comments: [], users: [] })
 app.use( express.static('./') )
 app.use( bodyParser.json() )
 
+const isNotLoggedIn = function(req, res, next) {
+  if (req.user === undefined) {
+    next()
+  } else {
+    res.redirect('/home')
+  }
+}
+
+const isLoggedIn = function(req, res, next) {
+  if (req.user === undefined) {
+    res.redirect('/')
+  }
+}
+
 // Modified rom lecture notes
 // all authentication requests in passwords assume that your client
 // is submitting a field named "username" and field named "password".
@@ -64,6 +78,16 @@ app.post(
     res.redirect('home')
   }
 )
+
+
+app.post(
+  '/signup',
+  isNotLoggedIn,
+  function( req, res )
+)
+
+
+
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
