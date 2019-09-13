@@ -19,6 +19,8 @@ const login = function() {
   .then( res => {
     if (401 === res.status) {
       console.log("Oops")
+    } else {
+      window.location.href = "/home";
     }
   })
 }

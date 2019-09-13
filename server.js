@@ -12,6 +12,7 @@ const express = require('express'),
       FileSync  = require('lowdb/adapters/FileSync'),
       adapter   = new FileSync('.data/db.json'),
       db        = low(adapter),
+      cookieParser = require('cookie-parser'),
       bcrypt = require('bcryptjs');
 
 const salt = bcrypt.genSaltSync(10);
@@ -21,18 +22,14 @@ db.defaults({ comments: [], users: [] })
 
 
 app.use( express.static('./public') )
-app.use(require('cookie-parser')());
-app.use(require('body-parser').json());
-app.use(require('express-session')({
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+app.use( cookieParser());
+app.use( bodyParser.json());
+app.use( session({ secret:'cats cats cats', resave:false, saveUninitialized:false }));
+app.use( passport.initialize());
+app.use( passport.session());
 
 const isNotLoggedIn = function(req, res, next) {
-  if (req.user === undefined) {
+  if (undefined === req.user) {
     next()
   } else {
     res.redirect('/home')
@@ -40,9 +37,11 @@ const isNotLoggedIn = function(req, res, next) {
 }
 
 const isLoggedIn = function(req, res, next) {
-  if (req.user === undefined) {
+  console.log("isLoggedIn: ", req.user)
+  if (undefined === req.user) {
     res.redirect('/')
   } else {
+    console.log("Next!")
     next()
   }
 }
@@ -70,6 +69,7 @@ const myLocalStrategy = function( username, password, done ) {
     // we found the user and the password matches!
     // go ahead and send the userdata... this will appear as request.user
     // in all express middleware functions.
+    console.log("login success")
     return done( null, { username, password })
   }else{
     // we found the user but the password didn't match...
@@ -86,7 +86,7 @@ passport.serializeUser( ( user, done ) => done( null, user.username ) )
 // in this example we're using the username
 passport.deserializeUser( ( username, done ) => {
   const user = db.get('users').value().find( u => u.username === username )
-  console.log( 'deserializing:', username )
+  console.log( 'deserializing:', user )
   
   if( user !== undefined ) {
     done( null, user )
@@ -99,7 +99,7 @@ app.post(
   '/login',
   passport.authenticate( 'local' ),
   function( req, res ) {
-      console.log("/login")
+    console.log("/login")
     if (undefined === req.user) {
       res.json({status: req.message})
     } else {
@@ -143,7 +143,7 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/home', isLoggedIn, function(reqeust, response) {
+app.get('/home', isLoggedIn, function(request, response) {
   response.sendFile(__dirname + '/views/home.html')
 })
 
