@@ -20,7 +20,7 @@ db.defaults({ comments: [], users: [] })
   .write()
 
 
-app.use( express.static('./') )
+app.use( express.static('./public') )
 app.use( bodyParser.json() )
 
 const isNotLoggedIn = function(req, res, next) {
@@ -120,6 +120,8 @@ app.post(
       db.get('users').push(new_user).write()
       
       res.json({ status:'success' })
+    } else {
+      res.json({ status:'failed' })
     }
   }
 )

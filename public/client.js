@@ -12,23 +12,34 @@ const signUp = function() {
   const password_1 = document.querySelector( '#signup_password_1' )
   const password_2 = document.querySelector( '#signup_password_2' )
   
-  if (password_1 !== password_2) {
+  if ( password_1.value !== password_2.value ) {
     document.querySelector( '#password_match_modal' ).setAttribute('checked', true)
   } else {
-      fetch( '/add_spacecraft', {
-        method:'POST',
-        body:JSON.stringify({ username:username, password:password_1 }),
-        headers: { 'Content-Type': 'application/json' }
-      })
-      .then( function( response ) {
-        
-        })
+    fetch( '/add_spacecraft', {
+      method:'POST',
+      body:JSON.stringify({ username:username.value , password:password_1.value }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then( res => res.json() )
+    .then( res => {
+      if ( "success" === res.status) {
+        username.value = ""
+        password_1.value = ""
+        password_2.value = ""
+        document.querySelector( '#signup_successful_modal' ).setAttribute('checked', true)
+      } else {
+        username.value = ""
+        password_1.value = ""
+        password_2.value = ""
+        document.querySelector( '#signup_unsuccessful_modal' ).setAttribute('checked', true)
       }
+    })
+  }
 }
 
 
 window.onload = function() {
-  const signupButton = document.querySelector( '#signup_button' )
+  const signupButton = document.querySelector( '#signup_submit' )
   signupButton.onclick = signUp
 }
 
