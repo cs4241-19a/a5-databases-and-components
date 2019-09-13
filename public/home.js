@@ -7,10 +7,13 @@ const displayMessages = function(messages) {
     const message = messages[i]
     displayElement.innerHTML += 
       `
-        <div>
-          <h4>${message.username}</h4>
-          <p>${message.message}</p>
-        </div>
+        <article class="card">
+          <header>
+            <h3>${message.username}</h3>
+            <button class="dangerous shyButton" onclick="removeComment(${message.id})">&times;</button>
+          </header>
+          <footer><h5>${message.message}</h5></footer>
+        </article>
       `
   }
 }
@@ -32,7 +35,7 @@ const submitMessage = function() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({'message': document.querySelector('#message').value })
   })
-  .then( console.log )
+  .then( loadMessages )
   .catch( err => console.error ) 
 }
 

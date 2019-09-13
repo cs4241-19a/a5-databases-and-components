@@ -138,7 +138,7 @@ app.post(
 
 app.post('/add_comment', isLoggedIn, function (req, res) {
   const username = req.user.username
-  console.log(req.body)
+
   const new_comment = {id: shortid.generate(),
                        message: req.body.message,
                        timestamp: (new Date()).getTime(),
@@ -150,7 +150,7 @@ app.post('/add_comment', isLoggedIn, function (req, res) {
 })
 
 app.get('/comments', isLoggedIn, function (req, res) {
-  res.json(db.get('comments').value())
+  res.json(db.get('comments').sortBy('timestamp').value().reverse())
 })
 
 // http://expressjs.com/en/starter/basic-routing.html

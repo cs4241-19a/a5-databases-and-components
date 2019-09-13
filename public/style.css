@@ -1,3 +1,7 @@
 .toast-hidden {
   display: none
 }
+
+.shyButton {
+    font-size: .75em;
+}
