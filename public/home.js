@@ -19,15 +19,17 @@ const loadMessages = function() {
   fetch('/comments', {
     method:'GET',
     credentials: 'include',
+    headers: { 'Content-Type': 'application/json' }
   })
   .then( res => res.json())
-  .then( res => displayMessages )
+  .then( displayMessages )
 }
 
 const submitMessage = function() {
   fetch( '/add_comment', {
     method:'POST',
     credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({'message': document.querySelector('#message').value })
   })
   .then( console.log )
