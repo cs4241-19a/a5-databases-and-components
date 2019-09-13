@@ -2,14 +2,24 @@
 // where your node app starts
 
 // init project
-const express = require('express');
-const app = express();
+const express = require('express'),
+      app       = express(),
+      session   = require( 'express-session' ),
+      passport  = require( 'passport' ),
+      Local     = require( 'passport-local' ).Strategy,
+      bodyParser= require( 'body-parser' ),
+      low       = require('lowdb'),
+      FileSync  = require('lowdb/adapters/FileSync'),
+      adapter   = new FileSync('.data/db.json'),
+      db        = low(adapter)
 
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
+db.defaults({ comments: [], users: [] })
+  .write()
+
+
+app.use( express.static('./') )
+app.use( bodyParser.json() )
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
