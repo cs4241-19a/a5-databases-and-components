@@ -34,6 +34,8 @@ const isNotLoggedIn = function(req, res, next) {
 const isLoggedIn = function(req, res, next) {
   if (req.user === undefined) {
     res.redirect('/')
+  } else {
+    next()
   }
 }
 
@@ -46,7 +48,7 @@ const myLocalStrategy = function( username, password, done ) {
   
   // find the first item in our users array where the username
   // matches what was sent by the client. nicer to read/write than a for loop!
-  const user = users.find( __user => __user.username === username )
+  const user = users.value().find( __user => __user.username === username )
   
   // if user is undefined, then there was no match for the submitted username
   if( user === undefined ) {
@@ -68,6 +70,24 @@ const myLocalStrategy = function( username, password, done ) {
 }
 
 passport.use( new Local( myLocalStrategy ) )
+
+
+passport.serializeUser( ( user, done ) => done( null, user.username ) )
+
+// "name" below refers to whatever piece of info is serialized in seralizeUser,
+// in this example we're using the username
+passport.deserializeUser( ( username, done ) => {
+  const user = db.get('users').value().find( u => u.username === username )
+  console.log( 'deserializing:', name )
+  
+  if( user !== undefined ) {
+    done( null, user )
+  }else{
+    done( null, false, { message:'user not found; session not restored' })
+  }
+})
+
+
 passport.initialize()
 
 app.post( 
@@ -75,7 +95,7 @@ app.post(
   passport.authenticate( 'local' ),
   function( req, res ) {
     console.log( 'user:', req.user )
-    res.redirect('home')
+    res.redirect('/home')
   }
 )
 
@@ -83,7 +103,25 @@ app.post(
 app.post(
   '/signup',
   isNotLoggedIn,
-  function( req, res )
+  function( req, res ) {
+    const requested_username = req.body.username
+    const requested_password = req.body.password
+    const users = db.get('users').value()
+    
+    if (undefined === users.find( __user => __user.username === requested_username )) {
+      const hash = bcrypt.hashSync(requested_password, salt);
+      const new_user = {
+        "username": requested_username,
+        "password": hash,
+        "display_name": requested_username,
+        "awards": []
+      }
+      
+      db.get('users').push(new_user).write()
+      
+      res.json({ status:'success' })
+    }
+  }
 )
 
 

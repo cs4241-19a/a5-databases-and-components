@@ -5,3 +5,9 @@ const notice = new SimpleGDPR({
   icons: false,
   animation: 'slide'
 });
+
+
+window.body.onLoad = function() {
+  document.
+}
+
