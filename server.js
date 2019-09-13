@@ -13,7 +13,8 @@ const express = require('express'),
       adapter   = new FileSync('.data/db.json'),
       db        = low(adapter),
       cookieParser = require('cookie-parser'),
-      bcrypt = require('bcryptjs');
+      bcrypt = require('bcryptjs'),
+      shortid = require('shortid')
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -135,7 +136,21 @@ app.post(
   }
 )
 
+app.post('/add_comment', isLoggedIn, function (req, res) {
+  const username = req.user.username
+  const new_comment = {id: shortid.generate(),
+                       message: req.body.message,
+                       timestamp: (new Date()).getTime(),
+                       username: username }
+  db.get('comments').push(new_comment).write()
+  
+  res.status(200)
+  res.end()
+})
 
+app.get('/comments', isLoggedIn, function (req, res) {
+  res.json(db.get('comments').value())
+})
 
 
 // http://expressjs.com/en/starter/basic-routing.html
