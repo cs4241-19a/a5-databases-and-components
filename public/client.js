@@ -7,6 +7,22 @@ const notice = new SimpleGDPR({
 });
 
 
+const login = function() {
+  const username = document.querySelector( '#login_username' )
+  const password = document.querySelector( '#login_password' )
+  
+  fetch( '/login', {
+      method:'POST',
+      body:JSON.stringify({ username:username.value , password:password.value }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+  .then( res => {
+    if (401 === res.status) {
+      console.log("Oops")
+    }
+  })
+}
+
 const signUp = function() {
   const username = document.querySelector( '#signup_username' )
   const password_1 = document.querySelector( '#signup_password_1' )
@@ -26,6 +42,7 @@ const signUp = function() {
     })
     .then( res => res.json() )
     .then( res => {
+      console.log(res)
       if ( "success" === res.status) {
         username.value = ""
         password_1.value = ""
@@ -45,5 +62,8 @@ const signUp = function() {
 window.onload = function() {
   const signupButton = document.querySelector( '#signup_submit' )
   signupButton.onclick = signUp
+  
+  const loginButton = document.querySelector( '#login_submit' )
+  loginButton.onclick = login
 }
 

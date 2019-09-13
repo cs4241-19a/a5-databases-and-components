@@ -21,7 +21,15 @@ db.defaults({ comments: [], users: [] })
 
 
 app.use( express.static('./public') )
-app.use( bodyParser.json() )
+app.use(require('cookie-parser')());
+app.use(require('body-parser').json());
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 const isNotLoggedIn = function(req, res, next) {
   if (req.user === undefined) {
@@ -78,7 +86,7 @@ passport.serializeUser( ( user, done ) => done( null, user.username ) )
 // in this example we're using the username
 passport.deserializeUser( ( username, done ) => {
   const user = db.get('users').value().find( u => u.username === username )
-  console.log( 'deserializing:', name )
+  console.log( 'deserializing:', username )
   
   if( user !== undefined ) {
     done( null, user )
@@ -87,15 +95,16 @@ passport.deserializeUser( ( username, done ) => {
   }
 })
 
-
-passport.initialize()
-
 app.post( 
   '/login',
   passport.authenticate( 'local' ),
   function( req, res ) {
-    console.log( 'user:', req.user )
-    res.redirect('/home')
+      console.log("/login")
+    if (undefined === req.user) {
+      res.json({status: req.message})
+    } else {
+      res.redirect('/home')
+    }
   }
 )
 
@@ -133,6 +142,10 @@ app.post(
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
+
+app.get('/home', isLoggedIn, function(reqeust, response) {
+  response.sendFile(__dirname + '/views/home.html')
+})
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
