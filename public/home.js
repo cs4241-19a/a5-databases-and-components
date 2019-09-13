@@ -10,7 +10,7 @@ const displayMessages = function(messages) {
         <article class="card">
           <header>
             <h3>${message.username}</h3>
-            <button class="dangerous shyButton" onclick="removeComment(${message.id})">&times;</button>
+            <button class="dangerous remove-comment-button" onclick="removeComment(${message.id})">&times;</button>
           </header>
           <footer><h5>${message.message}</h5></footer>
         </article>
