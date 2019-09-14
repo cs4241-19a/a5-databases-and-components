@@ -259,10 +259,18 @@ app.get('/me', isLoggedIn, function(req, res, next) {
   res.json(req.user)
 })
 
-app.delete('/*', function(req, res, next) {
+app.delete('/remove_comment', function(req, res, next) {
   req.award_code = 405
+  res.set('Allowed', 'POST');
   next()
 })
+
+
+app.put('/*', function(req, res, next) {
+  req.award_code = 501
+  next()
+})
+
 
 app.all('/*', function(req, res, next) {
   if (undefined === req.award_code) {
