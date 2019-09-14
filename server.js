@@ -210,29 +210,48 @@ app.get('/logout', function(req, res){
 app.get('/expo/:x/:f', isLoggedIn, function(req, res, next) {
   const x = req.params.x
   const f = req.params.f
-  
+  console.log(x, f)
   try {
     res.json({result: Number.parseFloat(x).toExponential(f)})
-    res.award_code = 200
+    req.award_code = 200
   } catch (error) {
-    res.award_code = 500
-    nex
+    req.award_code = 500
+    next()
   }
 })
 
+app.get('/brewCoffee', function(req, res, next) {
+  req.award_code = 418
+  next()
+})
+
+app.get('/area51', function(req, res, next) {
+  req.award_code = 451
+  next()
+})
+
 app.all('/*', function(req, res, next) {
-  req.award_code = 404
+  if (undefined === req.award_code) {
+    req.award_code = 404
+  }
   next()
 })
 
 app.use(function(req, res, next) {
-  if (undefined !== req.award_code) {
-    if (undefined !== req.user) {
-      addAward(req.user.username, req.award_code)
-    }
-    res.status(req.award_code).end()
+  if (undefined !== req.user) {
+    addAward(req.user.username, req.award_code)
   }
-  res.end()
+  
+  res.status(req.award_code)
+  if(404 === req.award_code) {
+    res.sendFile(__dirname + '/views/errors/404.html')
+  } else if (418 === req.award_code) {
+    res.sendFile(__dirname + '/views/errors/418.html')
+  } else if (451 === req.award_code) {
+    res.sendFile(__dirname + '/views/errors/451.html')
+  } else if (500 === req.award_code) {
+    res.sendFile(__dirname + '/views/errors/500.html')
+  } 
 })
 
 // listen for requests :)
