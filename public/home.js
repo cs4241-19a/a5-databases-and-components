@@ -7,14 +7,15 @@ const displayMessages = function(messages) {
     const message = messages[i]
     let button_html = ""
     
-    if (message.user)
+    if( true === message.deletable ) {
+      button_html = `<button class="dangerous remove-comment-button" onclick="removeMessage('${message.id}')">&times;</button>`
+    }
     
     displayElement.innerHTML += 
       `
         <article class="card">
           <header>
-            <h3>${message.username}</h3>
-            ${button_html}
+            <h3>${message.username}</h3> ${button_html}
           </header>
           <footer><h5>${message.message}</h5></footer>
         </article>

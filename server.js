@@ -93,6 +93,12 @@ passport.deserializeUser( ( username, done ) => {
   }
 })
 
+
+const addAward = function(username, code) {
+  db.get('users')
+}
+
+
 app.post( 
   '/login',
   passport.authenticate( 'local' ),
@@ -155,7 +161,7 @@ app.post('/remove_comment', isLoggedIn, function (req, res) {
   if (undefined === comment) {
     
   } else if (comment.username !== username) {
-    // 403
+    res.status(403).end()
   } else {
     db.get('comments').remove(comment).write()
   }
@@ -165,7 +171,13 @@ app.post('/remove_comment', isLoggedIn, function (req, res) {
 
 
 app.get('/comments', isLoggedIn, function (req, res) {
-  res.json(db.get('comments').sortBy('timestamp').value().reverse())
+  res.json(db.get('comments').sortBy('timestamp').value().reverse().map(comment => {
+    comment.deleteable = false
+    if (comment.username === req.user.username) {
+      comment.deletable = true
+    }
+    return comment
+  }))
 })
 
 // http://expressjs.com/en/starter/basic-routing.html
@@ -177,6 +189,11 @@ app.get('/home', isLoggedIn, function(request, response) {
   response.status(200)
   response.sendFile(__dirname + '/views/home.html')
 })
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
