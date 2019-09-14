@@ -110,13 +110,35 @@ const removeMessage = function(message_id) {
   .catch( err => console.error )
 }
 
+const checkJSON = function (str) {
+  try {
+    JSON.parse(str)
+  } catch (e) {
+    return false
+  }
+  return true
+}
+
 
 const submitRequest = function () {
   const method_selector = document.querySelector("#req_method")
-  fetch(document.querySelector('#req_path').value,{
-    method: method_selector.options[method_selector.selectedIndex].value
+  const creds_selector = document.querySelector("#req_creds")
+  
+  // if (!checkJSON(document.querySelector("#req_headers").value)) {
+  //   return
+  // }
+  
+  if (!checkJSON(document.querySelector("#req_body").value)) {
+    console.log("Body invalid")
+    document.querySelector("#req_body").className = "invalid"
+    return
+  }
+  
+//   fetch(document.querySelector('#req_path').value,{
+//     method: method_selector.options[method_selector.selectedIndex].value,
+//     credentials: creds_selector.options[creds_selector.selectedIndex].value,
     
-  })
+//   })
 }
 
 window.onload = function() {

@@ -15,3 +15,7 @@
   font-size: 36px; 
   color: grey;
 }
+
+textarea.invalid {
+  border: 2px dashed red;
+}
