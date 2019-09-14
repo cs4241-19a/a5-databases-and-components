@@ -124,21 +124,34 @@ const submitRequest = function () {
   const method_selector = document.querySelector("#req_method")
   const creds_selector = document.querySelector("#req_creds")
   
-  // if (!checkJSON(document.querySelector("#req_headers").value)) {
-  //   return
-  // }
+  if (!checkJSON(document.querySelector("#req_headers").value)) {
+    document.querySelector("#req_headers").className += "invalid"
+    return
+  }
   
   if (!checkJSON(document.querySelector("#req_body").value)) {
-    console.log("Body invalid")
     document.querySelector("#req_body").className = "invalid"
     return
   }
   
-//   fetch(document.querySelector('#req_path').value,{
-//     method: method_selector.options[method_selector.selectedIndex].value,
-//     credentials: creds_selector.options[creds_selector.selectedIndex].value,
-    
-//   })
+  document.querySelector("#req_headers").className = "stack"
+  document.querySelector("#req_body").className = ""
+  
+  fetch(document.querySelector('#req_path').value,{
+    method: method_selector.options[method_selector.selectedIndex].value,
+    credentials: creds_selector.options[creds_selector.selectedIndex].value,
+    headers: JSON.parse(document.querySelector("#req_headers").value),
+    body: document.querySelector("#req_body").value
+  })
+  .then( res => res.json() )
+  .then( console.log )
+  .then( () => {
+    method_selector.selectedIndex = 0
+    creds_selector.selectedIndex = 0
+    document.querySelector("#req_headers").value = ""
+    document.querySelector("#req_body").value = ""
+    document.querySelector('#req_path').value = ""
+  })
 }
 
 window.onload = function() {
