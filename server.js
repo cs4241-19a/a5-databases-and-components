@@ -26,7 +26,7 @@ app.use((req, res, next) => {
       res.redirect('https://' + req.headers.host + req.url)
   else
       return next();
-});
+})
 
 app.use( express.static('./public') )
 app.use( bodyParser.json());
@@ -118,6 +118,14 @@ const addAward = function(username, code) {
     .write()
   }
 }
+
+
+
+app.all((req, res, next) => {
+  if (req.headers['Expect'] === '100-continue') {
+    
+  }
+})
 
 app.post( 
   '/login',

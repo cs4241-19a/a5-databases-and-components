@@ -39,7 +39,7 @@ const loadMessages = function() {
 
 const awardIconMap = {
   "404": "fas fa-map-marked",
-  "200": "fas fa-check-circle",
+  "200": "fas fa-thumbs-up",
   "201": "fas fa-plus-circle",
   "451": "fab fa-reddit-alien",
   "500": "fas fa-bug",
