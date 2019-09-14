@@ -33,6 +33,28 @@ const loadMessages = function() {
   .then( displayMessages )
 }
 
+const awardIconMap = {
+  "404": "map-marked"
+}
+const displayAwards = function(user) {
+  const awards = user.awards
+  const displayElement = docum
+  
+  for(let i = 0; i < awards.length; i++) {
+    if (undefined !== awardIconMap[awards[i]])
+  }
+}
+
+const loadAwards = function() {
+  fetch('/me', {
+    method:'GET',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then( res => res.json())
+  .then( displayAwards )
+}
+
 const submitMessage = function() {
   fetch( '/add_comment', {
     method:'POST',

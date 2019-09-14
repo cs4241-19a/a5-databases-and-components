@@ -230,6 +230,11 @@ app.get('/area51', function(req, res, next) {
   next()
 })
 
+app.get('/me', isLoggedIn, function(req, res, next) {
+  req.award_code = 200
+  res.json(req.user)
+})
+
 app.all('/*', function(req, res, next) {
   if (undefined === req.award_code) {
     req.award_code = 404
