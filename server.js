@@ -151,8 +151,7 @@ app.post('/remove_comment', isLoggedIn, function (req, res) {
   const comment_id = req.body.message_id
   
   const comment = db.get('comments').value().find( __comment => __comment.id === comment_id )
-  console.log(comment_id)
-  console.log(comment)
+
   if (undefined === comment) {
     
   } else if (comment.username !== username) {
@@ -175,6 +174,7 @@ app.get('/', isNotLoggedIn, function(request, response) {
 });
 
 app.get('/home', isLoggedIn, function(request, response) {
+  response.status(200)
   response.sendFile(__dirname + '/views/home.html')
 })
 

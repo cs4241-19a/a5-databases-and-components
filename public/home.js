@@ -5,12 +5,16 @@ const displayMessages = function(messages) {
   
   for (let i = 0; i < messages.length; i++) {
     const message = messages[i]
+    let button_html = ""
+    
+    if (message.user)
+    
     displayElement.innerHTML += 
       `
         <article class="card">
           <header>
             <h3>${message.username}</h3>
-            <button class="dangerous remove-comment-button" onclick="removeMessage('${message.id}')">&times;</button>
+            ${button_html}
           </header>
           <footer><h5>${message.message}</h5></footer>
         </article>
