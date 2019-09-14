@@ -14,12 +14,21 @@ const express = require('express'),
       bcrypt = require('bcryptjs'),
       shortid = require('shortid'),
       rateLimit = require("express-rate-limit"),
-      compression = require("compression")
+      compression = require("compression"),
+      morgan = require('morgan'),
+      fs = require('fs'),
+      path = require('path')
 
 const salt = bcrypt.genSaltSync(10);
 
 db.defaults({ comments: [], users: [] })
   .write()
+
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }))
+
 
 app.use((req, res, next) => {
   if (req.headers['x-forwarded-proto'].split(',')[0] !== 'https')
