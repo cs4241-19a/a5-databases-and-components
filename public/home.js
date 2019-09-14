@@ -46,7 +46,8 @@ const awardIconMap = {
   "418": "fas fa-mug-hot",
   "403": "fas fa-ban",
   "414": "fas fa-ruler-horizontal",
-  "429": "fas fa-spinner fa-spin"
+  "429": "fas fa-spinner fa-spin",
+  "405": "fas fa-backspace"
 }
 const displayAwards = function(user) {
   const awards = user.awards

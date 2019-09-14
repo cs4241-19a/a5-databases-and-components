@@ -256,7 +256,7 @@ app.get('/me', isLoggedIn, function(req, res, next) {
   res.json(req.user)
 })
 
-app.trace('/*', function(req, res, next) {
+app.delete('/*', function(req, res, next) {
   req.award_code = 405
   next()
 })
