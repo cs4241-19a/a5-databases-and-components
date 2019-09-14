@@ -95,9 +95,16 @@ passport.deserializeUser( ( username, done ) => {
 
 
 const addAward = function(username, code) {
-  db.get('users')
-}
+  const user = db.get('users').find({username: username}).value()
 
+  if (!user.awards.includes(code)) {
+    user.awards.push(code)
+    db.get('users')
+    .find({ username: username })
+    .assign({ awards: user.awards})
+    .write()
+  }
+}
 
 app.post( 
   '/login',
@@ -159,14 +166,17 @@ app.post('/remove_comment', isLoggedIn, function (req, res) {
   const comment = db.get('comments').value().find( __comment => __comment.id === comment_id )
 
   if (undefined === comment) {
-    
+    // TODO: update
+  
+  res.status(200).end()
   } else if (comment.username !== username) {
+    addAward(username, 403)
     res.status(403).end()
   } else {
     db.get('comments').remove(comment).write()
+    addAward(username, 201)
+    res.status(201).end()
   }
-  
-  res.status(200).end()
 })
 
 
@@ -187,6 +197,7 @@ app.get('/', isNotLoggedIn, function(request, response) {
 
 app.get('/home', isLoggedIn, function(request, response) {
   response.status(200)
+  addAward(request.user.username, 200)
   response.sendFile(__dirname + '/views/home.html')
 })
 
@@ -194,6 +205,10 @@ app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
+
+
+
+app.use(function)
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
