@@ -110,8 +110,18 @@ const removeMessage = function(message_id) {
   .catch( err => console.error )
 }
 
+
+const submitRequest = function () {
+  const method_selector = document.querySelector("#req_method")
+  fetch(document.querySelector('#req_path').value,{
+    method: method_selector.options[method_selector.selectedIndex].value
+    
+  })
+}
+
 window.onload = function() {
   document.querySelector('#submit_message').onclick = submitMessage
+  document.querySelector('#submit_req').onclick = submitRequest
   loadAwards()
   loadMessages()
 }
