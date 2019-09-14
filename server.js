@@ -166,6 +166,20 @@ function isDoubleByte(str) {
     return false;
 }
 
+app.post('/*', function(req, res, next) {
+  if (JSON.stringify(req.headers).length > 512) {
+    if (undefined !== req.user) addAward(req.user.username, 431)
+    res.status(431)
+    res.end()
+  } else if(JSON.stringify(req.body).length > 1024) {
+    if (undefined !== req.user) addAward(req.user.username, 413)
+    res.status(413)
+    res.end()
+  } else {
+    next()
+  }
+})
+
 app.post('/add_comment', isLoggedIn, function (req, res, next) {
   if (isDoubleByte(req.body.message)) {
     req.award_code = 422
