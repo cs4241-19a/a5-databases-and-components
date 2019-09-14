@@ -154,7 +154,7 @@ app.post('/add_comment', isLoggedIn, function (req, res, next) {
                        username: username }
   db.get('comments').push(new_comment).write()
   
-  next(201)
+  req.award_code = 201
 })
 
 
@@ -169,10 +169,10 @@ app.post('/remove_comment', isLoggedIn, function (req, res, next) {
   
   res.status(200).end()
   } else if (comment.username !== username) {
-    next(403)
+    req.award_code = 403
   } else {
     db.get('comments').remove(comment).write()
-    next(201)
+    req.award_code = 200
   }
 })
 
@@ -207,18 +207,32 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
+app.get('/expo/:x/:f', isLoggedIn, function(req, res, next) {
+  const x = req.params.x
+  const f = req.params.f
+  
+  try {
+    res.json({result: Number.parseFloat(x).toExponential(f)})
+    res.award_code = 200
+  } catch (error) {
+    res.award_code = 500
+    nex
+  }
+})
+
 app.all('/*', function(req, res, next) {
-  console.log("*")
-  next(404)
+  req.award_code = 404
+  next()
 })
 
 app.use(function(req, res, next) {
-  if (undefined !== res.code) {
+  if (undefined !== req.award_code) {
     if (undefined !== req.user) {
-      addAward(req.user.username, code)
+      addAward(req.user.username, req.award_code)
     }
-    res.status(code).end()
+    res.status(req.award_code).end()
   }
+  res.end()
 })
 
 // listen for requests :)
