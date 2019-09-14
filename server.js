@@ -259,6 +259,22 @@ app.get('/me', isLoggedIn, function(req, res, next) {
   res.json(req.user)
 })
 
+app.get('/delay_comments/:time', function(req, res, next) {
+  const time = req.params.time
+  
+  if (time > 20) {
+    setTimeout(() => {
+      addAward(req.user.username, 102)
+      res.sendStatus(102)
+    }, 20000)
+  }
+  
+  setTimeout(() => {
+    req.award_code = 200
+    res.json({username: req.user.username, messages: db.get('comments').sortBy('timestamp').value().reverse()})
+  })
+})
+
 app.delete('/remove_comment', function(req, res, next) {
   req.award_code = 405
   res.set('Allowed', 'POST');
@@ -299,6 +315,10 @@ app.use(function(req, res, next) {
     res.sendFile(__dirname + '/views/errors/429.html')
   } else if (405 === req.award_code) {
     res.sendFile(__dirname + '/views/errors/405.html')
+  } else if (403 === req.award_code) {
+    res.sendFile(__dirname + '/views/errors/403.html')
+  } else if (501 === req.award_code) {
+    res.sendFile(__dirname + '/views/errors/501.html')
   } else {
     res.end()
   }
