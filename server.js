@@ -159,9 +159,10 @@ app.post(
 )
 
 app.post('/add_comment', isLoggedIn, function (req, res, next) {
+  console.log(req.headers)
   if ('100-continue' === req.headers['Expect']) {
-    req.award_code = 100
-    next()
+    addAward(req.user.username, 100)
+    res.status(100).end()
   } else {
     const username = req.user.username
 
