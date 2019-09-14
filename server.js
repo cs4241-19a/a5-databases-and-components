@@ -13,7 +13,6 @@ const express = require('express'),
       FileSync  = require('lowdb/adapters/FileSync'),
       adapter   = new FileSync('.data/db.json'),
       db        = low(adapter),
-      cookieParser = require('cookie-parser'),
       bcrypt = require('bcryptjs'),
       shortid = require('shortid'),
       rateLimit = require("express-rate-limit")
@@ -25,7 +24,6 @@ db.defaults({ comments: [], users: [] })
 
 
 app.use( express.static('./public') )
-app.use( cookieParser());
 app.use( bodyParser.json());
 app.use( session({ secret:'cats cats cats', resave:false, saveUninitialized:false }));
 app.use( passport.initialize())
@@ -231,7 +229,7 @@ app.get('/logout', function(req, res){
 app.get('/expo/:x/:f', isLoggedIn, function(req, res, next) {
   const x = req.params.x
   const f = req.params.f
-  console.log(x, f)
+
   try {
     res.json({result: Number.parseFloat(x).toExponential(f)})
     req.award_code = 200

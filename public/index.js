@@ -17,8 +17,8 @@ const login = function() {
       headers: { 'Content-Type': 'application/json' }
     })
   .then( res => {
-    if (401 === res.status) {
-      console.log("Oops")
+    if (400 === res.status) {
+      document.querySelector("#login_unsuccessful").className = ""
     } else {
       window.location.href = "/home";
     }
