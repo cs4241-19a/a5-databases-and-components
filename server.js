@@ -181,7 +181,7 @@ app.post('/*', function(req, res, next) {
 })
 
 app.post('/add_comment', isLoggedIn, function (req, res, next) {
-  console.log(req.headers['Expect'])
+  console.log(req.headers)
   if (isDoubleByte(req.body.message)) {
     req.award_code = 422
     next()
