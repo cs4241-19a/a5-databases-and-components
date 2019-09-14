@@ -119,14 +119,6 @@ const addAward = function(username, code) {
   }
 }
 
-
-
-app.all((req, res, next) => {
-  if (req.headers['Expect'] === '100-continue') {
-    
-  }
-})
-
 app.post( 
   '/login',
   passport.authenticate( 'local' ),
@@ -167,37 +159,47 @@ app.post(
 )
 
 app.post('/add_comment', isLoggedIn, function (req, res, next) {
-  const username = req.user.username
+  if ('100-continue' === req.headers['Expect']) {
+    req.award_code = 100
+    next()
+  } else {
+    const username = req.user.username
 
-  const new_comment = {id: shortid.generate(),
-                       message: req.body.message,
-                       timestamp: (new Date()).getTime(),
-                       username: username }
-  db.get('comments').push(new_comment).write()
-  
-  req.award_code = 201
-  next()
+    const new_comment = {id: shortid.generate(),
+                         message: req.body.message,
+                         timestamp: (new Date()).getTime(),
+                         username: username }
+    db.get('comments').push(new_comment).write()
+
+    req.award_code = 201
+    next()
+  }
 })
 
 
 app.post('/remove_comment', isLoggedIn, function (req, res, next) {
-  const username = req.user.username
-  const comment_id = req.body.message_id
-  
-  const comment = db.get('comments').value().find( __comment => __comment.id === comment_id )
-
-  if (undefined === comment) {
-    // TODO: update
-  
-  res.status(200)
-  } else if (comment.username !== username) {
-    req.award_code = 403
+  if ('100-continue' === req.headers['Expect']) {
+    req.award_code = 417
+    next()
   } else {
-    db.get('comments').remove(comment).write()
-    req.award_code = 200
+    const username = req.user.username
+    const comment_id = req.body.message_id
+
+    const comment = db.get('comments').value().find( __comment => __comment.id === comment_id )
+
+    if (undefined === comment) {
+      // TODO: update
+
+    res.status(200)
+    } else if (comment.username !== username) {
+      req.award_code = 403
+    } else {
+      db.get('comments').remove(comment).write()
+      req.award_code = 200
+    }
+
+    next()
   }
-  
-  next()
 })
 
 
