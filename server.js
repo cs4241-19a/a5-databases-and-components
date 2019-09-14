@@ -13,7 +13,8 @@ const express = require('express'),
       db        = low(adapter),
       bcrypt = require('bcryptjs'),
       shortid = require('shortid'),
-      rateLimit = require("express-rate-limit")
+      rateLimit = require("express-rate-limit"),
+      compression = require("compression")
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -27,6 +28,8 @@ app.use((req, res, next) => {
   else
       return next();
 })
+
+app.use(compression({ level: 6 }))
 
 app.use( express.static('./public') )
 app.use( bodyParser.json());
