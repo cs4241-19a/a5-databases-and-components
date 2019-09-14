@@ -1,6 +1,4 @@
 "use strict";
-// server.js
-// where your node app starts
 
 // init project
 const express = require('express'),
@@ -23,18 +21,16 @@ db.defaults({ comments: [], users: [] })
   .write()
 
 app.use((req, res, next) => {
-  console.log(req.headers['x-forwarded-proto'])
   if (req.headers['x-forwarded-proto'].split(',')[0] !== 'https')
       // the statement for performing our redirection
       res.redirect('https://' + req.headers.host + req.url)
-
   else
       return next();
 });
 
 app.use( express.static('./public') )
 app.use( bodyParser.json());
-app.use( session({ secret:'cats cats cats', resave:false, saveUninitialized:false }));
+app.use( session({ secret:process.env.SESSION_SECRET, resave:false, saveUninitialized:false }));
 app.use( passport.initialize())
 app.use( passport.session())
 
