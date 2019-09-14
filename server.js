@@ -22,6 +22,15 @@ const salt = bcrypt.genSaltSync(10);
 db.defaults({ comments: [], users: [] })
   .write()
 
+app.use((req, res, next) => {
+  console.log(req.headers['x-forwarded-proto'])
+  if (req.headers['x-forwarded-proto'].split(',')[0] !== 'https')
+      // the statement for performing our redirection
+      res.redirect('https://' + req.headers.host + req.url)
+
+  else
+      return next();
+});
 
 app.use( express.static('./public') )
 app.use( bodyParser.json());
