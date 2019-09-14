@@ -39,11 +39,9 @@ const isNotLoggedIn = function(req, res, next) {
 }
 
 const isLoggedIn = function(req, res, next) {
-  console.log("isLoggedIn: ", req.user)
   if (undefined === req.user) {
     res.redirect('/')
   } else {
-    console.log("Next!")
     next()
   }
 }
@@ -71,7 +69,6 @@ const myLocalStrategy = function( username, password, done ) {
     // we found the user and the password matches!
     // go ahead and send the userdata... this will appear as request.user
     // in all express middleware functions.
-    console.log("login success")
     return done( null, { username, password })
   }else{
     // we found the user but the password didn't match...
@@ -88,7 +85,6 @@ passport.serializeUser( ( user, done ) => done( null, user.username ) )
 // in this example we're using the username
 passport.deserializeUser( ( username, done ) => {
   const user = db.get('users').value().find( u => u.username === username )
-  console.log( 'deserializing:', user )
   
   if( user !== undefined ) {
     done( null, user )
@@ -101,7 +97,6 @@ app.post(
   '/login',
   passport.authenticate( 'local' ),
   function( req, res ) {
-    console.log("/login")
     if (undefined === req.user) {
       res.json({status: req.message})
     } else {
@@ -153,9 +148,20 @@ app.post('/add_comment', isLoggedIn, function (req, res) {
 
 app.post('/remove_comment', isLoggedIn, function (req, res) {
   const username = req.user.username
-  const comment_id = req.user.comment_id
+  const comment_id = req.body.message_id
   
-  const comment = db.get('comments')
+  const comment = db.get('comments').value().find( __comment => __comment.id === comment_id )
+  console.log(comment_id)
+  console.log(comment)
+  if (undefined === comment) {
+    
+  } else if (comment.username !== username) {
+    // 403
+  } else {
+    db.get('comments').remove(comment).write()
+  }
+  
+  res.status(200).end()
 })
 
 

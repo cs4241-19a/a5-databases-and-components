@@ -10,7 +10,7 @@ const displayMessages = function(messages) {
         <article class="card">
           <header>
             <h3>${message.username}</h3>
-            <button class="dangerous remove-comment-button" onclick="removeComment(${message.id})">&times;</button>
+            <button class="dangerous remove-comment-button" onclick="removeMessage('${message.id}')">&times;</button>
           </header>
           <footer><h5>${message.message}</h5></footer>
         </article>
@@ -37,6 +37,17 @@ const submitMessage = function() {
   })
   .then( loadMessages )
   .catch( err => console.error ) 
+}
+
+const removeMessage = function(message_id) {
+  fetch('/remove_comment', {
+    method:'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({'message_id': message_id})
+  })
+  .then( loadMessages )
+  .catch( err => console.error )
 }
 
 window.onload = function() {
