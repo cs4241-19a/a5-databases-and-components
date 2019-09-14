@@ -203,7 +203,21 @@ app.get('/', isNotLoggedIn, function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/home', isLoggedIn, function(request, response) {
+
+
+const rateLimitHandler = function(req, res, next) {
+  addAward(req.user.username, 429)
+  res.status(429).sendFile(__dirname + '/views/errors/429.html')
+}
+
+const limiter = rateLimit({
+  windowMs: 5*1000,
+  max: 5,
+  handler: rateLimitHandler
+});
+app.use('/home', isLoggedIn)
+app.use('/home', limiter)
+app.get('/home', function(request, response) {
   response.status(200)
   addAward(request.user.username, 200)
   response.sendFile(__dirname + '/views/home.html')
@@ -226,19 +240,6 @@ app.get('/expo/:x/:f', isLoggedIn, function(req, res, next) {
     next()
   }
 })
-
-const rateLimitHandler = function(req, res, next) {
-  console.log(429)
-  addAward(req.user.username, 429)
-  res.redirect('/429.html').end()
-}
-
-const limiter = rateLimit({
-  windowMs: 5*1000,
-  max: 5,
-  handler: rateLimitHandler
-});
-app.use( limiter)
 
 app.get('/brewCoffee', function(req, res, next) {
   req.award_code = 418
