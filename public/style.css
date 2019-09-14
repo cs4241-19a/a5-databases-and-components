@@ -5,3 +5,13 @@
 .remove-comment-button {
     font-size: .75em;
 }
+
+.main {
+  text-align: center; 
+  padding: 20px;
+}
+
+.error-icon-div {
+  font-size: 36px; 
+  color: grey;
+}

@@ -1,0 +1,48 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+
+<!-- You might want to try something fancier: -->
+<!-- html/nunjucks docs: https://mozilla.github.io/nunjucks/ -->
+<!-- pug: https://pugjs.org/ -->
+<!-- haml: http://haml.info/ -->
+<!-- hbs(handlebars): http://handlebarsjs.com/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HTTP Status Code Scavenger Hunt</title>
+    <meta name="description" content="HTTP Status Code Scavenger Hunt">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://unpkg.com/picnic">
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    
+    <script src="https://kit.fontawesome.com/065cbbd826.js"></script>
+  </head>
+  <body style="height: 100%">
+    <header style="text-align: center">
+      <h1>
+        HTTP Status Code Scanvenger Hunt
+      </h1>
+      <h2>
+        451: Unavailable For Legal Reasons
+      </h2>
+    </header>
+    
+    <main class="main">
+      <div class="error-icon-div">
+        <i class="fab fa-reddit-alient fa-10x"></i>
+      </div>
+    </main>
+
+    <footer style="text-align: center">
+      <a class="button info" href="/home">
+        Home
+      </a>
+    </footer>
+  </body>
+</html>
