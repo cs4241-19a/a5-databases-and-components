@@ -35,13 +35,13 @@ const loadMessages = function() {
 }
 
 const awardIconMap = {
-  "404": "map-marked",
-  "200": "check-circle",
-  "201": "plus-circle",
-  "451": "reddit-alien",
-  "500": "bug",
-  "418": "mug-hot",
-  "403": "ban"
+  "404": "fas fa-map-marked",
+  "200": "fas fa-check-circle",
+  "201": "fas fa-plus-circle",
+  "451": "fab fa-reddit-alien",
+  "500": "fas fa-bug",
+  "418": "fas fa-mug-hot",
+  "403": "fas fa-ban"
 }
 const displayAwards = function(user) {
   const awards = user.awards
@@ -52,7 +52,7 @@ const displayAwards = function(user) {
     if (undefined !== awardIconMap[awards[i]]) {
       displayElement.innerHTML += `<article class="card">
               <header>
-                <h3><i class="fas fa-${awardIconMap[awards[i]]}"></i>&nbsp;${awards[i]}</h3>
+                <h3><i class="${awardIconMap[awards[i]]}"></i>&nbsp;${awards[i]}</h3>
               </header>
             </article>`
     }
