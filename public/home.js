@@ -31,17 +31,31 @@ const loadMessages = function() {
   })
   .then( res => res.json())
   .then( displayMessages )
+  .then( loadAwards )
 }
 
 const awardIconMap = {
-  "404": "map-marked"
+  "404": "map-marked",
+  "200": "check-circle",
+  "201": "plus-circle",
+  "451": "reddit-alien",
+  "500": "bug",
+  "418": "mug-hot",
+  "403": "ban"
 }
 const displayAwards = function(user) {
   const awards = user.awards
-  const displayElement = docum
+  const displayElement = document.querySelector("#award_display")
+  displayElement.innerHTML = ""
   
   for(let i = 0; i < awards.length; i++) {
-    if (undefined !== awardIconMap[awards[i]])
+    if (undefined !== awardIconMap[awards[i]]) {
+      displayElement.innerHTML += `<article class="card">
+              <header>
+                <h3><i class="fas fa-${awardIconMap[awards[i]]}"></i>&nbsp;${awards[i]}</h3>
+              </header>
+            </article>`
+    }
   }
 }
 
@@ -63,6 +77,7 @@ const submitMessage = function() {
     body: JSON.stringify({'message': document.querySelector('#message').value })
   })
   .then( loadMessages )
+  .then( loadAwards )
   .catch( err => console.error ) 
 }
 
@@ -74,10 +89,12 @@ const removeMessage = function(message_id) {
     body: JSON.stringify({'message_id': message_id})
   })
   .then( loadMessages )
+  .then( loadAwards )
   .catch( err => console.error )
 }
 
 window.onload = function() {
   document.querySelector('#submit_message').onclick = submitMessage
   loadMessages()
+  loadAwards()
 }

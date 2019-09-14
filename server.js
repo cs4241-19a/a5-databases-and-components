@@ -155,6 +155,7 @@ app.post('/add_comment', isLoggedIn, function (req, res, next) {
   db.get('comments').push(new_comment).write()
   
   req.award_code = 201
+  next()
 })
 
 
@@ -256,7 +257,9 @@ app.use(function(req, res, next) {
     res.sendFile(__dirname + '/views/errors/451.html')
   } else if (500 === req.award_code) {
     res.sendFile(__dirname + '/views/errors/500.html')
-  } 
+  } else {
+    res.end()
+  }
 })
 
 // listen for requests :)
