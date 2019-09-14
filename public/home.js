@@ -44,7 +44,8 @@ const awardIconMap = {
   "451": "fab fa-reddit-alien",
   "500": "fas fa-bug",
   "418": "fas fa-mug-hot",
-  "403": "fas fa-ban"
+  "403": "fas fa-ban",
+  "414": "fas fa-ruler-horizontal"
 }
 const displayAwards = function(user) {
   const awards = user.awards

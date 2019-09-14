@@ -94,6 +94,15 @@ passport.deserializeUser( ( username, done ) => {
 })
 
 
+app.use(function(req, res, next) {
+  if (req.url.length > 42) {
+    req.award_code = 414
+    res.status(414).end()
+  }
+  next()
+})
+
+
 const addAward = function(username, code) {
   const user = db.get('users').find({username: username}).value()
 
@@ -230,6 +239,11 @@ app.get('/area51', function(req, res, next) {
 app.get('/me', isLoggedIn, function(req, res, next) {
   req.award_code = 200
   res.json(req.user)
+})
+
+app.trace('/*', function(req, res, next) {
+  req.award_code = 405
+  next()
 })
 
 app.all('/*', function(req, res, next) {
