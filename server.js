@@ -158,11 +158,18 @@ app.post(
   }
 )
 
+// From https://stackoverflow.com/questions/147824/how-to-find-whether-a-particular-string-has-unicode-characters-esp-double-byte
+function isDoubleByte(str) {
+    for (var i = 0, n = str.length; i < n; i++) {
+        if (str.charCodeAt( i ) > 255) { return true; }
+    }
+    return false;
+}
+
 app.post('/add_comment', isLoggedIn, function (req, res, next) {
-  console.log(req.headers)
-  if ('100-continue' === req.headers['Expect']) {
-    addAward(req.user.username, 100)
-    res.status(100).end()
+  if (isDoubleByte(req.body.message)) {
+    req.award_code = 422
+    next()
   } else {
     const username = req.user.username
 
@@ -179,28 +186,23 @@ app.post('/add_comment', isLoggedIn, function (req, res, next) {
 
 
 app.post('/remove_comment', isLoggedIn, function (req, res, next) {
-  if ('100-continue' === req.headers['Expect']) {
-    req.award_code = 417
-    next()
+  const username = req.user.username
+  const comment_id = req.body.message_id
+
+  const comment = db.get('comments').value().find( __comment => __comment.id === comment_id )
+
+  if (undefined === comment) {
+    // TODO: update
+
+  res.status(200)
+  } else if (comment.username !== username) {
+    req.award_code = 403
   } else {
-    const username = req.user.username
-    const comment_id = req.body.message_id
-
-    const comment = db.get('comments').value().find( __comment => __comment.id === comment_id )
-
-    if (undefined === comment) {
-      // TODO: update
-
-    res.status(200)
-    } else if (comment.username !== username) {
-      req.award_code = 403
-    } else {
-      db.get('comments').remove(comment).write()
-      req.award_code = 200
-    }
-
-    next()
+    db.get('comments').remove(comment).write()
+    req.award_code = 200
   }
+
+  next()
 })
 
 

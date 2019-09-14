@@ -48,10 +48,11 @@ const awardIconMap = {
   "414": "fas fa-ruler-horizontal",
   "429": "fas fa-spinner fa-spin",
   "405": "fas fa-backspace",
-  "501": "fas fa-ban fa-rotate-90"
+  "501": "fas fa-ban fa-rotate-90",
+  "422": "fas fa-code"
 }
 const displayAwards = function(user) {
-  const awards = user.awards
+  const awards = user.awards.reverse()
   const displayElement = document.querySelector("#award_display")
   displayElement.innerHTML = ""
   
@@ -89,6 +90,7 @@ const submitMessage = function() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({'message': document.querySelector('#message').value })
   })
+  .then( () => document.querySelector('#message').value = "" )
   .then( loadMessages )
   .then( loadAwards )
   .catch( err => console.error ) 
