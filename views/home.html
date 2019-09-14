@@ -50,19 +50,22 @@
             Make a Request
           </h2>
           <fieldset class="flex" style="padding-left: 18px">
-            <select>
-              <option>GET</option>
-              <option>POST</option>
-              <option>DELETE</option>
-              <option>PUT</option>
+            <select class="stack">
+              <option value="GET">GET</option>
+              <option value="POST">POST</option>
+              <option value="DELETE">DELETE</option>
+              <option value="PUT">PUT</option>
             </select>
-            <input type="text" placeholder="Path">
-            <select>
-              <option>Send credentials</option>
-              <option>Omit credentials</option>
+            <input class="stack" type="text" placeholder="Path">
+            <select class="stack">
+              <option value="include">Send credentials</option>
+              <option value="omit">Omit credentials</option>
             </select>
-            <textarea placeholder="Headers (must be valid JSON)" id="headers"></textarea>
-            <textarea placeholder="Body (must be valid JSON)" id=""></textarea>
+            <textarea class="stack" placeholder="Headers (must be valid JSON)" id="req_headers"></textarea>
+            <textarea placeholder="Body (must be valid JSON)" id="req_body"></textarea>
+            <button id="submit_req" style="width: 100%;">
+              Submit
+            </button>
           </fieldset>
         </div>
         <div class="">
