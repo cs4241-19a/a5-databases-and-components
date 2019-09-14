@@ -150,6 +150,15 @@ app.post('/add_comment', isLoggedIn, function (req, res) {
   res.end()
 })
 
+
+app.post('/remove_comment', isLoggedIn, function (req, res) {
+  const username = req.user.username
+  const comment_id = req.user.comment_id
+  
+  
+})
+
+
 app.get('/comments', isLoggedIn, function (req, res) {
   res.json(db.get('comments').sortBy('timestamp').value().reverse())
 })
