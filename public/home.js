@@ -1,5 +1,8 @@
-const displayMessages = function(messages) {
+
+const displayMessages = function(data) {
   const displayElement = document.querySelector('#message_display')
+  const messages = data.messages
+  const username = data.username
   
   displayElement.innerHTML = ""
   
@@ -7,7 +10,7 @@ const displayMessages = function(messages) {
     const message = messages[i]
     let button_html = ""
     
-    if( true === message.deletable ) {
+    if( username === message.username ) {
       button_html = `<button class="dangerous remove-comment-button" onclick="removeMessage('${message.id}')">&times;</button>`
     }
     
@@ -95,6 +98,6 @@ const removeMessage = function(message_id) {
 
 window.onload = function() {
   document.querySelector('#submit_message').onclick = submitMessage
-  loadMessages()
   loadAwards()
+  loadMessages()
 }

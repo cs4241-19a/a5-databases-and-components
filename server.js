@@ -168,24 +168,20 @@ app.post('/remove_comment', isLoggedIn, function (req, res, next) {
   if (undefined === comment) {
     // TODO: update
   
-  res.status(200).end()
+  res.status(200)
   } else if (comment.username !== username) {
     req.award_code = 403
   } else {
     db.get('comments').remove(comment).write()
     req.award_code = 200
   }
+  
+  next()
 })
 
 
 app.get('/comments', isLoggedIn, function (req, res) {
-  res.json(db.get('comments').sortBy('timestamp').value().reverse().map(comment => {
-    comment.deleteable = false
-    if (comment.username === req.user.username) {
-      comment.deletable = true
-    }
-    return comment
-  }))
+  res.json({username: req.user.username, messages: db.get('comments').sortBy('timestamp').value().reverse()})
 })
 
 app.get('/users', isLoggedIn, function (req, res) {
