@@ -49,7 +49,9 @@ const awardIconMap = {
   "429": "fas fa-spinner fa-spin",
   "405": "fas fa-backspace",
   "501": "fas fa-ban fa-rotate-90",
-  "422": "fas fa-code"
+  "422": "fas fa-code",
+  "431": "fas fa-user",
+  "413": "fas fa-ruler-vertical"
 }
 const displayAwards = function(user) {
   const awards = user.awards.reverse()

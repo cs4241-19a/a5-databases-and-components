@@ -167,7 +167,7 @@ function isDoubleByte(str) {
 }
 
 app.post('/*', function(req, res, next) {
-  if (JSON.stringify(req.headers).length > 512) {
+  if (JSON.stringify(req.headers).length > 2048) {
     if (undefined !== req.user) addAward(req.user.username, 431)
     res.status(431)
     res.end()
