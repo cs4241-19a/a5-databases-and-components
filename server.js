@@ -145,7 +145,7 @@ app.post(
   }
 )
 
-app.post('/add_comment', isLoggedIn, function (req, res) {
+app.post('/add_comment', isLoggedIn, function (req, res, next) {
   const username = req.user.username
 
   const new_comment = {id: shortid.generate(),
@@ -154,12 +154,11 @@ app.post('/add_comment', isLoggedIn, function (req, res) {
                        username: username }
   db.get('comments').push(new_comment).write()
   
-  res.status(200)
-  res.end()
+  next(201)
 })
 
 
-app.post('/remove_comment', isLoggedIn, function (req, res) {
+app.post('/remove_comment', isLoggedIn, function (req, res, next) {
   const username = req.user.username
   const comment_id = req.body.message_id
   
@@ -170,12 +169,10 @@ app.post('/remove_comment', isLoggedIn, function (req, res) {
   
   res.status(200).end()
   } else if (comment.username !== username) {
-    addAward(username, 403)
-    res.status(403).end()
+    next(403)
   } else {
     db.get('comments').remove(comment).write()
-    addAward(username, 201)
-    res.status(201).end()
+    next(201)
   }
 })
 
@@ -188,6 +185,10 @@ app.get('/comments', isLoggedIn, function (req, res) {
     }
     return comment
   }))
+})
+
+app.get('/users', isLoggedIn, function (req, res) {
+  res.json(db.get('users').value())
 })
 
 // http://expressjs.com/en/starter/basic-routing.html
@@ -206,9 +207,19 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
+app.all('/*', function(req, res, next) {
+  console.log("*")
+  next(404)
+})
 
-
-app.use(function)
+app.use(function(req, res, next) {
+  if (undefined !== res.code) {
+    if (undefined !== req.user) {
+      addAward(req.user.username, code)
+    }
+    res.status(code).end()
+  }
+})
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
