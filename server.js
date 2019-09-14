@@ -15,7 +15,8 @@ const express = require('express'),
       db        = low(adapter),
       cookieParser = require('cookie-parser'),
       bcrypt = require('bcryptjs'),
-      shortid = require('shortid')
+      shortid = require('shortid'),
+      rateLimit = require("express-rate-limit")
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -27,8 +28,8 @@ app.use( express.static('./public') )
 app.use( cookieParser());
 app.use( bodyParser.json());
 app.use( session({ secret:'cats cats cats', resave:false, saveUninitialized:false }));
-app.use( passport.initialize());
-app.use( passport.session());
+app.use( passport.initialize())
+app.use( passport.session())
 
 const isNotLoggedIn = function(req, res, next) {
   if (undefined === req.user) {
@@ -226,6 +227,19 @@ app.get('/expo/:x/:f', isLoggedIn, function(req, res, next) {
   }
 })
 
+const rateLimitHandler = function(req, res, next) {
+  console.log(429)
+  addAward(req.user.username, 429)
+  res.redirect('/429.html').end()
+}
+
+const limiter = rateLimit({
+  windowMs: 5*1000,
+  max: 5,
+  handler: rateLimitHandler
+});
+app.use( limiter)
+
 app.get('/brewCoffee', function(req, res, next) {
   req.award_code = 418
   next()
@@ -267,6 +281,12 @@ app.use(function(req, res, next) {
     res.sendFile(__dirname + '/views/errors/451.html')
   } else if (500 === req.award_code) {
     res.sendFile(__dirname + '/views/errors/500.html')
+  } else if (414 === req.award_code) {
+    res.sendFile(__dirname + '/views/errors/414.html')
+  } else if (429 === req.award_code) {
+    res.sendFile(__dirname + '/views/errors/429.html')
+  } else if (405 === req.award_code) {
+    res.sendFile(__dirname + '/views/errors/405.html')
   } else {
     res.end()
   }
