@@ -67,5 +67,12 @@ window.onload = function() {
   
   const loginButton = document.querySelector( '#login_submit' )
   loginButton.onclick = login
+  
+  document.querySelector("#login_username").addEventListener("keydown", e => {if (e.keyCode == 13) login()} , false);
+  document.querySelector("#login_password").addEventListener("keydown", e => {if (e.keyCode == 13) login()} , false);
+  
+  document.querySelector("#signup_username").addEventListener("keydown", e => {if (e.keyCode == 13) signUp()} , false);
+  document.querySelector("#signup_password_1").addEventListener("keydown", e => {if (e.keyCode == 13) signUp()} , false);
+  document.querySelector("#signup_password_2").addEventListener("keydown", e => {if (e.keyCode == 13) signUp()} , false);
 }
 
