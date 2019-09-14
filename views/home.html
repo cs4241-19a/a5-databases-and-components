@@ -46,6 +46,24 @@
           </fieldset>
         </div>
         <div class="half">
+          <h2>
+            Make a Request
+          </h2>
+          <fieldset class="flex" style="padding-left: 18px">
+            <select>
+              <option>GET</option>
+              <option>POST</option>
+              <option>DELETE</option>
+              <option>PUT</option>
+            </select>
+            <input type="text" placeholder="Path">
+            <select>
+              <option>Send credentials</option>
+              <option>Omit credentials</option>
+            </select>
+            <textarea placeholder="Headers (must be valid JSON)" id="headers"></textarea>
+            <textarea placeholder="Body (must be valid JSON)" id=""></textarea>
+          </fieldset>
         </div>
         <div class="">
           <h2>
