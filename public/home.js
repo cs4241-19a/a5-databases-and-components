@@ -54,8 +54,12 @@ const displayAwards = function(user) {
   const displayElement = document.querySelector("#award_display")
   displayElement.innerHTML = ""
   
+  document.querySelector("#awards_total").innerHTML = Object.keys(awardIconMap).length
+  
+  let count = 0
   for(let i = 0; i < awards.length; i++) {
     if (undefined !== awardIconMap[awards[i]]) {
+      count += 1;
       displayElement.innerHTML += `<article class="card">
               <header>
                 <h3><i class="${awardIconMap[awards[i]]}"></i>&nbsp;${awards[i]}</h3>
@@ -63,6 +67,8 @@ const displayAwards = function(user) {
             </article>`
     }
   }
+  document.querySelector("#awards_received").innerHTML = count
+  
 }
 
 const loadAwards = function() {
