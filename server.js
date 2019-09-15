@@ -17,7 +17,8 @@ const express = require('express'),
       compression = require("compression"),
       morgan = require('morgan'),
       fs = require('fs'),
-      path = require('path')
+      path = require('path'),
+      expressSanitizer = require('express-sanitizer')
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -42,6 +43,7 @@ app.use(compression({ level: 6 }))
 
 app.use( express.static('./public') )
 app.use( bodyParser.json());
+app.use( expressSanitizer());
 app.use( session({ secret:process.env.SESSION_SECRET, resave:false, saveUninitialized:false }));
 app.use( passport.initialize())
 app.use( passport.session())
@@ -247,7 +249,7 @@ app.get('/', isNotLoggedIn, function(request, response) {
 });
 
 app.get('/sitemap', function(request, response) {
-  response.sendFile(__dirname + '/sitemap.txt');
+  response.sendFile(__dirname + '/views/sitemap.txt');
 });
 
 const rateLimitHandler = function(req, res, next) {

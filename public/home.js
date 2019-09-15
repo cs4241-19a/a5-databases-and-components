@@ -1,3 +1,12 @@
+// From https://stackoverflow.com/questions/6234773/can-i-escape-html-special-chars-in-javascript/18108463
+const escapeHtml = function (unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+ }
 
 const displayMessages = function(data) {
   const displayElement = document.querySelector('#message_display')
@@ -18,9 +27,9 @@ const displayMessages = function(data) {
       `
         <article class="card">
           <header>
-            <h3>${message.username}</h3> ${button_html}
+            <h3>${escapeHtml(message.username)}</h3> ${button_html}
           </header>
-          <footer><h5>${message.message}</h5></footer>
+          <footer><h5>${escapeHtml(message.message)}</h5></footer>
         </article>
       `
   }
@@ -128,7 +137,7 @@ const submitRequest = function () {
   let body_value = document.querySelector("#req_body").value
   
   if ("" === header_value){
-    header_value = 
+    header_value = {}
   } else if (!checkJSON(header_value)) {
     document.querySelector("#req_headers").className += "invalid"
     return
@@ -157,7 +166,7 @@ const submitRequest = function () {
     body: body_value
   })
   .then( res =>  res.text().then(data => ({status: res.status, body: data})))
-  .then( obj => document.querySelector("#req_out").innerHTML = `(${++count}) Status:${obj.status}\n${obj.body}` )
+  .then( obj => document.querySelector("#req_out").innerHTML = `(${++count}) Status:${obj.status}\n${escapeHtml(obj.body)}` )
   .then( loadMessages )
   .then( loadAwards )
 }
