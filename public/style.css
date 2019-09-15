@@ -19,3 +19,7 @@
 textarea.invalid {
   border: 2px dashed red;
 }
+
+.card footer {
+  word-break: break-word;
+}
