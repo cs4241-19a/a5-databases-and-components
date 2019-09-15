@@ -252,6 +252,10 @@ app.get('/sitemap', function(request, response) {
   response.sendFile(__dirname + '/views/sitemap.txt');
 });
 
+app.get('/about', function(request, response) {
+  response.sendFile(__dirname + '/views/sitemap.txt');
+});
+
 const rateLimitHandler = function(req, res, next) {
   addAward(req.user.username, 429)
   res.status(429).sendFile(__dirname + '/views/errors/429.html')
