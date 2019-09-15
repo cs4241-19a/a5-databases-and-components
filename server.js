@@ -101,6 +101,7 @@ const myLocalStrategy = function( username, password, done ) {
 
 passport.use( new Local( myLocalStrategy ) )
 
+// Unique identifiers for users are their usernames, serialize based on that
 passport.serializeUser( ( user, done ) => done( null, user.username ) )
 passport.deserializeUser( ( username, done ) => {
   const user = db.get('users').value().find( u => u.username === username )
@@ -125,26 +126,6 @@ app.post(
 )
 
 
-app.use(function(req, res, next) {
-  if (req.url.length > 42) {
-    req.award_code = 414
-    res.status(414).end()
-  }
-  next()
-})
-
-
-const addAward = function(username, code) {
-  const user = db.get('users').find({username: username}).value()
-
-  if (!user.awards.includes(code)) {
-    user.awards.push(code)
-    db.get('users')
-    .find({ username: username })
-    .assign({ awards: user.awards})
-    .write()
-  }
-}
 
 
 app.post(
@@ -192,28 +173,13 @@ app.post(
   }
 )
 
-// From https://stackoverflow.com/questions/147824/how-to-find-whether-a-particular-string-has-unicode-characters-esp-double-byte
-function isDoubleByte(str) {
-    for (var i = 0, n = str.length; i < n; i++) {
-        if (str.charCodeAt( i ) > 255) { return true; }
-    }
-    return false;
-}
 
-app.post('/*', function(req, res, next) {
-  if (JSON.stringify(req.headers).length > 2048) {
-    if (undefined !== req.user) addAward(req.user.username, 431)
-    res.status(431)
-    res.end()
-  } else if(JSON.stringify(req.body).length > 1024) {
-    if (undefined !== req.user) addAward(req.user.username, 413)
-    res.status(413)
-    res.end()
-  } else {
-    next()
-  }
-})
+/** --------- End Login, Signup, Change Password ------------------------ **/
 
+
+
+
+/** -------------- Commenting -------------------------------------------- **/
 app.post('/add_comment', isLoggedIn, function (req, res, next) {
   console.log(req.headers)
   if (isDoubleByte(req.body.message)) {
@@ -259,6 +225,57 @@ app.get('/comments', isLoggedIn, function (req, res) {
   res.json({username: req.user.username, messages: db.get('comments').sortBy('timestamp').value().reverse()})
 })
 
+/** -------------------------- End commenting ----------------------------------------- **/
+
+
+
+const addAward = function(username, code) {
+  const user = db.get('users').find({username: username}).value()
+
+  if (!user.awards.includes(code)) {
+    user.awards.push(code)
+    db.get('users')
+    .find({ username: username })
+    .assign({ awards: user.awards})
+    .write()
+  }
+}
+
+// From https://stackoverflow.com/questions/147824/how-to-find-whether-a-particular-string-has-unicode-characters-esp-double-byte
+// Use to filter for Unicode - arbitrary requirement to provide a plausible reason for the 422
+function isDoubleByte(str) {
+    for (var i = 0, n = str.length; i < n; i++) {
+        if (str.charCodeAt( i ) > 255) { return true; }
+    }
+    return false;
+}
+
+// Filter all requests on URL length (max 42, very arbitrary) and header length (2048, also arbitrary)
+// Long URLs results in a 414, long headers in a 431
+app.use(function(req, res, next) {
+  if (req.url.length > 42) {
+    req.award_code = 414
+    res.status(414).end()
+  } else if (JSON.stringify(req.headers).length > 2048) {
+    if (undefined !== req.user) addAward(req.user.username, 431)
+    res.status(431)
+    res.end()
+  }
+  next()
+})
+
+// Filter all POST requests based on body length
+// Anything over 1024 characters (arbitrary) results in a 413
+app.post('/*', function(req, res, next) {
+   if(JSON.stringify(req.body).length > 1024) {
+    if (undefined !== req.user) addAward(req.user.username, 413)
+    res.status(413)
+    res.end()
+  } else {
+    next()
+  }
+})
+
 app.get('/users', isLoggedIn, function (req, res) {
   res.json(db.get('users').value())
 })
@@ -288,11 +305,14 @@ app.get('/changePassword', isLoggedIn, function(request, response) {
   response.sendFile(__dirname + '/views/change_password.html');
 })
 
+
+
+// /home is rate limited to 5 requests in 5 seconds (arbitrarily low to make it easy to obtain, but not annoyingly so)
+// Going over this results in a 429
 const rateLimitHandler = function(req, res, next) {
   addAward(req.user.username, 429)
   res.status(429).sendFile(__dirname + '/views/errors/429.html')
 }
-
 const limiter = rateLimit({
   windowMs: 5*1000,
   max: 5,
@@ -311,6 +331,7 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 })
 
+// Out of f>100 results in an error, can't return a result so 500
 app.get('/exponential/:x/:f', isLoggedIn, function(req, res, next) {
   const x = req.params.x
   const f = req.params.f
@@ -324,34 +345,38 @@ app.get('/exponential/:x/:f', isLoggedIn, function(req, res, next) {
   }
 })
 
+// This server only serves Earl Grey, Hot
 app.get('/brewCoffee', function(req, res, next) {
   req.award_code = 418
   next()
 })
 
+// Yeah, we can't let you see this
 app.get('/area51', function(req, res, next) {
   req.award_code = 451
   next()
 })
 
+// Just a simple way of getting this user
 app.get('/me', isLoggedIn, function(req, res, next) {
   req.award_code = 200
   res.json(req.user)
 })
 
+// Remove a comment via the DELETE method is no-no (even though it really does make sense)
 app.delete('/remove_comment', function(req, res, next) {
   req.award_code = 405
   res.set('Allowed', 'POST');
   next()
 })
 
-
+// PUTS just aren't allowed at all, so 501
 app.put('/*', function(req, res, next) {
   req.award_code = 501
   next()
 })
 
-
+// If nothing else set an award or ended the result, you end up here
 app.all('/*', function(req, res, next) {
   if (undefined === req.award_code) {
     req.award_code = 404
@@ -359,6 +384,7 @@ app.all('/*', function(req, res, next) {
   next()
 })
 
+// Serve static award/error pages
 app.use(function(req, res, next) {
   if (undefined !== req.user) {
     addAward(req.user.username, req.award_code)
