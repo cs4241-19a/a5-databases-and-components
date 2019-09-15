@@ -1,0 +1,18 @@
+{
+  "sites": [
+    {
+      "city": "Meredith",
+      "state_": "AL",
+      "desc": "test",
+      "rating": 5,
+      "id": "0mk4an3s0"
+    },
+    {
+      "city": "Meredith",
+      "state_": "AK",
+      "desc": "test",
+      "rating": 5,
+      "id": "5ux6qb2ml"
+    }
+  ]
+}
