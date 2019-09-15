@@ -256,6 +256,10 @@ app.get('/about', function(request, response) {
   response.sendFile(__dirname + '/views/about.html');
 })
 
+app.get('/hints', function(request, response) {
+  response.sendFile(__dirname + '/views/hints.html');
+})
+
 const rateLimitHandler = function(req, res, next) {
   addAward(req.user.username, 429)
   res.status(429).sendFile(__dirname + '/views/errors/429.html')
@@ -279,7 +283,7 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 })
 
-app.get('/expo/:x/:f', isLoggedIn, function(req, res, next) {
+app.get('/exponential/:x/:f', isLoggedIn, function(req, res, next) {
   const x = req.params.x
   const f = req.params.f
 
