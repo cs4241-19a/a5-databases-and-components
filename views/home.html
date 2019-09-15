@@ -60,11 +60,11 @@
           <fieldset class="flex" style="padding-left: 18px">
             <select class="stack" id="req_method">
               <option value="GET">GET</option>
-              <option value="POST">POST</option>
+              <option value="POST" selected>POST</option>
               <option value="DELETE">DELETE</option>
               <option value="PUT">PUT</option>
             </select>
-            <input class="stack" type="text" placeholder="Path" id="req_path">
+            <input class="stack" type="text" placeholder="Path" id="req_path" value="/add_comment">
             <select class="stack" id="req_creds">
               <option value="include">Send credentials</option>
               <option value="omit">Omit credentials</option>

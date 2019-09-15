@@ -123,13 +123,19 @@ const checkJSON = function (str) {
 const submitRequest = function () {
   const method_selector = document.querySelector("#req_method")
   const creds_selector = document.querySelector("#req_creds")
+  const header_value = document.querySelector("#req_headers").value
+  const body_value = document.querySelector("#req_body").value
   
-  if (!checkJSON(document.querySelector("#req_headers").value)) {
+  if (header_value === ""){
+    // Nothing
+  } if (!checkJSON(header_value)) {
     document.querySelector("#req_headers").className += "invalid"
     return
+  } else {
+    header_value = 
   }
   
-  if (!checkJSON(document.querySelector("#req_body").value)) {
+  if (!checkJSON(body_value)) {
     document.querySelector("#req_body").className = "invalid"
     return
   }
@@ -143,11 +149,8 @@ const submitRequest = function () {
     headers: JSON.parse(document.querySelector("#req_headers").value),
     body: document.querySelector("#req_body").value
   })
-  .then( res => {
-    document.querySelector("#req_out").value = "Status: " + res.status
-    return res.json() 
-  })
-  .then( res => document.querySelector("#req_out").value += "\n" + res )
+  .then( res =>  res.json().then(data => ({status: res.status, body: data})))
+  .then( obj => document.querySelector("#req_out").value += "\n" + obj.body )
   .then( () => {
     method_selector.selectedIndex = 0
     creds_selector.selectedIndex = 0
@@ -155,9 +158,13 @@ const submitRequest = function () {
     document.querySelector("#req_body").value = ""
     document.querySelector('#req_path').value = ""
   })
+  .then( loadMessages )
+  .then( loadAwards )
 }
 
 window.onload = function() {
+  document.querySelector("#req_headers").value = '{"Content-Type": "application/json"}'
+    document.querySelector("#req_body").value = '{"message": "Hello World!"}'
   document.querySelector('#submit_message').onclick = submitMessage
   document.querySelector('#submit_req').onclick = submitRequest
   loadAwards()
