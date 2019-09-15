@@ -4,7 +4,8 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     sessions = require('express-session'),
     LocalStrategy = require('passport-local').Strategy,
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    favicon = require('serve-favicon');
 
 pouchdb.plugin(require('pouchdb-upsert'));
 
@@ -28,6 +29,7 @@ db.get('users').catch(function (err) {
 });
 
 app.use(express.static('public'));
+app.use(favicon(__dirname + '/public/favicon.png'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(sessions({secret: '{secret}', name: 'session_id', saveUninitialized: true, resave: true}));
