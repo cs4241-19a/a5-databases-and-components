@@ -128,7 +128,7 @@ const submitRequest = function () {
   let body_value = document.querySelector("#req_body").value
   
   if ("" === header_value){
-    // Nothing
+    header_value = 
   } else if (!checkJSON(header_value)) {
     document.querySelector("#req_headers").className += "invalid"
     return
@@ -163,8 +163,8 @@ const submitRequest = function () {
 }
 
 window.onload = function() {
-  document.querySelector("#req_headers").value = '{"Content-Type": "application/json"}'
-    document.querySelector("#req_body").value = '{"message": "Hello World!"}'
+  //document.querySelector("#req_headers").value = '{"Content-Type": "application/json"}'
+  //document.querySelector("#req_body").value = '{"message": "Hello World!"}'
   document.querySelector('#submit_message').onclick = submitMessage
   document.querySelector('#submit_req').onclick = submitRequest
   loadAwards()

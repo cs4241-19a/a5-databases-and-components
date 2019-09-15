@@ -246,7 +246,9 @@ app.get('/', isNotLoggedIn, function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-
+app.get('/sitemap', function(request, response) {
+  response.sendFile(__dirname + '/sitemap.txt');
+});
 
 const rateLimitHandler = function(req, res, next) {
   addAward(req.user.username, 429)
