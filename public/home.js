@@ -157,7 +157,7 @@ const submitRequest = function () {
     body: body_value
   })
   .then( res =>  res.text().then(data => ({status: res.status, body: data})))
-  .then( obj => document.querySelector("#req_out").innerHTML = `(${++count})Status:${obj.status}\n${obj.body}` )
+  .then( obj => document.querySelector("#req_out").innerHTML = `(${++count}) Status:${obj.status}\n${obj.body}` )
   .then( loadMessages )
   .then( loadAwards )
 }
