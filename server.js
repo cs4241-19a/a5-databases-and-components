@@ -5,7 +5,7 @@ const express = require('express'),
     sessions = require('express-session'),
     LocalStrategy = require('passport-local').Strategy,
     flash = require('connect-flash'),
-    favicon = require('serve-favicon');
+    favicon = require('express-favicon');
 
 pouchdb.plugin(require('pouchdb-upsert'));
 

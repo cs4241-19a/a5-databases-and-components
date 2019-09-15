@@ -12,12 +12,14 @@ previous project. I also used a local strategy that was shown in class for authe
 - what CSS framework you used and why.
   - I choose to use Tailwind for my framework. I used it because it had a cool look and I never used it before.
 - the five Express middleware packages you used and a short (one sentence) summary of what each one does.
+1. I used passport as a middleware to authenticate users.
+2. I used body-parser as a way to parse json from the html to the server.
+3. I used express-session to create session cookies for the users
+4. I used connect-flash to use the req.flash functions when people incorrectly log in
+5. I used express-favicon to put favicons on the website.
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
-- **Tech Achievement 2**: I used over ten Express middleware packages, enabling me to create a server that...
+- **Tech Achievement 1**: I used a plugin for pouchdb to allow the function upsert that allowed me to check if a doc existed and update it otherwise crete a new one.
+- **Tech Achievement 2**: I used pouchdb as the database and created a document for every individual user and uses sessions to check for that users document to keep everyone information separate
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I tested my application using screen reading software, and found that...
-- **Design Achievement 2**: I followed best practices for accessibility, including providing alt attributes for images and using semantic HTML. There are no `<div>` or `<span>` elements in my document.
-- **Design Achievement 3**: We tested the application with n=X users, finding that...
