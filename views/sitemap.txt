@@ -1,6 +1,8 @@
 https://a3-samgoldman.glitch.me/
 https://a3-samgoldman.glitch.me/about
+https://a3-samgoldman.glitch.me/changePassword
 https://a3-samgoldman.glitch.me/sitemap
+https://a3-samgoldman.glitch.me/obfuscation
 https://a3-samgoldman.glitch.me/help
 https://a3-samgoldman.glitch.me/visitMe
 https://a3-samgoldman.glitch.me/8JAZC17pDJoAh3T0YQDY
@@ -9,3 +11,4 @@ https://a3-samgoldman.glitch.me/area51
 https://a3-samgoldman.glitch.me/nothing/to/see
 https://a3-samgoldman.glitch.me/exponential/:n/:e
 https://a3-samgoldman.glitch.me/brewCoffee
+https://a3-samgoldman.glitch.me/lastButNotLeast

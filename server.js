@@ -172,6 +172,10 @@ app.post(
   }
 )
 
+app.post(
+  '/change_passord'
+)
+
 // From https://stackoverflow.com/questions/147824/how-to-find-whether-a-particular-string-has-unicode-characters-esp-double-byte
 function isDoubleByte(str) {
     for (var i = 0, n = str.length; i < n; i++) {
