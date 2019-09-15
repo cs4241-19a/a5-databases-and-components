@@ -48,6 +48,8 @@ app.use( session({ secret:process.env.SESSION_SECRET, resave:false, saveUninitia
 app.use( passport.initialize())
 app.use( passport.session())
 
+
+/** Basic middleware to force login states for different pages **/
 const isNotLoggedIn = function(req, res, next) {
   if (undefined === req.user) {
     next()
@@ -63,7 +65,10 @@ const isLoggedIn = function(req, res, next) {
     next()
   }
 }
+/** ----------------------------------------------------------- **/
 
+
+/** --------- Login, Signup, Change Password routes ----------- **/
 // Modified rom lecture notes
 // all authentication requests in passwords assume that your client
 // is submitting a field named "username" and field named "password".
@@ -96,11 +101,7 @@ const myLocalStrategy = function( username, password, done ) {
 
 passport.use( new Local( myLocalStrategy ) )
 
-
 passport.serializeUser( ( user, done ) => done( null, user.username ) )
-
-// "name" below refers to whatever piece of info is serialized in seralizeUser,
-// in this example we're using the username
 passport.deserializeUser( ( username, done ) => {
   const user = db.get('users').value().find( u => u.username === username )
   
@@ -110,6 +111,18 @@ passport.deserializeUser( ( username, done ) => {
     done( null, false, { message:'user not found; session not restored' })
   }
 })
+
+app.post( 
+  '/login',
+  passport.authenticate( 'local' ),
+  function( req, res ) {
+    if (undefined === req.user) {
+      res.json({status: req.message})
+    } else {
+      res.json({status: 200})
+    }
+  }
+)
 
 
 app.use(function(req, res, next) {
@@ -133,18 +146,6 @@ const addAward = function(username, code) {
   }
 }
 
-app.post( 
-  '/login',
-  passport.authenticate( 'local' ),
-  function( req, res ) {
-    if (undefined === req.user) {
-      res.json({status: req.message})
-    } else {
-      res.json({status: 200})
-    }
-  }
-)
-
 
 app.post(
   '/signup',
@@ -159,7 +160,6 @@ app.post(
       const new_user = {
         "username": requested_username,
         "password": hash,
-        "display_name": requested_username,
         "awards": []
       }
       
@@ -182,8 +182,10 @@ app.post(
     if( bcrypt.compareSync(old_password, req.user.password) ) {
       db.get('users')
         .find({username: req.user.username})
-        .assign({ password: bcrypt.hashSync(old_password, salt)})
+        .assign({ password: bcrypt.hashSync(new_password, salt)})
         .write()
+      
+      res.json({status: "success"})
     } else {
       res.json({status: "failed"})
     }
