@@ -68,6 +68,10 @@ const isLoggedIn = function(req, res, next) {
 /** ----------------------------------------------------------- **/
 
 
+
+
+
+
 /** --------- Login, Signup, Change Password routes ----------- **/
 // Modified rom lecture notes
 // all authentication requests in passwords assume that your client
@@ -179,6 +183,38 @@ app.post(
 
 
 
+
+
+// Filter all requests on URL length (max 42, very arbitrary) and header length (2048, also arbitrary)
+// Long URLs results in a 414, long headers in a 431
+app.use(function(req, res, next) {
+  if (req.url.length > 42) {
+    req.award_code = 414
+    res.status(414).end()
+  } else if (JSON.stringify(req.headers).length > 2048) {
+    if (undefined !== req.user) addAward(req.user.username, 431)
+    res.status(431)
+    res.end()
+  }
+  next()
+})
+
+// Filter all POST requests based on body length
+// Anything over 1024 characters (arbitrary) results in a 413
+app.post('/*', function(req, res, next) {
+   if(JSON.stringify(req.body).length > 1024) {
+    if (undefined !== req.user) addAward(req.user.username, 413)
+    res.status(413)
+    res.end()
+  } else {
+    next()
+  }
+})
+
+
+
+
+
 /** -------------- Commenting -------------------------------------------- **/
 app.post('/add_comment', isLoggedIn, function (req, res, next) {
   console.log(req.headers)
@@ -249,32 +285,6 @@ function isDoubleByte(str) {
     }
     return false;
 }
-
-// Filter all requests on URL length (max 42, very arbitrary) and header length (2048, also arbitrary)
-// Long URLs results in a 414, long headers in a 431
-app.use(function(req, res, next) {
-  if (req.url.length > 42) {
-    req.award_code = 414
-    res.status(414).end()
-  } else if (JSON.stringify(req.headers).length > 2048) {
-    if (undefined !== req.user) addAward(req.user.username, 431)
-    res.status(431)
-    res.end()
-  }
-  next()
-})
-
-// Filter all POST requests based on body length
-// Anything over 1024 characters (arbitrary) results in a 413
-app.post('/*', function(req, res, next) {
-   if(JSON.stringify(req.body).length > 1024) {
-    if (undefined !== req.user) addAward(req.user.username, 413)
-    res.status(413)
-    res.end()
-  } else {
-    next()
-  }
-})
 
 app.get('/users', isLoggedIn, function (req, res) {
   res.json(db.get('users').value())
