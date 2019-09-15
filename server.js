@@ -246,15 +246,15 @@ app.get('/users', isLoggedIn, function (req, res) {
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', isNotLoggedIn, function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
-});
+})
 
 app.get('/sitemap', function(request, response) {
   response.sendFile(__dirname + '/views/sitemap.txt');
-});
+})
 
 app.get('/about', function(request, response) {
-  response.sendFile(__dirname + '/views/sitemap.txt');
-});
+  response.sendFile(__dirname + '/views/about.html');
+})
 
 const rateLimitHandler = function(req, res, next) {
   addAward(req.user.username, 429)
@@ -277,7 +277,7 @@ app.get('/home', function(request, response) {
 app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
-});
+})
 
 app.get('/expo/:x/:f', isLoggedIn, function(req, res, next) {
   const x = req.params.x
