@@ -260,6 +260,10 @@ app.get('/hints', function(request, response) {
   response.sendFile(__dirname + '/views/hints.html');
 })
 
+app.get('/help', function(request, response) {
+  response.sendFile(__dirname + '/views/help.html');
+})
+
 const rateLimitHandler = function(req, res, next) {
   addAward(req.user.username, 429)
   res.status(429).sendFile(__dirname + '/views/errors/429.html')
