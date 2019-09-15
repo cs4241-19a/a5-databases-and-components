@@ -143,8 +143,11 @@ const submitRequest = function () {
     headers: JSON.parse(document.querySelector("#req_headers").value),
     body: document.querySelector("#req_body").value
   })
-  .then( res => res.json() )
-  .then( console.log )
+  .then( res => {
+    document.querySelector("#req_out").value = "Status: " + res.status
+    return res.json() 
+  })
+  .then( res => document.querySelector("#req_out").value += "\n" + res )
   .then( () => {
     method_selector.selectedIndex = 0
     creds_selector.selectedIndex = 0
