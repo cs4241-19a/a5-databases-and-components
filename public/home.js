@@ -62,6 +62,22 @@ const awardIconMap = {
   "431": "fas fa-user",
   "413": "fas fa-ruler-vertical"
 }
+const codeTextMap = {
+  "404": "Not Found",
+  "200": "OK",
+  "201": "Created",
+  "451": "Unavailable for legal reasons",
+  "500": "Internal Server Error",
+  "418": "I'm a teapot",
+  "403": "Forbidden",
+  "414": "Request-URI Too Long",
+  "429": "Too Many Requests",
+  "405": "Method Not Allowed",
+  "501": "Not Implemented",
+  "422": "Unprocessable Entity",
+  "431": "Request Header Fields Too Large",
+  "413": "Payload Too Large"
+}
 const displayAwards = function(user) {
   const awards = user.awards.reverse()
   const displayElement = document.querySelector("#award_display")
@@ -75,7 +91,7 @@ const displayAwards = function(user) {
       count += 1;
       displayElement.innerHTML += `<article class="card">
               <header>
-                <h3><i class="${awardIconMap[awards[i]]}"></i>&nbsp;${awards[i]}</h3>
+                <h3><i class="${awardIconMap[awards[i]]}"></i>&nbsp;${awards[i]}&nbsp;${codeTextMap[awards[i]]}</h3>
               </header>
             </article>`
     }
