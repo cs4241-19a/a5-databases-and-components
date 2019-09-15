@@ -119,45 +119,45 @@ const checkJSON = function (str) {
   return true
 }
 
-
+let count = 0
 const submitRequest = function () {
   const method_selector = document.querySelector("#req_method")
+  const method = method_selector.options[method_selector.selectedIndex].value
   const creds_selector = document.querySelector("#req_creds")
-  const header_value = document.querySelector("#req_headers").value
-  const body_value = document.querySelector("#req_body").value
+  let header_value = document.querySelector("#req_headers").value
+  let body_value = document.querySelector("#req_body").value
   
-  if (header_value === ""){
+  if ("" === header_value){
     // Nothing
-  } if (!checkJSON(header_value)) {
+  } else if (!checkJSON(header_value)) {
     document.querySelector("#req_headers").className += "invalid"
     return
   } else {
-    header_value = 
+    header_value = JSON.parse(header_value)
   }
   
-  if (!checkJSON(body_value)) {
+  if ("" === body_value) {
+    // Nothing
+  } else if (!checkJSON(body_value)) {
     document.querySelector("#req_body").className = "invalid"
     return
+  }
+  
+  if ("GET" === method) {
+    body_value = undefined
   }
   
   document.querySelector("#req_headers").className = "stack"
   document.querySelector("#req_body").className = ""
   
   fetch(document.querySelector('#req_path').value,{
-    method: method_selector.options[method_selector.selectedIndex].value,
+    method: method,
     credentials: creds_selector.options[creds_selector.selectedIndex].value,
-    headers: JSON.parse(document.querySelector("#req_headers").value),
-    body: document.querySelector("#req_body").value
+    headers: header_value,
+    body: body_value
   })
-  .then( res =>  res.json().then(data => ({status: res.status, body: data})))
-  .then( obj => document.querySelector("#req_out").value += "\n" + obj.body )
-  .then( () => {
-    method_selector.selectedIndex = 0
-    creds_selector.selectedIndex = 0
-    document.querySelector("#req_headers").value = ""
-    document.querySelector("#req_body").value = ""
-    document.querySelector('#req_path').value = ""
-  })
+  .then( res =>  res.text().then(data => ({status: res.status, body: data})))
+  .then( obj => document.querySelector("#req_out").innerHTML = `(${++count})Status:${obj.status}\n${obj.body}` )
   .then( loadMessages )
   .then( loadAwards )
 }
