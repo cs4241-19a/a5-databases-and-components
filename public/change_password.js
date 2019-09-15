@@ -1,10 +1,10 @@
 const changePassword = function() {
+  console.log("changePassword")
   const password_0 = document.querySelector( '#signup_password_0' )
   const password_1 = document.querySelector( '#signup_password_1' )
   const password_2 = document.querySelector( '#signup_password_2' )
   
-  document.querySelector( '#signup_successful' ).className = "toast-hidden"
-  document.querySelector( '#signup_unsuccessful' ).className = "toast-hidden"
+  document.querySelector( '#change_unsuccessful' ).className = "toast-hidden"
   document.querySelector( '#password_mismatch' ).className = "toast-hidden"
   
   if ( password_1.value !== password_2.value ) {
@@ -13,7 +13,7 @@ const changePassword = function() {
     fetch( '/change_password', {
       method:'POST',
       credentials: 'include',
-      body:JSON.stringify({ old_password: password_0.value, password: password_1.value }),
+      body:JSON.stringify({ old_password: password_0.value, new_password: password_1.value }),
       headers: { 'Content-Type': 'application/json' }
     })
     .then( res => res.json() )
@@ -25,6 +25,7 @@ const changePassword = function() {
         password_0.value = ""
         password_1.value = ""
         password_2.value = ""
+        document.querySelector( '#change_unsuccessful' ).className = ""
       }
     })
   }

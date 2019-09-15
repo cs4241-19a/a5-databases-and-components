@@ -173,7 +173,21 @@ app.post(
 )
 
 app.post(
-  '/change_passord'
+  '/change_password',
+  isLoggedIn,
+  function(req, res) {
+    const old_password = req.body.old_password
+    const new_password = req.body.new_password
+    
+    if( bcrypt.compareSync(old_password, req.user.password) ) {
+      db.get('users')
+        .find({username: req.user.username})
+        .assign({ password: bcrypt.hashSync(old_password, salt)})
+        .write()
+    } else {
+      res.json({status: "failed"})
+    }
+  }
 )
 
 // From https://stackoverflow.com/questions/147824/how-to-find-whether-a-particular-string-has-unicode-characters-esp-double-byte
@@ -266,6 +280,10 @@ app.get('/hints', function(request, response) {
 
 app.get('/help', function(request, response) {
   response.sendFile(__dirname + '/views/help.html');
+})
+
+app.get('/changePassword', isLoggedIn, function(request, response) {
+  response.sendFile(__dirname + '/views/change_password.html');
 })
 
 const rateLimitHandler = function(req, res, next) {
