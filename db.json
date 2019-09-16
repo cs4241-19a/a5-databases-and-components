@@ -2,17 +2,10 @@
   "sites": [
     {
       "city": "Meredith",
-      "state_": "NH",
+      "state_": "AL",
       "desc": "Stayed in wonderful lakehouse property along Lake Winnipesaukee. Lots to do and the weather was amazing. Looking to buy a house here now!",
-      "rating": "5",
-      "id": "zdpz0tkee"
-    },
-    {
-      "city": "Cheshire",
-      "state_": "CT",
-      "desc": "I live here. Love it!",
-      "rating": "5",
-      "id": "nxcjq8dwq"
+      "rating": "1",
+      "id_": "andy"
     }
   ]
 }

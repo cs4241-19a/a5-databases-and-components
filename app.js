@@ -29,16 +29,26 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const users = [
-  { username: "hi", password: "bruh" },
-  { username: "yo", password: "mama" }
+  { username: "andy", password: "test" },
+  { username: "cs4241", password: "19a" }
 ];
+
+const currentuser = [];
 
 const myLocalStrategy = function(username, password, done) {
   const user = users.find(__user => __user.username === username);
+  let unotFound = { message: "user not found" };
+  let notFound = JSON.stringify(unotFound);
 
   if (user === undefined) {
-    return done(null, false, { message: "user not found" });
+    return done(null, false, notFound);
   } else if (user.password === password) {
+    currentuser.splice(0, 1);
+    currentuser.push({
+      username: username,
+      password: password
+    });
+
     return done(null, { username, password });
   } else {
     return done(null, false, { message: "incorrect password" });
@@ -46,10 +56,9 @@ const myLocalStrategy = function(username, password, done) {
 };
 
 passport.use(new Local(myLocalStrategy));
-passport.initialize();
 
 app.post("/login", passport.authenticate("local"), function(req, res) {
-  console.log("user:", req.user);
+  console.log(currentuser);
   res.json({ status: true });
 });
 
@@ -109,6 +118,18 @@ app.post("/addLoc", function(req, res) {
 
 app.get("/view", function(req, res) {
   let respond = db.get("sites").value();
+  let response = JSON.stringify(respond);
+  res.end(response);
+});
+
+app.get("/usernamechange", function(req, res) {
+  let respond = currentuser[0].username;
+  res.end(respond);
+});
+
+app.get("/usernameget", function(req, res) {
+  console.log(currentuser);
+  let respond = currentuser;
   let response = JSON.stringify(respond);
   res.end(response);
 });

@@ -7,9 +7,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   </head>
 
-  <body>
+  <body id="sitesBody">
     <h1>
-      Travel Destination Site
+      Travel Destinations
     </h1>
     <form action="" id="form1">
       City/Town Name: <input type="text" id="ctname" /><br /><br />
@@ -72,7 +72,7 @@
       <input type="number" id="ctrate" max="5" min="1" value="1" /><br /><br />
       Description: <input type="text" id="desc" /><br /><br />
       <button type="button" id="addLocation">
-        submit
+        Submit
       </button>
       <div id="submitted"></div>
       <br />
@@ -96,39 +96,47 @@
     });
 
     $("#addLocation").click(function() {
-      data = {
-        city: document.getElementById("ctname").value,
-        state_: document.getElementById("state_").value,
-        desc: document.getElementById("desc").value,
-        rating: document.getElementById("ctrate").value,
-        id: Math.random()
-          .toString(36)
-          .substr(2, 9)
-      };
-      console.log(data);
-      if (data.rating != "" && data.city != "") {
-        document.getElementById("submitted").innerHTML = "";
-        fetch("/addLoc", {
-          method: "POST",
-          body: JSON.stringify(data),
+      let username_ = "";
+      getusername();
+
+      function getusername() {
+        fetch("/usernameget", {
+          method: "GET",
           headers: { "Content-Type": "application/json" }
         })
-          .then(console.log)
-          .catch(err => console.error);
+          .then(function(response) {
+            return response.text();
+          })
+          .then(text => idadd(text));
+      }
+      function idadd(text) {
+        let dataparsed = JSON.parse(text);
+        username_ = dataparsed[0].username;
+        data = {
+          city: document.getElementById("ctname").value,
+          state_: document.getElementById("state_").value,
+          desc: document.getElementById("desc").value,
+          rating: document.getElementById("ctrate").value,
+          id_: username_
+        };
+        console.log(data.rating);
+        if (data.rating != "" && data.city != "" && data.id_ != "") {
+          document.getElementById("submitted").innerHTML = "";
+          fetch("/addLoc", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: { "Content-Type": "application/json" }
+          })
+            .then(console.log)
+            .catch(err => console.error);
 
-        window.location.href = "view.html";
-      } else {
-        document.getElementById("submitted").innerHTML = "*Complete All Fields";
+          window.location.href = "view.html";
+        } else {
+          document.getElementById("submitted").innerHTML =
+            "*Complete All Fields";
+        }
       }
     });
-
-    fetch("/login", {
-      method: "POST",
-      body: JSON.stringify({ username: "hi", password: "bruh" }),
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(res => res.json())
-      .then(console.log);
 
     fetch("/test", {
       method: "POST",

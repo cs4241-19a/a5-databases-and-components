@@ -3,13 +3,29 @@
   <head>
     <title>CS4241 Assignment 3 - Persistence</title>
     <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="stylesheets/style.css" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body>
     <h1 id="home">
-      Travel Destination Site
+      Travel Destinations
     </h1>
     <div id="homeButtons">
       <button type="button" id="viewButton1">
@@ -19,14 +35,91 @@
         Add Destinations
       </button>
     </div>
+    <div class="image" id="vaca"></div>
+    <button type="button" id="loginButton">Login</button>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>Log In</div>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            Username: <input type="text" id="username" /><br /><br />
+            Password: <input type="text" id="password" /><br /><br />
+          </form>
+          <button type="button" id="usersubmit">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
   </body>
 
   <script>
+    success = 0;
+    checklogged();
     $("#addButton1").click(function() {
       window.location.href = "sites.html";
     });
     $("#viewButton1").click(function() {
       window.location.href = "view.html";
     });
+
+    let span = document.getElementsByClassName("close")[0];
+    let modal = document.getElementById("myModal");
+
+    $(document).on("click", "#loginButton", function() {
+      modal.style.display = "block";
+      username.value = "";
+      password.value = "";
+    });
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    };
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+
+    $(document).on("click", "#usersubmit", function() {
+      userdata = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value
+      };
+
+      stringdata = JSON.stringify(userdata);
+      console.log(stringdata);
+      fetch("/login", {
+        method: "POST",
+        body: stringdata,
+        headers: { "Content-Type": "application/json" }
+      })
+        .then((info = res => res.json()))
+        .then(console.log);
+      checklogged();
+    });
+
+    function checklogged() {
+      fetch("/usernamechange", {
+        method: "GET"
+      })
+        .then(function(response) {
+          return response.text();
+        })
+        .then(text => changeUN(text))
+        .then((success = 1));
+    }
+
+    function changeUN(text) {
+      if (success === 1 && text.length < 50) {
+        let buttonuser = document.getElementById("loginButton");
+        textShow = text.split(" ");
+        buttonuser.innerHTML = textShow;
+      }
+    }
   </script>
 </html>
