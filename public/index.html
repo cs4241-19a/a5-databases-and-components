@@ -8,20 +8,25 @@
   </head>
 
   <body>
-    <h1>
+    <h1 id="home">
       Travel Destination Site
     </h1>
-    <button type="button" id="viewButton">
-      View Destinations
-    </button>
-    <button type="button" id="addButton">
-      Add Destinations
-    </button>
+    <div id="homeButtons">
+      <button type="button" id="viewButton1">
+        View Destinations
+      </button>
+      <button type="button" id="addButton1">
+        Add Destinations
+      </button>
+    </div>
   </body>
 
   <script>
-    $("#addButton").click(function() {
+    $("#addButton1").click(function() {
       window.location.href = "sites.html";
+    });
+    $("#viewButton1").click(function() {
+      window.location.href = "view.html";
     });
   </script>
 </html>

@@ -80,7 +80,6 @@ app.post("/test", function(req, res) {
 app.post("/addLoc", function(req, res) {
   console.log("location added");
   let data = req.body;
-  console.log(data);
 
   let change = 0;
 
@@ -90,8 +89,7 @@ app.post("/addLoc", function(req, res) {
     .value();
 
   for (let i = 0; i < wat.length; i++) {
-    console.log(wat[i].state_);
-    if (wat[i].state_ == data.state_) {
+    if (wat[i].state_ === data.state_) {
       change = 1;
     }
   }
@@ -104,7 +102,15 @@ app.post("/addLoc", function(req, res) {
     console.log("Succesfully Added");
   } else {
     console.log("Site Already Exists");
+    //document.getElementById("submitted").innerHTML =
+    //"*Site Already Submitted Reviewed by User";
   }
+});
+
+app.get("/view", function(req, res) {
+  let respond = db.get("sites").value();
+  let response = JSON.stringify(respond);
+  res.end(response);
 });
 
 app.listen(process.env.PORT || port);

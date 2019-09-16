@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3 - Persistence</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="stylesheets/style.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <h1>
+      Travel Destination Site
+    </h1>
+    <button type="button" id="homePage">
+      Home Page
+    </button>
+    <button type="button" id="addButton">
+      Add Destinations</button
+    ><br /><br />
+    <div id="viewPage">Destinations:</div>
+  </body>
+
+  <script>
+    function insertAfter(el, referenceNode) {
+      referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+    }
+    $("#addButton").click(function() {
+      window.location.href = "sites.html";
+    });
+    $("#homePage").click(function() {
+      window.location.href = "index.html";
+    });
+
+    fetch("/view", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(function(response) {
+        return response.text();
+      })
+      .then(text => showDest(text));
+
+    function showDest(text) {
+      let data = JSON.parse(text);
+      let currentDiv = document.getElementById("viewPage");
+      for (let i = 0; i < data.length; i++) {
+        let city = data[i].city;
+        let state_ = data[i].state_;
+        let desc = data[i].desc;
+        let rating = data[i].rating;
+        let id = data[i].id;
+
+        let space = document.createTextNode("<br/>");
+        let newDiv = document.createElement("div");
+
+        let newcityDiv = document.createElement("div");
+        let newdescDiv = document.createElement("div");
+        let newrateDiv = document.createElement("div");
+
+        let removeButton = document.createElement("button");
+
+        newDiv.setAttribute("id", "viewer");
+
+        newDiv.setAttribute("class", "flex-container");
+        removeButton.setAttribute("id", "removeButton");
+        newcityDiv.innerHTML = "<p>" + city + ", " + state_ + "</p>";
+        newdescDiv.innerHTML = "<p>" + desc + "</p>";
+        newrateDiv.innerHTML = "<p>" + "Rating: " + rating + "</p>" + "<br/>";
+        removeButton.innerHTML = "<p>" + "Remove" + "</p>";
+        newDiv.appendChild(newcityDiv);
+        newDiv.appendChild(newdescDiv);
+        newDiv.appendChild(newrateDiv);
+        newDiv.appendChild(removeButton);
+        console.log(newDiv);
+        insertAfter(newDiv, currentDiv);
+        currentDiv = newDiv;
+      }
+    }
+
+    $("#removeButton").click(function() {
+      console.log("works");
+      window.location.href = "index.html";
+    });
+  </script>
+</html>

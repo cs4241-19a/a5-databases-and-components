@@ -2,7 +2,76 @@ html {
   background-color: forestgreen;
 }
 
-body {
+h1 {
+  padding-left: 15px;
+}
+
+#addButton {
+  margin-left: 15px;
+}
+
+#viewButton {
+  margin-left: 15px;
+}
+
+#homePage {
+  margin-left: 15px;
+}
+
+#viewPage {
   padding-left: 15px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#submitted {
+  color: red;
+}
+
+.flex-container {
+  display: flex;
+  flex: 0 0 200px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  background-image: linear-gradient(to top, antiquewhite, #859398);
+  flex-direction: column;
+  padding: 15px;
+}
+
+#form1 {
+  margin-left: 15px;
+  margin-right: 15px;
+  background-image: linear-gradient(to top, antiquewhite, #859398);
+
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  border: 1px solid #ccc;
+  padding: 15px;
+}
+
+#homeButtons {
+  text-align: center;
+}
+
+#viewButton1 {
+  background-image: linear-gradient(to top, antiquewhite, #859398);
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  border: 1px solid #ccc;
+  padding: 15px;
+}
+
+#addButton1 {
+  background-image: linear-gradient(to top, antiquewhite, #859398);
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  border: 1px solid #ccc;
+  padding: 15px;
+}
+
+#removeButton {
+  background-image: linear-gradient(to top, pink, lightCoral);
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  border: 1px solid #ccc;
+}
+
+#home {
+  text-align: center;
 }
