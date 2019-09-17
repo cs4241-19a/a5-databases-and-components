@@ -20,7 +20,7 @@ let addSite = {
   description:
     "Stayed in wonderful lakehouse property along Lake Winnipesaukee. Lots to do and the weather was amazing. Looking to buy a house here now!",
   rating: 5,
-  id: 0
+  user_: 0
 };
 
 app.use(express.static("public/"));
@@ -30,6 +30,7 @@ app.use(passport.session());
 
 const users = [
   { username: "andy", password: "test" },
+  { username: "admin", password: "test" },
   { username: "cs4241", password: "19a" }
 ];
 
@@ -114,6 +115,15 @@ app.post("/addLoc", function(req, res) {
     //document.getElementById("submitted").innerHTML =
     //"*Site Already Submitted Reviewed by User";
   }
+});
+
+app.post("/remLoc", function(req, res) {
+  let data = req.body;
+  console.log(data);
+
+  db.get("sites")
+    .remove({ uid: data.uid })
+    .write();
 });
 
 app.get("/view", function(req, res) {

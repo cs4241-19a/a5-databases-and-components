@@ -107,9 +107,9 @@
           .then(function(response) {
             return response.text();
           })
-          .then(text => idadd(text));
+          .then(text => useradd(text));
       }
-      function idadd(text) {
+      function useradd(text) {
         let dataparsed = JSON.parse(text);
         username_ = dataparsed[0].username;
         data = {
@@ -117,10 +117,13 @@
           state_: document.getElementById("state_").value,
           desc: document.getElementById("desc").value,
           rating: document.getElementById("ctrate").value,
-          id_: username_
+          user_: username_,
+          uid: Math.random()
+            .toString(36)
+            .substr(2, 9)
         };
         console.log(data.rating);
-        if (data.rating != "" && data.city != "" && data.id_ != "") {
+        if (data.rating != "" && data.city != "" && data.user_ != "") {
           document.getElementById("submitted").innerHTML = "";
           fetch("/addLoc", {
             method: "POST",

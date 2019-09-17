@@ -1,11 +1,3 @@
 {
-  "sites": [
-    {
-      "city": "Meredith",
-      "state_": "AL",
-      "desc": "Stayed in wonderful lakehouse property along Lake Winnipesaukee. Lots to do and the weather was amazing. Looking to buy a house here now!",
-      "rating": "1",
-      "id_": "andy"
-    }
-  ]
+  "sites": []
 }

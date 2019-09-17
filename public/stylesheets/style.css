@@ -1,3 +1,9 @@
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 #vaca {
   content: url("vaca.jpg");
   width: 100%;
@@ -40,8 +46,8 @@ h1 {
   margin: 15px;
   text-align: center;
   background-image: linear-gradient(to top, antiquewhite, #859398);
-  margin-left: 40%;
-  margin-right: 40%;
+  margin-left: 35%;
+  margin-right: 35%;
 
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   border: 1px solid #ccc;
@@ -110,7 +116,7 @@ h1 {
   margin-bottom: 30px;
 }
 
-#removeButton {
+.removeButton {
   background-image: linear-gradient(to top, pink, lightCoral);
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   border: 1px solid #ccc;

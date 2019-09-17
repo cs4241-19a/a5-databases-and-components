@@ -49,7 +49,8 @@
         let state_ = data[i].state_;
         let desc = data[i].desc;
         let rating = data[i].rating;
-        let id = data[i].id;
+        let user_ = data[i].user_;
+        let uid = data[i].uid;
 
         let space = document.createTextNode("<br/>");
         let newDiv = document.createElement("div");
@@ -60,26 +61,60 @@
 
         let removeButton = document.createElement("button");
 
-        newDiv.setAttribute("id", "viewer");
-
+        newDiv.setAttribute("class", "viewer");
         newDiv.setAttribute("class", "flex-container");
-        removeButton.setAttribute("id", "removeButton");
+
+        removeButton.setAttribute("id", uid);
+        removeButton.setAttribute("class", "removeButton");
+
         newcityDiv.innerHTML = "<p>" + city + ", " + state_ + "</p>";
         newdescDiv.innerHTML = "<p>" + desc + "</p>";
-        newrateDiv.innerHTML = "<p>" + "Rating: " + rating + "</p>" + "<br/>";
+        newrateDiv.innerHTML =
+          "<p>" + "Rated " + rating + "/5 by " + user_ + "</p>" + "<br/>";
         removeButton.innerHTML = "<p>" + "Remove" + "</p>";
         newDiv.appendChild(newcityDiv);
         newDiv.appendChild(newdescDiv);
         newDiv.appendChild(newrateDiv);
-        newDiv.appendChild(removeButton);
+
+        fetch("/usernameget", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" }
+        })
+          .then(function(response) {
+            return response.text();
+          })
+          .then(text => removeadd(text));
+
+        function removeadd(text) {
+          let dataparsed = JSON.parse(text);
+          currentusername = dataparsed[0].username;
+          if (currentusername == user_ || currentusername == "admin") {
+            newDiv.appendChild(removeButton);
+          }
+        }
+
         console.log(newDiv);
         insertAfter(newDiv, currentDiv);
         currentDiv = newDiv;
       }
     }
 
-    $(document).on("click", "#removeButton", function() {
-      console.log("hello");
+    $(document).on("click", ".removeButton", function() {
+      data = {
+        uid: this.id
+      };
+
+      fetch("/remLoc", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(console.log)
+        .catch(err => console.error);
+
+      parent = document.getElementById("viewBody");
+      child = document.getElementById(this.id).parentNode;
+      parent.removeChild(child);
     });
   </script>
 </html>
