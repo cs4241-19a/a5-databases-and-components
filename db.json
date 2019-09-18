@@ -1,3 +1,36 @@
 {
-  "sites": []
+  "sites": [
+    {
+      "city": "Meredith",
+      "state_": "NH",
+      "desc": "Beautiful lake house properties! Would recommend to anyone interested, I'm considering buying a house there myself!",
+      "rating": "5",
+      "user_": "andy",
+      "uid": "7hx8ubzj3"
+    },
+    {
+      "city": "Cheshire",
+      "state_": "CT",
+      "desc": "I live here during the summer. Great people but not a whole lot to do in terms of a vacation.",
+      "rating": "3",
+      "user_": "andy",
+      "uid": "i3mlzjqtp"
+    },
+    {
+      "city": "Badlands",
+      "state_": "ND",
+      "desc": "Not a whole lot do but you will be blown away by how beautiful this state is. Badlands National Park stands out to me as an underrated vacation destination. ",
+      "rating": "4",
+      "user_": "andy",
+      "uid": "fzv4knqt7"
+    },
+    {
+      "city": "Worcester",
+      "state_": "MA",
+      "desc": "I go to school here and love it but I wouldn't consider it a vacation destination...",
+      "rating": "3",
+      "user_": "admin",
+      "uid": "mz8sn7h9x"
+    }
+  ]
 }

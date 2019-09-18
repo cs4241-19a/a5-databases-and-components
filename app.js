@@ -31,10 +31,18 @@ app.use(passport.session());
 const users = [
   { username: "andy", password: "test" },
   { username: "admin", password: "test" },
-  { username: "cs4241", password: "19a" }
+  { username: "cs4241", password: "19a" },
+  { username: "dan", password: "beta" },
+  { username: "mikey", password: "beta" },
+  { username: "hunter", password: "beta" },
+  { username: "tim", password: "beta" },
+  { username: "googus12", password: "gafshow" },
+  { username: "kaboomer21", password: "gafshow" },
+  { username: "mrm0tta", password: "gafshow" },
+  { username: "aust1frost1", password: "gafshow" }
 ];
 
-const currentuser = [];
+const currentuser = [{ username: "Login", password: "default" }];
 
 const myLocalStrategy = function(username, password, done) {
   const user = users.find(__user => __user.username === username);
@@ -123,6 +131,20 @@ app.post("/remLoc", function(req, res) {
 
   db.get("sites")
     .remove({ uid: data.uid })
+    .write();
+});
+
+app.post("/modLoc", function(req, res) {
+  let data = req.body;
+
+  db.get("sites")
+    .find({ uid: data.uid })
+    .assign({ rating: data.rating })
+    .write();
+
+  db.get("sites")
+    .find({ uid: data.uid })
+    .assign({ desc: data.desc })
     .write();
 });
 

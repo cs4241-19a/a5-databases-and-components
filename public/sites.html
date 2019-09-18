@@ -8,9 +8,20 @@
   </head>
 
   <body id="sitesBody">
-    <h1>
-      Travel Destinations
-    </h1>
+    <div id="head1">
+      <h1>
+        Travel Destinations
+      </h1>
+      <div id="homeButtons">
+        <button type="button" id="homePage" class="showButton">
+          Home Page
+        </button>
+        <button type="button" id="viewButton1" class="showButton">
+          View Destinations
+        </button>
+      </div>
+    </div>
+    <div id="bg" class="image"></div>
     <form action="" id="form1">
       City/Town Name: <input type="text" id="ctname" /><br /><br />
       State:
@@ -70,19 +81,14 @@
       <br /><br />
       Rating:
       <input type="number" id="ctrate" max="5" min="1" value="1" /><br /><br />
-      Description: <input type="text" id="desc" /><br /><br />
+      <textarea placeholder="Description:" type="text" id="desc"></textarea>
+      <br /><br />
       <button type="button" id="addLocation">
         Submit
       </button>
       <div id="submitted"></div>
       <br />
       <br />
-      <button type="button" id="homePage">
-        Home Page
-      </button>
-      <button type="button" id="viewButton">
-        View Destinations
-      </button>
     </form>
   </body>
 
@@ -91,7 +97,7 @@
       window.location.href = "index.html";
     });
 
-    $("#viewButton").click(function() {
+    $("#viewButton1").click(function() {
       window.location.href = "view.html";
     });
 
@@ -123,7 +129,7 @@
             .substr(2, 9)
         };
         console.log(data.rating);
-        if (data.rating != "" && data.city != "" && data.user_ != "") {
+        if (data.rating != "" && data.city != "" && data.user_ != "Login") {
           document.getElementById("submitted").innerHTML = "";
           fetch("/addLoc", {
             method: "POST",
@@ -136,7 +142,7 @@
           window.location.href = "view.html";
         } else {
           document.getElementById("submitted").innerHTML =
-            "*Complete All Fields";
+            "*Complete All Fields and/or Log In";
         }
       }
     });

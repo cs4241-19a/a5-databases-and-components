@@ -28,10 +28,10 @@
       Travel Destinations
     </h1>
     <div id="homeButtons">
-      <button type="button" id="viewButton1">
+      <button type="button" id="viewButton1" class="showButton">
         View Destinations
       </button>
-      <button type="button" id="addButton1">
+      <button type="button" id="addButton1" class="showButton">
         Add Destinations
       </button>
     </div>
@@ -92,7 +92,6 @@
       };
 
       stringdata = JSON.stringify(userdata);
-      console.log(stringdata);
       fetch("/login", {
         method: "POST",
         body: stringdata,

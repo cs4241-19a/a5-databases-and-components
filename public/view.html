@@ -11,21 +11,52 @@
     <h1>
       Travel Destinations
     </h1>
-    <button type="button" id="homePage">
-      Home Page
-    </button>
-    <button type="button" id="addButton">
-      Add Destinations</button
-    ><br /><br />
-    <div id="viewPage">Destinations:</div>
-    <div id="viewBottom">Travel Destination Site</div>
+    <div id="homeButtons">
+      <button type="button" id="homePage" class="showButton">
+        Home Page
+      </button>
+      <button type="button" id="addButton1" class="showButton">
+        Add Destinations
+      </button>
+    </div>
+    <div id="vacabg" class="image"></div>
+    <div id="viewPage"></div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>Update Destination Information</div>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form action="" id="clearform">
+            <br />Rating:
+            <input
+              type="number"
+              id="ctrate"
+              max="5"
+              min="1"
+              value="1"
+            /><br /><br />
+            <textarea
+              placeholder="Description:"
+              type="text"
+              id="desc"
+            ></textarea
+            ><br /><br />
+          </form>
+          <button type="button" id="usersubmit">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
   </body>
 
   <script>
     function insertAfter(el, referenceNode) {
       referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
     }
-    $("#addButton").click(function() {
+    $("#addButton1").click(function() {
       window.location.href = "sites.html";
     });
     $("#homePage").click(function() {
@@ -60,18 +91,22 @@
         let newrateDiv = document.createElement("div");
 
         let removeButton = document.createElement("button");
+        let modifyButton = document.createElement("button");
 
         newDiv.setAttribute("class", "viewer");
         newDiv.setAttribute("class", "flex-container");
 
         removeButton.setAttribute("id", uid);
         removeButton.setAttribute("class", "removeButton");
+        modifyButton.setAttribute("id", "modify" + uid);
+        modifyButton.setAttribute("class", "modifyButton");
 
         newcityDiv.innerHTML = "<p>" + city + ", " + state_ + "</p>";
         newdescDiv.innerHTML = "<p>" + desc + "</p>";
         newrateDiv.innerHTML =
           "<p>" + "Rated " + rating + "/5 by " + user_ + "</p>" + "<br/>";
         removeButton.innerHTML = "<p>" + "Remove" + "</p>";
+        modifyButton.innerHTML = "<p>" + "Modify" + "</p>";
         newDiv.appendChild(newcityDiv);
         newDiv.appendChild(newdescDiv);
         newDiv.appendChild(newrateDiv);
@@ -89,6 +124,7 @@
           let dataparsed = JSON.parse(text);
           currentusername = dataparsed[0].username;
           if (currentusername == user_ || currentusername == "admin") {
+            newDiv.appendChild(modifyButton);
             newDiv.appendChild(removeButton);
           }
         }
@@ -115,6 +151,46 @@
       parent = document.getElementById("viewBody");
       child = document.getElementById(this.id).parentNode;
       parent.removeChild(child);
+    });
+
+    let span = document.getElementsByClassName("close")[0];
+    let modal = document.getElementById("myModal");
+    let blockid = "";
+
+    $(document).on("click", ".modifyButton", function() {
+      modal.style.display = "block";
+      blockid = this.id;
+    });
+
+    span.onclick = function() {
+      modal.style.display = "none";
+      blockid = "";
+    };
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+        blockid = "";
+      }
+    };
+
+    $(document).on("click", "#usersubmit", function() {
+      subuid = blockid.substring("modify".length);
+      moddata = {
+        rating: document.getElementById("ctrate").value,
+        desc: document.getElementById("desc").value,
+        uid: subuid
+      };
+      blockid = "";
+      fetch("/modLoc", {
+        method: "POST",
+        body: JSON.stringify(moddata),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(console.log)
+        .catch(err => console.error);
+      modal.style.display = "none";
+      location.reload();
     });
   </script>
 </html>
