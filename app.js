@@ -121,7 +121,7 @@ app.post("/addLoc", function(req, res) {
   }
 });
 
-//add user
+//add user using BCRYPT
 app.post("/add", async (req, res) => {
   try {
     const salt = await bcrypt.genSalt();
