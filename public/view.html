@@ -53,16 +53,17 @@
   </body>
 
   <script>
-    function insertAfter(el, referenceNode) {
-      referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
-    }
+    //active when user clicks add destination
     $("#addButton1").click(function() {
       window.location.href = "sites.html";
     });
+
+    //active when user clicks home page
     $("#homePage").click(function() {
       window.location.href = "index.html";
     });
 
+    //gets info from database and displays it
     fetch("/view", {
       method: "GET",
       headers: { "Content-Type": "application/json" }
@@ -129,12 +130,17 @@
           }
         }
 
-        console.log(newDiv);
         insertAfter(newDiv, currentDiv);
         currentDiv = newDiv;
       }
     }
 
+    //function that inserts nodes after another node
+    function insertAfter(el, referenceNode) {
+      referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+    }
+
+    //active when user clicks a remove button
     $(document).on("click", ".removeButton", function() {
       data = {
         uid: this.id
@@ -157,16 +163,19 @@
     let modal = document.getElementById("myModal");
     let blockid = "";
 
+    //active when user clicks a modify button
     $(document).on("click", ".modifyButton", function() {
       modal.style.display = "block";
       blockid = this.id;
     });
 
+    //active when user clicks span on modify modal
     span.onclick = function() {
       modal.style.display = "none";
       blockid = "";
     };
 
+    //active when user clicks window off modify modal
     window.onclick = function(event) {
       if (event.target == modal) {
         modal.style.display = "none";
@@ -174,6 +183,7 @@
       }
     };
 
+    //active when user clicks submit on modify modal
     $(document).on("click", "#usersubmit", function() {
       subuid = blockid.substring("modify".length);
       moddata = {

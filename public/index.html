@@ -59,34 +59,45 @@
   </body>
 
   <script>
+    //did user login yet
     success = 0;
+
+    //check if user has logged in
     checklogged();
+
+    //active when user clicks add destination
     $("#addButton1").click(function() {
       window.location.href = "sites.html";
     });
+    //active when user clicks view destinations
     $("#viewButton1").click(function() {
       window.location.href = "view.html";
     });
 
+    //create span and modal variables
     let span = document.getElementsByClassName("close")[0];
     let modal = document.getElementById("myModal");
 
+    //active when user clicks login/create
     $(document).on("click", "#loginButton", function() {
       modal.style.display = "block";
       username.value = "";
       password.value = "";
     });
 
+    //active when user clicks on span
     span.onclick = function() {
       modal.style.display = "none";
     };
 
+    //active when user clicks off modal
     window.onclick = function(event) {
       if (event.target == modal) {
         modal.style.display = "none";
       }
     };
 
+    //active when user clicks login on modal
     $(document).on("click", "#usersubmit", function() {
       userdata = {
         username: document.getElementById("username").value,
@@ -97,6 +108,7 @@
       login();
     });
 
+    //active when user clicks add user on modal
     $(document).on("click", "#useradd", function() {
       userdata = {
         username: document.getElementById("username").value,
@@ -113,6 +125,7 @@
         .then(console.log());
     });
 
+    //logs user in by checking db for credentials
     function login() {
       fetch("/login", {
         method: "POST",
@@ -124,6 +137,7 @@
       checklogged();
     }
 
+    //continuation of login()
     function checklogged() {
       fetch("/usernamechange", {
         method: "GET"
@@ -135,6 +149,7 @@
         .then((success = 1));
     }
 
+    //changes username on bottom of screen
     function changeUN(text) {
       if (success === 1 && text.length < 50) {
         let buttonuser = document.getElementById("loginButton");
@@ -144,6 +159,7 @@
       }
     }
 
+    //cookie
     fetch("/test", {
       method: "POST",
       credentials: "include",

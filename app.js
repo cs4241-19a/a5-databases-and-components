@@ -1,3 +1,4 @@
+//express and middleware
 const express = require("express"),
   app = express(),
   session = require("express-session"),
@@ -8,11 +9,13 @@ const express = require("express"),
   bcrypt = require("bcrypt");
 const port = 3000;
 
+//lowdb database
 let low = require("lowdb"),
   FileSync = require("lowdb/adapters/FileSync"),
   adapter = new FileSync("db.json"),
   db = low(adapter);
 
+//set database defaults when empty
 db.defaults({ sites: [], users: [] }).write();
 
 app.use(express.static("public/"));
@@ -21,22 +24,21 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
 
+//cors
 app.get("/cors-entry", function(req, res, next) {
   console.log("CORS Accessed");
   res.json({ msg: "CORS-enabled for all origins!" });
 });
 
+//current user when database restarts so that a name is always appearing
 const currentuser = [{ username: "Login/Create", password: "default" }];
 
+//passport identifying account
 const myLocalStrategy = function(username, password, done) {
   const user = db
     .get("users")
     .find({ username: username })
     .value();
-
-  console.log(user.password);
-
-  console.log(password);
 
   if (user == undefined) {
     return done(null, false, { message: "incorrect password" });
@@ -61,7 +63,6 @@ const myLocalStrategy = function(username, password, done) {
 passport.use(new Local(myLocalStrategy));
 
 app.post("/login", passport.authenticate("local"), function(req, res) {
-  console.log(currentuser);
   res.json({ status: true });
 });
 
@@ -87,6 +88,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+//add location to database
 app.post("/addLoc", function(req, res) {
   console.log("location added");
   let data = req.body;
@@ -119,6 +121,7 @@ app.post("/addLoc", function(req, res) {
   }
 });
 
+//add user
 app.post("/add", async (req, res) => {
   try {
     const salt = await bcrypt.genSalt();
@@ -133,15 +136,16 @@ app.post("/add", async (req, res) => {
   }
 });
 
+//remove location
 app.post("/remLoc", function(req, res) {
   let data = req.body;
-  console.log(data);
 
   db.get("sites")
     .remove({ uid: data.uid })
     .write();
 });
 
+//modify location
 app.post("/modLoc", function(req, res) {
   let data = req.body;
 
@@ -156,26 +160,29 @@ app.post("/modLoc", function(req, res) {
     .write();
 });
 
+//get and review databse sites
 app.get("/view", function(req, res) {
   let respond = db.get("sites").value();
   let response = JSON.stringify(respond);
   res.end(response);
 });
 
+//change username appearing
 app.get("/usernamechange", function(req, res) {
   let respond = currentuser[0].username;
   res.end(respond);
 });
 
+//retrieve username
 app.get("/usernameget", function(req, res) {
-  console.log(currentuser);
   let respond = currentuser;
   let response = JSON.stringify(respond);
   res.end(response);
 });
 
+//cookie
 app.post("/test", function(req, res) {
-  console.log("authenticate with cookie?", req.user);
+  //console.log("authenticate with cookie?", req.user);
   res.json({ status: "success" });
 });
 

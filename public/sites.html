@@ -93,14 +93,17 @@
   </body>
 
   <script>
+    //active when user clicks home page
     $("#homePage").click(function() {
       window.location.href = "index.html";
     });
 
+    //active when user clicks view destination
     $("#viewButton1").click(function() {
       window.location.href = "view.html";
     });
 
+    //active when user clicks submit to add a location
     $("#addLocation").click(function() {
       let username_ = "";
       getusername();
@@ -128,9 +131,7 @@
             .toString(36)
             .substr(2, 9)
         };
-        console.log(data.rating);
         if (data.rating != "" && data.city != "" && data.user_ != "Login") {
-          console.log("here");
           document.getElementById("submitted").innerHTML = "";
           fetch("/addLoc", {
             method: "POST",
@@ -149,7 +150,6 @@
       }
       function check(text) {
         let stringtext = JSON.parse(text);
-        console.log(stringtext);
         if (stringtext.status !== "failure") {
           window.location.href = "view.html";
         } else {
