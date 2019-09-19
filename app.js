@@ -3,7 +3,9 @@ const express = require("express"),
   session = require("express-session"),
   passport = require("passport"),
   Local = require("passport-local").Strategy,
-  bodyParser = require("body-parser");
+  bodyParser = require("body-parser"),
+  cors = require("cors"),
+  bcrypt = require("bcrypt");
 const port = 3000;
 
 let low = require("lowdb"),
@@ -11,7 +13,7 @@ let low = require("lowdb"),
   adapter = new FileSync("db.json"),
   db = low(adapter);
 
-db.defaults({ sites: [] }).write();
+db.defaults({ sites: [], users: [] }).write();
 
 //test post for a destination
 let addSite = {
@@ -27,25 +29,20 @@ app.use(express.static("public/"));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors());
 
-const users = [
-  { username: "andy", password: "test" },
-  { username: "admin", password: "test" },
-  { username: "cs4241", password: "19a" },
-  { username: "dan", password: "beta" },
-  { username: "mikey", password: "beta" },
-  { username: "hunter", password: "beta" },
-  { username: "tim", password: "beta" },
-  { username: "googus12", password: "gafshow" },
-  { username: "kaboomer21", password: "gafshow" },
-  { username: "mrm0tta", password: "gafshow" },
-  { username: "aust1frost1", password: "gafshow" }
-];
+app.get("/cors-entry", function(req, res, next) {
+  console.log("CORS Accessed");
+  res.json({ msg: "CORS-enabled for all origins!" });
+});
 
 const currentuser = [{ username: "Login", password: "default" }];
 
 const myLocalStrategy = function(username, password, done) {
-  const user = users.find(__user => __user.username === username);
+  const user = db
+    .get("users")
+    .find({ username: username })
+    .value();
   let unotFound = { message: "user not found" };
   let notFound = JSON.stringify(unotFound);
 
@@ -74,7 +71,10 @@ app.post("/login", passport.authenticate("local"), function(req, res) {
 passport.serializeUser((user, done) => done(null, user.username));
 
 passport.deserializeUser((username, done) => {
-  const user = users.find(u => u.username === username);
+  const user = db
+    .get("users")
+    .find({ username: username })
+    .value();
   console.log("deserializing:", name);
 
   if (user !== undefined) {
@@ -85,15 +85,10 @@ passport.deserializeUser((username, done) => {
 });
 
 app.use(
-  session({ secret: "cats cats cats", resave: false, saveUninitialized: false })
+  session({ secret: "working", resave: false, saveUninitialized: false })
 );
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.post("/test", function(req, res) {
-  console.log("authenticate with cookie?", req.user);
-  res.json({ status: "success" });
-});
 
 app.post("/addLoc", function(req, res) {
   console.log("location added");
@@ -123,6 +118,14 @@ app.post("/addLoc", function(req, res) {
     //document.getElementById("submitted").innerHTML =
     //"*Site Already Submitted Reviewed by User";
   }
+});
+
+app.post("/add", function(req, res) {
+  let data = req.body;
+  db.get("users")
+    .push(data)
+    .write();
+  res.json({ status: true });
 });
 
 app.post("/remLoc", function(req, res) {
@@ -164,6 +167,11 @@ app.get("/usernameget", function(req, res) {
   let respond = currentuser;
   let response = JSON.stringify(respond);
   res.end(response);
+});
+
+app.post("/test", function(req, res) {
+  console.log("authenticate with cookie?", req.user);
+  res.json({ status: "success" });
 });
 
 app.listen(process.env.PORT || port);

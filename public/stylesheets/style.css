@@ -138,7 +138,6 @@ textarea {
 }
 
 #loginButton {
-  text-align: center;
   background-image: linear-gradient(to top, antiquewhite, #859398);
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   border: 1px solid #ccc;

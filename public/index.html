@@ -49,7 +49,9 @@
             Password: <input type="text" id="password" /><br /><br />
           </form>
           <button type="button" id="usersubmit">
-            Submit
+            Log In</button
+          ><button type="button" id="useradd">
+            Add User
           </button>
         </div>
       </div>
@@ -102,6 +104,30 @@
       checklogged();
     });
 
+    $(document).on("click", "#useradd", function() {
+      userdata = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value
+      };
+
+      stringdata = JSON.stringify(userdata);
+      fetch("/add", {
+        method: "POST",
+        body: stringdata,
+        headers: { "Content-Type": "application/json" }
+      })
+        .then((info = res => res.json()))
+        .then(console.log);
+      fetch("/login", {
+        method: "POST",
+        body: stringdata,
+        headers: { "Content-Type": "application/json" }
+      })
+        .then((info = res => res.json()))
+        .then(console.log);
+      checklogged();
+    });
+
     function checklogged() {
       fetch("/usernamechange", {
         method: "GET"
@@ -121,5 +147,13 @@
         modal.style.display = "none";
       }
     }
+
+    fetch("/test", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(console.log)
+      .catch(err => console.error);
   </script>
 </html>

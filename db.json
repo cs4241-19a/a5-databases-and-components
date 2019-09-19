@@ -32,5 +32,19 @@
       "user_": "admin",
       "uid": "mz8sn7h9x"
     }
+  ],
+  "users": [
+    {
+      "username": "andy",
+      "password": "test"
+    },
+    {
+      "username": "admin",
+      "password": "test"
+    },
+    {
+      "username": "cs4241",
+      "password": "19a"
+    }
   ]
 }
