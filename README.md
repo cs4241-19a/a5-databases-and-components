@@ -6,6 +6,8 @@ My project is a site where users can go to post about their experiences with dif
 
 The goal of this project was allow for people (and myself) to be able to learn about other people's experiences on vacations. I enjoy traveling and want to learn more about the amazing places people have been. A challenge I faced during the creation of the application was positioning of containers with different position styles (relative vs absolute vs fixed). Some of my containers (divs) that contained many elements gave me problems with my formatting. I chose to use passport locally and lowdb as authentication/database. I chose both of them because they were recommended in the assignment description so I knew that if I had issues I could ask and get a more clear response. I used bootstrap as a CSS framework but I tried to do a lot of custom CSS on this assignment because I enjoy it and hope to be a web devloper so I wanted to improve my skills.
 
+Feel Free to create an account of your own or use admin (password test) to view the site! Admin will allow you to remove or modify any post you want!
+
 Middleware:
 Passport: Login and authentication
 Body-Parser: For easier reading of post request bodies
