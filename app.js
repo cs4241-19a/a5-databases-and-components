@@ -15,16 +15,6 @@ let low = require("lowdb"),
 
 db.defaults({ sites: [], users: [] }).write();
 
-//test post for a destination
-let addSite = {
-  city: "Meredith",
-  state: "NH",
-  description:
-    "Stayed in wonderful lakehouse property along Lake Winnipesaukee. Lots to do and the weather was amazing. Looking to buy a house here now!",
-  rating: 5,
-  user_: 0
-};
-
 app.use(express.static("public/"));
 app.use(bodyParser.json());
 app.use(passport.initialize());
@@ -36,28 +26,35 @@ app.get("/cors-entry", function(req, res, next) {
   res.json({ msg: "CORS-enabled for all origins!" });
 });
 
-const currentuser = [{ username: "Login", password: "default" }];
+const currentuser = [{ username: "Login/Create", password: "default" }];
 
 const myLocalStrategy = function(username, password, done) {
   const user = db
     .get("users")
     .find({ username: username })
     .value();
-  let unotFound = { message: "user not found" };
-  let notFound = JSON.stringify(unotFound);
 
-  if (user === undefined) {
-    return done(null, false, notFound);
-  } else if (user.password === password) {
-    currentuser.splice(0, 1);
-    currentuser.push({
-      username: username,
-      password: password
-    });
+  console.log(user.password);
 
-    return done(null, { username, password });
-  } else {
+  console.log(password);
+
+  if (user == undefined) {
     return done(null, false, { message: "incorrect password" });
+  }
+  try {
+    if (bcrypt.compare(password, user.password)) {
+      currentuser.splice(0, 1);
+      currentuser.push({
+        username: username,
+        password: password
+      });
+
+      return done(null, { username, password });
+    } else {
+      done(null, false, { message: "incorrect password" });
+    }
+  } catch {
+    return done(null, false, { message: "invalid compare" });
   }
 };
 
@@ -102,7 +99,7 @@ app.post("/addLoc", function(req, res) {
     .value();
 
   for (let i = 0; i < wat.length; i++) {
-    if (wat[i].state_ === data.state_) {
+    if (wat[i].state_ === data.state_ && wat[i].user_ === data.user_) {
       change = 1;
     }
   }
@@ -115,17 +112,25 @@ app.post("/addLoc", function(req, res) {
     console.log("Succesfully Added");
   } else {
     console.log("Site Already Exists");
+    response = JSON.stringify({ status: "failure" });
+    res.end(response);
     //document.getElementById("submitted").innerHTML =
     //"*Site Already Submitted Reviewed by User";
   }
 });
 
-app.post("/add", function(req, res) {
-  let data = req.body;
-  db.get("users")
-    .push(data)
-    .write();
-  res.json({ status: true });
+app.post("/add", async (req, res) => {
+  try {
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const data = { username: req.body.username, password: hashedPassword };
+    db.get("users")
+      .push(data)
+      .write();
+    res.json({ status: true });
+  } catch {
+    res.status(500).send();
+  }
 });
 
 app.post("/remLoc", function(req, res) {

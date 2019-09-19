@@ -36,7 +36,7 @@
       </button>
     </div>
     <div class="image" id="vaca"></div>
-    <button type="button" id="loginButton">Login</button>
+    <button type="button" id="loginButton">Login/Create</button>
     <div id="myModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">
@@ -94,14 +94,7 @@
       };
 
       stringdata = JSON.stringify(userdata);
-      fetch("/login", {
-        method: "POST",
-        body: stringdata,
-        headers: { "Content-Type": "application/json" }
-      })
-        .then((info = res => res.json()))
-        .then(console.log);
-      checklogged();
+      login();
     });
 
     $(document).on("click", "#useradd", function() {
@@ -117,7 +110,10 @@
         headers: { "Content-Type": "application/json" }
       })
         .then((info = res => res.json()))
-        .then(console.log);
+        .then(console.log());
+    });
+
+    function login() {
       fetch("/login", {
         method: "POST",
         body: stringdata,
@@ -126,7 +122,7 @@
         .then((info = res => res.json()))
         .then(console.log);
       checklogged();
-    });
+    }
 
     function checklogged() {
       fetch("/usernamechange", {

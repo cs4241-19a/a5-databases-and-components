@@ -130,19 +130,31 @@
         };
         console.log(data.rating);
         if (data.rating != "" && data.city != "" && data.user_ != "Login") {
+          console.log("here");
           document.getElementById("submitted").innerHTML = "";
           fetch("/addLoc", {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }
           })
-            .then(console.log)
+            .then(function(response) {
+              return response.text();
+            })
+            .then(text => check(text))
             .catch(err => console.error);
-
-          window.location.href = "view.html";
         } else {
           document.getElementById("submitted").innerHTML =
             "*Complete All Fields and/or Log In";
+        }
+      }
+      function check(text) {
+        let stringtext = JSON.parse(text);
+        console.log(stringtext);
+        if (stringtext.status !== "failure") {
+          window.location.href = "view.html";
+        } else {
+          document.getElementById("submitted").innerHTML =
+            "*Already Reviewed Site";
         }
       }
     });
