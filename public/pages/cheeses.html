@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/product.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1f29d09d72.js"></script>
+
+
+    <title>a3-hcaouette -- CS4241 Assignment 2</title>
+  </head>
+  <body>
+    <!--top level container object, encompasses the entire page-->
+    <div class="container-fluid snapCont">
+
+      <!--navigation bar-->
+      <!-- <span class="headerIns"></span> -->
+      <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
+        <!--logo and name-->
+        <div class="nav">
+          <a class="navbar-brand" href="https://github.com/hcaouette/a3-persistence">
+            <img src="https://i.imgur.com/bfmHsdG.jpg" width="50" height="60" class="d-inline-block align-top" alt="small image of Hunter for navigation bar">
+            <span>Hunter Caouette</span>
+          </a>
+          <a class="nav-item nav-link active" href="/index.html">Home</a>
+          <a class="nav-item nav-link active" href="/cheeses.html">Cheeses</a>
+          <a class="nav-item nav-link active" href="/about.html">About</a>
+        </div>
+        <div class="nav">
+          <a class="nav-item nav-link active" href="/cart.html">Cart</a>
+          <a class="nav-item nav-link active" href="/auth/google">Log In</a>
+        </div>
+      </nav>
+
+    <div class="container-fluid pull-away-sides">
+        <!-- cheese row 1 -->
+        <div class="row d-md-flex flex-md-equal w-100">
+          <div class="bg-primary my-3 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden chz-bx-border">
+            <h2 class="chz-label">Cheese 1</h2>
+            <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+            <h3 class="caption-small">This one's from France!</h3>
+            <button  type="button" action="addToCart()" id='chz1'>Add To Your Cart</button>
+          </div>
+          <div class="bg-primary my-3 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden chz-bx-border">
+            <h2 class="chz-label">Cheese 2</h2>
+            <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+            <h3 class="caption-small">This one's from France!</h3>
+            <button  type="button" action="addToCart()" id='chz2'>Add To Your Cart</button>
+          </div>
+          <div class="bg-primary my-3 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden chz-bx-border">
+            <h2 class="chz-label">Cheese 3</h2>
+            <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+            <h3 class="caption-small">This one's from France!</h3>
+            <button  type="button" action="addToCart()" id='chz3'>Add To Your Cart</button>
+          </div>
+          <div class="bg-primary my-3 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden chz-bx-border">
+            <h2 class="chz-label">Cheese 4</h2>
+            <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+            <h3 class="caption-small">This one's from France!</h3>
+            <button  type="button" action="addToCart()" id='chz4'>Add To Your Cart</button>
+          </div>
+        </div>
+
+        <!-- cheese row 2 -->
+        <div class="row d-md-flex flex-md-equal w-100">
+          <!-- <div class="col-sm"> -->
+          <div class="bg-primary my-3 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden chz-bx-border">
+            <h2 class="chz-label">Cheese 5</h2>
+            <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+            <h3 class="caption-small">This one's from France!</h3>
+            <button  type="button" action="addToCart()" id='chz5'>Add To Your Cart</button>
+          </div>
+          <div class="bg-primary my-3 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden chz-bx-border">
+            <h2 class="chz-label">Cheese 6</h2>
+            <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+            <h3 class="caption-small">This one's from France!</h3>
+            <button  type="button" action="addToCart()" id='chz6'>Add To Your Cart</button>
+          </div>
+          <div class="bg-primary my-3 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden chz-bx-border">
+            <h2 class="chz-label">Cheese 7</h2>
+            <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+            <h3 class="caption-small">This one's from France!</h3>
+            <button  type="button" action="addToCart()" id='chz7'>Add To Your Cart</button>
+          </div>
+          <div class="bg-primary my-3 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden chz-bx-border">
+            <h2 class="chz-label">Cheese 8</h2>
+            <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+            <h3 class="caption-small">This one's from France!</h3>
+            <button  type="button" action="addToCart()" id='chz8'>Add To Your Cart</button>
+          </div>
+        </div>
+      </div>
+
+    <footer class="container py-5 ft-mar-t-5 ft-bor-t">
+      <div class="row">
+        <div class="col-12 col-md">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mb-2" role="img" viewBox="0 0 24 24" focusable="false"><title>Product</title><circle cx="12" cy="12" r="10"></circle><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"></path></svg>
+          <small class="d-block mb-3 text-muted">© 2017-2019</small>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Features</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Cool stuff</a></li>
+            <li><a class="text-muted" href="#">Random feature</a></li>
+            <li><a class="text-muted" href="#">Team feature</a></li>
+            <li><a class="text-muted" href="#">Stuff for developers</a></li>
+            <li><a class="text-muted" href="#">Another one</a></li>
+            <li><a class="text-muted" href="#">Last time</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Resources</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Resource</a></li>
+            <li><a class="text-muted" href="#">Resource name</a></li>
+            <li><a class="text-muted" href="#">Another resource</a></li>
+            <li><a class="text-muted" href="#">Final resource</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Resources</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Business</a></li>
+            <li><a class="text-muted" href="#">Education</a></li>
+            <li><a class="text-muted" href="#">Government</a></li>
+            <li><a class="text-muted" href="#">Gaming</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>About</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Team</a></li>
+            <li><a class="text-muted" href="#">Locations</a></li>
+            <li><a class="text-muted" href="#">Privacy</a></li>
+            <li><a class="text-muted" href="#">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+
+
+    </div><!--end container-->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/scripts.js"></script>
+    <script>
+        document.getElementById("chz1").onclick = function(){addToCart('chz1');}
+        document.getElementById("chz2").onclick = function(){addToCart('chz2');}
+        document.getElementById("chz3").onclick = function(){addToCart('chz3');}
+        document.getElementById("chz4").onclick = function(){addToCart('chz4');}
+        document.getElementById("chz5").onclick = function(){addToCart('chz5');}
+        document.getElementById("chz6").onclick = function(){addToCart('chz6');}
+        document.getElementById("chz7").onclick = function(){addToCart('chz7');}
+        document.getElementById("chz8").onclick = function(){addToCart('chz8');}
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

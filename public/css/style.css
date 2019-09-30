@@ -1,0 +1,100 @@
+/*Style your own assignment! This is fun! */
+:root{
+  --textMain:#153147;
+  --bgMain:#84ABBF;
+  --txtNav:32px;
+}
+
+body{
+  background-color: var(--bgMain);
+  color: var(--textMain);
+  font-family: Abel;
+}
+nav{
+  color: var(--textMain);
+}
+.snapCont {
+  scroll-snap-type: y mandatory;
+}
+.snapChil {
+  scroll-snap-align: start;
+}
+
+.contentBox{
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--textMain);
+  border-radius: 5px;
+}
+
+.imgFrame{
+  padding: 0;
+  overflow: hidden;
+}
+
+.centerBox{
+  text-align: center;
+}
+
+.navbar{
+  border-bottom: 1px solid var(--textMain);
+  padding-bottom: 0px;
+  margin-bottom: 15px;
+  color: var(--textMain);
+}
+
+.navbar-brand{
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  /* color: var(--textMain); */
+}
+
+.navbar-brand span{
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  font-size: var(--txtNav);
+  color: var(--textMain);
+}
+
+.nav-item.nav-link.active{
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  font-size: var(--txtNav);
+  color: var(--textMain);
+}
+
+.nav-item.nav-link.active:hover{
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  font-size: var(--txtNav);
+  color: white;
+}
+
+.navbar-toggle {
+    z-index:3;
+}
+
+.mainForm{
+  text-align: left;
+  /* margin-bottom: 15px; */
+}
+
+.btnRght{
+  float: right;
+}
+
+.padbtm{
+  margin-bottom: 15px;
+}
+
+.ft-mar-t-5{
+  margin-top:5rem;
+}
+
+.ft-bor-t{
+  border-top: 1.5px solid var(--textMain);
+}
+
+.pull-away-sides{
+  width: 96%!important;
+}
