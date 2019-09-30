@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <link rel="icon" type="image/png" href="favicon.ico" />
+    <link id="favicon" rel="icon" href="test.ico" type="image/x-icon">
+  </head>
+  <body style="color:white; background-repeat: repeat-n;" >
+    <a href="/auth/github" style="color:yellow; font-size: 80px; margin-left:520px; background-color : black"><t><t></t></t>Sign In with Github <br><br></a>
+  </body>
+  <script src="//cdn.rawgit.com/mrdoob/three.js/master/build/three.min.js"></script>
+  <script src="vendor/three.js/build/three-min.js"></script>
+  <script src="vendor/require.js/require.js"></script>
+  <script src="../threex.text.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script>
+  var camera, scene, renderer;
+   var geometry, material, mesh;
+
+init();
+animate();
+
+function init() {
+
+    camera = new THREE.PerspectiveCamera( 70, window.innerWidth/ window.innerHeight, 0.01, 10 );
+    camera.position.z = 1;
+
+    scene = new THREE.Scene();
+
+    geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
+    material = new THREE.MeshNormalMaterial();
+  
+
+    mesh = new THREE.Mesh( geometry, material );
+    scene.add( mesh );
+   
+    renderer = new THREE.WebGLRenderer( { antialias: true , alpha:true} );
+    renderer.setSize( window.innerWidth/8, window.innerHeight/8);
+    renderer.setClearColor(  0x000000, 0  );  
+    // renderer.setClearColor( 0x000000 );  
+
+  
+    var inner = document.body.appendChild( renderer.domElement );
+    // inner.style.marginLeft = "425px";
+}
+
+function animate() {
+
+    requestAnimationFrame( animate );
+
+    mesh.rotation.x += 0.01;
+    mesh.rotation.y += 0.02;
+
+    renderer.render( scene, camera );
+
+}
+    $(document).on('mousemove', function(e){
+    $('canvas').css({
+       marginLeft:  e.pageX -75 ,
+       marginTop:   e.pageY -75
+    });
+});
+    
+    $(function() {
+var body = $('body');
+var backgrounds = new Array(
+'url("ak.jpg")',
+'url("kap")'
+);
+var current = 0;
+
+function nextBackground() {
+body.css(
+'background',
+backgrounds[current = ++current % backgrounds.length]
+);
+
+setTimeout(nextBackground, 10000);
+}
+setTimeout(nextBackground, 10000);
+body.css('background', backgrounds[0]);
+});
+  </script>
+</html>
