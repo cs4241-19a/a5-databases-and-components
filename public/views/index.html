@@ -55,7 +55,6 @@
       </form>
     </div>
     <div style = "margin-top : 15px;">
-      <p id="logging" style = "background-color : white;"></p>
     </div>
   </body>
   <script src="scripts.js"></script>
@@ -159,15 +158,6 @@ function changecat(value){
       return response.json();
     }).then(function(data){
      console.log(data.classes)
-       if(data.action === "m"){
-         m(data.username)
-       }
-      else if(data.action === "a"){
-         a(data.username)
-       }
-      else{
-        d(data.username)
-      }
       deptArr = [];
       profArr = [];
       roomArr = [];
@@ -218,17 +208,5 @@ function changecat(value){
     testing = button.onclick = submit;
     submit("test")
   } 
-    function m(e){
-      var ele = document.getElementById("logging")
-      ele.innerHTML = "The user " + e + " has successfully modified a class"
-    }
-    function a(e){
-      var ele = document.getElementById("logging")
-      ele.innerHTML = "The user " + e + " has successfully added a class"
-    }
-    function d(e){
-      var ele = document.getElementById("logging")
-      ele.innerHTML = "The user " + e + " has successfully deleted a class"
-    }
   </script>
 </html>

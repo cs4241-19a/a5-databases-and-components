@@ -84,7 +84,7 @@ passport.deserializeUser(function(obj, done) {
 
 
 app.get('/', function(req, res) {
-    res.sendFile('public/views/login.html', {root : '.'})
+    res.sendFile('public/views/index.html', {root : '.'})
 });
 app.get('/scripts.js', function(req, res) {
     res.sendFile('public/js/scripts.js', {root : '.'})
