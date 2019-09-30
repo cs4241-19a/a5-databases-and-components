@@ -1,0 +1,101 @@
+
+/* Element Selectors */
+
+p {
+  font-size: 20px;
+  color:white;
+  margin: 20px;
+}
+
+header {
+    font-size: 75px;
+    margin: 50px;
+    text-align:center;
+    color:green;
+}
+
+h1, h2 {
+  color:white
+}
+
+caption {
+  font-size:30px;
+  margin: 10px;
+}
+
+/* Table formatting modified from Project 1 */
+table, th, td {
+	border: 1px solid white; /* Changed from black to white */
+	text-align:center;
+	table-layout:auto;
+  font-size:20px; /* Changed font size */
+  /* Added padding to the sides */
+  padding-left:10px;
+  padding-right: 10px;
+  color:white; /* Changed text color to white */
+}
+
+table {
+	border-collapse: collapse;
+}
+
+th {
+	background-color:dimgray; /* Changed background to a dark grey */
+}
+
+img {
+  image-rendering: crisp-edges;
+  margin:20px;
+}
+
+body {
+  background:black;
+  margin:0 auto;
+  font-family: 'Press Start 2P', cursive;
+}
+
+button {
+  padding: 10px;
+  margin:20px;
+  display:block; }
+
+/* ID Selectors */
+#results_section {
+    display: none
+}
+
+
+#store_area {
+  display: flex;
+  flex-direction: row; 
+}
+
+#counter {
+  font-size: 40px;
+}
+
+#counter_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width:100%;
+
+}
+
+/* Class Selectors */
+.column {
+  	margin:20px;
+}
+
+.black_text {
+  color:black;
+}
+
+.large_button {
+  height: 15%;
+  width: 80%;
+  padding:20px;
+  font-size:30px;
+  margin:40px;
+}

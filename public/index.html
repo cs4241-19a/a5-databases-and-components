@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Welcome to CS Clicker!</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="node_modules/nes.css/css/nes.css" />
+    <link rel="stylesheet" type="text/css" href="/public/css/login.css" />
+    <link rel="icon" type="image x/icon" href="/public/favicon.ico" />
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <header id="cs_clicker_title">$CS_Clicker_</header>
+    <section>
+        <h2>Login</h2>
+        <div class="nes-field is-inline">
+            <label for="uname">Username:</label>
+            <input type="text" class="nes-input is-dark" id="uname">
+        </div>
+        <div class="nes-field is-inline">
+            <label for="uname">Password:</label>
+            <input type="password" class="nes-input is-dark" id="password">
+        </div>
+        <button type="submit" id="loginSubmit" class="nes-btn is-primary">Login</button>
+        </fieldset>
+    </section>
+    <div class="nes-container is-dark with-title" id="loginError">
+        <p class="title">ERROR!</p>
+        <p>Username or password is incorrect! Please try again.</p>
+    </div>
+    <section>
+        <h2>Sign Up</h2>
+        <div class="nes-field is-inline">
+            <label for="uname">Username:</label>
+            <input type="text" class="nes-input is-dark" id="uname_s">
+        </div>
+        <div class="nes-field is-inline">
+            <label for="uname">Password:</label>
+            <input type="password" class="nes-input is-dark" id="password_s">
+        </div>
+        <button type="button" id="loginSubmit_s" class="nes-btn is-primary">Register</button>
+        </fieldset>
+    </section>
+    <div class="nes-container is-dark with-title" id="userFoundError">
+        <p class="title">ERROR!</p>
+        <p>Username is already used! Please try again.</p>
+    </div>
+    <div class="nes-container is-dark with-title" id="userCreated">
+        <p class="title">New User Created!</p>
+        <p>Please login with your new credentials!</p>
+    </div>
+    <div class="nes-container is-rounded is-dark" id="about">
+        <h1>About CS Clicker</h1>
+        <h2>The Story So Far...</h2>
+        <img width="512" alt="CSIRO ScienceImage 2042 A row of computer servers in a server rack"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/CSIRO_ScienceImage_2042_A_row_of_computer_servers_in_a_server_rack.jpg/512px-CSIRO_ScienceImage_2042_A_row_of_computer_servers_in_a_server_rack.jpg">
+        <p>
+            Coding styles have been a common point of contention amongst computer scientists
+            and software engineers alike. After starting a new position as a junior software engineer, you find that the
+            topic
+            is a common occurance in your workplace, usually introduced in a somewhat confrontational manner.
+            In this endless syntactical struggle of where (or whether) to place semicolons, naming variables
+            appropriately,
+            and other oddities, you finally had enough and decided to do something about it.
+        </p>
+        <p>The main objective of this game is to generate lines of code which
+            then can be used to help feed data to a newly-developed machine learning
+            algorithm of your own design. This algorithm could then be used to generate the perfect
+            coding style so everyone can finally agree on one coding standard. As more and more lines of code are
+            generated,
+            it gains the attention of local user groups in the area, who start
+            contributing their own code. This eventually accelerates to the point
+            where people are willing to donate machines hardware such as servers
+            and even quantum computers to generate code for the cause of creating
+            the perfect coding style.
+        </p>
+        <h2>Credits</h2>
+        <p>Created by James Plante (jplante@wpi.edu)</p>
+        <a href="https://github.com/jwplante/"><i class="nes-icon github is-large"></i></a>
+        <a href="https://www.linkedin.com/in/jplante/"><i class="nes-icon linkedin is-large" href=></i></a>
+    </div>
+
+    <script src="/public/js/login.js"></script>
+</body>
