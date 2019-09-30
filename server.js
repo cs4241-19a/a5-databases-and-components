@@ -30,7 +30,7 @@ const helmet = require('helmet')
 // MIDDLEWEAR .USE
 app.use(timeout('5s'))
 app.use(express.static('public'));
-app.use(favicon(path.join(__dirname, 'assets', 'glo.ico')))
+//app.use(favicon(path.join(__dirname, 'assets', 'glo.ico')))
 app.use("/assets", assets);
 app.use(passport.initialize())
 app.use(bodyParser.json())
@@ -41,12 +41,15 @@ function haltOnTimedout (req, res, next) {
   if (!req.timedout) next()
 }
 
+      // MONGO
 
 // SET DEFAULT DB USERS
 db.defaults({ users: [
       {"username":"admin", "password":"admin"}
     ]
   }).write();
+
+      // MONGO
 
 // SET DEFAULT DB DATA
 db.defaults({ data: [
@@ -62,6 +65,9 @@ passport.use(new Strategy(
     //,passReqToCallback: true
   },
   function(username, password, done) {
+    
+          // MONGO
+
    let user = db.get('users').find({username: username, password:password}).value()
       if (user.password != password) { return done(null, false); }
       return done(null, user);
@@ -77,6 +83,8 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
+      // MONGO
+
 // READ FROM DB INTO LOCAL STORAGE
 function syncAllUsers(){
   allUsers = []
@@ -86,6 +94,8 @@ function syncAllUsers(){
   });
   return allUsers
 }
+
+      // MONGO
 
 // READ FROM DB INTO LOCAL STORAGE
 function syncAllData(){
@@ -171,6 +181,8 @@ app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
         translateWord(body.word, body.lang).then(function(retVal){
             payload.translation += retVal;
             res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+                // MONGO
+
               db.get('data')
                 .push(payload)
                 .write()
@@ -187,6 +199,8 @@ app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
         console.log(body.id)
         for (i = 0; i < appdata.length; i++){
           if (JSON.stringify(appdata[i]).includes("" + id)){
+                  // MONGO
+
              db.get('data')
                 .remove(appdata[i])
                 .write()
@@ -205,6 +219,8 @@ app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
           if (JSON.stringify(appdata[k]).includes("" + j)){
             console.log("k" + appdata[k])
             editWord = appdata[k].word //this is undefined?????
+                  // MONGO
+
              db.get('data')
                 .remove(appdata[k])
                 .write()
@@ -217,6 +233,8 @@ app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
         translateWord(editWord, body.lang).then(function(retVal){
             editedLoad.translation += retVal;
             res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+                // MONGO
+
              db.get('data')
                 .push(editedLoad)
                 .write()
@@ -292,6 +310,7 @@ app.post('/create', function (req, res) {
           return
         }
       }
+      // MONGO
         db.get('users')
           .push({ username: data.user, password: data.pass })
           .write()
@@ -301,6 +320,8 @@ app.post('/create', function (req, res) {
         res.send("OK")
     }
     else{
+            // MONGO
+
          db.get('users')
           .push({ username: data.user, password: data.pass })
           .write()
