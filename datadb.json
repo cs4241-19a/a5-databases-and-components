@@ -1,0 +1,32 @@
+{
+  "posts": [
+    {
+      "computer": "k",
+      "game": "this was k",
+      "fps": "9",
+      "cputemp": "9",
+      "gputemp": "9",
+      "username": "Andrew",
+      "id": 3
+    },
+    {
+      "computer": "j",
+      "game": "j",
+      "fps": "7",
+      "cputemp": "7",
+      "gputemp": "7",
+      "username": "Andrew",
+      "id": 4
+    },
+    {
+      "computer": "Tom's Computer",
+      "game": "Tomithon",
+      "fps": "9000",
+      "cputemp": "90",
+      "gputemp": "90",
+      "username": "Tom",
+      "id": 5
+    }
+  ],
+  "count": 5
+}
