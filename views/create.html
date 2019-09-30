@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/ico"
+     href="assets/glo.ico">
+    <title>CS4241 Assignment 3</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <link href="../style.css" rel="stylesheet">
+    <meta charset="utf-8">
+  </head>
+  <body>
+      <ul class="navbar">
+        <li class="navbar"><a href="/index.html">Home</a></li>
+        <li class="navbar"><a href="login.html">Login</a></li>
+        <li class="navbar" id="create"><a href="create.html">Create Account</a></li>
+        <li class="navbar" style="float:right"><a class="active" href="about.html">About</a></li>
+      </ul>
+    <h1>
+      My Travel Dictionary App
+    </h1>
+   <div class="login">
+     <form style="margin:7px" class="pure-form" action="">
+      <input type="text" id="newUsername" placeholder="New Username" value="">
+       </form>
+     <form style="margin:0px" class="pure-form" action="">
+      <input type="text" id="newPassword" placeholder="New Password" value="">
+     </form>
+      <button style="margin:7px" id="createAccount" class="pure-button translate">Create Account!</button>
+      <h2 id = "dupe">
+      This account already exists, try again.
+     </h2>
+     <h2 id = "ok">
+      Account created successfully!
+     </h2>
+    </div>
+  </body>
+  <script src="../create.js"></script>
+</html>
