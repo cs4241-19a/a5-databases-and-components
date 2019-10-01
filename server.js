@@ -76,10 +76,18 @@ function mongoDB(mongo, action, type, payload){
        }
        console.log('Connected...');
        if(type == "users"){
-          array = client.db("mydb").collection("users").find({}).toArray;
+          client.db("mydb").collection("users").find({}).toArray(function(err, result){
+            array = result
+           // return array
+             console.log(array)
+          })
        }
        if(type == "data"){
-          array = client.db("mydb").collection("data").find({}).toArray;
+          array = client.db("mydb").collection("data").find({}).toArray(function(err, result){
+            array = result
+           // return array
+          //  console.log(array)
+          })
        }
        client.close();
        console.log('got data!');
@@ -129,12 +137,9 @@ function haltOnTimedout (req, res, next) {
 function syncAllUsers(){
   let arr = []
   let users = mongoDB(mongo, "sync", "users", null)
-   setTimeout(function(){
-       donothing();
-      },1000);
-  console.log(users)
   users.forEach(function(user) {
-    arr.push(JSON.stringify({username : user.username, password: user.password})); // adds their info to the dbUsers value
+    //arr.push(JSON.stringify({username : user.username, password: user.password})); // adds their info to the dbUsers value
+    arr.push(user)
   });
   return arr
 }
@@ -301,6 +306,7 @@ app.post('/login',
          function (req, res) {
             console.log(req.body)
             allUsers = syncAllUsers()
+            setTimeout(function(){
             console.log(allUsers)
             console.log("handlig log")
             let data = req.body
@@ -330,6 +336,9 @@ app.post('/login',
                   res.send("BAD")
                   return
               }
+              
+            }, 2000);
+  
 })
 
 
