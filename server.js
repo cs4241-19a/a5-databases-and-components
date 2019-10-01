@@ -35,6 +35,7 @@ const uri = "mongodb+srv://jrbartone:Joeyryan22@cluster0-motd9.azure.mongodb.net
 
 
 function mongoDB(mongo, action, type, payload){
+  return new Promise(function(resolve, reject){
   switch(action){
     case "insert":
        mongo.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
@@ -43,15 +44,15 @@ function mongoDB(mongo, action, type, payload){
        }
        console.log('Connected...');
        if(type == "users"){
-         client.collection("users").insertOne(payload);
+         client.db("mydb").collection("users").insertOne(payload);
        }
        if(type == "data"){
-         client.collection("data").insertOne(payload);
+         client.db("mydb").collection("data").insertOne(payload);
        }
        client.close();
        console.log('inserted data!');
-       return;
     });
+       break;
     case "remove":
        mongo.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
        if(err) {
@@ -59,15 +60,15 @@ function mongoDB(mongo, action, type, payload){
        }
        console.log('Connected...');
        if(type == "users"){
-         client.collection("users").deleteOne(payload)
+         client.db("mydb").collection("users").deleteOne(payload)
        }
        if(type == "data"){
-         client.collection("data").deleteOne(payload)
+         client.db("mydb").collection("data").deleteOne(payload)
        }
        client.close();
        console.log('inserted data!');
       });
-      return;
+      break;
     case "sync":
        let array = []
        mongo.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
@@ -76,15 +77,15 @@ function mongoDB(mongo, action, type, payload){
        }
        console.log('Connected...');
        if(type == "users"){
-          array = client.collection("users").find({}).toArray;
+          array = client.db("mydb").collection("users").find({}).toArray;
        }
        if(type == "data"){
-          array = client.collection("data").find({}).toArray;
+          array = client.db("mydb").collection("data").find({}).toArray;
        }
        client.close();
        console.log('got data!');
       });
-      return array;
+      resolve(array);
       /*
     case "find":
        let instance;
@@ -105,6 +106,7 @@ function mongoDB(mongo, action, type, payload){
       return instance;
       */
   }
+  });
 }
 
 
@@ -127,57 +129,15 @@ function haltOnTimedout (req, res, next) {
 
       // MONGO
 
-// SET DEFAULT DB USERS
-db.defaults({ users: [
-      {"username":"admin", "password":"admin"}
-    ]
-  }).write();
-
-      // MONGO
-
-// SET DEFAULT DB DATA
-db.defaults({ data: [
-      {"word":"","lang":"","translation":"","action":"","id":"","user":""}
-    ]
-  }).write();
-
-// LOCAL PASSPORT CHECK STRATEGY
-passport.use(new Strategy(
-  {
-    usernameField: 'username',
-    passwordField: 'password'
-    //,passReqToCallback: true
-  },
-  function(username, password, done) {
-    
-          // MONGO
-  let cuser = {username: username, password:password}
-  let user = mongoDB(mongo, "find", "user", cuse)
-   //let user = db.get('users').find({username: username, password:password}).value()
-      if (user.password != password) { return done(null, false); }
-      return done(null, user);
-  }
-));
-
-//PASSPORT CONFIG
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
-
-      // MONGO
-
 // READ FROM DB INTO LOCAL STORAGE
-function syncAllUsers(){
-  allUsers = []
-  var users = db.get('users').value() // Find all users in the collection
+function syncAllUsers(arr){
+  //var users = db.get('users').value() // Find all users in the collection
+  mongoDB(mongo, "sync", "users", null).then(function(users){
+  console.log(users)
   users.forEach(function(user) {
-    allUsers.push(JSON.stringify({username : user.username, password: user.password})); // adds their info to the dbUsers value
+    arr.push(JSON.stringify({username : user.username, password: user.password})); // adds their info to the dbUsers value
   });
-  return allUsers
+  })
 }
 
       // MONGO
@@ -339,10 +299,9 @@ app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
 // HANDLE LOGIN
 
 app.post('/login', 
-         passport.authenticate('local'),
          function (req, res) {
   console.log(req.body)
-  allUsers = syncAllUsers()
+  syncAllUsers()
   console.log((allUsers))
   console.log("handlig log")
   let data = req.body
