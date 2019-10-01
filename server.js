@@ -202,22 +202,19 @@ app.post("/signUp", function(request, response){
  */
 const createNewUser = function(username, password) {
   console.log("New username : " + username + "New Passowrd: " + password )
-  let searchUser = db.get("users").find(__user => __user.userName === username);
 
-  if (searchUser.value() === undefined) {
-    // Create a new user!
-    console.log("Creating new user!");
-    db.get("users").push({
-      userName: username,
-      password: password
-    }).write();
-    // Create app data for the user.
-    createNewUserData(username);
-    return true;
-  } else {
-    console.log("User already created!");
-    return false;
-  }
+  const promise = new Promise((resolve, reject) => {
+    loginInfo.insertOne({userName: username, password: password})
+    .then(() => {
+      createNewUserData(username);
+      resolve(true)
+    })
+    .catch(err => {
+      reject("User already created!")
+    })
+  })
+
+  return promise
 }
 
 /**
