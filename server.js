@@ -42,21 +42,68 @@ function mongoDB(mongo, action, type, payload){
             console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
        }
        console.log('Connected...');
-       if(type == "user"){
-         
+       if(type == "users"){
+         client.collection("users").insertOne(payload);
        }
        if(type == "data"){
-        
+         client.collection("data").insertOne(payload);
        }
        client.close();
        console.log('inserted data!');
+       return;
     });
     case "remove":
-      break;
+       mongo.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
+       if(err) {
+            console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+       }
+       console.log('Connected...');
+       if(type == "users"){
+         client.collection("users").deleteOne(payload)
+       }
+       if(type == "data"){
+         client.collection("data").deleteOne(payload)
+       }
+       client.close();
+       console.log('inserted data!');
+      });
+      return;
     case "sync":
-      break;
+       let array = []
+       mongo.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
+       if(err) {
+            console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+       }
+       console.log('Connected...');
+       if(type == "users"){
+          array = client.collection("users").find({}).toArray;
+       }
+       if(type == "data"){
+          array = client.collection("data").find({}).toArray;
+       }
+       client.close();
+       console.log('got data!');
+      });
+      return array;
+      /*
     case "find":
-      break;
+       let instance;
+       mongo.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
+       if(err) {
+            console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+       }
+       console.log('Connected...');
+       if(type == "users"){
+         instance = client.collection("users").find(payload);
+       }
+       if(type == "data"){
+         instance = client.collection("data").find(payload);
+       }
+       client.close();
+       console.log('got one!');
+      });
+      return instance;
+      */
   }
 }
 
@@ -104,8 +151,9 @@ passport.use(new Strategy(
   function(username, password, done) {
     
           // MONGO
-
-   let user = db.get('users').find({username: username, password:password}).value()
+  let cuser = {username: username, password:password}
+  let user = mongoDB(mongo, "find", "user", cuse)
+   //let user = db.get('users').find({username: username, password:password}).value()
       if (user.password != password) { return done(null, false); }
       return done(null, user);
   }
