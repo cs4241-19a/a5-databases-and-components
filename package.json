@@ -15,7 +15,9 @@
     "helmet": "^3.21.0",
     "lowdb": "^1.0.0",
     "mime": "^2.4.4",
+    "mongodb": "^3.3.2",
     "nes.css": "^2.2.0",
+    "npm": "^6.11.3",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.0"

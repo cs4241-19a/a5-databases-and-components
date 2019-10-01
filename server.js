@@ -22,13 +22,9 @@ const express = require('express'),
   passport = require('passport'),
   bodyParser = require('body-parser'),
   pLocal = require('passport-local'),
-  low = require('lowdb'),
-  FileSync = require('lowdb/adapters/FileSync'),
   favicon = require('serve-favicon'),
   helmet = require('helmet'),
-  adapter = new FileSync(__path + '/.private/db.json'),
-  mongodb = require('mongodb'),
-  db = low(adapter);
+  mongodb = require('mongodb')
 
 // Connect to MongoDB database
 const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB
@@ -231,9 +227,9 @@ const createNewUser = function(username, password) {
  */
 const createNewUserData = function (username){
   console.log("createNewUserData " + username)
-  let appdataEntry = db.get("appdata").find(__user => __user.userName === username);
-  let appdata = appdataEntry.value();
-  let newObject = {userName: username,
+  // Get the existing user (if it exists)
+  let newDocument = {
+    userName: username,
     loc: 0,
     cursors: 0,
     hobbyists: 0,
@@ -242,13 +238,13 @@ const createNewUserData = function (username){
     server: 0,
     quantumComputers: 0,
     totalLoc: 0
-  };
-
-  if (appdata === undefined) {
-    db.get("appdata").push(newObject).write();
-  } else {
-    appdataEntry.assign(newObject).write();
   }
+
+  userData.findOneAndUpdate({userName: username}, newDocument).then(data => {
+    console.log("User " + username + " updated in the database.")
+  }).catch((err) => {
+    userData.insert(newDocument)
+  })
 }
 
 /***
@@ -271,7 +267,7 @@ const calculateCost = function (delta) {
  */
 const addDeltaToAppData = function (userName, delta) {
   console.log("Deltauser = " + userName)
-  let appdataEntry = db.get("appdata").find(__user => __user.userName === userName);
+  let appdataEntry = userData.find(__user => __user.userName === userName);
   let appdata = appdataEntry.value();
   console.log("Current app Data= " + appdata)
   // Look through the given data for a UID and send the JSON as a response
