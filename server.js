@@ -35,16 +35,16 @@ mongo.connect(uri, function(err, client) {
    if(err) {
         console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
    }
-   else{
    console.log('Connected...');
    const collection = client.db("test").collection("devices");
    // perform actions on the collection object
    client.close();
-   }
 });
 
 
 
+
+console.log('Nice!');
 
 
 // MIDDLEWEAR .USE
