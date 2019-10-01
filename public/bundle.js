@@ -43,6 +43,10 @@ var app = (function () {
     function space() {
         return text(' ');
     }
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
+    }
     function attr(node, attribute, value) {
         if (value == null)
             node.removeAttribute(attribute);
@@ -248,6 +252,19 @@ var app = (function () {
         dispatch_dev("SvelteDOMRemove", { node });
         detach(node);
     }
+    function listen_dev(node, event, handler, options, has_prevent_default, has_stop_propagation) {
+        const modifiers = options === true ? ["capture"] : options ? Array.from(Object.keys(options)) : [];
+        if (has_prevent_default)
+            modifiers.push('preventDefault');
+        if (has_stop_propagation)
+            modifiers.push('stopPropagation');
+        dispatch_dev("SvelteDOMAddEventListener", { node, event, handler, modifiers });
+        const dispose = listen(node, event, handler, options);
+        return () => {
+            dispatch_dev("SvelteDOMRemoveEventListener", { node, event, handler, modifiers });
+            dispose();
+        };
+    }
     function attr_dev(node, attribute, value) {
         attr(node, attribute, value);
         if (value == null)
@@ -275,7 +292,7 @@ var app = (function () {
     const file = "src/App.svelte";
 
     function create_fragment(ctx) {
-    	var nav, button0, span0, t0, div1, ul0, li0, a0, t1, span1, t3, li1, a1, t4, div0, a2, t6, a3, t8, form0, input0, t9, button1, t11, div2, img, t12, br, t13, h1, t15, h3, small, t17, div7, form1, div6, div3, label0, t19, input1, t20, div4, label1, t22, input2, t23, div5, t24, button2, t26, div8, ul1;
+    	var nav, button0, span0, t0, div1, ul0, li0, a0, t1, span1, t3, li1, a1, t4, div0, a2, t6, a3, t8, form0, input0, t9, button1, t11, div2, img, t12, br, t13, h1, t15, h3, small, t17, div7, form1, div6, div3, label0, t19, input1, t20, div4, label1, t22, input2, t23, div5, t24, button2, t26, div8, ul1, dispose;
 
     	const block = {
     		c: function create() {
@@ -342,7 +359,7 @@ var app = (function () {
     			div8 = element("div");
     			ul1 = element("ul");
     			attr_dev(span0, "class", "navbar-toggler-icon");
-    			add_location(span0, file, 3, 8, 283);
+    			add_location(span0, file, 119, 8, 4596);
     			attr_dev(button0, "class", "navbar-toggler");
     			attr_dev(button0, "type", "button");
     			attr_dev(button0, "data-toggle", "collapse");
@@ -350,14 +367,14 @@ var app = (function () {
     			attr_dev(button0, "aria-controls", "navbarSupportedContent");
     			attr_dev(button0, "aria-expanded", "false");
     			attr_dev(button0, "aria-label", "Toggle navigation");
-    			add_location(button0, file, 1, 4, 64);
+    			add_location(button0, file, 117, 4, 4377);
     			attr_dev(span1, "class", "sr-only");
-    			add_location(span1, file, 9, 50, 542);
+    			add_location(span1, file, 125, 50, 4855);
     			attr_dev(a0, "class", "nav-link");
     			attr_dev(a0, "href", "#");
-    			add_location(a0, file, 9, 16, 508);
+    			add_location(a0, file, 125, 16, 4821);
     			attr_dev(li0, "class", "nav-item active");
-    			add_location(li0, file, 8, 12, 463);
+    			add_location(li0, file, 124, 12, 4776);
     			attr_dev(a1, "class", "nav-link dropdown-toggle");
     			attr_dev(a1, "href", "#");
     			attr_dev(a1, "id", "navbarDropdown");
@@ -365,84 +382,85 @@ var app = (function () {
     			attr_dev(a1, "data-toggle", "dropdown");
     			attr_dev(a1, "aria-haspopup", "true");
     			attr_dev(a1, "aria-expanded", "false");
-    			add_location(a1, file, 12, 16, 662);
+    			add_location(a1, file, 128, 16, 4975);
     			attr_dev(a2, "class", "dropdown-item disabled");
     			attr_dev(a2, "href", "/dashboard");
-    			add_location(a2, file, 15, 20, 928);
+    			add_location(a2, file, 131, 20, 5241);
     			attr_dev(a3, "class", "dropdown-item");
     			attr_dev(a3, "href", "/logout");
-    			add_location(a3, file, 16, 20, 1020);
+    			add_location(a3, file, 132, 20, 5333);
     			attr_dev(div0, "class", "dropdown-menu");
     			attr_dev(div0, "aria-labelledby", "navbarDropdown");
-    			add_location(div0, file, 14, 16, 847);
+    			add_location(div0, file, 130, 16, 5160);
     			attr_dev(li1, "class", "nav-item dropdown");
-    			add_location(li1, file, 11, 12, 615);
+    			add_location(li1, file, 127, 12, 4928);
     			attr_dev(ul0, "class", "navbar-nav mr-auto");
-    			add_location(ul0, file, 7, 8, 419);
+    			add_location(ul0, file, 123, 8, 4732);
     			attr_dev(input0, "class", "form-control mr-sm-2");
     			attr_dev(input0, "type", "search");
     			attr_dev(input0, "placeholder", "Search");
     			attr_dev(input0, "aria-label", "Search");
-    			add_location(input0, file, 21, 12, 1186);
+    			add_location(input0, file, 137, 12, 5499);
     			attr_dev(button1, "class", "btn btn-outline-primary my-2 my-sm-0");
     			attr_dev(button1, "type", "button");
     			attr_dev(button1, "onclick", "alert('Search not implemented yet')");
-    			add_location(button1, file, 22, 12, 1290);
+    			add_location(button1, file, 138, 12, 5603);
     			attr_dev(form0, "class", "form-inline my-2 my-lg-0");
-    			add_location(form0, file, 20, 8, 1134);
+    			add_location(form0, file, 136, 8, 5447);
     			attr_dev(div1, "class", "collapse navbar-collapse");
     			attr_dev(div1, "id", "navbarSupportedContent");
-    			add_location(div1, file, 6, 4, 344);
+    			add_location(div1, file, 122, 4, 4657);
     			attr_dev(nav, "class", "navbar navbar-expand-lg navbar-light bg-light");
-    			add_location(nav, file, 0, 0, 0);
+    			add_location(nav, file, 116, 0, 4313);
     			attr_dev(img, "class", "profile mt-2");
     			attr_dev(img, "src", "images/noteLogo.png");
     			attr_dev(img, "alt", "Application Logo");
-    			add_location(img, file, 29, 4, 1526);
-    			add_location(br, file, 32, 4, 1624);
+    			add_location(img, file, 145, 4, 5839);
+    			add_location(br, file, 148, 4, 5937);
     			attr_dev(h1, "class", "display-3");
-    			add_location(h1, file, 33, 4, 1633);
+    			add_location(h1, file, 149, 4, 5946);
     			attr_dev(small, "class", "text-muted");
-    			add_location(small, file, 37, 8, 1694);
-    			add_location(h3, file, 36, 4, 1681);
+    			add_location(small, file, 153, 8, 6007);
+    			add_location(h3, file, 152, 4, 5994);
     			attr_dev(div2, "class", "container text-center");
-    			add_location(div2, file, 28, 0, 1486);
+    			add_location(div2, file, 144, 0, 5799);
     			attr_dev(label0, "for", "inputAssignment");
-    			add_location(label0, file, 44, 16, 1922);
+    			add_location(label0, file, 160, 16, 6235);
     			attr_dev(input1, "type", "text");
     			attr_dev(input1, "class", "form-control col-12");
     			attr_dev(input1, "id", "inputAssignment");
     			attr_dev(input1, "aria-", "");
     			attr_dev(input1, "placeholder", "Enter Assignment");
-    			add_location(input1, file, 45, 16, 1994);
+    			add_location(input1, file, 161, 16, 6307);
     			attr_dev(div3, "class", "form-group");
-    			add_location(div3, file, 43, 12, 1881);
+    			add_location(div3, file, 159, 12, 6194);
     			attr_dev(label1, "for", "inputDate");
-    			add_location(label1, file, 49, 16, 2195);
+    			add_location(label1, file, 165, 16, 6508);
     			attr_dev(input2, "type", "date");
     			attr_dev(input2, "class", "form-control col-12");
     			attr_dev(input2, "id", "inputDate");
     			attr_dev(input2, "aria-", "");
     			attr_dev(input2, "placeholder", "Enter Assignment");
-    			add_location(input2, file, 50, 16, 2247);
+    			add_location(input2, file, 166, 16, 6560);
     			attr_dev(div4, "class", "form-group");
-    			add_location(div4, file, 48, 12, 2154);
+    			add_location(div4, file, 164, 12, 6467);
     			attr_dev(div5, "class", "w-100");
-    			add_location(div5, file, 52, 12, 2378);
+    			add_location(div5, file, 168, 12, 6691);
     			attr_dev(button2, "id", "add");
     			attr_dev(button2, "class", "btn btn-primary col-6");
-    			add_location(button2, file, 53, 12, 2416);
+    			add_location(button2, file, 169, 12, 6729);
     			attr_dev(div6, "class", "row justify-content-around");
-    			add_location(div6, file, 42, 8, 1828);
+    			add_location(div6, file, 158, 8, 6141);
     			attr_dev(form1, "action", "");
-    			add_location(form1, file, 41, 4, 1803);
+    			add_location(form1, file, 157, 4, 6116);
     			attr_dev(div7, "class", "container mt-3");
-    			add_location(div7, file, 40, 0, 1770);
+    			add_location(div7, file, 156, 0, 6083);
     			attr_dev(ul1, "class", "list-group mt-3");
     			attr_dev(ul1, "id", "notesContainer");
-    			add_location(ul1, file, 58, 4, 2541);
+    			add_location(ul1, file, 174, 4, 6872);
     			attr_dev(div8, "class", "container");
-    			add_location(div8, file, 57, 0, 2513);
+    			add_location(div8, file, 173, 0, 6844);
+    			dispose = listen_dev(button2, "click", submit);
     		},
 
     		l: function claim(nodes) {
@@ -519,16 +537,103 @@ var app = (function () {
     				detach_dev(t26);
     				detach_dev(div8);
     			}
+
+    			dispose();
     		}
     	};
     	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment.name, type: "component", source: "", ctx });
     	return block;
     }
 
+    function submit(e) {
+        e.preventDefault();
+        const inputText = document.getElementById('inputAssignment').value;
+        const inputDate = document.getElementById('inputDate').value;
+        const json = {Note: inputText, Date: inputDate};
+        postData(json, 'submit');
+    }
+
+    function postData(json, path) {
+        (async () => {
+            const rawResponse = await fetch(path, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(json)
+            });
+            const content = await rawResponse.json();
+            handleData(content);
+        })();
+    }
+
+    function handleData(data) {
+        let container = document.getElementById("notesContainer");//.empty()
+        let id = 1;
+        data.forEach(function (item, index, array) {
+            let note = document.createElement("li");
+            note.innerHTML = createInnerHTML(item, id);
+            note = setClassName(note, item, id);
+            id++;
+            container.insertAdjacentElement('beforeend', note);
+        });
+    }
+
+    function setClassName(note, item, id) {
+        if (item.Days <= 5) {
+            note.className = "list-group-item d-flex list-group-item-danger item-" + id + " justify-content-between";
+        } else {
+            note.className = "list-group-item d-flex list-group-item-success item-" + id + " justify-content-between";
+        }
+        return note
+    }
+
+    function createInnerHTML(item, id) {
+        let itemId = "\"" + item._id + "\"";
+        return "<p class='p-0 m-0 flex-grow-1' id='item-" + id + "'>" +
+            item.Note +
+            " due: " + item.Date +
+            " days: " + item.Days +
+            "</p>" +
+            "<button class='btn btn-success mr-1' onClick='editItem(" + id + "," + itemId + ")'>edit</button>" +
+            "<button class='btn btn-danger' onClick='deleteItem(" + itemId + ")'>delete</button>"
+    }
+
+    function instance($$self) {
+    	
+
+        (function getUsername() {
+            (async () => {
+                const rawResponse = await fetch("/username", {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                });
+                const content = await rawResponse.json();
+                console.log(content);
+                document.getElementById("navbarDropdown").html("User " + content);
+            })();
+        })();
+        document.onload = postData({}, 'refresh');
+
+    	$$self.$capture_state = () => {
+    		return {};
+    	};
+
+    	$$self.$inject_state = $$props => {};
+
+    	return {};
+    }
+
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, null, create_fragment, safe_not_equal, []);
+    		init(this, options, instance, create_fragment, safe_not_equal, []);
     		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "App", options, id: create_fragment.name });
     	}
     }

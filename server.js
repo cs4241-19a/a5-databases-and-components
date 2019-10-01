@@ -109,7 +109,7 @@ app.get("/logout", function (req, res) {
     res.redirect("/")
 })
 
-app.post('/submit', isLoggedIn, function (request, response) {
+app.post('/submit', function (request, response) {
     let parsedData = request.body
     new Promise(function (resolve, reject) {
         mongo.connect(url, {
@@ -125,8 +125,8 @@ app.post('/submit', isLoggedIn, function (request, response) {
                 "Note": parsedData.Note,
                 "Date": createDate(parsedData.Date),
                 "Days": daysRemaining(parsedData.Date),
-                "UID": currentUser[0]._id
-            }).then(r => collection.find({"UID": currentUser[0]._id}).toArray((err, items) => {
+                "UID": "svelteUser"
+            }).then(r => collection.find({"UID": "svelteUser"}).toArray((err, items) => {
                 resolve(items)
             }))
         })
@@ -135,7 +135,7 @@ app.post('/submit', isLoggedIn, function (request, response) {
     })
 })
 
-app.post('/refresh', isLoggedIn, function (request, response) {
+app.post('/refresh', function (request, response) {
     new Promise(function (resolve, reject) {
         mongo.connect(url, {
             useNewUrlParser: true,
@@ -146,7 +146,7 @@ app.post('/refresh', isLoggedIn, function (request, response) {
             }
             const db = client.db('AssignmentApp')
             const collection = db.collection('data')
-            collection.find({"UID": currentUser[0]._id}).toArray((err, items) => {
+            collection.find({"UID": "svelteUser"}).toArray((err, items) => {
                 resolve(items)
             })
         })
@@ -155,7 +155,7 @@ app.post('/refresh', isLoggedIn, function (request, response) {
     })
 })
 
-app.post('/update', isLoggedIn, function (request, response) {
+app.post('/update', function (request, response) {
     let parsedData = request.body
     new Promise(function (resolve, reject) {
         mongo.connect(url, {
@@ -175,7 +175,7 @@ app.post('/update', isLoggedIn, function (request, response) {
                     "Date": createDate(parsedData.Date),
                     "Days": daysRemaining(parsedData.Date)
                 }
-            }).then(r => collection.find({"UID": currentUser[0]._id}).toArray((err, items) => {
+            }).then(r => collection.find({"UID": "svelteUser"}).toArray((err, items) => {
                 resolve(items)
             }))
         })
@@ -184,7 +184,7 @@ app.post('/update', isLoggedIn, function (request, response) {
     })
 })
 
-app.post('/delete', isLoggedIn, function (request, response) {
+app.post('/delete', function (request, response) {
     let parsedData = request.body
     let item = parsedData.Item
     new Promise(function (resolve, reject) {
@@ -199,7 +199,7 @@ app.post('/delete', isLoggedIn, function (request, response) {
             const collection = db.collection('data')
             collection.removeOne({
                 _id: new mongodb.ObjectID(item)
-            }).then(r => collection.find({"UID": currentUser[0]._id}).toArray((err, items) => {
+            }).then(r => collection.find({"UID": "svelteUser"}).toArray((err, items) => {
                 resolve(items)
             }))
         })
@@ -208,8 +208,8 @@ app.post('/delete', isLoggedIn, function (request, response) {
     })
 })
 
-app.post('/username', isLoggedIn, function (request, response) {
-    response.send(JSON.stringify(currentUser[0].username))
+app.post('/username', function (yrequest, response) {
+    response.send(JSON.stringify("svelteUser"))
 })
 
 function createDate(date) {
