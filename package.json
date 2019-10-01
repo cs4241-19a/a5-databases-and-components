@@ -17,12 +17,18 @@
   },
   "homepage": "https://github.com/AlejandraGarza42/a3-persistenceV2#readme",
   "dependencies": {
+    "bulma": "^0.7.5",
     "db": "^1.1.1",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
+    "helmet": "^3.21.0",
+    "logger": "0.0.1",
     "lowdb": "^1.0.0",
+    "morgan": "^1.9.1",
     "npm": "^6.11.3",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "spectre.css": "^0.5.8",
+    "turretcss": "^5.2.1"
   }
 }

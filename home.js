@@ -12,10 +12,79 @@ window.onload = function(){
     editButton.onclick = editEntry 
 
     //delete an entry 
-    const deleteButton = this.document.getElementById('editButton')
-    deleteButton.onclick = deleteButton
+    const deleteButton = this.document.getElementById('deleteButton')
+    deleteButton.onclick = deleteEntry
 
     getData()
+}
+
+
+//Function for adding new entry to table
+const addEntry = function(e){
+    e.preventDefault
+    const body = JSON.stringify({
+        ID : 0,
+        Title: document.querySelector("#newTitle").value,
+        Genre: document.querySelector("#newGenre").value,
+        Rating: document.querySelector("#newRating").value
+    })
+
+    fetch('/add',{
+        method: 'POST',
+        body,
+        headers: { 'Content-Type': 'application/json' }
+    }).then(function(res){
+        console.log("Entry was added")
+        return res.json()
+    }).then(function(json){
+        displayTable(json)
+    })
+    return false 
+}
+
+//Function to edit an entry 
+const editEntry = function(e){
+    e.preventDefault
+
+    const body = JSON.stringify({
+        ID: document.querySelector("#editId").value,
+        Title: document.querySelector("#editTitle").value,
+        Genre: document.querySelector("#editGenre").value,
+        Rating: document.querySelector("#editRating").value
+    })
+    console.log("Entry is going to be edited")
+    fetch('/edit',{
+        method: 'POST',
+        body,
+        headers: { 'Content-Type': 'application/json' }
+    }).then(function(res){
+        console.log("Entry was edited")
+        return res.json()
+    }).then(function(json){
+        displayTable(json)
+    })
+    return false 
+}
+//function to delete entry 
+const deleteEntry = function(e){
+    e.preventDefault
+    
+    const body = JSON.stringify({
+        ID: document.querySelector("#deleteEntry").value
+    })
+
+    fetch('/delete',{
+        method: 'POST',
+        body,
+        headers: { 'Content-Type': 'application/json' }
+    }).then(function(res){
+        console.log("Entry was Deleted")
+        return res.json()
+    }).then(function(json){
+        displayTable(json)
+        location.reload()
+    })
+    return false 
 }
 
 //function to make table appear 
@@ -69,71 +138,3 @@ const getData = function(){
     return false 
     
 }
-//Function for adding new entry to table
-const addEntry = function(e){
-    e.preventDefault
-    const body = JSON.stringify({
-        ID : 0,
-        Title: document.querySelector("#newTitle").value,
-        Genre: document.querySelector("#newGenre").value,
-        Rating: document.querySelector("#newRating").value
-    })
-
-    fetch('/add',{
-        method: 'POST',
-        body,
-        headers: { 'Content-Type': 'application/json' }
-    }).then(function(res){
-        console.log("Entry was added")
-        return res.json()
-    }).then(function(json){
-        displayTable(json)
-    })
-    return false 
-}
-
-//Function to edit an entry 
-const editEntry = function(e){
-    e.preventDefault
-
-    const body = JSON.stringify({
-        ID: document.querySelector("#editId").value,
-        Title: document.querySelector("#editTitle").value,
-        Genre: document.querySelector('#editDebre').value,
-        Rating: document.querySelector('#edutRating').value
-    })
-
-    fetch('/edit',{
-        method: 'POST',
-        body,
-        headers: { 'Content-Type': 'application/json' }
-    }).then(function(res){
-        console.log("Entry was edited")
-        return res.json()
-    }).then(function(json){
-        displayTable(json)
-    })
-    return false 
-}
-//function to delete entry 
-const deleteEntry = function(e){
-    e.preventDefault
-
-    const body = JSON.stringify({
-        ID: document.querySelector("#deleteEntry").value
-    })
-
-    fetch('/delete',{
-        method: 'POST',
-        body,
-        headers: { 'Content-Type': 'application/json' }
-    }).then(function(res){
-        console.log("Entry was Deleted ")
-        return res.json()
-    }).then(function(json){
-        displayTable(json)
-    })
-    return false 
-}
-
-
