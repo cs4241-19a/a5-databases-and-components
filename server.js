@@ -195,10 +195,9 @@ app.post('/submit', function (req, res) {
   req.on( 'end', function() {
     let body = JSON.parse( dataString )
     var translation = ""
-    let payload = {word:body.word, lang: body.lang, translation: "", action: body.action, id:body.id, user:body.user};
     switch(body.action){
       case "translate":
-        if (req.timedout) return
+        let payload = {word:body.word, lang: body.lang, translation: "", action: body.action, id:body.id, user:body.user};        
         console.log(appdata)
         console.log("translate")
         translateWord(body.word, body.lang).then(function(retVal){
@@ -222,7 +221,7 @@ app.post('/submit', function (req, res) {
         console.log(body.id)
         for (i = 0; i < appdata.length; i++){
           if (JSON.stringify(appdata[i]).includes("" + id)){
-             let myQuery = {id: id};
+             let myQuery = {username: body.user, id: id};
              mongoDB(mongo, "remove", "data", myQuery)
              setTimeout(function(){
              console.log("Data torched from the database");
@@ -241,7 +240,8 @@ app.post('/submit', function (req, res) {
           if (JSON.stringify(appdata[k]).includes("" + j)){
             console.log("k" + appdata[k])
             editWord = appdata[k].word //this is undefined?????
-            mongoDB(mongo, "remove", "data", payload)
+            let myQuery = {id: id};
+            mongoDB(mongo, "remove", "data", myQuery)
             setTimeout(function(){
             console.log("Data torched from the database");
                }, 1000);
@@ -258,7 +258,7 @@ app.post('/submit', function (req, res) {
             console.log("New data inserted in the database");
             mongoDB(mongo, "sync", "data", null)
             setTimeout(function(){
-            res.end(JSON.stringify(payload));
+            res.end(JSON.stringify(editedLoad));
               }, 1000);
             }, 1000);
           });
