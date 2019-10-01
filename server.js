@@ -1,4 +1,5 @@
-const express = require('express'),
+const mongodb = require( 'mongodb' ),
+    express = require('express'),
     app = express(),
     low = require('lowdb'),
     FileSync = require('lowdb/adapters/FileSync'),
@@ -16,6 +17,53 @@ const express = require('express'),
     compression = require('compression'),
     dir='public/',
     port = 8000;
+
+
+
+//pasted stuff from his notes
+const uri = "mongodb+srv://admin:gimme100PLZ@cs4241-a5-r0win.azure.mongodb.net/mineem?retryWrites=true&w=majority";
+//const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB;
+const MongoClient = require('mongodb').MongoClient;
+const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true });
+let collectionUsers = null;
+let collectionItems=NULL;
+
+client.connect()
+    .then( () => {
+        // will only create collection if it doesn't exist
+        return client.db( 'mineem' ).createCollection( 'items' )
+    })
+    .then( __collection => {
+        // store reference to collection
+        collectionUsers = __collection;
+        // blank query returns all documents
+      //  return collection.find({ }).toArray()
+    });
+    //.then( console.log );
+
+client.connect()
+    .then( () => {
+        // will only create collection if it doesn't exist
+        return client.db( 'mineem' ).createCollection( 'users' )
+    })
+    .then( __collection => {
+        // store reference to collection
+        collectionItems = __collection;
+        // blank query returns all documents
+       // return collection.find({ }).toArray()
+    });
+//    .then( console.log );
+
+
+app.use( (req,res,next) => {
+    if( collectionUsers !== null && collectionItems !== null) {
+        next()
+    }else {
+        res.status( 503 ).send()
+    }
+});
+
+
 
 
 const appdata = [
@@ -68,9 +116,9 @@ app.use(passport.initialize());
 //passport.use( new Local( myLocalStrategy));
 app.get('/', function (req, res) {
     // Cookies that have not been signed
-    console.log('Cookies: ', req.cookies);
+    //console.log('Cookies: ', req.cookies);
     // Cookies that have been signed
-    console.log('Signed Cookies: ', req.signedCookies);
+    //console.log('Signed Cookies: ', req.signedCookies);
     res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
@@ -86,9 +134,9 @@ app.get('/', function (req, res) {
 
 app.get('/main', function (req, res) {
     // Cookies that have not been signed
-    console.log('Cookies: ', req.cookies);
+   // console.log('Cookies: ', req.cookies);
     // Cookies that have been signed
-    console.log('Signed Cookies: ', req.signedCookies);
+    //console.log('Signed Cookies: ', req.signedCookies);
     res.sendFile( path.join(__dirname, '/public/main.html'));
 });
 
@@ -98,7 +146,18 @@ app.get('/main', function (req, res) {
 const myLocalStrategy = function( username, password, done ) {
   // find the first item in our users array where the username
   // matches what was sent by the client. nicer to read/write than a for loop!
-  const user = db.get('users').value().find( __user => __user.username === username );
+    let pass="";
+    const user=collectionUsers.findOne({username:{$eq:username}})
+        .then(user=>{
+            if(user!=null){
+                pass.user.password;
+            }
+            else {
+                pass="";
+            }
+        });
+//    await user;
+//  const user = db.get('users').value().find( __user => __user.username === username );
   // if user is undefined, then there was no match for the submitted username
   if( user === undefined ) {
     /* arguments to done():
@@ -107,7 +166,7 @@ const myLocalStrategy = function( username, password, done ) {
      - a message / other data to send to client
 */
     return done( null, false, { message:'user not found' })
-  }else if( user.password === password ) {
+  }else if( pass === password ) {
     // we found the user and the password matches!
     // go ahead and send the userdata... this will appear as request.user
     // in all express middleware functions.
@@ -150,31 +209,18 @@ app.use( session({ secret:'topSecret', resave:false, saveUninitialized:false }) 
 app.use( passport.initialize() );
 app.use( passport.session() );
 
-app.post('/test', function( req, res ) {
-  console.log( 'authenticate with cookie?', req.user );
-  res.json({ status:'success' })
-});
+// app.post('/test', function( req, res ) {
+//   console.log( 'authenticate with cookie?', req.user );
+//   res.json({ status:'success' })
+// });
 
 app.post('/newData', (req, res) => {
     console.log(req.body);
     let data = db.get('appdata').filter({ user:req.body.user }).value();
-    //let data = db.get('appdata').value();
     console.log(data);
     res.send(data);
 });
-/*
-app.get('/newData', (req, res) => {
-    if(req.user===undefined){
-        res.redirect(401,'/login')
-    }
-    else{
-        let curUser=req.user.username;
-        res.set('Content-Type', 'application/json');
-        let data = db.find({ 'user': curUser }).get('appdata').value();
-        res.send(data);
-    }
-});
-*/
+
 app.get('/register', (req, res) => {
     let data = db.get('users').value();
     res.send(data)
@@ -199,6 +245,16 @@ app.post('/submit', function (req, res) {
     db.get('appdata').push(pushData).write();
     res.status(200).send("pushed!");
 });
+
+app.post("/subumit",funnction(reqres){
+    let data=req.body;
+    collectionItems.insertOne({
+        user:data.user,
+    })
+})
+
+
+
 
 /*
 app.post('/submit', function (req, res) {
@@ -234,4 +290,4 @@ app.post('/delete', function (req, res) {
 })
 
 
-app.listen(process.env.PORT || port)
+app.listen(process.env.PORT || port);
