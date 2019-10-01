@@ -25,6 +25,7 @@ var passport = require('passport');
 var assets = require("./assets");
 var timeout = require('connect-timeout')
 const helmet = require('helmet')
+let count = 0
 
 
 var mongo = require('mongodb').MongoClient;
@@ -184,6 +185,11 @@ app.get('/create.html', function(request, response) {
   response.sendFile(__dirname + '/views/create.html');
 });
 
+app.post('/cnt', function(req,res){
+    count = count++
+    res.send(count.toString())
+    })
+
 
 // TRANSLATION SUBMISSION
 app.post('/submit', function (req, res) {
@@ -221,7 +227,7 @@ app.post('/submit', function (req, res) {
         console.log(body.id)
         for (i = 0; i < appdata.length; i++){
           if (JSON.stringify(appdata[i]).includes("" + id)){
-             let myQuery = {username: body.user, id: id};
+             let myQuery = {id: id};
              mongoDB(mongo, "remove", "data", myQuery)
              setTimeout(function(){
              console.log("Data torched from the database");

@@ -1,11 +1,11 @@
   
-  let count = 0;
-  document.getElementById("editScreen").style.display = "none"
- let localAppData = []
- let currentUser = ""
- var loaded = 0
- 
- 
+let count = 0;
+document.getElementById("editScreen").style.display = "none"
+let localAppData = []
+let currentUser = ""
+var loaded = 0
+
+  
  function langFinder(str){
    switch(str){
      case "en-sq":
@@ -54,7 +54,12 @@
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
-    count = count + 1;
+    fetch( '/cnt', {
+      method:'POST', 
+    })
+    .then (function(cnt){
+     count =  parseInt(cnt, 10)
+   })
     let temp = count
     const inputword = document.querySelector( '#word' );
     const inputlang = document.querySelector('#lang');
@@ -174,6 +179,12 @@
   }
 
   window.onload = function() {
+    fetch( '/cnt', {
+      method:'POST', 
+    })
+    .then (function(cnt){
+     count =  parseInt(cnt, 10)
+   })
     //recieve session info here
 
     //clear tables    
