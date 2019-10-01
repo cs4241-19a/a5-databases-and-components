@@ -1,38 +1,14 @@
 Assignment 5 - Databases and/or Components
 ===
 
-Due: October 7th, by 11:59 AM.
+## Bookmarker - MongoDB
 
-For this assignment you will complete one of the following tasks, based on your prior experience with the various technologies involved.
+http://a5-jpinz.glitch.me
 
-1. Rework the server component from Assignment #3 to use MongoDB or some other NoSQL database (like CouchDB). You can remove Passport authentication if you choose, although this might be as much work as simply changing your Passport calls to use MongoDB.
-2. Rework the client component from Assignment #3 to use Svelte in some capacity.
-3. Rework the client component from Assignmeent #3 to use React in some capacity.
+I updated my bookmarker tool to use mongodb as a database provider instead of lowdb. I still used passport for authentication. Similar to my a3, sign up and then go to the login page to login with those credentials, then hit the bookmarker header to go home and it should be logged in.
 
-For 2 and 3, make sure to look at [the notes from lecture 10](https://github.com/cs4241-19a/materials/blob/master/lecture10.markdown).
+Using this new technology I don't think changed anything about the development process. **I managed to swap from LowDB to MongoDB in less than 9 hours**.
 
-This is really a chance for you to experiment with some additional web technologies that the prior assignments haven't covered yet: non-flatfile databases and web component frameworks.
+It was convenient to not have to change any of the website javascript and only changed the server hosting logic.
 
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku etc.), however, you must include all files in your GitHub repo so that the course staff can view them; these files are not available for viewing in many hosting systems.
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a5-yourname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a5-gitname-firstname-lastname`.
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your hosting link e.g. http://a5-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+LowDB was nice because it's as simple as accessing a json file. But MongoDB is cool because I can tell there is a lot of expanding that can be done with it. LowDB is definitely limiting for a lot of things, and MongoDB is much more scalable, especially with table support.
