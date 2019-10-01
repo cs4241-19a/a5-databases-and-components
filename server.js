@@ -114,7 +114,7 @@ function mongoDB(mongo, action, type, payload){
 function donothing(){}
 
 // MIDDLEWEAR .USE
-app.use(timeout('5s'))
+//app.use(timeout('5s'))
 app.use(express.static('public'));
 app.use("/assets", assets);
 app.use(passport.initialize())
@@ -186,7 +186,7 @@ app.get('/create.html', function(request, response) {
 
 
 // TRANSLATION SUBMISSION
-app.post('/submit',timeout('20s'),haltOnTimedout, function (req, res) {
+app.post('/submit', function (req, res) {
   //
   let dataString = ''
   req.on( 'data', function( data ) {
@@ -195,13 +195,12 @@ app.post('/submit',timeout('20s'),haltOnTimedout, function (req, res) {
   req.on( 'end', function() {
     let body = JSON.parse( dataString )
     var translation = ""
-    
+    let payload = {word:body.word, lang: body.lang, translation: "", action: body.action, id:body.id, user:body.user};
     switch(body.action){
       case "translate":
         if (req.timedout) return
         console.log(appdata)
         console.log("translate")
-        let payload = {word:body.word, lang: body.lang, translation: "", action: body.action, id:body.id, user:body.user};
         translateWord(body.word, body.lang).then(function(retVal){
             payload.translation += retVal;
             res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
@@ -217,19 +216,18 @@ app.post('/submit',timeout('20s'),haltOnTimedout, function (req, res) {
           });
         break;
       case "delete":
-         
         console.log("delete")
         let i = 0;
         let id = body.id
         console.log(body.id)
         for (i = 0; i < appdata.length; i++){
           if (JSON.stringify(appdata[i]).includes("" + id)){
-             mongoDB(mongo, "remove", "data", payload)
+             let myQuery = {id: id};
+             mongoDB(mongo, "remove", "data", myQuery)
              setTimeout(function(){
              console.log("Data torched from the database");
+              }, 1000);
              mongoDB(mongo, "sync", "data", null)
-             setTimeout(function(){}, 1000);
-                }, 1000);
           }
         }
         break;
@@ -246,9 +244,8 @@ app.post('/submit',timeout('20s'),haltOnTimedout, function (req, res) {
             mongoDB(mongo, "remove", "data", payload)
             setTimeout(function(){
             console.log("Data torched from the database");
+               }, 1000);
             mongoDB(mongo, "sync", "data", null)
-            setTimeout(function(){}, 1000);
-                }, 1000);
           }
         }
         //console.log(editWord)
