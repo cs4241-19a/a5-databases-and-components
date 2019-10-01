@@ -126,15 +126,11 @@ function haltOnTimedout (req, res, next) {
   if (!req.timedout) next()
 }
 
-      // MONGO
-
 // READ FROM DB INTO LOCAL STORAGE
 function syncAllUsers(){
   let arr = mongoDB(mongo, "sync", "users", null)
   return arr
 }
-
-      // MONGO
 
 // READ FROM DB INTO LOCAL STORAGE
 function syncAllData(){
@@ -190,7 +186,7 @@ app.get('/create.html', function(request, response) {
 
 
 // TRANSLATION SUBMISSION
-app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
+app.post('/submit',timeout('20s'),haltOnTimedout, function (req, res) {
   //
   let dataString = ''
   req.on( 'data', function( data ) {
@@ -209,14 +205,15 @@ app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
         translateWord(body.word, body.lang).then(function(retVal){
             payload.translation += retVal;
             res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
-                // MONGO
-
-              db.get('data')
-                .push(payload)
-                .write()
-              console.log("New data inserted in the database");
-             appdata = syncAllData();
+            mongoDB(mongo, "insert", "data", payload)
+            setTimeout(function(){
+            console.log("New data inserted in the database");
+            mongoDB(mongo, "sync", "data", null)
+            setTimeout(function(){
             res.end(JSON.stringify(payload));
+              }, 1000);
+            }, 1000);
+
           });
         break;
       case "delete":
@@ -227,13 +224,12 @@ app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
         console.log(body.id)
         for (i = 0; i < appdata.length; i++){
           if (JSON.stringify(appdata[i]).includes("" + id)){
-                  // MONGO
-
-             db.get('data')
-                .remove(appdata[i])
-                .write()
-              console.log("Data torched from the database");
-             appdata = syncAllData();
+             mongoDB(mongo, "remove", "data", payload)
+             setTimeout(function(){
+             console.log("Data torched from the database");
+             mongoDB(mongo, "sync", "data", null)
+             setTimeout(function(){}, 1000);
+                }, 1000);
           }
         }
         break;
@@ -247,13 +243,12 @@ app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
           if (JSON.stringify(appdata[k]).includes("" + j)){
             console.log("k" + appdata[k])
             editWord = appdata[k].word //this is undefined?????
-                  // MONGO
-
-             db.get('data')
-                .remove(appdata[k])
-                .write()
-              console.log("Edit torched from the database");
-             appdata = syncAllData();
+            mongoDB(mongo, "remove", "data", payload)
+            setTimeout(function(){
+            console.log("Data torched from the database");
+            mongoDB(mongo, "sync", "data", null)
+            setTimeout(function(){}, 1000);
+                }, 1000);
           }
         }
         //console.log(editWord)
@@ -261,15 +256,14 @@ app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
         translateWord(editWord, body.lang).then(function(retVal){
             editedLoad.translation += retVal;
             res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
-                // MONGO
-
-             db.get('data')
-                .push(editedLoad)
-                .write()
-              console.log("New edit inserted in the database");
-            appdata = syncAllData();
-            console.log(appdata)
-            res.end(JSON.stringify(editedLoad));
+            mongoDB(mongo, "insert", "data", editedLoad)
+            setTimeout(function(){
+            console.log("New data inserted in the database");
+            mongoDB(mongo, "sync", "data", null)
+            setTimeout(function(){
+            res.end(JSON.stringify(payload));
+              }, 1000);
+            }, 1000);
           });
         break;
     }
