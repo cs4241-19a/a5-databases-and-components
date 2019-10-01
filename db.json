@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "username": "a",
+      "password": "a"
+    },
+    {
+      "username": "b",
+      "password": "b"
+    },
+    {
+      "username": "d",
+      "password": "d"
+    },
+    {
+      "username": "David",
+      "password": "moon"
+    },
+    {
+      "username": "steve",
+      "password": "moon"
+    }
+  ],
+  "comments": [
+    {
+      "id": "a18/9/2019 @ 13:55:7",
+      "username": "a",
+      "comment": "",
+      "time": "18/9/2019 @ 12:44:6"
+    },
+    {
+      "id": "David19/9/2019 @ 10:32:39",
+      "username": "David",
+      "comment": "Hi, this is a test of a longer comment on this message board. Just wanna see how well it displays",
+      "time": "19/9/2019 @ 10:32:39"
+    },
+    {
+      "id": "steve19/9/2019 @ 10:33:19",
+      "username": "steve",
+      "comment": "Wow, that was a really good point. I better test it as well",
+      "time": "19/9/2019 @ 10:33:19"
+    },
+    {
+      "id": "David19/9/2019 @ 10:34:13",
+      "username": "David",
+      "comment": "Really nice to meet you steve, have a nice day",
+      "time": "19/9/2019 @ 10:34:13"
+    },
+    {
+      "id": "steve19/9/2019 @ 10:34:30",
+      "username": "steve",
+      "comment": "you to David!",
+      "time": "19/9/2019 @ 10:34:30"
+    }
+  ]
+}
