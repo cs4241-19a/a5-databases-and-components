@@ -54,12 +54,7 @@ var loaded = 0
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
-    fetch( '/cnt', {
-      method:'POST', 
-    })
-    .then (function(cnt){
-     count =  parseInt(cnt, 10)
-   })
+    count++
     let temp = count
     const inputword = document.querySelector( '#word' );
     const inputlang = document.querySelector('#lang');
@@ -179,12 +174,7 @@ var loaded = 0
   }
 
   window.onload = function() {
-    fetch( '/cnt', {
-      method:'POST', 
-    })
-    .then (function(cnt){
-     count =  parseInt(cnt, 10)
-   })
+   
     //recieve session info here
 
     //clear tables    
