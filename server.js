@@ -35,7 +35,6 @@ const uri = "mongodb+srv://jrbartone:Joeyryan22@cluster0-motd9.azure.mongodb.net
 
 
 function mongoDB(mongo, action, type, payload){
-  return new Promise(function(resolve, reject){
   switch(action){
     case "insert":
        mongo.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
@@ -85,7 +84,7 @@ function mongoDB(mongo, action, type, payload){
        client.close();
        console.log('got data!');
       });
-      resolve(array);
+      return (array);
       /*
     case "find":
        let instance;
@@ -106,12 +105,9 @@ function mongoDB(mongo, action, type, payload){
       return instance;
       */
   }
-  });
 }
 
-
-
-
+function donothing(){}
 
 // MIDDLEWEAR .USE
 app.use(timeout('5s'))
@@ -130,14 +126,17 @@ function haltOnTimedout (req, res, next) {
       // MONGO
 
 // READ FROM DB INTO LOCAL STORAGE
-function syncAllUsers(arr){
-  //var users = db.get('users').value() // Find all users in the collection
-  mongoDB(mongo, "sync", "users", null).then(function(users){
+function syncAllUsers(){
+  let arr = []
+  let users = mongoDB(mongo, "sync", "users", null)
+   setTimeout(function(){
+       donothing();
+      },1000);
   console.log(users)
   users.forEach(function(user) {
     arr.push(JSON.stringify({username : user.username, password: user.password})); // adds their info to the dbUsers value
   });
-  })
+  return arr
 }
 
       // MONGO
@@ -300,38 +299,37 @@ app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
 
 app.post('/login', 
          function (req, res) {
-  console.log(req.body)
-  syncAllUsers()
-  console.log((allUsers))
-  console.log("handlig log")
-  let data = req.body
-  console.log(data)
-    if(allUsers.length > 0){
-      for (let i = 0; i < allUsers.length; i++){
-        let obj = JSON.parse(allUsers[i])
-        if (obj.username == data.username && obj.password == data.password){
-          currentSession[0] = data.username;
-          currentSession[1] = data.password;
-          console.log(" login")
-          res.send("OK")
-          //send all packets of user data
-          return
-        }
-        else{
-          //console.log("bad login")
-          //res.send("BAD")
-        }
-      }
-       console.log("bad login")
-       res.send("BAD")
-       return
-    }
-    else{
-       console.log("bad login")
-       res.send("BAD")
-       return
-    }
-  //})
+            console.log(req.body)
+            allUsers = syncAllUsers()
+            console.log(allUsers)
+            console.log("handlig log")
+            let data = req.body
+            console.log(data)
+              if(allUsers.length > 0){
+                for (let i = 0; i < allUsers.length; i++){
+                  let obj = JSON.parse(allUsers[i])
+                  if (obj.username == data.username && obj.password == data.password){
+                    currentSession[0] = data.username;
+                    currentSession[1] = data.password;
+                    console.log(" login")
+                    res.send("OK")
+                    //send all packets of user data
+                    return
+                  }
+                  else{
+                    //console.log("bad login")
+                    //res.send("BAD")
+                  }
+                }
+                  console.log("bad login")
+                  res.send("BAD")
+                  return
+              }
+              else{
+                  console.log("bad login")
+                  res.send("BAD")
+                  return
+              }
 })
 
 
