@@ -78,22 +78,19 @@ function mongoDB(mongo, action, type, payload){
        if(type == "users"){
           client.db("mydb").collection("users").find({}).toArray(function(err, result){
             array = result
-           // return array
-             console.log(array)
+            allUsers = array
           })
        }
        if(type == "data"){
           array = client.db("mydb").collection("data").find({}).toArray(function(err, result){
             array = result
-           // return array
-          //  console.log(array)
+            appdata = array
           })
        }
        client.close();
        console.log('got data!');
       });
       return (array);
-      /*
     case "find":
        let instance;
        mongo.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
@@ -111,7 +108,6 @@ function mongoDB(mongo, action, type, payload){
        console.log('got one!');
       });
       return instance;
-      */
   }
 }
 
@@ -120,7 +116,6 @@ function donothing(){}
 // MIDDLEWEAR .USE
 app.use(timeout('5s'))
 app.use(express.static('public'));
-//app.use(favicon(path.join(__dirname, 'assets', 'glo.ico')))
 app.use("/assets", assets);
 app.use(passport.initialize())
 app.use(bodyParser.json())
@@ -135,12 +130,7 @@ function haltOnTimedout (req, res, next) {
 
 // READ FROM DB INTO LOCAL STORAGE
 function syncAllUsers(){
-  let arr = []
-  let users = mongoDB(mongo, "sync", "users", null)
-  users.forEach(function(user) {
-    //arr.push(JSON.stringify({username : user.username, password: user.password})); // adds their info to the dbUsers value
-    arr.push(user)
-  });
+  let arr = mongoDB(mongo, "sync", "users", null)
   return arr
 }
 
@@ -148,19 +138,8 @@ function syncAllUsers(){
 
 // READ FROM DB INTO LOCAL STORAGE
 function syncAllData(){
-  appdata = []
-  var dataset = db.get('data').value() // Find all users in the collection
- if(dataset !== undefined){
-    console.log("sync...")
-    dataset.forEach(function(data) {
-    appdata.push(({"word":data.word,"lang":data.lang,"translation":data.translation,"action":data.action,"id":data.id,"user":data.user})); // adds their info to the dbUsers value
-  });
-  return appdata
- }
-  else{
-    console.log("no data")
-    return appdata
-  }
+  let arr = mongoDB(mongo, "sync", "data", null)
+  return arr
 }
 
 // TRANSLATION API
@@ -304,16 +283,16 @@ app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
 
 app.post('/login', 
          function (req, res) {
-            console.log(req.body)
-            allUsers = syncAllUsers()
+            //console.log(req.body)
+            mongoDB(mongo, "sync", "users", null)
             setTimeout(function(){
             console.log(allUsers)
             console.log("handlig log")
             let data = req.body
-            console.log(data)
+            //console.log(data)
               if(allUsers.length > 0){
                 for (let i = 0; i < allUsers.length; i++){
-                  let obj = JSON.parse(allUsers[i])
+                  let obj = (allUsers[i])
                   if (obj.username == data.username && obj.password == data.password){
                     currentSession[0] = data.username;
                     currentSession[1] = data.password;
