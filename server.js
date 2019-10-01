@@ -27,24 +27,29 @@ const express = require('express'),
   favicon = require('serve-favicon'),
   helmet = require('helmet'),
   adapter = new FileSync(__path + '/.private/db.json'),
+  mongodb = require('mongodb'),
   db = low(adapter);
 
-// Initialize database
-db.defaults({
-  users: [{ userName: "", password: "" }],
-  appdata: [{
-    userName: "",
-    loc: 0,
-    cursors: 0,
-    hobbyists: 0,
-    csMajors: 0,
-    softEngs: 0,
-    server: 0,
-    quantumComputers: 0,
-    totalLoc: 0
-  }],
-  secret: "Foo"
-}).write();
+// Connect to MongoDB database
+const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB
+
+const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
+
+let loginInfo = null
+let userData = null
+
+client.connect().then(function(err) {
+
+  // Create userData and loginInfo collections if haven't already
+  client.db.test.createCollection("userData").then( collection => {
+    userData = collection
+  })
+
+  client.db.test.createCollection("loginInfo").then( collection => {
+    loginInfo = collection
+  })
+  // Catch connection error if there is one
+}).catch(() => {console.log('Error connecting with the server')})
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(express.static(__path));
