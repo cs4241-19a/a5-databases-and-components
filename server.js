@@ -31,20 +31,37 @@ var mongo = require('mongodb').MongoClient;
 // mongodb+srv://<jrbartone2>:<Joeyryan22>@cluster0-motd9.azure.mongodb.net/test?retryWrites=true&w=majority
 // mongodb+srv://<username>:<password>@cluster0-motd9.azure.mongodb.net/test?retryWrites=true&w=majority
 const uri = "mongodb+srv://jrbartone:Joeyryan22@cluster0-motd9.azure.mongodb.net/test?retryWrites=true&w=majority"
-mongo.connect(uri, { useNewUrlParser: true }, function(err, client) {
-   if(err) {
-        console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
-   }
-   console.log('Connected...');
-   const collection = client.db("test").collection("devices");
-   // perform actions on the collection object
-   client.close();
-});
 
 
 
+function mongoDB(mongo, action, type, payload){
+  switch(action){
+    case "insert":
+       mongo.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
+       if(err) {
+            console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+       }
+       console.log('Connected...');
+       if(type == "user"){
+         
+       }
+       if(type == "data"){
+        
+       }
+       client.close();
+       console.log('inserted data!');
+    });
+    case "remove":
+      break;
+    case "sync":
+      break;
+    case "find":
+      break;
+  }
+}
 
-console.log('Nice!');
+
+
 
 
 // MIDDLEWEAR .USE
