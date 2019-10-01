@@ -1,0 +1,34 @@
+{
+  "name": "sqlite3-demo",
+  "version": "0.0.1",
+  "description": "Example app showing use of SQLite3 using the Sequelize ORM",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "express-debug": "^1.1.1",
+    "express-session": "^1.16.2",
+    "express-slash": "^2.0.1",
+    "express-uncapitalize": "^1.0.0",
+    "mongodb": "^3.3.2",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "patternfly": "^3.59.4",
+    "sequelize": "^6.0.0",
+    "serve-favicon": "^2.5.0",
+    "sqlite3": "^4.1.0"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "sqlite3",
+    "patternfly"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "connect-flash": "^0.1.1"
+  }
+}

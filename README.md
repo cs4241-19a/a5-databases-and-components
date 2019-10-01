@@ -1,38 +1,45 @@
-Assignment 5 - Databases and/or Components
+Assignment 3 - Persistence: Two-tier Web Application with Flat File Database, Express server, and CSS template
 ===
 
-Due: October 7th, by 11:59 AM.
-
-For this assignment you will complete one of the following tasks, based on your prior experience with the various technologies involved.
-
-1. Rework the server component from Assignment #3 to use MongoDB or some other NoSQL database (like CouchDB). You can remove Passport authentication if you choose, although this might be as much work as simply changing your Passport calls to use MongoDB.
-2. Rework the client component from Assignment #3 to use Svelte in some capacity.
-3. Rework the client component from Assignmeent #3 to use React in some capacity.
-
-For 2 and 3, make sure to look at [the notes from lecture 10](https://github.com/cs4241-19a/materials/blob/master/lecture10.markdown).
-
-This is really a chance for you to experiment with some additional web technologies that the prior assignments haven't covered yet: non-flatfile databases and web component frameworks.
-
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku etc.), however, you must include all files in your GitHub repo so that the course staff can view them; these files are not available for viewing in many hosting systems.
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a5-yourname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a5-gitname-firstname-lastname`.
+Due: September 16th, by 11:59 AM.
 
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
+## Inventory Manager
 
-your hosting link e.g. http://a5-charlieroberts.glitch.me
+glitch link  https://a3-abon27-andrew-bonaventura.glitch.me/
 
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
+This website is an inventory manager that is linked to an individual's account. This means that every different account 
+will have a different set of items associated with it.
 
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+
+
+- Goal: Create a website that allows a user to manage their company resources through the use of an inventory manager.
+- Challenges: I had a lot of trouble with the authentication and its redirect routes. I also had trouble converting from webstorm to glitch due to directory mismatches.
+- Authentication/Database: I used the local strategy because it seemed easier and a sqlite database because I had used sqlite
+in the past on a Software Engineering project and was familiar with it.
+- CSS framework: Milligram because it was easy to work with
+- Middleware Packages:
+  -  Express-session: Creates a session for a particular user
+  -  Passport: Allows for user authentication
+  -  Body-parser: Makes dealing with JSON objects easier through some catch all methods
+  -  Serve-static: Set the directory of most routing methods
+  -  Favicon: server can create a favicon.ico that displays
+  -  Express-uncapitalize: allows differently capitalized directories to refer to the same place
+  -  Express-slash: deals with trailing slashes
+  -  Express-debug: useful in debugging code during development
+  -  Sequelize: makes commands to a SQLite database easier
+  
+Note: I started off by remixing an example glitch project that used sqlite and express: https://glitch.com/~sqlite3-db
+
+## Technical Achievements
+- **Tech Achievement 1**: I used SQLite and the Sequelize framework over the suggested low-db, the Sequelize framework is one that provides
+methods meant to make working with the SQLite database easier by providing model objects that are used to make the SQL statements instead of
+providing a statement in a string.
+
+### Design/Evaluation Achievements
+- **Design Achievement 1**: I only used semantic HTML and did not utilize divs or spans which should make it easier to understand what the html
+is doing on each page
+
+
