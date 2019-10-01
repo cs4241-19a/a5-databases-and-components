@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>CS4241 Assignment 2</title>
+  <meta charset="utf-8">
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize_dep.css-->
+  <link href="materialize/css/materialize.css" rel="stylesheet"/>
+  <link href="css/itemList.css" rel="stylesheet"/>
+
+</head>
+<nav>
+  <div class="nav-wrapper light-green lighten-2">
+    <a href="#" class="brand-logo center black-text">Grocery List Online</a>
+  </div>
+</nav>
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large blue-grey darken-1 sidenav-trigger" data-target="slide-out">
+    <i class="large material-icons">person</i>
+  </a>
+</div>
+
+<body class="amber lighten-5">
+
+
+
+<!--This is the login sidenav-->
+<ul id="slide-out" class="sidenav">
+  <li><div class="center-align light-green lighten-2 background">
+    <p><b>Log In Or Create Your List</b></p>
+  </div></li>
+  <li>
+    <div class="row input-field">
+      <input type="text" class="input item-input col s10 push-s1" id="listName">
+      <label for="listName" class="col push-s1 s10">list name</label>
+    </div>
+  </li>
+  <li>
+    <div class="row input-field">
+      <input type="password" class="input item-input col s10 push-s1" id="password">
+      <label for="password" class="col push-s1 s10">password</label>
+    </div>
+  </li>
+  <li>
+    <div class="row">
+      <button class="waves-effect waves-light blue-grey darken-1 btn-small col s3 push-s2" id="login">Login</button>
+      <button class="waves-effect waves-light blue-grey darken-1 btn-small col s3 push-s3" id="create_list">Create UserLists</button>
+    </div>
+  </li>
+</ul>
+
+
+<!-- This is the input section-->
+<div class="row">
+  <form class="" action="">
+    <div class="input-field col s2 push-s4">
+      <input type='text' class='input center-align item-input' id="item_input">
+      <label for="item_input">item</label>
+    </div>
+    <div class="input-field col s1 push-s4">
+      <input type='text' class='input center-align item-input' id="qty_input">
+      <label for="qty_input">qty</label>
+    </div>
+    <div class="col push-s4 s1 input-field">
+      <button class="waves-effect waves-light blue-grey darken-1 btn-small" id="add">add</button>
+    </div>
+  </form>
+</div>
+
+<!-- This is the items section-->
+<div class="row" id="data">
+
+
+</div>
+
+</body>
+<script type="module" src="js/addItemBar.js"></script>
+<script type="module" src="js/itemDisplay.mjs"></script>
+<script type="module" src="js/constants.mjs"></script>
+<script type="module" src="js/login.mjs"></script>
+<script src="materialize/js/materialize.js"></script>
+
+</html>

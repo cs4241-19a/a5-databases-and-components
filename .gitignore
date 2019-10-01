@@ -1,0 +1,7 @@
+*.DS_Store
+node_modules/
+package-lock.json
+.data/
+.idea
+dist-copy/*
+access.log
