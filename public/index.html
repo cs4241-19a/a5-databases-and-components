@@ -136,6 +136,7 @@
   function reloadData(){
     console.log("Getting Data");
     $.get('/crewdata', function(data) {
+      console.log(data);
       clearTable(document.getElementById("table").rows.length - 1)
       data.forEach(function(car){
         if(jQuery.isEmptyObject(car))
@@ -163,7 +164,7 @@
     
   window.onload = function() {
 
-    //reloadData()
+    reloadData()
   }
     
   </script>

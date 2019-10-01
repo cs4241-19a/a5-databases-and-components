@@ -15,16 +15,26 @@ const http = require('http'),
 	session = require('express-session'),
 	db = require('./public/db'),
 	dbFile = require('./object.json'),
-	path = require('path');
-	
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://mongo:wordpass@cluster0-t5tln.azure.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-	  const collection = client.db("test");
+	path = require('path'),
+  assert = require('assert'),
+  MongoClient = require('mongodb').MongoClient,
+  uri = "mongodb+srv://mongo:wordpass@cluster0-t5tln.azure.mongodb.net/test?retryWrites=true&w=majority",
+  client = new MongoClient(uri, { useUnifiedTopology: true, useNewUrlParser: true });
+
+let collection = null;
+client.connect(function(err, client){
+  assert.equal(null, err)
+    collection = client.db("pirates").collection("crew");
 	  // perform actions on the collection object
 	  client.close();
 });
+
+if( collection !== null ) {
+  collection.find({ }).toArray()
+        .then(function(numItems) {
+        console.log(numItems);
+  });
+}
 
 
 express.use(bodyParser.urlencoded());
@@ -48,61 +58,53 @@ express.get("/crew", function (request, response) {
 });
 
 express.get("/crewdata", function(req,res){
-  
-	console.log("getting crew");
-	console.log(req.user.crew);
-	res.send(req.user.crew);
+  if( collection !== null ) {
+    collection.find({ }).toArray().then( result => res.json( result ) )
+  }
 });
 
-express.get("/userData",function(req,res){
-	res.send(req.user);
-});
 
 express.post('/addcrewmem', function(req,res) {
-	let newData = req.body;
-	var age = (2019 - parseInt(newData.year));
+  let newData = req.body;
+  var age = (2019 - parseInt(newData.year));
 	var ageString = age + " Year(s) Old";
-	req.user.crew.push({rank: newData.rank, name: newData.name, year: newData.year, age: ageString, rankID: parseInt(newData.rankID)});
-	let add = db.users.changeUser(req.user.crew);
-	saveUsers();
-	res.send();
+  if( collection !== null ) {
+    collection.insertOne({
+      age : ageString,
+      name : newData.name,
+      rank : newData.rank,
+      year : newData.year,
+      "Rand Id": parseInt(newData.rankID)
+    })
+    collection.find({ }).toArray().then( result => res.json( result ) )
+  }
 });
 
 express.post('/modcrewmem', function(req,res) {
-	let newData = req.body;
-	var age = (2019 - parseInt(newData.year));
+  let newData = req.body;
+  var age = (2019 - parseInt(newData.year));
 	var ageString = age + " Year(s) Old";
-	newData.age = ageString;
-	for(let i = 0; i < req.user.crew.length; i++) {
-		let mem = req.user.crew[i];
-		if(mem.name == newData.name) 
-			req.user.crew[i] = newData;
-	}
-	res.send();
+  if( collection !== null ) {
+    collection.replaceOne(
+      {name : newData.name},{
+        $set:{
+        age : ageString,
+        name : newData.name,
+        rank : newData.rank,
+        year : newData.year,
+        "Rand Id": parseInt(newData.rankID)
+    }})
+    collection.find({ }).toArray().then( result => res.json( result ) )
+  }
 });
 
 express.post('/delcrewmem', function(req,res) {
-	let newData = req.body;
-	for(let i = 0; i < req.user.crew.length; i++) {
-		let mem = req.user.crew[i];
-		if(mem.name == newData.name) {
-			console.log("NOT "+ newData.name+ '!');
-			req.user.crew.splice(i,1);
-		}
-	}
-	res.send();
-});
-
-express.post('/login', function(req, res) {
-	console.log("You logged in");
-	console.log("As "+ req.user.username);
-	res.redirect('/crew');
-});
-
-express.post('/signup', function(req, res) {
-	console.log("You Signed up");
-	console.log("As "+ req.user.username);
-	res.redirect('/crew');
+ if( collection !== null ) {
+    collection.deleteOne({
+      name : req.body.name,
+    })
+    collection.find({ }).toArray().then( result => res.json( result ) )
+  }
 });
 
 
