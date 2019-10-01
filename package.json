@@ -1,0 +1,35 @@
+{
+  "name": "a3-persistence",
+  "version": "1.0.0",
+  "description": "Assignment 3 - Persistence: Two-tier Web Application with Flat File Database, Express server, and CSS template\r ===",
+  "main": "index.js",
+  "scripts": {
+    "test": "rm db.json && node app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmwbook/a3-persistence.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tmwbook/a3-persistence/issues"
+  },
+  "homepage": "https://github.com/tmwbook/a3-persistence#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "lowdb": "^1.0.0",
+    "moment": "^2.24.0",
+    "nunjucks": "^3.2.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pwd": "^1.1.0",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.3.0"
+  }
+}
