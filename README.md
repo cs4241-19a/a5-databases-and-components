@@ -4,8 +4,6 @@ Assignment 5 - Databases and/or Components
 Due: October 7th, by 11:59 AM.
 
 
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
 
 ## Inventory Manager
 
