@@ -240,7 +240,7 @@ app.post('/submit', function (req, res) {
           if (JSON.stringify(appdata[k]).includes("" + j)){
             console.log("k" + appdata[k])
             editWord = appdata[k].word //this is undefined?????
-            let myQuery = {id: id, user: currentSession[0]};
+            let myQuery = {id: j, user: currentSession[0]};
             mongoDB(mongo, "remove", "data", myQuery)
             setTimeout(function(){
             console.log("Data torched from the database");
@@ -324,7 +324,7 @@ app.post('/create', function (req, res) {
   console.log(data)
     if(allUsers.length > 0){
       for (let i = 0; i < allUsers.length; i++){
-        let obj = JSON.parse(allUsers[i])
+        let obj = (allUsers[i])
         if (obj.user == data.user){
           console.log(" login")
           res.end("BAD")
@@ -332,24 +332,27 @@ app.post('/create', function (req, res) {
         }
       }
       // MONGO
-        db.get('users')
-          .push({ username: data.user, password: data.pass })
-          .write()
-        console.log("New user inserted in the database");
-        data = JSON.stringify(data)
-        allUsers.push(data)
-        res.send("OK")
+      
+       mongoDB(mongo, "insert", "users", { username: data.user, password: data.pass })
+            setTimeout(function(){
+            console.log("New data inserted in the database");
+            mongoDB(mongo, "sync", "users", null)
+            setTimeout(function(){
+             res.send("OK")
+              }, 1000);
+            }, 1000);
     }
     else{
             // MONGO
 
-         db.get('users')
-          .push({ username: data.user, password: data.pass })
-          .write()
-        console.log("New user inserted in the database");
-        data = JSON.stringify(data)
-        allUsers.push(data)
-        res.send("OK")
+       mongoDB(mongo, "insert", "users", { username: data.user, password: data.pass })
+            setTimeout(function(){
+            console.log("New data inserted in the database");
+            mongoDB(mongo, "sync", "users", null)
+            setTimeout(function(){
+             res.send("OK")
+              }, 1000);
+            }, 1000);
       return
     }
   })
