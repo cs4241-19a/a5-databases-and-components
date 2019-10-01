@@ -27,11 +27,11 @@ var timeout = require('connect-timeout')
 const helmet = require('helmet')
 
 
-var mongo = require('mongodb');
+var mongo = require('mongodb').MongoClient;
 // mongodb+srv://<jrbartone2>:<Joeyryan22>@cluster0-motd9.azure.mongodb.net/test?retryWrites=true&w=majority
 // mongodb+srv://<username>:<password>@cluster0-motd9.azure.mongodb.net/test?retryWrites=true&w=majority
 const uri = "mongodb+srv://jrbartone:Joeyryan22@cluster0-motd9.azure.mongodb.net/test?retryWrites=true&w=majority"
-mongo.connect(uri, function(err, client) {
+mongo.connect(uri, { useNewUrlParser: true }, function(err, client) {
    if(err) {
         console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
    }
