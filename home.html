@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="home.js"></script>
+  </head>
+  <body>
+    <h1>Welcome!</h1>
+    <p>Movie Tracker Allows you to track the movies you have watched and rate them!</p>
+    <h3> Want to add a movie?</h3>
+       <form action="">
+        <p>Title: <input type="text" id="newTitle" value=""></p>
+        <p>Genre: <input type="text" id="newGenre" value=""></p>
+        <p>Rating: <input type="text" id="newRating" value="" placeholder="1-5"></p>
+        <button id="addButton">Add Movie</button>
+       </form>
+    <br>
+    <h3>Edit An Entry</h3>
+    <form aciton="">
+        <p>Edit Entry: <input type="text" id="editId" placeholder="Enter ID (Required)"></p>
+        <p>New Information (you do not have to fill all fields, just the ones you want to change)</p>
+        <p>Title: <input type="text" id="editTitle"  placeholder="Movie Changed its Name?"></p>
+        <p>Genre: <input type="text" id="editGenre"  placeholder="Want to Change Genre?"></p>
+        <p>Rating: <input type="text" id="editRating"  placeholder="Change your Mind?"></p>
+        <button id="editButton">Edit</button>
+    </form>
+    <br>
+    <h3>Delete An Entry</h3>
+    <form action="">
+        <p>Delete Entry: <input type="text" id="deleteEntry" placeholder="Enter ID"></p>
+        <button id="deleteButton">Delete</button>
+    </form> 
+    <br>
+    <br>
+    <h3>Your Current Movies</h3>
+    <p id="table"></p>
+    <!--<table id="Data" class="padding-table-columns">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Rating (1-5)</th>
+        </tr>
+    </table>-->
+    </body>
+
+  <script>
+      /*
+      fetch('/', {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' }
+          fabicon 
+
+      })*/
+  </script>
+</html>

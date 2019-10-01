@@ -1,0 +1,29 @@
+{
+  "Count": 4,
+  "charlie": [
+    {
+      "ID": 1,
+      "Title": "Mad Max",
+      "Genre": "Action",
+      "Rating": 5
+    },
+    {
+      "ID": 2,
+      "Title": "Avatar",
+      "Genre": "Adventure",
+      "Rating": "5"
+    },
+    {
+      "ID": 3,
+      "Title": "Pulp Fiction",
+      "Genre": "Drama",
+      "Rating": "5"
+    },
+    {
+      "ID": 4,
+      "Title": "Lion King",
+      "Genre": "Disney",
+      "Rating": "3"
+    }
+  ]
+}

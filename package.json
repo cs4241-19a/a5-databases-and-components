@@ -1,0 +1,28 @@
+{
+  "name": "a3-persistence",
+  "version": "1.0.0",
+  "description": "Assignment 3 for CS4241",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlejandraGarza42/a3-persistenceV2.git"
+  },
+  "author": "Alejandra Garza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlejandraGarza42/a3-persistenceV2/issues"
+  },
+  "homepage": "https://github.com/AlejandraGarza42/a3-persistenceV2#readme",
+  "dependencies": {
+    "db": "^1.1.1",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "lowdb": "^1.0.0",
+    "npm": "^6.11.3",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  }
+}

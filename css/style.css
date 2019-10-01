@@ -1,0 +1,7 @@
+table {
+    border: 1;
+}
+
+.padding-table-columns th{
+    padding: 0 50px 0 50px;
+}
