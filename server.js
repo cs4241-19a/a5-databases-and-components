@@ -13,7 +13,7 @@ const fs   = require( 'fs' ),
       SpotifyStrategy = require('passport-spotify').Strategy, //Spotify Credentials
       client_id = 'da70dd0556874f0189eb6c64543eef72',
       client_secret = 'c11bdf5f5886434aac3b5dbe1f02984b',
-      redirect_uri = 'http://localhost:3000/callback',
+      redirect_uri = 'http://a5-michaelbosik.glitch.me/callback',
       dbUser = "the_queue",
       dbPass = "2H7xLeTJUki2bf7V",
       dburl = `mongodb+srv://${dbUser}:${dbPass}@cluster0-jmgry.mongodb.net/test?retryWrites=true&w=majority`,
