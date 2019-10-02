@@ -8,13 +8,17 @@ const REDUCE = 'reduce';
 const ITEM = 'item';
 const QTY = 'qty';
 
+const e = React.createElement;
+
+let react_items = [];
 
 const getContainer = function () {
     return document.getElementById('data');
 };
 export const populateList = function () {
     console.log('refreshing items');
-    getContainer().innerHTML = "";
+    ReactDOM.unmountComponentAtNode(document.getElementById('data'));
+    react_items = [];
     const body = JSON.stringify('{}');
     fetch(CONSTANTS.GETALL, {
         method: 'POST',
@@ -22,10 +26,16 @@ export const populateList = function () {
     })
         .then((response) => response.json())
         .then(function (items) {
+            //create a list of react elements
+            //then call render on that
             items.forEach((item) => {
+                //this will tell react to render everything
                 insertItem(item);
-                console.log('id '+item._id + ' purchased '+item.purchased)
+                console.log('id '+item._id + ' purchased '+item.purchased);
             });
+            console.log(react_items.length);
+            ReactDOM.render(react_items, document.getElementById("data"));
+            attachListeners();
         });
 };
 
@@ -35,28 +45,50 @@ export const populateList = function () {
  * @param item - json string
  */
 export const insertItem = function (item) {
+
+
+
     let divClass= item.purchased ? PURCHASED : UNPURCHASED;
     //make the checkbox checked if the item is purchased
-    let checked = item.purchased? 'checked' : '';
-    getContainer().innerHTML +=
-        `<div class="${divClass}" id="${item._id}">
-    <i class="small material-icons col m1 red-text text-darken-2 clickable ${CONSTANTS.REMOVE_BUTTON}">delete</i>
-    <label class="col m1 valign-wrapper center purchase_button">
-      <input type="checkbox" name="purchased" ${checked}/>
-      <span class="black-text input center"></span>
-    </label>
-    <input type='text' name='itemName' class='input col m7 tester' value="${item.itemName}" id='${ITEM}${item._id}'>
-    <label for="${ITEM}${item._id}"></label>
-    <i class="small center material-icons col m1 ${REDUCE} clickable red-text text-lighten-1">remove_circle</i>
-    <input type='text' name="qty" class='input col m1 center-align' id='${QTY}${item._id}' value="${item.quantity}"> 
-    <label for="${QTY}${item._id}"></label>
-    <i class="small center material-icons col m1 ${ADD} clickable green-text text-lighten-1">add_circle</i>
-  </div>`;
-
+    // let checked = item.purchased? 'checked' : '';
+    react_items.push(React.createElement("div", {
+        className: `${divClass}`,
+        id: `${item._id}`,
+        key: item._id
+    }, React.createElement("i", {
+        className: `small material-icons col m1 red-text text-darken-2 clickable ${CONSTANTS.REMOVE_BUTTON}`
+    }, "delete"), React.createElement("label", {
+        className: "col m1 valign-wrapper center purchase_button"
+    }, React.createElement("input", {
+        type: "checkbox",
+        name: "purchased",
+        defaultChecked: item.purchased
+    }), React.createElement("span", {
+        className: "black-text input center"
+    })), React.createElement("input", {
+        type: "text",
+        name: "itemName",
+        className: "input col m7 tester",
+        defaultValue: `${item.itemName}`,
+        id: `${ITEM}${item._id}`
+    }), React.createElement("label", {
+        htmlFor: `${ITEM}${item._id}`
+    }), React.createElement("i", {
+        className: `small center material-icons col m1 ${REDUCE} clickable red-text text-lighten-1`
+    }, "remove_circle"), React.createElement("input", {
+        type: "text",
+        name: "qty",
+        className: "input col m1 center-align",
+        id: `${QTY}${item._id}`,
+        defaultValue: `${item.quantity}`
+    }), React.createElement("label", {
+        htmlFor: `${QTY}${item._id}`
+    }), React.createElement("i", {
+        className: `small center material-icons col m1 ${ADD} clickable green-text text-lighten-1`
+    }, "add_circle")));
     console.log("id is " + item._id);
     // Assigning the handlers individually breaks the other listeners so I
     // need to assign them all here.
-    attachListeners();
 };
 
 const attachListeners = function () {
@@ -131,7 +163,7 @@ const changeQty = function(modifier){
         let id = thisParent.id;
         let itemName = document.getElementById('' + ITEM + id).value;
         let quantity = document.getElementById('' + QTY + id).value;
-        let purchased = thisParent.querySelector('input[name=purchased').checked;
+        let purchased = thisParent.querySelector('input[name=purchased]').checked;
 
         let body = {
             id: id,
@@ -220,3 +252,40 @@ const purchaseItem = function (e) {
 
 populateList();
 attachListeners();
+
+//  let test_elt = React.createElement("div", {
+//             className: `${UNPURCHASED}`,
+//             id: "1"
+//         }, React.createElement("i", {
+//             className: "small material-icons col m1 red-text text-darken-2 clickable remove_button"
+//         }, "delete"), React.createElement("label", {
+//             className: "col m1 valign-wrapper center purchase_button"
+//         }, React.createElement("input", {
+//             type: "checkbox",
+//             name: "purchased",
+//         }), React.createElement("span", {
+//             className: "black-text input center"
+//         })), React.createElement("input", {
+//             type: "text",
+//             name: "itemName",
+//             className: "input col m7 tester",
+//             value: "name",
+//             id: "item56"
+//         }), React.createElement("label", {
+//             htmlFor : "item56"
+//         }), React.createElement("i", {
+//             className: "small center material-icons col m1 ${REDUCE} clickable red-text text-lighten-1"
+//         }, "remove_circle"), React.createElement("input", {
+//             type: "text",
+//             name: "qty",
+//             className: "input col m1 center-align",
+//             id: "qty56",
+//             value: "56"
+//         }), React.createElement("label", {
+//             htmlFor: "qty56"
+//         }), React.createElement("i", {
+//             className: "small center material-icons col m1 add clickable green-text text-lighten-1"
+//         }, "add_circle"));
+//
+//
+// ReactDOM.render(test_elt, document.getElementById("data"));

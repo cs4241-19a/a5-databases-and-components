@@ -1,5 +1,5 @@
 import CONSTANTS from './constants.mjs';
-import {insertItem} from './itemDisplay.mjs';
+import {insertItem, populateList} from './itemDisplay.mjs';
 
 
 const add = function (e) {
@@ -32,6 +32,7 @@ const add = function (e) {
             //this should put the item into the divs when its submitted.
             console.log(item);
             insertItem(item);
+            populateList();
         });
     item.value = "";
     qty.value="";
