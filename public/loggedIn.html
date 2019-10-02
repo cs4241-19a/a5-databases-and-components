@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Peter Jankowski">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <script src="js/scripts.js" defer></script>
+  </head>
+  <body class="p-3 mb-2 bg-dark text-white">
+    <nav class="navbar navbar-dark">
+      <h1 class="mx-auto">Grade Tabler: Logged In</h1>
+    </nav>
+    <!--Form for user actions when logged in-->
+    <form id="loggedIn" action="/submit" class="form-group row">
+      <!--Input fields for a new or updated student-->
+      <fieldset id="entry" class="mx-auto">
+      <label for="yourname" class="pageText">Name:</label>
+      <input type="text" id="yourname" placeholder="Student Name Here" class="form-control">
+      <label for="yourgrade" class ="pageText">Numeric Grade:</label>
+      <input type="text" id="yourgrade" placeholder="100" class="form-control" aria="entryHelpBlock">
+      <details id="entryHelpBlock" class="form-text text-light">
+        If you enter a student who is already in the table, the student's grade will be updated.
+        </details>
+      <button id="inputButton" class="btn btn-primary">Submit/Update Grade</button>
+      </fieldset>
+      <fieldset id="delete">
+        <label for="delete" class="pageText">Remove a Student:</label>
+        <input type="text" id="removename" placeholder="Student Name Here" class="form-control" aria-describedby="removeHelpBlock">
+        <details id="removeHelpBlock" class="form-text text-light">
+        Enter the name of a student in your table that you want to remove.
+        </details>
+        <button id="removeButton" class="btn btn-danger">Remove Student</button>
+        <button id="viewButton" class="btn btn-secondary">Show Current Grade Table</button>
+        <button id="hideButton" class="btn btn-secondary">Hide Grade Table</button>
+      </fieldset>
+      <!--This table can be shown or hidden to display current students in the database for the current user only-->
+      <table id="tablePrint" class="table table-dark"></table>
+    </form>
+  </body>
+</html>
