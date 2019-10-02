@@ -1,5 +1,7 @@
 # CS Clicker v3.0
 
+Link: https://a5-jwplante.glitch.me/
+
 CS Clicker is a casual clicker game similar to Paperclips or Cookie Clicker, where your goal is to generate lines of code in order to aid in the development of the perfect coding style. While there are no gameplay changes to the project compared to Assignment 3 (or Assignment 2 to be more accurate), the project has moved over to MongoDB Atlas and Azure from a local lowdb database to store user scores, so it can be moved to a different hosting service if necessary. As such, all functionality on the website has remained the same. However, `server.js` has been modified to use the MongoDB driver. Additonally, in the porting process, all error correction has been rewritten server-side to be functionally identical to Assignment 3, so the website will not be affected by the changes in the server code. Any credentials to access MongoDB have been abstracted out of the source, so anyone wishing to deploy this application needs to create a separate `.env` file in the root of the project that contains their own credentials.
 
 ### Did the new technology improve or hinder the development experience?
