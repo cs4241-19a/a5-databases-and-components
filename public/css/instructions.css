@@ -1,0 +1,41 @@
+@font-face {
+  src: url(../assets/kongtext.ttf);
+  font-family: arcade;
+}
+
+h1{
+  font-size: 4vw;
+  text-align: center;
+}
+
+p{
+  font-size: 1.5vw;
+}
+
+body{
+  background-color: #33ccff;
+  height: 100%;
+  font-family: arcade;
+  width: 100%;
+  margin: 0;
+}
+.buttondiv{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#instructpanel{
+  background-color: white;
+  margin: auto;
+  height: auto;
+  font-size: 30px;
+  width: 90%;
+}
+
+.images{
+  margin: 0 20px 0 20px;
+  float: left;
+  width: 50%;
+}
