@@ -1,0 +1,35 @@
+/* Tag selectors */
+body {
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    background:black;
+    color:white;
+    margin:0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:75%;
+}
+p {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+section {
+    margin:20px;
+}
+
+header {
+    font-size: 60px;
+    text-align:center;
+    color:green;
+    margin:20px;
+}
+
+/* ID Selectors */
+#loginError, #userFoundError, #userCreated {
+    display:none;
+}
+
+#about {
+    margin:20px;
+}
