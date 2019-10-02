@@ -1,0 +1,140 @@
+---
+  0 debug pnpm:scope: 
+    selected: 1
+    workspacePrefix: null
+  1 info pnpm: 
+    message: "A store server is running. All store manipulations are delegated to it."
+    prefix: "/app"
+  2 debug pnpm:package-json: 
+    initial: 
+      //1: "describes your app and its dependencies"
+      //2: "https://docs.npmjs.com/files/package.json"
+      //3: "updating this file will download and update your packages"
+      name: "hello-express"
+      version: "0.0.1"
+      description: "A simple Node app built on Express, instantly up and running."
+      main: "server.js"
+      scripts: 
+        start: "node server.js"
+      dependencies: 
+        @vizuaalog/bulmajs: "^0.10.0"
+        body-parser: "^1.19.0"
+        bulma-extensions: "^6.2.7"
+        connect-ensure-login: "^0.1.1"
+        cookie-parser: "^1.4.4"
+        cookie-session: "^1.3.3"
+        ejs: "^2.7.1"
+        express: "^4.16.3"
+        express-session: "^1.16.2"
+        feature-policy: "^0.4.0"
+        helmet: "^3.21.0"
+        jQuery: "^1.7.4"
+        jquery: "^3.4.1"
+        lowdb: "^1.0.0"
+        mime: "^2.4.4"
+        morgan: "^1.9.1"
+        mongodb: "^"
+        passport: "^0.4.0"
+        passport-local: "^1.0.0"
+        referrer-policy: "^1.2.0"
+      engines: 
+        node: "8.x"
+      repository: 
+        url: "https://glitch.com/edit/#!/hello-express"
+      license: "MIT"
+      keywords: 
+        - "node"
+        - "glitch"
+        - "express"
+      readme: "---\n\n## WPI Track and Field Diet Tracker\n\nhttp://a3-mjadiletta.glitch.me \n\n#### Goal\nThis is an application designed for the WPI track and field team. My coach asked me to make an easy to use website to add data to track basic food groups. This application accomplishes that and allows users to add data on a \ndaily basis and be stored in a database. \n\n#### Challenges\nI had quite a few challenges with this assignment. First, I had an incredibly difficult time implementing the express server. I could not figure out how to communicate between the front end and the back end for many hours. \nThen I struggled for at least 10 hours through user authentication. I finally managed to get url authentication, but later I realized I needed json authentication for POST data and so I redesigned for another 10 hours. \n\n#### Authentication Strategy\nI chose the local method because the track team does not have GIT hub accounts, and we were told that GIT hub was the only account we were guaranteed to have from Prof. Roberts. Thus, I went with local because I can give each\nof my teammates an account manually. \n\n#### Database Strategy\nI chose to use my own database system. I wrote part of the database for the last project, but I have since upgraded the system significantly. It is an incredibly detailed database structure that allows for lots of data to be stored\neasily and efficiently. It was also the easiest to implement because I coded it.\n\n#### CSS framework\nI chose to use BULMA because it provides many cool features with flex and templates. I liked bulma over other options because the formating is very clean - frendly for everyday users. It is also an easy import for html design. \n\n#### Express Packages\n1. passport : passport is used for user authentication and was required for the project. \n2. morgan : morgan is a tool that logs html requrests and responses. It uses tokens, req, and res and displays them in the console. \n3. cookie-parser : this iterates over keys and checks for any signed cookies. If the key is signed, then it is taken from the request, and put in the response. \n4. feature-policy : this package is a part of the helmet package but I customized it so that I limit the types of attacks that can occur on my website.\n5. referrer-policy : this package is also a part of the helmet package. I customized it by forcing all url requests and responses to be hidden. This increases privacy. \n\n## Technical Achievements\n- **Created a method for Exporting data**: I wrote javascript method to export the entire database as a JSON file. It sends a json file to your laptop to view in other types of json viewers. \n- **Raw Functionality**: There is a ton of additional functionality outside of the scope of the project. The users can add, edit and delete diet data. The user can edit their personal profile for username, password and \ndisplay name. There are many restrictions for editing the profile to ensure that there are no duplicated accounts. It took a lot of time to implement duplicate account error checking. The user can add or delete users. This\nalso requires lots of error checking when adding a user because new users need a unique ID and a unique username. Deleting users was difficult becasue we can't let the user delete himself/herself. \n- **Enhanced JSON Database with Query Commands**: I created a method for storing and retreiving information for users using a JSON database. I setup the database by reading and writing to a JSON file. The file is only one\nobject, all the data residing in the database. I wrote commands that query the database and retreive the required information and returns the information to the user. This is enhanced from the previous project by adding \nfunctionality to only take certain objets to reduce the time querying. I also store much more infomation in a well defined user structure. \n- **Created a graphing mechanism**: I used Canvas.js to create interactive graphs of the data in the database. This is a technical achievement becasue it involved a lot of data manipulation and server requests to get the \ndata required to display in the graph. It also requried html and javascript code to provide functionality. \n- **Wrote lots of Java Script for User Interface**: I wrote a lot of javascript that accesses elements by ID, class ect. to have them show and hide at correct times. This allows the user to have a two page website\nthat has lots of builtin functionality - login.html to user.html.\n\n### Design Achievements\n- **Two Page Website**: This design achievement is great because it means there is no url redirects, everything is on a single page and is hidden or shown based on the desired content. The website is very extendable this way\nbecause there is one main content area that dynamically fits to the page for whatever content needs to be displayed.\n- **Graphing Mechanism**: As mentioned before, I used canvas.js to create an interactive graph that displays all the users data based on date. This is a design achievement because I needed to do a lot of css and html to \nformat the graph properly and make it look nice. The graph itself has some cool animation that draws the line. This was a really hard to implement so hopefully this is noted as a large design achievement. \n- **ejs views**: this was a cool design feature becasue it allows a coder to script directly on the viewing page. It makes the webpage much more coding friendly. I'm calling it a design achievement because it's the design for\nthe website framework. \n- **Fun pictures**: there are a bunch of fun pictures throughout the website that give the user a good visual while using the website. The WPI logo redirects to the WPI homepage. The Welcome: \"username\" changes whenever you update\nyour profile. \n- **Static Nav Bar inspired by Bulma**: This homebar is a cool feature of my website giving it a classy look that can actually be viewed on mobile devices. \n"
+      readmeFilename: "README.md"
+      gitHead: "a49c5562fb7f53f8f3cfc8f919b563bb8fa78ac9"
+      _id: "hello-express@0.0.1"
+    prefix: "/app"
+  3 debug pnpm:stage: 
+    prefix: "/app"
+    stage: "resolution_started"
+  4 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/@vizuaalog/bulmajs/0.10.0"
+    requester: "/app"
+    status: "resolved"
+  5 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/body-parser/1.19.0"
+    requester: "/app"
+    status: "resolved"
+  6 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/bulma-extensions/6.2.7"
+    requester: "/app"
+    status: "resolved"
+  7 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/connect-ensure-login/0.1.1"
+    requester: "/app"
+    status: "resolved"
+  8 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/cookie-parser/1.4.4"
+    requester: "/app"
+    status: "resolved"
+  9 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/cookie-session/1.3.3"
+    requester: "/app"
+    status: "resolved"
+  10 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/ejs/2.7.1"
+    requester: "/app"
+    status: "resolved"
+  11 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/express/4.17.1"
+    requester: "/app"
+    status: "resolved"
+  12 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/express-session/1.16.2"
+    requester: "/app"
+    status: "resolved"
+  13 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/feature-policy/0.4.0"
+    requester: "/app"
+    status: "resolved"
+  14 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/helmet/3.21.0"
+    requester: "/app"
+    status: "resolved"
+  15 debug pnpm:deprecation: 
+    deprecated: "This is deprecated. Please use 'jquery' (all lowercase)."
+    depth: 0
+    pkgId: "registry.npmjs.org/jQuery/1.7.4"
+    pkgName: "jQuery"
+    pkgVersion: "1.7.4"
+    prefix: "/app"
+  16 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/jQuery/1.7.4"
+    requester: "/app"
+    status: "resolved"
+  17 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/jquery/3.4.1"
+    requester: "/app"
+    status: "resolved"
+  18 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/lowdb/1.0.0"
+    requester: "/app"
+    status: "resolved"
+  19 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/mime/2.4.4"
+    requester: "/app"
+    status: "resolved"
+  20 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/morgan/1.9.1"
+    requester: "/app"
+    status: "resolved"
+  21 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/passport/0.4.0"
+    requester: "/app"
+    status: "resolved"
+  22 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/passport-local/1.0.0"
+    requester: "/app"
+    status: "resolved"
+  23 debug pnpm:progress: 
+    packageId: "registry.npmjs.org/referrer-policy/1.2.0"
+    requester: "/app"
+    status: "resolved"
+  24 error pnpm: "Cannot resolve mongodb@^ packages not supported"

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <!-- Bulma Version 0.7.x-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.7.5/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" href="css/button.css"> 
+  
+  	<link rel='stylesheet' href='css/bundle.css'>
+  	<script defer src='js/bundle.js'></script>
+  
+    <script src="js/script.js"></script>
+</head>
+  
+<body>
+  <!--navbar -->
+  <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.wpi.edu">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/WPI_wordmark.png" >
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarEx">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarEx" class="navbar-menu is-active">
+      <div class="navbar-start">
+        
+        <a onclick="returnHome()" class="navbar-item">
+          Home
+        </a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Data Tools
+          </a>
+
+          <div class="navbar-dropdown">
+            <a onclick="setupAddData()" class="navbar-item">
+              Add Data
+            </a>
+            <a onclick="setupEditData()" class="navbar-item">
+              Edit Data
+            </a>
+            <hr class="navbar-divider">
+            <a onclick="setupDeleteData()" class="navbar-item">
+              Delete Data
+            </a>
+          </div>
+        </div>
+        
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            View Data
+          </a>
+          
+          <div class="navbar-dropdown">
+            <a onclick="viewUserData()" class="navbar-item">
+              View Your Data
+            </a>
+            <a onclick="renderChartOnClick()" class="navbar-item">
+              View Graph
+            </a>
+            <hr class="navbar-divider">
+            <a onclick="viewAllData()" class="navbar-item">
+              View All Data
+            </a>
+          </div>        
+          
+        </div>
+      </div>
+      <div class="navbar-end">
+        <h5 class="subtitle is-5" id="WELCOME_NAME">Welcome: <%=user.displayName %> </h5> 
+        
+        <div class="navbar-item">         
+          <div class="buttons"> 
+            <a onclick="viewProfile()" class="button is-light">
+              View Profile
+            </a>
+          </div>
+        </div>
+        
+        <div class="navbar-item">         
+          <div class="buttons"> 
+            <a href="/download" class="button is-light">
+              Export Data
+            </a>
+          </div>
+        </div>
+        
+        <div class="navbar-item">         
+          <div class="buttons">
+            <a href="/logout" class="button is-light">
+              Logout
+            </a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </nav>
+  <!--navbar -->
+  
+  <section class="hero is-info">
+    <div class="hero-body" style="background-color:#ac2b37; padding:0px">
+      <div class="columns">
+        <div class="column is-two-thirds">
+          <div class="container" style="margin:42px">
+              <h1 class="title">
+              WPI Track and Field Diet Tracker
+              </h1>
+              <h2 class="subtitle">
+              Used by athletes for sustainable peak performance
+              </h2>
+          </div>
+        </div>
+        <div class="column is-one-third" align="right">
+          <img class="center" src="https://i.pinimg.com/originals/ea/2b/29/ea2b29c1ef196c1db477fd38c33927a1.png" style="height:140px; width: 150px; margin:10px; filter: invert(100%);">
+        </div>
+      </div>
+    </div>   
+    
+   
+    
+    <div class="tab-pane is-active" style="background-color:#d6d3d6">
+      <div class="content" style="margin: 15px 10px">
+        <div class="columns is-centered">
+          <div class="column is-two-thirds">
+            
+            
+            
+            <div id="VIEW_DATA" class="subtitle is-4" style="color:#2f2f2f" value="" name="">
+            
+              <!-- default View Data -->
+              <div class="section" style="background-color:white; border-radius:20px; padding:13px"><div class="subtitle is-4" style="color:#2f2f2f">
+                <script>returnHome()</script>
+              </div></div>
+            
+            </div>
+          
+            <script>
+              var uname = "<%= user.username %>"
+              var pass = "<%= user.password %>"
+              document.getElementById("VIEW_DATA").value = uname
+              document.getElementById("VIEW_DATA").name = pass
+            </script>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  
+  
+  <footer class="footer" style="padding: 30px">
+      <div class="container">
+          <div class="columns is-centered">
+            <div class="column is-one-quarter">
+              <p style="text-align:center; margin:0px; padding:0px">Powered by Glitch. Created by Matt Adiletta</p>
+              <p style="text-align:center; margin:0px; padding:0px"> <a onclick="addNewUser('none')" style="color:#ac2b37">Add New User</a> &nbsp; &nbsp;  <a onclick="removeUser()" style="color:#ac2b37">Remove User</a></p>
+            </div>
+          </div>
+      </div>
+      <script src="/js/bulma.js"></script>
+  </footer>
+  
+  <script type="text/javascript">
+    
+    function getData(){
+      var dataPointsVals = [];
+      let myRequest = new Request('/getDatabase', { method:'GET'} );
+      fetch(myRequest).then(function(response) {
+        response.json().then(function(json_data) {
+          var output = '<h1> User Info </h1>'
+          for (var c in json_data){
+            for(var user in json_data[c]) {
+              var thisUsername = false;
+              for(var field in json_data[c][user]){
+                if(field === "username"){ 
+                  if(json_data[c][user][field] === document.getElementById("VIEW_DATA").value){
+                    thisUsername = true;
+                  }
+                  else{
+                    thisUsername = false;
+                  }
+                }
+              }
+              var i = 0;
+              for(var field in json_data[c][user]){
+                if(field === "data" && thisUsername){
+                  for (var date in json_data[c][user][field]){
+                    for (var user_info_field in json_data[c][user][field][date]){
+                      if (user_info_field === "score"){
+                        dataPointsVals.push({label:date, y: json_data[c][user][field][date][user_info_field]})
+                        i += 1;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        });
+       });
+      
+      return dataPointsVals
+    }
+
+    function renderChartOnClick(){
+      var promise1 = new Promise(function (resolve){
+        document.getElementById("VIEW_DATA").innerHTML='<div class="section" style="background-color:white; border-radius:20px; padding:13px"><div id="chartContainer" style="height: 370px; width: 100%;"></div></div>'
+        resolve(getData())
+      });
+      var all_data
+      let chart
+      promise1.then(function(data){
+          all_data = data
+          chart = new CanvasJS.Chart("chartContainer", {
+          animationEnabled: true,
+          theme: "light2",
+          title:{
+            text: "Diet Score"
+          },
+          axisX:{
+            title: "Date"
+          },
+          axisY:{
+            title: "Score",
+            minimum: 0,
+            includeZero: false,
+            interval: 1
+
+          }, 
+          data: [{ type: "line", 
+                  lineColor: "#ac2b37",
+                  color: "#303030",
+                 dataPoints: all_data
+                 }]
+        })
+        return chart
+      }).then(function(chart) {
+        let myInterval = setInterval(function(){chart.render(); clearInterval(myInterval)}, 1000);
+      });
+    }
+  
+  </script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
+
+  
+
+  <script async type="text/javascript" src="../js/bulma.js"></script>
+  
+</body>
