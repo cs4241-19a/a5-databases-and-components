@@ -1,4 +1,4 @@
-/* 
+/*
  * Express Server Re-write 
  * James Plante
  */
@@ -26,26 +26,30 @@ const express = require('express'),
   helmet = require('helmet'),
   mongodb = require('mongodb')
 
-// Connect to MongoDB database
-const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB
+require('dotenv').config()
 
-const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
+
+// Connect to MongoDB database
+const uri = 'mongodb+srv://' + process.env.DB_USER + ':' + process.env.PASS + '@' + process.env.HOST + '/' + process.env.DB
+
+const client = new mongodb.MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 let loginInfo = null
 let userData = null
 
-client.connect().then(function(err) {
+client.connect().then(function (err) {
 
   // Create userData and loginInfo collections if haven't already
-  client.db.test.createCollection("userData").then( collection => {
+  client.db('CSClicker').createCollection("userData").then(collection => {
     userData = collection
   })
 
-  client.db.test.createCollection("loginInfo").then( collection => {
+  client.db('CSClicker').createCollection("loginInfo").then(collection => {
     loginInfo = collection
   })
+
   // Catch connection error if there is one
-}).catch(() => {console.log('Error connecting with the server')})
+}).catch((err) => { console.log(err) })
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(express.static(__path));
@@ -61,19 +65,19 @@ app.use(helmet());
  * @param {*} done 
  */
 const authenticateRequest = function (username, password, done) {
-  const user = db.get("users").find(__user => __user.userName === username).value();
-
-  console.log("User " + user.userName + " requested")
-  /* Check if username is empty as well as undefined */
-  if (user === undefined) {
-    return done(null, false, { message: "User or password incorrect" });
-    /* If password is correct */
-  } else if (user.password === password) {
-    return done(null, { username, password });
-    /* Password is incorrect */
-  } else {
-    return done(null, false, { message: "User or password incorrect" });
-  }
+  console.log("User " + username + " requested")
+  loginInfo.findOne({ userName: username })
+    .then(user => {
+      console.log("User " + JSON.stringify(user) + " found in database!")
+      if (user.password == password) {
+        done(null, { username, password })
+      } else {
+        done(null, false, { message: "User or password incorrect" });
+      }
+    })
+    .catch(err => {
+      done(null, false, { message: "User or password incorrect" });
+    })
 }
 
 passport.serializeUser((user, done) => done(null, user.username))
@@ -81,18 +85,19 @@ passport.serializeUser((user, done) => done(null, user.username))
 // "name" below refers to whatever piece of info is serialized in seralizeUser,
 // in this example we're using the username
 passport.deserializeUser((username, done) => {
-  // Get the user
-  const userName = db.get("users").find(__user => __user.userName === username).value();
-  console.log('deserializing:', userName.userName)
+  loginInfo.findOne({ userName: username })
+    .then(user => {
+      console.log('deserializing:', user.userName)
+      done(null, user.userName)
+    })
+    .catch(err => {
+      console.log(err)
+      done(null, false, { message: 'user not found; session not restored' })
+    })
 
-  if (userName !== undefined) {
-    done(null, username)
-  } else {
-    done(null, false, { message: 'user not found; session not restored' })
-  }
 })
 
-app.use(session({ secret: db.get("secret").value(), resave: false, saveUninitialized: false }));
+app.use(session({ secret: "supersecretpass", resave: false, saveUninitialized: false }));
 passport.use(new pLocal(authenticateRequest));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -108,11 +113,11 @@ app.get('/game.html', function (request, response) {
 });
 
 //
-app.get('/login', function(request, response) {
-  if(request.user !== undefined){
+app.get('/login', function (request, response) {
+  if (request.user !== undefined) {
     response.redirect("/public/game.html");
   } else {
-    response.writeHead(404, { 'Content-Type': 'text/html'})
+    response.writeHead(404, { 'Content-Type': 'text/html' })
     response.end("Content not found!");
   }
 });
@@ -120,8 +125,15 @@ app.get('/login', function(request, response) {
 // Get all data from all users and print it out.
 app.get("/getAllData", function (request, response) {
   response.writeHead(200, { 'Content-Type': 'application/json' });
-  let appdata = db.get("appdata").value()
-  response.end(JSON.stringify(appdata));
+
+  userData.find({ }).toArray()
+    .then(result => {
+      response.end(JSON.stringify(result))
+    })
+    .catch(err => {
+      console.log("Cannot find data!")
+      response.end(JSON.stringify([]))
+    })
 });
 
 // Get data from a specific username
@@ -129,14 +141,17 @@ app.get("/getData", function (request, response) {
   let uid = request.user;
   console.log("UID: " + uid);
   response.writeHeader(200, { 'Content-type': 'text/plain' })
-  let appdata = db.get("appdata").find(__user => __user.userName === uid).value();
-  // Look through the given data for a UID and send the JSON as a response
-  if (appdata === undefined) {
-    console.log("User not found!");
-    response.end(JSON.stringify({}));
-  } else {
-    response.end(JSON.stringify(appdata))
-  }
+
+  // Find the user, if found, then send back the result
+  userData.findOne({ userName: uid })
+    .then(result => {
+      response.end(JSON.stringify(result))
+    })
+    // If user is not found
+    .catch(err => {
+      console.log("User not found!");
+      response.end(JSON.stringify({}));
+    })
 });
 
 /* POST Request to make a purchase and update data. */
@@ -150,17 +165,20 @@ app.post("/updateData", function (request, response) {
     // Get a unique UID and send it back.
     case "modifyData":
       console.log(body)
-      if (addDeltaToAppData(userName, body)) {
-        response.end("Transaction Completed")
-      } else {
-        response.end("Not enough money")
-      }
+      addDeltaToAppData(userName, body)
+        .then(retVal => {
+          if (retVal) {
+            response.end("Transaction Completed")
+          } else {
+            response.end("Not enough money")
+          }
+        });
   }
 });
 
 /* POST Request to handle deleting data */
-app.post("/deleteUserData", function(request, response) {
-  response.writeHead(200, "OK", {"Content-type" : 'text-plain'})
+app.post("/deleteUserData", function (request, response) {
+  response.writeHead(200, "OK", { "Content-type": 'text-plain' })
   let verification = request.body, userName = request.user;
   console.log("Delete data: " + verification.consent)
   if (verification.consent = "yes") {
@@ -170,26 +188,38 @@ app.post("/deleteUserData", function(request, response) {
 });
 
 /* POST Request to handle logins */
-app.post("/login",  passport.authenticate('local'),
+app.post("/login", passport.authenticate('local'),
   function (req, res) {
     if (req.user === undefined) {
       console.log("Cannot find login!");
-      res.json({message:"User not found!"});
+      res.json({ message: "User not found!" });
     } else {
-      res.json({message:"Logged In!"});
+      res.json({ message: "Logged In!" });
     }
     console.log("Logged in! " + req.user);
-});
+  });
 
-app.post("/signUp", function(request, response){
+// Handles creating new user accounts
+app.post("/signUp", function (request, response) {
   let credentials = request.body;
-  if(createNewUser(credentials.username, credentials.password)){
-    response.redirect(200, "/game.html")
-  } else {
-    response.writeHead(404, "File not found");
-    response.end("User already exists");
-  }
-})
+  // Find the user
+  loginInfo.findOne({userName : credentials.username})
+  .then((user)=> {
+    // If unsuccessful, then add to database. Else, return a 404.
+    if (user != null) {
+      console.log("User already exists!")
+      response.writeHead(404, "File not found");
+      response.end()
+    } else {
+      createNewUser(credentials.username, credentials.password)
+      createNewUserData(credentials.username)
+      response.redirect(200, "/game.html")
+    }
+  })
+  .catch(err => {
+    console.log(err)
+  })
+});
 
 
 /* Helper functions */
@@ -198,23 +228,12 @@ app.post("/signUp", function(request, response){
  * Creates a new user based on their username and password
  * @param {*} username 
  * @param {*} password 
- * @return true if new user is created, false if not.
+ * @return Promise to handle the insertion into the database
  */
-const createNewUser = function(username, password) {
-  console.log("New username : " + username + "New Passowrd: " + password )
+const createNewUser = function (username, password) {
+  console.log("New username : " + username + "New Password: " + password)
 
-  const promise = new Promise((resolve, reject) => {
-    loginInfo.insertOne({userName: username, password: password})
-    .then(() => {
-      createNewUserData(username);
-      resolve(true)
-    })
-    .catch(err => {
-      reject("User already created!")
-    })
-  })
-
-  return promise
+  return loginInfo.insertOne({ userName: username, password: password })
 }
 
 /**
@@ -222,8 +241,7 @@ const createNewUser = function(username, password) {
  * already exists clear the existing data.
  * @param {String} username 
  */
-const createNewUserData = function (username){
-  console.log("createNewUserData " + username)
+const createNewUserData = function (username) {
   // Get the existing user (if it exists)
   let newDocument = {
     userName: username,
@@ -237,10 +255,19 @@ const createNewUserData = function (username){
     totalLoc: 0
   }
 
-  userData.findOneAndUpdate({userName: username}, newDocument).then(data => {
-    console.log("User " + username + " updated in the database.")
+  userData.findOne({ userName: username }, newDocument).then(data => {
+    if (data === null) {
+      userData.insert(newDocument)
+      .then(data => {
+        console.log("New data entry for " + username + " has been created.")
+      })
+    } else {
+      userData.findOneAndReplace({userName: username}, newDocument)
+      .then((data) => {
+        console.log("User " + username + "'s memory has been wiped.")
+      })
+    }
   }).catch((err) => {
-    userData.insert(newDocument)
   })
 }
 
@@ -263,40 +290,53 @@ const calculateCost = function (delta) {
  * have enough loc, then return false
  */
 const addDeltaToAppData = function (userName, delta) {
+  return new Promise( (resolve, reject) => {
+
   console.log("Deltauser = " + userName)
-  let appdataEntry = userData.find(__user => __user.userName === userName);
-  let appdata = appdataEntry.value();
-  console.log("Current app Data= " + appdata)
-  // Look through the given data for a UID and send the JSON as a response
-  if (appdata === undefined) {
-    console.log("User not found!");
-    return false;
-  } else {
-    console.log("NEW DELTA: " + JSON.stringify(delta))
-    let totalCost = calculateCost(delta);
-    console.log("Purchase UID: " + delta.uid);
-    // If the cost is too great, return false
-    if ((delta.currentLOC - totalCost) < 0) {
-      appdata.totalLoc += (delta.currentLOC - appdata.loc)
-      appdata.loc = delta.currentLOC;
-      // Update database
-      appdataEntry.assign(appdata).write();
-      return false;
-    // Else, store all of the delta values in the existing database
-    } else {
-      appdata.totalLoc += (delta.currentLOC - appdata.loc)
-      appdata.loc = delta.currentLOC - totalCost;
-      appdata.cursors += delta.cursors;
-      appdata.hobbyists += delta.hobbyists;
-      appdata.csMajors += delta.csMajors;
-      appdata.softEngs += delta.softEng;
-      appdata.server += delta.server;
-      appdata.quantumComputers += delta.quantum;
-    
-      appdataEntry.assign(appdata).write();
-      return true;
-    }
-  }
+  userData.findOne({ userName: userName })
+    .then(appdata => {
+      // If user is found then do these operations
+      console.log("NEW DELTA: " + JSON.stringify(delta))
+      let totalCost = calculateCost(delta);
+      if ((delta.currentLOC - totalCost) < 0) {
+        // Update the response anyway
+        appdata.totalLoc += (delta.currentLOC - appdata.loc)
+        appdata.loc = delta.currentLOC;
+        // Update database
+        userData.findOneAndReplace({ userName: userName }, appdata)
+        .then(() => {
+          console.log("Save file updated!")
+          resolve(false)
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
+        // Else, store all of the delta values in the existing database
+      } else {
+        appdata.totalLoc += (delta.currentLOC - appdata.loc)
+        appdata.loc = delta.currentLOC - totalCost;
+        appdata.cursors += delta.cursors;
+        appdata.hobbyists += delta.hobbyists;
+        appdata.csMajors += delta.csMajors;
+        appdata.softEngs += delta.softEng;
+        appdata.server += delta.server;
+        appdata.quantumComputers += delta.quantum;
+
+        userData.findOneAndReplace({ userName: userName }, appdata)
+        .then(() => {
+          console.log("Save file updated!")
+          resolve(true)
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
+      }
+    })
+    .catch(err => {
+      console.log("User not found!");
+      resolve(false)
+    })
+  })
 };
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000)
