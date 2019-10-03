@@ -1,0 +1,44 @@
+{
+  "jobs": [
+    {
+      "name": "John",
+      "job": "Foyer",
+      "day": "thur",
+      "owner": "admin"
+    },
+    {
+      "name": "Jim",
+      "job": "1br",
+      "day": "tues",
+      "owner": "admin"
+    },
+    {
+      "name": "Augustus",
+      "job": "Knob",
+      "day": "thur",
+      "owner": "Sam"
+    },
+    {
+      "name": "Addison",
+      "job": "Laundry",
+      "day": "thur",
+      "owner": "Sam"
+    },
+    {
+      "name": "Sam",
+      "job": "Base",
+      "day": "tues"
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin"
+    },
+    {
+      "username": "Sam",
+      "password": "password"
+    }
+  ],
+  "count": 0
+}

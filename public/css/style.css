@@ -1,0 +1,31 @@
+table {
+  margin: 5px;
+}
+th, tr {
+  border: 2px solid black;
+}
+td {
+  border: 1px solid black;
+}
+
+body {
+  justify-content: center;
+}
+.readout {
+  display: flex;
+  justify-content: center;
+}
+
+#loginPrompt {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+#jobForm {
+  text-align: center;
+}
+
+input, select, button {
+  margin: 5px;
+}
