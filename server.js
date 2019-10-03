@@ -3,10 +3,6 @@ const html = require('html'),
     express = require('express'),
     server = express(),
     bodyparser = require('body-parser'),
-    low = require('lowdb'),
-    FileSync = require('lowdb/adapters/FileSync'),
-    adapter = new FileSync('db.json'),
-    db = low(adapter),
     morgan = require('morgan'),
     mongodb = require('mongodb');
 
