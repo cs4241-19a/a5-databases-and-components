@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bulma Libraries --> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!-- My Style CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
+  </head> 
+  <body>
+    <section class="hero center has-background-primary">
+        <div class="hero-body">
+            <h1 class="title is-1">
+                Expense Tracker
+            </h1>    
+        </div>
+    </section>
+
+        <br>
+        <br>
+        <section class="columns">
+            <section class="column"></section>
+            <section class="column is-half"> 
+                <section class="box">
+                    <div class="notification" id="usernamebox">
+                        <form class="item" action=""></form>
+                            <label> Enter Username: </label>
+                            <input class="selStyle" type='text' id='username'/>
+                        </form>
+                    </div>
+                    <div class="notification" id="passwordbox">
+                        <form class="item" action="">
+                            <label> Enter Password: </label>
+                            <input class="selStyle" type='text' id='password'/>
+                        </form>
+                    </div>
+                    <section class="columns">
+                            <section class="column">
+                                <a class="button btn is-primary is-focused center" id="login" disabled>Login</a>
+                            </section>
+                            <section class="column">
+                                <a class="button btn is-primary is-focused center" id="signup" disabled>Sign Up</a>
+                            </section>
+                    </section>
+                                     
+                </section>
+            </section>
+            <section class="column"></section>
+        </section>
+    </body>
+    <script src='/js/login.js'></script>
+</html>
