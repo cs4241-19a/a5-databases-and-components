@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>House Job Tracker</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="./js/scripts.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <h1 class="d-flex justify-content-center">House Job Tracker</h1>
+    <div id="jobList" class="container">
+      <h3 class="d-flex justify-content-center"><u>House Jobs This Week</u></h3>
+      <div class="row">
+        <div id="tuesReadout" class="col-sm">
+          <h2 class="d-flex justify-content-center">Tuesday</h2>
+          <table id="tuesTable" class="d-flex justify-content-center">
+            <tr>
+              <th>Job</th>
+              <th>Name</th>
+            </tr>
+            <tr>
+              <td>Knobs + Rags</td>
+              <td id="tuesKnob"></td>
+            </tr>
+            <tr>
+              <td>1st Floor Bathroom</td>
+              <td id="tues1br"></td>
+            </tr>
+            <tr>
+              <td>2nd Floor Br, Toilet/Vanity</td>
+              <td id="tues2brToilet"></td>
+            </tr>
+            <tr>
+              <td>2nd Floor Br, Showers/Floors</td>
+              <td id="tues2brShower"></td>
+            </tr>
+            <tr>
+              <td>3rd Floor Bathroom</td>
+              <td id="tues3br"></td>
+            </tr>
+            <tr>
+              <td>Foyer + Library Floor</td>
+              <td id="tuesFoyer"></td>
+            </tr>
+            <tr>
+              <td>Library</td>
+              <td id="tuesLib"></td>
+            </tr>
+            <tr>
+              <td>Stairs</td>
+              <td id="tuesStairs"></td>
+            </tr>
+            <tr>
+              <td>TV Room</td>
+              <td id="tuesTV"></td>
+            </tr>
+            <tr>
+              <td>2/3 Floor Halls</td>
+              <td id="tuesHalls"></td>
+            </tr>
+            <tr>
+              <td>Basement</td>
+              <td id="tuesBase"></td>
+            </tr>
+            <tr>
+              <td>Laundry Room</td>
+              <td id="tuesLaundry"></td>
+            </tr>
+          </table>
+        </div>
+        <div id="thurReadout" class="col-sm">
+          <h2 class="d-flex justify-content-center">Thursday</h2>
+          <table id="thurTable" class="d-flex justify-content-center">
+            <tr>
+              <th>Job</th>
+              <th>Name</th>
+            </tr>
+            <tr>
+              <td>Knobs + Rags</td>
+              <td id="thurKnob"></td>
+            </tr>
+            <tr>
+              <td>1st Floor Bathroom</td>
+              <td id="thur1br"></td>
+            </tr>
+            <tr>
+              <td>2nd Floor Br, Toilet/Vanity</td>
+              <td id="thur2brToilet"></td>
+            </tr>
+            <tr>
+              <td>2nd Floor Br, Showers/Floors</td>
+              <td id="thur2brShower"></td>
+            </tr>
+            <tr>
+              <td>3rd Floor Bathroom</td>
+              <td id="thur3br"></td>
+            </tr>
+            <tr>
+              <td>Foyer + Library Floor</td>
+              <td id="thurFoyer"></td>
+            </tr>
+            <tr>
+              <td>Library</td>
+              <td id="thurLib"></td>
+            </tr>
+            <tr>
+              <td>Stairs</td>
+              <td id="thurStairs"></td>
+            </tr>
+            <tr>
+              <td>TV Room</td>
+              <td id="thurTV"></td>
+            </tr>
+            <tr>
+              <td>2/3 Floor Halls</td>
+              <td id="thurHalls"></td>
+            </tr>
+            <tr>
+              <td>Basement</td>
+              <td id="thurBase"></td>
+            </tr>
+            <tr>
+              <td>Laundry Room</td>
+              <td id="thurLaundry"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div id="loginPrompt" class="row">
+      <h3>Press the button to edit house jobs</h3><br>
+      <button type="button" id="displayBtn" class="display">Show Form</button>
+    </div>
+    <div id="jobForm" class="container" hidden>
+      <div>
+        <h3>Assign or edit a house job</h3>
+        <h5>To remove a job, submit a blank form</h5>
+      </div>
+      <form action="" id="form">
+        Name:<input type="text" id="name"><br>
+        Job:<select id="job">
+          <option value="Knob">Knobs + Rags</option>
+          <option value="1br">1st Floor Bathroom</option>
+          <option value="2brToilet">2nd Floor Br, Toilet/Vanity</option>
+          <option value="2brShower">2nd Floor Br, Showers/Floors</option>
+          <option value="3br">3rd Floor Bathroom</option>
+          <option value="Foyer">Foyer + Library Floor</option>
+          <option value="Lib">Library</option>
+          <option value="Stairs">Stairs</option>
+          <option value="TV">TV Room</option>
+          <option value="Halls">2/3 Floor Halls</option>
+          <option value="Base">Basement</option>
+          <option value="Laundry">Laundry Room</option>
+        </select><br>
+        Day:
+        <input type="radio" name="day" id="tues" value="tues">Tuesday
+        <input type="radio" name="day" id="thur" value="thur">Thursday<br>
+      </form>      
+        <button type="button" id="submitBtn" class="submit">Submit</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
