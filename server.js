@@ -8,7 +8,6 @@ const html = require('html'),
 
 var jobs = [];
 
-//const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB;
 const uri = 'mongodb+srv://demo:demopassword@trackera5-hpm35.mongodb.net/test?retryWrites=true&w=majority'
 
 const client = new mongodb.MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology:true});
@@ -29,7 +28,8 @@ client.connect()
   .then(array => {
     console.log(array);
     jobs = array;
-  });
+  })
+  .catch(err => console.log(err));
 
 // Middleware
 server.use(morgan('dev'));
