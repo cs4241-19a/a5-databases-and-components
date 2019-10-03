@@ -4,8 +4,8 @@ const express   = require( 'express' ),
       passport  = require( 'passport' ),
       Local     = require( 'passport-local' ).Strategy,
       bodyParser= require( 'body-parser' ),
-      low       = require('lowdb'),
-      FileSync  = require('lowdb/adapters/FileSync'),
+      //low       = require('lowdb'),
+      //FileSync  = require('lowdb/adapters/FileSync'),
       helmet    = require('helmet'),
       logger    =require('morgan'),
       mongodb   =require('mongodb')
@@ -16,7 +16,7 @@ app.use(helmet()) //3 middlwwere
 //mongodb 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://agarza:is5xi5yTpYkWy+m@cluster0-sgthx.azure.mongodb.net/admin?retryWrites=true&w=majority";
-const uri2 = `mongodb+srv://${process.env.USER}:is5xi5yTpYkWy+m@cluster0-sgthx.azure.mongodb.net/admin?retryWrites=true&w=majority`;
+const uri2 = `mongodb+srv://${process.env.USER}:${process.env.PASS}@cluster0-sgthx.azure.mongodb.net/admin?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
   const collection = client.db("test").collection("devices");
@@ -39,7 +39,7 @@ var currentUser;
      }]}
  ]}).write()
 */
-
+/*
 const users = [
     { username:'charlie', password:'charliee' },
     { username:'bill',    password:'billl' }  
@@ -68,7 +68,7 @@ const users = [
        - an error object (usually returned from database requests )
        - authentication status
        - a message / other data to send to client
-      */
+      need one of those thingies that end comments here if I ass Passport back 
        //console.log(undefined)
        console.log("user not found")
       return done( null, false, { message:'user not found' })
@@ -84,7 +84,7 @@ const users = [
     }
   }
 
-passport.use( new Local( myLocalStrategy ) )
+passport.use( new Local( myLocalStrategy ) )*/
 //app.use(passport.initialize())
 app.use( require('express-session')({ secret:'cats cats cats', resave:false, saveUninitialized:false }));
 app.use( passport.initialize() )  
