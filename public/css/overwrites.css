@@ -1,0 +1,78 @@
+form{
+  background:whitesmoke;
+}
+
+.error{
+  color:red;
+  display: none;
+}
+
+
+/*styles for the how are you doing radio buttons*/
+.mood{
+    list-style-type: none;
+    padding: 0;
+    text-align:center;
+    color: white;
+}
+
+.mood li{
+    display:inline-block;
+    margin-right: 5px;
+    width: 100px;
+    height: 50px;
+    position: relative;
+}
+
+
+
+.mood label, .mood input{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.mood input[type="radio"] {
+    opacity: 0.01;
+    z-index: 100;
+  }
+
+.mood input[type="radio"]:checked+label, .Checked+label{
+    background: lightseagreen;
+}
+
+.mood label{
+    padding: 5px;
+    border: 1px solid #FFF;
+    cursor: pointer;
+    z-index: 90;
+    background: grey;
+}
+
+.mood label:hover{
+    background: lightblue;
+}
+
+/*header bar*/
+.header-nav{
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    background-color: grey;
+    background: linear-gradient(darkgrey, grey);
+    position: fixed;
+    top: 0;
+    margin-left: -8px;
+    z-index: 10;
+}
+
+.header-nav h2{
+  color: white;
+  margin: 0;
+  padding: 0;
+}
