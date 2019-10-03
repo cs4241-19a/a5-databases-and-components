@@ -1,38 +1,68 @@
-Assignment 5 - Databases and/or Components
-===
+# Assignment 3 - Persistence: Two-tier Web Application with Flat File Database, Express server, and CSS template
 
-Due: October 7th, by 11:59 AM.
+Due: September 16th, by 11:59 AM.
 
-For this assignment you will complete one of the following tasks, based on your prior experience with the various technologies involved.
+## TO DON'T
 
-1. Rework the server component from Assignment #3 to use MongoDB or some other NoSQL database (like CouchDB). You can remove Passport authentication if you choose, although this might be as much work as simply changing your Passport calls to use MongoDB.
-2. Rework the client component from Assignment #3 to use Svelte in some capacity.
-3. Rework the client component from Assignmeent #3 to use React in some capacity.
+Default account:
 
-For 2 and 3, make sure to look at [the notes from lecture 10](https://github.com/cs4241-19a/materials/blob/master/lecture10.markdown).
+ - Username: admin
+ - Password: admin
 
-This is really a chance for you to experiment with some additional web technologies that the prior assignments haven't covered yet: non-flatfile databases and web component frameworks.
+http://a3-mhwestwater.glitch.me
 
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku etc.), however, you must include all files in your GitHub repo so that the course staff can view them; these files are not available for viewing in many hosting systems.
+### Goal
 
-Deliverables
----
+The goal of this application was to create a list of bad habits or tasks which the user should avoid.
 
-Do the following to complete this assignment:
+### Challenges
 
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a5-yourname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a5-gitname-firstname-lastname`.
+- Authentication was initially difficult to understand and debug with the cookies, but once the dev tools and /test were used it began to make sense.
+- Validation requiring a handshake with the server required more complex interconnections.
 
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
+### Authentication Strategy and DB
 
-## Your Web Application Title
+- Utilize server stored username/password to not rely on any external frameworks. Also an excuse to use lowdb to store credentials.
+- DynamoDB was used for the application data as that was a tech achievement in A2. Lowdb was then used to store usernames/passwords to fulfil the requirement of a local db.
 
-your hosting link e.g. http://a5-charlieroberts.glitch.me
+### Express Middleware
 
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
+- passport: Authentication users using cookies
+- body-parser: Parses HTTP parameters from user
+- serve-favicon: Serves the favicon for the browser tab
+- serve-static: Exposes files in given directory to user
+- compression: Makes sending of data slightly more efficient
 
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+### CSS Framework
+
+- Bootstrap 4 was used as a CSS framework as I have used it in the past and its a common framework
+- Allows for resizable responsive webpages
+
+## Technical Achievements
+
+- **Extend AWS DynamoDB Table**: Extended the database stored in AWS to keep data for individual users
+  - Data is returned for only the specified user through AWS-SDK queries
+- **Form Validation**: Checks user inputs to make sure they are valid
+    - Things that are checked for and alerted to user
+      - Correct password
+      - Missing fields in forms
+      - Duplicate username in account creation
+- **Security of Pages**: Only let users view pages if they're logged in
+    - Avoided putting html in the public folder so that users who weren't logged in couldn't access them
+    - Redirect is set up so that if user isn't logged in they're redirected to the login page
+
+### Design/Evaluation Achievements
+
+- **Multipage Layout**: Different pages for displaying, editing, and creating data
+    - In addition to pages for login and about
+    - Simplifies UI as each page is very clean
+- **Utilize Alerts for user feedback**: Utilized Bootstrap alerts for validation in login and submission
+    - Display error messages to users on the login/account creation screen
+      - Missing fields
+      - Duplicate username on new account
+      - Incorrect password
+    - Display error on submission of list item
+      - Error on missing data
+- **Navigation Bar**: Navigation for going between pages in persistent header
+  - Allows for user to quickly change pages depending on desired task
+  
