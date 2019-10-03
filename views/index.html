@@ -18,6 +18,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
+    <!-- React JavaScript -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.js"></script>
+
 </head>
 
 <!-- Template origin: https://startbootstrap.com/templates/scrolling-nav/ -->
@@ -59,30 +64,77 @@
         </div>
     </header>
 
-    <section id="list">
-        <div class="container" id="list_div1">
-            <div class="row" id="list_div2">
-                <div class="col-lg-8 mx-auto center-div" id="list_div3">
-                        <table class="table" id="list_table">
-                                <thead>
-                                  <tr>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Note</th>
-                                    <th scope="col">Priority</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Edit</th>
-                                  </tr>
-                                </thead>
-                                <tbody id="table_body">
-
-                                </tbody>
-                              </table>
+    <section id='test'>
+        <div class="container">
+            <div class='row'>
+                <div class='col-lg-8'>
+                    <div id='app'></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <script src="js/onGet.js"></script>
+    <section id="list">
+        <div class="container" id="list_div1">
+            <div class="row" id="list_div2">
+                <div class="col-lg-8 mx-auto center-div" id="table-body">
+                    <!-- <table class="table" id="table-body">
+
+                    </table> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="js/helpers.js"></script>
+    <script type="text/babel">
+        class OnGet extends React.Component {
+            state = {
+                title: "this is a title"
+            };
+            render() {
+                return (
+                    <table className="table">
+                    <thead>
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Note</th>
+                                <th scope="col">Priority</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Edit</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                    {this.props.tasks.map((task, i) => {
+                        const link = function(){ 
+                            window.location.href ='/edit?time=' + task.unixtime + `&title=` + cleanString(task.title) + `&notes=` + cleanString(task.notes) + `&priority=` + task.priority + ';';}
+                        console.log(link)
+                        return (
+                        <tr>
+                            <th scope="row">{task.title}</th>
+                            <td>{task.notes}</td>
+                            <td>{task.priority}</td>
+                            <td>{timeConverter(task.unixtime)}</td>
+                            <td><button id="edit" class="btn btn-primary" onClick={link}>Edit</button></td>
+                        </tr>
+                        )
+                    })}
+                    </tbody>
+                    </table>
+                );
+            };
+        }
+
+        fetch('/get', {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data[1])
+            ReactDOM.render(<OnGet tasks={data}/>, document.getElementById("table-body"));
+        })
+    </script>
+
+    <!-- <script src="jsx/onGet.jsx"></script> -->
 
     <!-- Footer -->
     <footer class="text-center py-5 bg-dark">
