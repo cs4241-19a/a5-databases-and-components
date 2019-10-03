@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>CS4241 Assignment 5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Max Westwater">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Font Awesome CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- React JavaScript -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.js"></script>
+
+</head>
+
+<!-- Template origin: https://startbootstrap.com/templates/scrolling-nav/ -->
+
+<body id="home">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/">TO DON'T</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/">List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/new">New</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-primary text-white">
+        <div class="container text-center">
+            <h1>To Don't</h1>
+            <p class="lead">A pretty okay web app for lists of things <b>NOT</b> to do</p>
+        </div>
+    </header>
+
+    <section id='test'>
+        <div class="container">
+            <div class='row'>
+                <div class='col-lg-8'>
+                    <div id='app'></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="list">
+        <div class="container" id="list_div1">
+            <div class="row" id="list_div2">
+                <div class="col-lg-8 mx-auto center-div" id="table-body">
+                    <!-- <table class="table" id="table-body">
+
+                    </table> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="js/helpers.js"></script>
+    <script type="text/babel">
+        class OnGet extends React.Component {
+            state = {
+                title: "this is a title"
+            };
+            render() {
+                return (
+                    <table className="table">
+                    <thead>
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Note</th>
+                                <th scope="col">Priority</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Edit</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                    {this.props.tasks.map((task, i) => {
+                        const link = function(){ 
+                            window.location.href ='/edit?time=' + task.unixtime + `&title=` + cleanString(task.title) + `&notes=` + cleanString(task.notes) + `&priority=` + task.priority;}
+                        console.log(link)
+                        return (
+                        <tr>
+                            <th scope="row">{task.title}</th>
+                            <td>{task.notes}</td>
+                            <td>{task.priority}</td>
+                            <td>{timeConverter(task.unixtime)}</td>
+                            <td><button id="edit" class="btn btn-primary" onClick={link}>Edit</button></td>
+                        </tr>
+                        )
+                    })}
+                    </tbody>
+                    </table>
+                );
+            };
+        }
+
+        fetch('/get', {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data[1])
+            ReactDOM.render(<OnGet tasks={data}/>, document.getElementById("table-body"));
+        })
+    </script>
+
+    <!-- <script src="jsx/onGet.jsx"></script> -->
+
+    <!-- Footer -->
+    <footer class="text-center py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-white">Copyright &copy; Max Westwater 2019</p>
+            <div class="footer-social">
+                <a href="mailto:mhwestwater@wpi.edu" target="_blank">
+                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                </a>
+                <a href="https://github.com/Max5254/a3-persistence" target="_blank">
+                    <i class="fa fa-github" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

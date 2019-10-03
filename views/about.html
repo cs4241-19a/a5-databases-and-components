@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>CS4241 Assignment 5</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Max Westwater">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Font Awesome CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<!-- Template origin: https://startbootstrap.com/templates/scrolling-nav/ -->
+
+<body id="home">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/">TO DON'T</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/">List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/new">New</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-primary text-white">
+        <div class="container text-center">
+            <h1>About</h1>
+            <p class="lead">Why would someone make something like this??</p>
+        </div>
+    </header>
+
+    <!-- Body -->
+    <section id="body">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto center-div">
+                    <p>
+                        This is an example of a simple node.js app with persistent data store using AWS DynamoDB.
+                        The client side JS is responsible for making requests to the node server, and the server
+                        handles all communication with AWS services for data storage.
+                    </p>
+                    <h2>Example JSON Packet</h2>
+                    <p>This shows how the information for each note is encoded to be sent between the server and client.
+                    </p>
+                    <pre id="code-block">
+{
+    notes: "this is a note",
+    priority: "2",
+    title: "Test Title 2",
+    unixtime: "1567881747611", // this is a derived field
+}</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-white">Copyright &copy; Max Westwater 2019</p>
+            <div class="footer-social">
+                <a href="mailto:mhwestwater@wpi.edu" target="_blank">
+                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                </a>
+                <a href="https://github.com/Max5254/a3-persistence" target="_blank">
+                    <i class="fa fa-github" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
