@@ -1,0 +1,112 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <title>Login Please!</title>
+    <meta name="description" content="Login page">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/favicon">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/css/milligram.min.css">
+    <link rel="stylesheet" href="/css/overwrites.css">
+    
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/js/Login.js" defer></script>
+  </head>
+  <body>
+    <div class="header-nav">
+    <div class="container">
+      <h2>
+        Assignment 5: MongoDB
+      </h2>
+    </div>
+  </div>
+  <br><br>
+    <div class="container">
+      <form>
+        <h3>
+          Login:
+        </h3>
+        <fieldset>
+          <label for="username">Username:</label>
+          <input type="text" placeholder="username" id="username">
+          <label for="password">Password:</label>
+          <input type="password" placeholder="password" id="password">
+          <p class="error" id="error1">
+            * Username or password is wrong :(
+          </p>
+          
+          <input class="button-primary" type="button" value="Login" id="loginbutton">
+        </fieldset>       
+      </form>
+      <form>
+        <h3>
+          Create a User:
+        </h3>
+        <fieldset>
+          <label for="newusername">Username:</label>
+          <input type="text" placeholder="username" id="newusername">
+          <label for="newpassword">Password:</label>
+          <input type="password" placeholder="password" id="newpassword">
+          <div>
+          <label for="firstname">First Name:</label>
+          <input type="text" id="firstname" value="">
+
+          <label for="lastname">Last Name:</label>
+          <input type="text" id="lastname" value="">
+        </div>
+        <div id="colorselect">
+          <label for="favcolor" style="margin-right: 10px;">Pick the best color:</label>
+          <input type="color" id="favcolor" value="#FFFFFF">
+        </div>
+        <div>
+          <label for="birthday">Pick your birthday:</label>
+          <input type="date" id="birthday" value="">
+        </div>
+        <div>
+          <p>On a scale of 1-5 how are you feeling:</p>
+          <ul class="mood">            
+            <li>
+              <input type="radio" id="one" name="mood" value="1">
+              <label for="one">1</label>
+            </li>
+            <li>
+              <input type="radio" id="two" name="mood" value="2">
+              <label for="two">2</label>
+            </li>
+            <li>
+              <input type="radio" id="three" name="mood" value="3">
+              <label for="three">3</label>
+            </li>
+            <li>
+              <input type="radio" id="four" name="mood" value="4">
+              <label for="four">4</label>
+            </li>
+            <li>
+              <input type="radio" id="five" name="mood" value="5">
+              <label for="five">5</label>
+            </li>
+          </ul>
+        </div>
+          <p class="error" id="error2">
+            
+          </p>
+          <input class="button-primary" type="submit" value="signup" id="signupbutton">
+        </fieldset>
+      </form>
+    </div>
+    
+  </body>
+  
+  <!--<script>
+    fetch( '/login', {
+      method:'POST',
+      body:JSON.stringify({ username:'charlie', password:'charliee' }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then( res => res.json() )
+    .then( console.log )
+  </script>-->
+</html>
