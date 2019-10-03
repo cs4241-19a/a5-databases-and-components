@@ -1,0 +1,293 @@
+#nav {
+    margin-top: -10px;
+    margin-bottom: 0;
+    margin-left: -10px;
+    margin-right: -10px;
+    height: 90px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    width: 101%;
+    text-align: center;
+    min-width: 1650px;
+
+    position: absolute;
+    z-index: 800;
+
+    overflow: hidden;
+    background-color: transparent;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    left: 0;
+    box-shadow: 0 1px 10px #999;
+}
+
+.textH {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
+    font-weight: 600;
+    font-size: 2.0em;
+    color: white !important;
+    padding: 0;
+}
+
+#bName {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
+    font-weight: 600;
+    font-size: 2.0em;
+    color: white !important;
+    padding: 0;
+}
+
+body {
+    background-color: #e0e0e0;
+}
+
+.logOut {
+    position: absolute;
+    right: 0;
+    width: 600px;
+    z-index: 900;
+    margin-top: -50px;
+}
+
+.logList {
+    list-style-type: none;
+}
+
+.logItem {
+    float: right;
+    padding-left: 10px;
+    padding-right: 20px;
+    margin-top: -12px;
+}
+
+.logText {
+    padding-top: 7px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: -25px;
+    border-left: 5px solid #c9c9c9;;
+}
+
+#usrTxt {
+    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.6em;
+    font-weight: 500;
+    color: white !important;
+    padding: 0;
+}
+
+#logoutBtn {
+    margin-top: -5px !important;
+}
+
+.txtBox {
+    color: white !important;
+}
+
+.lists {
+    margin: -10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    align-content: center;
+    min-width: 1700px;
+    max-width: 1550px;
+}
+
+#listTab {
+    display: inline-block;
+    border-collapse: separate;
+    border-spacing: 40px 0;
+}
+
+.listEle {
+    width: 450px;
+    height: 500px;
+    padding: 10px;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 1px 10px black;
+    vertical-align: top;
+}
+
+.add {
+    height: 52px;
+    width: 52px;
+    border-radius: 5px;
+    opacity: 0.5;
+}
+
+#addColumn {
+    display: inline-block !important;
+    vertical-align: top;
+    margin: 2px 0 0 0;
+}
+
+.add:hover {
+     opacity: 1;
+ }
+
+#addColumnChild {
+    line-height: 50px;
+}
+
+
+#headBtn {
+    background-color: dodgerblue;
+    border: none;
+    border-radius: 40px;
+    color: white;
+    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 120px;
+    font-size: 1.2em;
+    font-weight: 500;
+    box-shadow: 0 1px 10px black;
+}
+
+#headBtn:hover {
+    background-color: #006eda;
+    box-shadow: 0 1px 10px black;
+    cursor: pointer;
+}
+
+.listContent {
+    padding: 0;
+}
+
+.listHeadText1 {
+    background-color: #2E3047;
+    color: white;
+    margin-right: -10px;
+    margin-left: -10px;
+    margin-top: -26px;
+    border-radius: 25px 25px 0 0;
+    text-align: center;
+    padding: 1px;
+    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+.listHeadText2 {
+    background-color: #B55151;
+    color: white;
+    margin-right: -10px;
+    margin-left: -10px;
+    margin-top: 0;
+    text-align: center;
+    padding: 10px;
+}
+
+.txtBox {
+    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    text-decoration: none;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 1.0em;
+    font-weight: 300;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    cursor: auto;
+    width: 200px;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.txtBox:focus {
+    border: 2px solid dodgerblue;
+}
+
+.button {
+    border-radius: 40px !important;
+    width: 150px;
+
+}
+
+a {
+    color: black !important;
+}
+
+.listHeadText3 {
+    background-color: #FC6354;
+    color: white;
+    margin-right: -10px;
+    margin-left: -10px;
+    margin-top: 0;
+    text-align: center;
+    padding: 10px;
+}
+
+
+
+.listHeadText4 {
+    background-color: #B55151;
+    color: white;
+    margin-right: -10px;
+    margin-left: -10px;
+    margin-top: 0;
+    text-align: center;
+    padding: 10px;
+}
+
+.listHeadText5 {
+    background-color: #FC6354;
+    color: white;
+    margin-right: -10px;
+    margin-left: -10px;
+    margin-top: 0;
+    text-align: center;
+    padding: 10px;
+}
+
+#tasks {
+    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.task1 {
+    font-size: 1.3em;
+    font-weight: 600;
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
+}
+
+.bottomInfo {
+    width: 100%;
+    min-width: 1700px;
+    margin-left: -7px;
+    text-align: center;
+    bottom: 0;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-size: 1.3em;
+    font-weight: 500;
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
+    background-color: #2E3047;
+    color: white;
+    z-index: 900;
+
+}
+
+.bt {
+    color: white !important;
+}
+
+.button:hover {
+    background-color: #006eda !important;
+    box-shadow: 0 1px 10px black !important;
+}
+

@@ -1,0 +1,428 @@
+html {
+    scroll-behavior: smooth;
+}
+
+h1 {
+    font-size: 4.5em;
+    color: whitesmoke;
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
+    letter-spacing: 2px;
+    pointer-events: none;
+    font-weight: 900;
+    border: 0px;
+    margin: 0px;
+    text-align: center;
+}
+
+#toast-container {
+    top: auto !important;
+    right: auto !important;
+    bottom: 10%;
+    left:50%;
+}
+
+.name {
+    height: 100px;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    background-color: transparent;
+}
+
+.parallax {
+    /* The image used */
+    background-image: url(../Images/indexBg.jpg);
+    /* Set a specific height */
+
+    height: 1020px;
+    padding-top: 400px;
+    padding-bottom: 400px;
+    padding-left: 250px ;
+    padding-right: 250px;
+
+    min-width: 1700px !important;
+
+    margin: -10px;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#navB {
+    margin-top: -62px;
+    margin-bottom: 0;
+    margin-left: -10px;
+    margin-right: -10px;
+    height: 72px;
+    padding-top: 15px;
+    padding-bottom: 25px;
+    padding-left: 700px;
+    padding-right: 700px;
+    min-width: 250px;
+
+
+    position: absolute;
+    z-index: 1000;
+
+    overflow: hidden;
+    background-color: transparent;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+.solid {
+    margin-top: -62px;
+    margin-bottom: 0;
+    margin-left: -10px;
+    margin-right: -10px;
+    height: 22px;
+    padding-top: 15px;
+    padding-bottom: 25px;
+    padding-left: 700px;
+    padding-right: 700px;
+    background-image: url(../Images/indexBg.jpg);
+    min-width: 250px;
+
+
+    overflow: hidden;
+    background-color: transparent;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    left: 0;
+    box-shadow: 0 1px 10px #999;
+}
+
+.textH {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
+    font-weight: 500;
+    font-size: 2.0em;
+    color: transparent;
+    padding: 0;
+}
+
+
+.navSc {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
+    font-weight: 500;
+    font-size: 2.0em;
+    color: white;
+    padding: 0;
+}
+
+.bodyIndex {
+    margin: -10px;
+    height: 600px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    padding-left: 150px;
+    padding-right: 100px;
+    background-color: whitesmoke;
+    min-width: 1700px;
+
+}
+
+.getStarted {
+    margin: -10px;
+    height: 815px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    padding-left: 250px;
+    padding-right: 250px;
+    background-color: #fa6255;
+    min-width: 1700px;
+
+}
+
+.bodyList {
+    list-style-type: none;
+    width: 100%;
+}
+
+.iconList {
+    list-style-type: none;
+    width: 100%;
+}
+
+.mottoList {
+    list-style-type: none;
+}
+
+.listItem1 {
+    float: left;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 30px;
+
+}
+
+.listItem2 {
+    float: left;
+    padding: 10px;
+}
+
+.iconItem {
+    float: left;
+    padding: 10px;
+}
+
+.iconImage {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    height: 200px;
+    width: 200px;
+    background-image: url(../Images/listIcon.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.mottoItemCov {
+    margin: 10px !important;
+    width: 220px;
+    border-radius: 15px !important;
+    text-align: center;
+}
+
+p {
+    font-size: 1.5em;
+    color: black;
+    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 1px;
+    font-weight: 300;
+    border: 0;
+}
+
+.iText {
+    color:whitesmoke !important;
+    text-decoration: none;
+}
+
+.iText {
+    display: inline-flex;
+}
+
+.about {
+    margin-top: -55px !important;
+    margin-left: 200px !important;
+    padding: 10px !important;
+    border-radius: 15px !important;
+}
+
+.aboutHead {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.aboutText {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
+    font-weight: 600;
+    font-size: 2.5em;
+    color: black !important;
+}
+
+.intro {
+    width: 600px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.introText {
+    font-size: 1.0em;
+    color: black;
+    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 1px;
+    font-weight: 200;
+    border: 0;
+    line-height: 1.5em;
+}
+
+
+
+tr {
+    border: 0 !important;
+}
+
+.aboutEle {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.textEle {
+    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 1px;
+    font-weight: 400;
+    width: 115px;
+    font-size: 1.2em;
+    align-content: center;
+    text-align: center;
+}
+
+.imgBrd {
+    height: 100px;
+    width: 130px;
+    background-image: url("../Images/board.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.imgList {
+    height: 130px;
+    width: 100px;
+    background-image: url("../Images/lists.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.imgMan {
+    height: 100px;
+    width: 100px;
+    background-image: url("../Images/manage.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.headText {
+    font-size: 3.5em;
+}
+
+.startForm {
+    margin-top: 70px;
+    width: 100%;
+    background-color: #eeeeee;
+    border-radius: 15px;
+    box-shadow: 0 1px 10px black;
+    height: 380px;
+}
+
+.startContent {
+    padding-top: 45px;
+    padding-left: 30px;
+}
+
+.designed {
+    height: 60px;
+    margin-top: -20px;
+    margin-bottom: -20px;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 1px;
+    background-color: darkslategray;
+    text-align: center;
+    min-width: 1648px;
+
+
+}
+
+.designText {
+    font-size: 1.1em;
+    color: white;
+    font-weight: 200;
+    margin-top: 20px;
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
+}
+
+.button {
+    border-radius: 40px !important;
+    width: 200px;
+
+}
+
+.bten {
+    padding-left: 450px !important;
+    padding-right: 450px !important;
+    padding-top: 50px !important;
+    height: 100px !important;
+}
+
+.headEle {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
+    text-decoration: none;
+    font-size: 1.6em;
+    font-weight: 700;
+    padding-left: 40px;
+}
+
+.expEle {
+    border-bottom: none !important;
+    padding-left: 40px;
+}
+
+.headEle1 {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
+    text-decoration: none;
+    font-size: 1.6em;
+    font-weight: 700;
+    width: 350px !important;
+    border-right: 5px groove #c9c9c9;
+}
+
+.expEle1 {
+    border-right: 5px groove #c9c9c9;
+    width: 350px !important;
+}
+
+.ele {
+    background-color: #eeeeee;
+}
+
+.txtBox {
+    width: 300px !important;
+}
+
+.selectBox {
+    display: block;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 700;
+    color: #444;
+    line-height: 1.3;
+    padding: .6em 1.4em .5em .8em;
+    width: 300px;
+    max-width: 350px;
+    box-sizing: border-box;
+    margin: 0;
+    border: 1px solid #aaa;
+    box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+    border-radius: 30px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+}
+.selectBox::-ms-expand {
+    display: none;
+}
+.selectBox:hover {
+    border-color: #888;
+}
+.selectBox:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}
+.selectBox option {
+    font-weight:normal;
+}
+
+#resBtn {
+    position: absolute;
+    right: 0;
+    margin-top: -48px;
+    margin-right: 10px;
+}
+
+.button:hover {
+    background-color: #006eda !important;
+    box-shadow: 0 1px 10px black !important;
+}
