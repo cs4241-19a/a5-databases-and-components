@@ -3,17 +3,26 @@ const express   = require( 'express' ),
       session   = require( 'express-session' ),
       passport  = require( 'passport' ),
       Local     = require( 'passport-local' ).Strategy,
-      bodyParser= require( 'body-parser' )
-      low       = require('lowdb')
-      FileSync  = require('lowdb/adapters/FileSync')
-      helmet    = require('helmet')
-      logger    =require('morgan')
+      bodyParser= require( 'body-parser' ),
+      low       = require('lowdb'),
+      FileSync  = require('lowdb/adapters/FileSync'),
+      helmet    = require('helmet'),
+      logger    =require('morgan'),
+      mongodb   =require('mongodb')
 app.use( express.static('./') )
 app.use( bodyParser.json() )
 app.use(helmet()) //3 middlwwere 
 
-//need this here or it gives me an error
-//passport.initialize()
+//mongodb 
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://agarza:is5xi5yTpYkWy+m@cluster0-sgthx.azure.mongodb.net/admin?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+
 
 
 //for database 
