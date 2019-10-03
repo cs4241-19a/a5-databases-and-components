@@ -1,5 +1,4 @@
 Assignment 5 - Databases and/or Components
-===
 
 Due: October 7th, by 11:59 AM.
 
