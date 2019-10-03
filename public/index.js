@@ -86,8 +86,8 @@ const loadAllResults = function () {
                         <td>$${favs[i].usd}</td>
                         <td>€${favs[i].eur}</td>
                         <td>${stars}</td>
-                        <td> <button id="editBtn${i}" type="button" class="btn btn-light" data-toggle="modal" data-target="#editItem" onclick="setEditIndex('${favs[i].id}')"> <i class="fas fa-edit"></i></button>
-                        <td> <button id="deleteBtn${i}" type="button" class="btn btn-light" onclick="deleteItem('${favs[i].id}')"> <i class="fas fa-trash"></i></button>
+                        <td> <button id="editBtn${i}" type="button" class="btn btn-light" data-toggle="modal" data-target="#editItem" onclick="setEditIndex('${favs[i]._id}')"> <i class="fas fa-edit"></i></button>
+                        <td> <button id="deleteBtn${i}" type="button" class="btn btn-light" onclick="deleteItem('${favs[i]._id}')"> <i class="fas fa-trash"></i></button>
                       </tr>
         `;
           }
@@ -141,6 +141,7 @@ const deleteItem = function (id) {
     id: id
   };
   const body = JSON.stringify(idJson);
+  console.log("id " + body)
   fetch('/items', {
       method: 'DELETE',
       credentials: "include",
@@ -150,6 +151,9 @@ const deleteItem = function (id) {
       }
     })
     .then(function (response) {
+      if (response.ok) {
+        console.log("ok response")
+      }
       refresh()
       console.log(response)
     })
