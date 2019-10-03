@@ -1,0 +1,25 @@
+/*Style your own assignment! This is fun! */
+/**
+Color scheme
+Primary: #ffca28
+Primary-light:#fffd61
+Primary-dark: #c79a00
+Secondary: #81d4fa
+Secondary-light:#b6ffff
+Secondary-dark:#4ba3c7
+ */
+
+
+.clickable{
+    cursor: pointer;
+}
+/*this uses blue-grey.darken-1
+/* label focus color */
+.input-field input.item-input:focus + label {
+    color: #546e7a !important;
+}
+/* label underline focus color */
+.input-field input.item-input:focus {
+    border-bottom: 1px solid #546e7a !important;
+    box-shadow: 0 1px 0 0 #546e7a !important;
+}
