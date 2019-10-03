@@ -16,6 +16,7 @@ app.use(helmet()) //3 middlwwere
 //mongodb 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://agarza:is5xi5yTpYkWy+m@cluster0-sgthx.azure.mongodb.net/admin?retryWrites=true&w=majority";
+const uri2 = `mongodb+srv://${process.env.USER}:is5xi5yTpYkWy+m@cluster0-sgthx.azure.mongodb.net/admin?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
   const collection = client.db("test").collection("devices");
