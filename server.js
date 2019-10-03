@@ -7,20 +7,46 @@ const html = require('html'),
     FileSync = require('lowdb/adapters/FileSync'),
     adapter = new FileSync('db.json'),
     db = low(adapter),
-    morgan = require('morgan');
+    morgan = require('morgan'),
+    mongodb = require('mongodb');
 
 var jobs = [];
 
-const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB;
+//const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB;
+const uri = 'mongodb+srv://demo:demopassword@trackera5-hpm35.mongodb.net/test?retryWrites=true&w=majority'
 
-// Packages to use
+const client = new mongodb.MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology:true});
+let collection = null;
+
+// Connecting to MongoDB
+client.connect()
+  .then(() => {
+    // will only create collection if it doesn't exist
+    return client.db('webwareA5').createCollection('jobs');
+  })
+  .then( __collection => {
+    // store reference to collection
+    collection = __collection;
+    // blank query returns all documents
+    return collection.find({}).toArray();
+  })
+  .then(array => {
+    console.log(array);
+    jobs = array;
+  });
+
+// Middleware
 server.use(morgan('dev'));
 server.use(express.static('public'));
 server.use(bodyparser.json());
-
-// Setting defaults for empty JSON file
-db.defaults({ jobs: [], count: 0})
-  .write();
+server.use((req,res,next) => {
+  if(collection !== null) {
+    next();
+  }
+  else{
+    res.status(503).send();
+  };
+});
 
 // Explicity handle domain name
 server.get('/', function(req, res) {
@@ -36,27 +62,21 @@ server.get('/tables', function(req, res) {
 // Handling posts from form submissions
 server.post('/submit', bodyparser.json(),
   function(req, res) {
-    let dupe = db.get('jobs').find({job: req.body.job}).value();
-    if(typeof(dupe) != 'undefined') {
-      db.get('jobs')
-        .remove({job: req.body['job']})
-        .write();
+    let dupe = jobs.filter(function(value, index, arr) {
+      return value.job === req.body['job'];
+    });
+    if(dupe.length != 0) {
+      collection.deleteOne({job: req.body['job']});
       jobs = jobs.filter(function(value, index, arr) {
         return value.job != req.body['job'];
-      })
+      });
       console.log(jobs);
     }
+
     jobs.push(req.body);
-    db.get('jobs')
-      .push(req.body)
-      .write();
+    collection.insertOne(req.body);
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.end(JSON.stringify(jobs));
-});
-
-// Updating server memory from file
-db.get('jobs').value().forEach(job => {
-  jobs.push(job);
 });
 
 console.log('Current jobs stored are listed below');

@@ -18,7 +18,7 @@ const submit = function() {
   fetch('/submit', {
       method:'POST',
       body: JSON.stringify(newJob),
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json'}
     })
     .then(console.log)
     .catch(err => console.error)
