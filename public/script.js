@@ -171,6 +171,7 @@ const updateRow = function (row) {
     let updateRetailer = document.getElementById('retailerInput' + row).value;
     let updateLink = document.getElementById('linkInput' + row).value;
     const json = {
+        //'id':updateItemName+updateCategory+updateList+updateRetailer,
         'itemName': updateItemName,
         'category': updateCategory,
         'list': updateList,
