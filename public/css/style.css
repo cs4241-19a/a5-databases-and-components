@@ -1,0 +1,74 @@
+/*Style your own assignment! This is fun! */
+
+body {
+    background: gainsboro;
+    background-image: url('https://cdn.glitch.com/3f13d31d-af77-4304-ba56-21f5eba74bf8%2Fbackground.jpg?v=1568583784095')
+}
+
+table {
+    font-size: 20px;
+    width: 75%;
+}
+
+th {
+    background: black;
+    color: #fff;
+}
+
+tbody:hover td {
+    color: transparent;
+    text-shadow: 0 0 3px #aaa;
+}
+
+tbody:hover tr:hover td {
+    color: #444;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.gryffindorbg {
+    background: darksalmon;
+}
+
+.hufflepuffbg {
+    background: lightyellow;
+}
+
+.ravenclawbg {
+    background: lightblue;
+}
+
+.slytherinbg {
+    background: palegreen;
+}
+
+.mugglebg {
+    background: white;
+}
+
+#error {
+    color: red;
+    display: none;
+}
+
+.boxcontainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.twocolumn {
+    display: flex;
+    justify-content: space-around;
+}
+
+.formdisplay {
+    positon: absolute;
+}
+
+.ml3 {
+}
+
+.usertablecolor {
+    color: white;
+}
