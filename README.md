@@ -1,27 +1,24 @@
-Welcome to Glitch
-=================
+Assignment 5 - Databases and/or Components
+===
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+Readme 
+---
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
+## Roadtrip Planner!
 
-Find out more [about Glitch](https://glitch.com/about).
+https://a5-vanand23.glitch.me/
 
+Roadtrip Planner allows people who are planning roadtrips either nearrby or across the country to budget their gas cost as well as provide tips on how to save money overall on the trip.
 
-Your Project
-------------
-
-On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
-- drag in `assets`, like images or music, to add them to your project
-
-On the back-end,
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
+Th enhancement I made was to utlize MongoDB for the server component. The new technology improved the development experience and contributed to creating a reliable webite. The previous database that I used was lowdb, which is a flatfile used to store user data. MongoDB is more flexible and utlizes the cloud, so using this makes the application more advanced and creates a reliable database so that users can securely enter their data. 
 
 
-Made by [Glitch](https://glitch.com/)
--------------------
+Requirements Satisfied
+---
+Complete one of the following tasks, based on your prior experience with the various technologies involved.
 
-\ ゜o゜)ノ
+1. Rework the server component from Assignment #3 to use MongoDB. ✔
+2. Rework the client component from Assignment #3 to use Svelte in some capacity.
+3. Rework the client component from Assignmeent #3 to use React in some capacity.
+
+*Professor Charlie Roberts mentioned that having the register, login (passport), and the add functionality using MongoDB is sufficient to passing the requirements and getting full credit on this project. 
