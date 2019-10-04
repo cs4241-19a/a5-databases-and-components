@@ -1,0 +1,21 @@
+{
+  "name": "Janette Fong",
+  "version": "0.3.0",
+  "description": "WPI CS4241 Webware Assignment 5",
+  "author": "jlfong",
+  "scripts": {
+    "start": "node server.improved.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "helmet": "^3.21.1",
+    "lowdb": "^1.0.0",
+    "mime": "^2.4.4",
+    "mongodb": "^3.3.2",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  }
+}

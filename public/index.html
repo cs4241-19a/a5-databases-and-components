@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/wingcss"/>
+</head>
+<body>
+<div id="homepage" class="boxcontainer">
+    <h1 class="ml3">Create a Harry Potter Character</h1>
+    <p>Disclaimer: The Harry Potter universe belongs to J.K. Rowling</p>
+    <img src="/images/houseshogwarts.png" alt="Hogwarts Houses" width="25%">
+    <div class="twocolumn">
+        <button id="homelogin">Login</button>
+        <button id="register">Register</button>
+    </div>
+</div>
+<form id="loginform" action="/" method="post" style="display: none">
+    <div>
+        <label>Username:</label>
+        <input id="username" type="text" name="username" />
+        <br/>
+    </div>
+    <div>
+        <label>Password:</label>
+        <input id="password" type="password" name="password" />
+    </div>
+    <div>
+        <button id="loginButton">Sign In</button>
+        <button id="cancelLogin">Cancel</button>
+    </div>
+</form>
+<div id="loginerror" style="display: none">**Incorrect username or password**</div>
+<form id="registerform" action="/" method="post" style="display: none">
+    <div>
+        <label>Username:</label>
+        <input id="usernameRegister" type="text" name="username" />
+        <br/>
+    </div>
+    <div>
+        <label>Password:</label>
+        <input id="passwordRegister" type="password" name="password" />
+        <br/>
+    </div>
+    <div>
+        <label>Confirm Password:</label>
+        <input id="confirmPassword" type="password" name="password" />
+    </div>
+    <div>
+        <button id="confirmRegister">Confirm</button>
+        <button id="cancelRegister">Cancel</button>
+    </div>
+</form>
+<div id="incompleteregister" style="display: none">**Please fill in all fields**</div>
+<div id="duplicateuser" style="display: none">**Username already taken**</div>
+<div id="passwordmismatch" style="display: none">**Passwords don't match**</div>
+<div id="maindisplay" style="display: none">
+    <div class="twocolumn">
+        <div class="boxcontainer">
+            <h2 id="currentuser"></h2>
+            <img src="/images/hpicon.png" alt="Hogwarts Houses" width="50%">
+            <button id="logout">Logout</button>
+        </div>
+        <div class="boxcontainer">
+            <form action="">
+                <p><b>Enter your character's information:</b></p>
+                <div>
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName"/>
+                </div>
+                <div>
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName"/>
+                </div>
+                <div>
+                    <label for="pronouns">Pronouns:</label><br>
+                    <div>
+                        <input type="radio" id="he" name="studentPronouns" value="he" onclick="clearOther()"
+                               checked>
+                        <label for="he">He/Him/His</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="she" name="studentPronouns" value="she" onclick="clearOther()">
+                        <label for="she">She/Her/Hers</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="they" name="studentPronouns" value="they" onclick="clearOther()">
+                        <label for="they">They/Them/Theirs</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="other" name="studentPronouns" value="other">
+                        <label for="other">Other: </label>
+                        <input id="inputother" type="text" name="studentPronouns" onclick="changeradioOther()"/>
+                    </div>
+                </div>
+                <div>
+                    <label for="mostValued">What does your character value most?</label><br>
+                    <div>
+                        <input type="radio" id="bravery" name="studentValue" value="bravery"
+                               checked>
+                        <label for="bravery">Bravery</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="loyalty" name="studentValue" value="loyalty">
+                        <label for="loyalty">Loyalty</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="wisdom" name="studentValue" value="wisdom">
+                        <label for="wisdom">Wisdom</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="ambition" name="studentValue" value="ambition">
+                        <label for="ambition">Ambition</label>
+                    </div>
+                </div>
+                <br>
+                <button id="submitButton">Submit</button>
+            </form>
+            <br>
+            <div id="error">**Please fill out the form completely**</div>
+        </div>
+    </div>
+
+    <div class="boxcontainer">
+        <p id="usertable" class="usertablecolor"></p>
+        <table id="HogwartsStudents"></table>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+<script src="js/scripts.js"></script>
+</body>
+</html>
+
+
