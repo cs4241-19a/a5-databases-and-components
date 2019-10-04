@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <form action="">
+      <p>Food You Eat</p>
+      <table class="pure-table">
+        <tr>
+          <th> Food Name </th>
+          <th> Food Calories </th>
+          <th> Amount Eaten Average Week </th>
+          <th> Is Bad For You?</th>
+        </tr>
+        <tr>
+          <td><input type="text" id="food" placeholder="Enter Name Of Food"></td>
+          <td><input type="number" id="cal"></td>
+          <td><input type="number" id="ammount"></td>
+          <td><input type="checkbox" id="bad"></td>
+        </tr>
+      </table>
+
+      <button class="pure-button" id="submitButton">submit</button>
+    </form>
+    <a id="response"></a>
+    
+    <center><button class="pure-button" onclick="deleteAll();">
+      delete all
+      </button></center>
+  </body>
+  <style>
+    #table{
+      background-color:lightgreen;
+      text-align: center;
+      margin: auto;
+    }
+  </style>
+  <script>
+  const editFood = function( i ) {
+    const food = document.querySelector( '#food' ),
+          cal = document.querySelector( '#cal' ),
+          ammount = document.querySelector( '#ammount' ),
+          bad = document.querySelector( '#bad' );
+    if (food.value === "" || cal.value === "" || ammount.value === ""){
+      alert("Some Information About this food is missing");
+      return false;
+    }
+    const json = { food: food.value, cal: cal.value, ammount: ammount.value, bad: bad.checked, index: i },
+          body = JSON.stringify( json )
+    fetch( '/edit', {
+      method:'POST',
+      body 
+    })
+    .then( function( response ) {      //do something with the reponse 
+      getFoods();
+    })
+    return false
+  }
+  
+  const deleteAll = function(){
+    const json = { },
+          body = JSON.stringify( json )
+
+    fetch( '/deleteall', {
+      method:'POST',
+      body 
+    })
+    .then( function( response ) {
+      getFoods();
+    })
+    return false
+  }
+  
+  const addFood = function( e ) {
+    e.preventDefault()
+    const food = document.querySelector( '#food' ),
+          cal = document.querySelector( '#cal' ),
+          ammount = document.querySelector( '#ammount' ),
+          bad = document.querySelector( '#bad' );
+    if (food.value === "" || cal.value === "" || ammount.value === ""){
+      alert("Some Information about this food is missing");
+      return false;
+    }
+    const json = { food: food.value, cal: cal.value, ammount: ammount.value, bad: bad.checked},
+          body = JSON.stringify( json )
+
+    fetch( '/submit', {
+      method:'POST',
+      body 
+    })
+    .then( function( response ) {      //do something with the reponse 
+      getFoods();
+    })
+    return false
+  }
+  
+  const del = function( i ){
+    const json = { delete: i },
+          body = JSON.stringify( json )
+    fetch( '/deletefood', {
+      method:'POST',
+      body 
+    })
+    .then( function( response ) {      //do something with the reponse 
+      getFoods();
+    })
+    return false
+  }
+  
+  const getFoods = function(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("response").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "getfoods", true);
+  xhttp.send();
+  }
+  window.onload = function() {
+    const button = document.querySelector( '#submitButton' )
+    button.onclick = addFood
+    getFoods();
+  }
+  </script>
+</html>
