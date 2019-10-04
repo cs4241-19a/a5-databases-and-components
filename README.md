@@ -13,8 +13,8 @@ Roadtrip Planner allows people who are planning roadtrips either nearrby or acro
 The enhancement I made was to utlize MongoDB for the server component. The new technology improved the development experience and contributed to creating a reliable webite. The previous database that I used was lowdb, which is a flatfile used to store user data. MongoDB is more flexible and utlizes the cloud, so using this makes the application more advanced and creates a reliable database so that users can securely enter their data. 
 
 Already Registered:
--Username: vandana, Password: hello
--Username: Daphne, Password: eyesea   
+- Username: vandana, Password: hello
+- Username: Daphne, Password: eyesea   
 
 
 Requirements Satisfied
