@@ -134,13 +134,13 @@ app.post("/login", passport.authenticate("local"), function(req, res) {
   }
 });
 
-app.post("/signup", isNotLoggedIn, function(req, res) {
+app.post("/signup", isNotLoggedIn, function(req, response) {
   const requested_username = req.body.username;
   const requested_password = req.body.password;
 
   user_collection
     .find({ username: requested_username })
-    .toArray((res, users) => {
+    .toArray((err, users) => {
       if (undefined === users || users.length === 0) {
         const hash = bcrypt.hashSync(requested_password, salt);
         const new_user = {
@@ -151,9 +151,9 @@ app.post("/signup", isNotLoggedIn, function(req, res) {
 
         user_collection.insertOne(new_user);
 
-        res.json({ status: "success" });
+        response.json({ status: "success" });
       } else {
-        res.json({ status: "failed" });
+        response.json({ status: "failed" });
       }
     });
 });
@@ -179,25 +179,25 @@ app.post("/change_password", isLoggedIn, function(req, response) {
 
 // Filter all requests on URL length (max 42, very arbitrary) and header length (2048, also arbitrary)
 // Long URLs results in a 414, long headers in a 431
-app.use(function(req, res, next) {
+app.use(function(req, response, next) {
   if (req.url.length > 42) {
     req.award_code = 414;
-    res.status(414).end();
+    response.status(414).end();
   } else if (JSON.stringify(req.headers).length > 2048) {
     if (undefined !== req.user) addAward(req.user.username, 431);
-    res.status(431);
-    res.end();
+    response.status(431);
+    response.end();
   }
   next();
 });
 
 // Filter all POST requests based on body length
 // Anything over 1024 characters (arbitrary) results in a 413
-app.post("/*", function(req, res, next) {
+app.post("/*", function(req, response, next) {
   if (JSON.stringify(req.body).length > 1024) {
     if (undefined !== req.user) addAward(req.user.username, 413);
-    res.status(413);
-    res.end();
+    response.status(413);
+    response.end();
   } else {
     next();
   }
@@ -218,7 +218,7 @@ app.post("/add_comment", isLoggedIn, function(req, res, next) {
       timestamp: new Date().getTime(),
       username: username
     };
-    
+
     comment_collection.insertOne(new_comment);
 
     req.award_code = 201;
@@ -230,56 +230,38 @@ app.post("/remove_comment", isLoggedIn, function(req, res, next) {
   const username = req.user.username;
   const comment_id = req.body.message_id;
 
-  comment_collection.find({id: comment_id}).toArray((err, comments) => {
+  comment_collection.find({ id: comment_id }).toArray((err, comments) => {
     if (comments === undefined || comments.length === 0) {
       res.status(200);
-      next();
-    } else if (comments[0].username !== {
-      
+    } else if (comments[0].username !== username) {
+      req.award_code = 403;
+    } else {
+      comment_collection.deleteOne({ id: comment_id });
+      req.award_code = 200;
     }
+    next();
   });
-
-  if (undefined === comment) {
-    // TODO: update
-
-  } else if (comment.username !== username) {
-    req.award_code = 403;
-  } else {
-    db.get("comments")
-      .remove(comment)
-      .write();
-    req.award_code = 200;
-  }
-
-  next();
 });
 
 app.get("/comments", isLoggedIn, function(req, res) {
-  res.json({
-    username: req.user.username,
-    messages: db
-      .get("comments")
-      .sortBy("timestamp")
-      .value()
-      .reverse()
-  });
+  comment_collection
+    .find({})
+    .sort({ timestamp: -1 })
+    .toArray((err, comments) => {
+      res.json({
+        username: req.user.username,
+        messages: comments
+      });
+    });
 });
 
 /** -------------------------- End commenting ----------------------------------------- **/
 
 const addAward = function(username, code) {
-  const user = db
-    .get("users")
-    .find({ username: username })
-    .value();
-
-  if (!user.awards.includes(code)) {
-    user.awards.push(code);
-    db.get("users")
-      .find({ username: username })
-      .assign({ awards: user.awards })
-      .write();
-  }
+  user_collection.updateOne(
+    { username: username },
+    { $addToSet: { awards: code } }
+  );
 };
 
 // From https://stackoverflow.com/questions/147824/how-to-find-whether-a-particular-string-has-unicode-characters-esp-double-byte
@@ -293,9 +275,9 @@ function isDoubleByte(str) {
   return false;
 }
 
-app.get("/users", isLoggedIn, function(req, res) {
-  res.json(db.get("users").value());
-});
+// app.get("/users", isLoggedIn, function(req, res) {
+//   res.json(db.get("users").value());
+// });
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", isNotLoggedIn, function(request, response) {
