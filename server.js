@@ -10,7 +10,6 @@ const express = require('express'),
       low       = require('lowdb'),
       FileSync  = require('lowdb/adapters/FileSync'),
       adapter   = new FileSync('.data/db.json'),
-      db        = low(adapter),
       bcrypt = require('bcryptjs'),
       shortid = require('shortid'),
       rateLimit = require("express-rate-limit"),
@@ -20,10 +19,19 @@ const express = require('express'),
       path = require('path'),
       expressSanitizer = require('express-sanitizer')
 
-const salt = bcrypt.genSaltSync(10);
 
-db.defaults({ comments: [], users: [] })
-  .write()
+const MongoClient = require('mongodb').MongoClient
+const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-3oa7e.mongodb.net/admin?retryWrites=true&w=majority`
+const client = new MongoClient(uri, { useNewUrlParser: true })
+
+let user_collection = null
+let comment_collection = null
+client.connect(err => {
+  user_collection = client.db("a5").collection("users")
+  comment_collection = client.db("a5").collection("comments")
+});
+
+const salt = bcrypt.genSaltSync(10);
 
 // create a write stream (in append mode)
 var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
@@ -78,29 +86,25 @@ const isLoggedIn = function(req, res, next) {
 // is submitting a field named "username" and field named "password".
 // these are both passed as arugments to the authentication strategy.
 const myLocalStrategy = function( username, password, done ) {
-  const users = db.get('users')
-  
-  // find the first item in our users array where the username
-  // matches what was sent by the client. nicer to read/write than a for loop!
-  const user = users.value().find( __user => __user.username === username )
-  
-  // if user is undefined, then there was no match for the submitted username
-  if( user === undefined ) {
-    /* arguments to done():
-     - an error object (usually returned from database requests )
-     - authentication status
-     - a message / other data to send to client
-    */
-    return done( null, false, { message:'Incorrect username or password!' })
-  }else if( bcrypt.compareSync(password, user.password) ) {
-    // we found the user and the password matches!
-    // go ahead and send the userdata... this will appear as request.user
-    // in all express middleware functions.
-    return done( null, { username, password })
-  }else{
-    // we found the user but the password didn't match...
-    return done( null, false, { message: 'Incorrect username or password' })
-  }
+  const users = user_collection.find({username: username}).toArray((err,res) => {
+    // if user is undefined, then there was no match for the submitted username
+    if( res === undefined || res.length === 0 ) {
+      /* arguments to done():
+       - an error object (usually returned from database requests )
+       - authentication status
+       - a message / other data to send to client
+      */
+      return done( null, false, { message:'Incorrect username or password!' })
+    }else if( bcrypt.compareSync(password, res[0].password) ) {
+      // we found the user and the password matches!
+      // go ahead and send the userdata... this will appear as request.user
+      // in all express middleware functions.
+      return done( null, { username, password })
+    }else{
+      // we found the user but the password didn't match...
+      return done( null, false, { message: 'Incorrect username or password' })
+    }
+  });
 }
 
 passport.use( new Local( myLocalStrategy ) )
@@ -108,13 +112,13 @@ passport.use( new Local( myLocalStrategy ) )
 // Unique identifiers for users are their usernames, serialize based on that
 passport.serializeUser( ( user, done ) => done( null, user.username ) )
 passport.deserializeUser( ( username, done ) => {
-  const user = db.get('users').value().find( u => u.username === username )
-  
-  if( user !== undefined ) {
-    done( null, user )
-  }else{
-    done( null, false, { message:'user not found; session not restored' })
-  }
+  const user = user_collection.find({username: username}).toArray((err, res) => {
+    if( res !== undefined && res.length > 0 ) {
+      done( null, res[0] )
+    } else {
+      done( null, false, { message:'user not found; session not restored' })
+    }
+  });
 })
 
 app.post( 
@@ -129,33 +133,30 @@ app.post(
   }
 )
 
-
-
-
 app.post(
   '/signup',
   isNotLoggedIn,
   function( req, res ) {
     const requested_username = req.body.username
     const requested_password = req.body.password
-    const users = db.get('users').value()
     
-    if (undefined === users.find( __user => __user.username === requested_username )) {
-      const hash = bcrypt.hashSync(requested_password, salt);
-      const new_user = {
-        "username": requested_username,
-        "password": hash,
-        "awards": []
+    user_collection.find({username: requested_username}).toArray((res, users) => {
+      if (undefined === users || users.length === 0) {
+        const hash = bcrypt.hashSync(requested_password, salt);
+        const new_user = {
+          "username": requested_username,
+          "password": hash,
+          "awards": []
+        }
+
+        user_collection.insertOne()
+
+        res.json({ status:'success' })
+      } else {
+        res.json({ status:'failed' })
       }
-      
-      db.get('users').push(new_user).write()
-      
-      res.json({ status:'success' })
-    } else {
-      res.json({ status:'failed' })
-    }
-  }
-)
+    })
+})
 
 app.post(
   '/change_password',
