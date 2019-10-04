@@ -10,7 +10,11 @@ https://a5-vanand23.glitch.me/
 
 Roadtrip Planner allows people who are planning roadtrips either nearrby or across the country to budget their gas cost as well as provide tips on how to save money overall on the trip.
 
-Th enhancement I made was to utlize MongoDB for the server component. The new technology improved the development experience and contributed to creating a reliable webite. The previous database that I used was lowdb, which is a flatfile used to store user data. MongoDB is more flexible and utlizes the cloud, so using this makes the application more advanced and creates a reliable database so that users can securely enter their data. 
+The enhancement I made was to utlize MongoDB for the server component. The new technology improved the development experience and contributed to creating a reliable webite. The previous database that I used was lowdb, which is a flatfile used to store user data. MongoDB is more flexible and utlizes the cloud, so using this makes the application more advanced and creates a reliable database so that users can securely enter their data. 
+
+Already Registered:
+Username: vandana    Username: Daphne
+Password: hello      Password: eyesea
 
 
 Requirements Satisfied
