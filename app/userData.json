@@ -1,0 +1,22 @@
+{
+  "people": [
+    {
+      "user": "admin",
+      "courses": [
+        {
+          "courseName": "Soft Eng",
+          "courseId": "CS3733",
+          "term": "A"
+        }
+      ]
+    },
+    {
+      "user": "yang",
+      "courses": []
+    },
+    {
+      "user": "sylar",
+      "courses": []
+    }
+  ]
+}

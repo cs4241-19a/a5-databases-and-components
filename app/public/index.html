@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://unpkg.com/wingcss"/>
+<!--     <link rel="stylesheet" href="../public/css/style.css"> -->
+  </head>
+  <body>
+
+<section class="container center">
+
+     <div>
+      <h4 class="header">Login</h4>
+
+  <div class="row ">Username:<img height="20px" src="uesr.png" alt="user icon"><input type="text" placeholder="Username" id="username" ></div>
+
+  <div class="row">Password:<img height="20px" src="password.png" alt="password icon"><input type="password" placeholder="Password" id="password"></div>
+
+  <div class="row center "><button id="login" onclick="login()" class="outline" >Login</button> </div>
+    </div>
+</section>
+
+  </body>
+  <script>
+
+  const login = function(e){
+    
+    let username = document.getElementById( 'username' ).value
+  let password = document.getElementById( 'password' ).value
+  //send session info here
+  let json = { username: username, password: password}
+
+  let body = JSON.stringify(json)
+  //let body = URL
+
+  fetch( '/login', {
+      headers: {
+            'Content-Type': 'application/json',
+      },
+      method:'POST',
+      body: body
+    }).then(function (response) {
+        console.log(response)
+        if (response.redirected){
+          if(window.location == response.url) {
+            window.alert("Invalid username or password")
+          }
+            window.location = response.url
+
+        }
+    })
+
+}
+
+
+
+  window.onload = function() {
+    
+    const loginButton = document.getElementById( 'login' );
+    loginButton.onclick = login;
+  }
+    
+    
+  
+
+
+  </script>
+</html>

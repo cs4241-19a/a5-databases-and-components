@@ -1,0 +1,124 @@
+/*Style your own assignment! This is fun! */
+.red{
+  background-color:rgba(255, 0, 0,0.6);
+}
+
+body{
+  background-color:#ffffff 
+}
+
+h1{
+  text-align:center;
+  font-size:50px;
+  
+}
+
+h2{
+  text-align:center;
+  font-size:30px;
+  
+}
+
+header{
+ 
+	   
+	    
+  
+}
+
+#table1{
+text-align:center;
+  margin: auto;
+  font-size:32px;
+  width:800px;
+  height:500px;
+}
+
+.blue{
+  background-color:rgba(0, 0, 255,0.6);
+}
+
+input{
+  font-size:32px;
+  width:140px;
+  text-align:center;
+  background-color:rgba(0, 0, 255,0);
+   border-style:none none double none; 
+}
+
+#submit{
+  margin:7px;
+  width:200px;
+   font-size:30px;
+   background-color:rgba(0,0,0,0);
+  color:black;
+  border-radius:3em;
+  border:3px solid;
+}
+
+#submit:hover {
+  background-color: #555555; /* Grey */
+  color: white;
+  cursor: pointer;
+}
+
+#matchN{
+  width:50px;
+}
+
+nav{
+  text-align:center;
+  font-size:50px;
+  margin-top:40px;
+}
+
+
+button[disabled] {
+  color: #aaaaaa !important;
+  background: white !important;
+}
+
+a{
+  margin-left:60px;
+  margin-right:60px;
+}
+
+a:hover {
+  background-color: #555555; /* Grey */
+  color: white;
+  cursor: pointer;
+}
+
+#matchTable{
+  text-align:center;
+  margin: auto;
+  font-size:32px;
+}
+
+.MH{
+ width:500px;
+}
+
+.tableButton{
+  margin:7px;
+  font-size:18px;
+  background-color:rgba(0,0,0,0);
+  color:black;
+  border-radius:3em;
+  border:3px solid;
+}
+
+.tableButton:hover {
+  background-color: #555555; /* Grey */
+  color: white;
+  cursor: pointer;
+}
+
+#add3{
+  font-size: 32px;
+}
+
+#updatedCT{
+  font-size: 32px;
+}
+
