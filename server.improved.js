@@ -16,7 +16,7 @@ const http = require( 'http' ),
       timeout = require('connect-timeout'),
       port = 3000,    
       MongoClient = require('mongodb').MongoClient,
-      uri = "mongodb+srv://jharnois:testingPassword@cluster0-qjlcv.mongodb.net/test?retryWrites=true&w=majority";
+      uri = "mongodb+srv://jharnois:testingPassword@mydb-qjlcv.mongodb.net/admin?retryWrites=true&w=majority";
 
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(morgan('combined'));
@@ -38,6 +38,7 @@ var sendjson = {}
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
   const collection = client.db("db").collection("classes");
+  console.log("inside")
   client.close();
 });
 
@@ -72,7 +73,7 @@ app.get('/index', function(req, res) {
     var storeJson = {}
     storeJson["cookie"] = req.cookies;
     storeJson["signed"] = req.signedCookies;
-    db.get("cookies").push(storeJson).write()
+    // db.get("cookies").push(storeJson).write()
 });
 
 app.post('/submit', function(request, response) {
