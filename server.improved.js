@@ -106,7 +106,7 @@ app.post('/remove', function(req, res) {
   res.send({images: imageOrders, orders: orders, kind: kind});
 })
 app.post('/submit', function(req, res) {
-  if(colection !== null){
+  if(collection !== null){
     collection.updateOne({name:'entries'}, {$push: {'entries': req.body.entry}})
   }
 })
