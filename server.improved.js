@@ -5,59 +5,20 @@ const http = require( 'http' ),
       express = require('express'),
       app = express(),
       dir  = 'public/',
-      passport = require('passport'),
-      low = require('lowdb'),
       FileSync = require('lowdb/adapters/FileSync'),
       adapter = new FileSync('public/resources/db.json'),
-       serveStatic = require('serve-static'),
+      serveStatic = require('serve-static'),
       cookieSession = require('cookie-session'),
       path = require('path'),
-       morgan = require('morgan'),
+      morgan = require('morgan'),
       cookieParser = require('cookie-parser'),
-      db = low(adapter),
-     /**/ session = require('express-session'),
+      session = require('express-session'),
       timeout = require('connect-timeout'),
-      port = 3000    
-
-var GitHubStrategy = require('passport-github2').Strategy;
-
-db.defaults({"users":[]}, {"cookies" :[]},
-  {"classes": 
-    [{"Department" : "CS1101", 
-      "Professor" : "bob",
-      "Room" : "AK116"
-     },
-    { "Department" : "ME1800",
-      "Professor" : "Jill",
-      "Room" : "SL115"
-    },
-    { "Department"  : "CS2303",
-      "Professor" : "Andres",
-      "Room" : "OH107"
-    },
-    { "Department" : "PSY1401",
-      "Professor" : "Brian",
-      "Room" : "SL315"
-    },
-    { "Department" : "RBE1001",
-      "Professor" : "Megan",
-      "Room" : "Flupper"
-    },
-    { "Department" : "ECE2049",
-      "Professor" : "Sam",
-      "Room" : "Flower"
-    },
-    { "Department" : "CS4801",
-      "Professor" : "Emily",
-      "Room" : "AK232"
-    }]
-  }).write()
-
+      port = 3000,    
+      MongoClient = require('mongodb').MongoClient,
+      uri = "mongodb+srv://jharnois:testingPassword@cluster0-qjlcv.mongodb.net/test?retryWrites=true&w=majority";
 
 app.use(require('body-parser').urlencoded({ extended: true }));
-// app.use(bodyParser.json())
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(morgan('combined'));
 app.use(cookieParser())
 app.use(cookieSession({
@@ -74,14 +35,11 @@ function haltOnTimedout(req, res, next){
 
 var sendjson = {}
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("db").collection("classes");
+  client.close();
 });
-
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
-
 
 app.get('/', function(req, res) {
     res.sendFile('public/views/index.html', {root : '.'})
@@ -117,33 +75,7 @@ app.get('/index', function(req, res) {
     db.get("cookies").push(storeJson).write()
 });
 
-app.get('/auth/github', passport.authenticate('github', {scope:['user:email']}),
-  function(x,y){});
-
-app.get('/auth/github/callback', passport.authenticate('github', {failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/index');
-  });
-
-passport.use(new GitHubStrategy({
-    passReqToCallBack: true,
-    clientID: 'd601f4e4de6912a5c81c',
-    clientSecret: 'ac4b432f842da48758d09836ab55984d561f7b9a',
-    callbackURL: "https://jharnois4512-a3-persistence.glitch.me/auth/github/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-      var ent = {}
-      ent['name'] = profile.username;
-      sendjson["username"] = profile.username;
-      db.get('users').push(ent).write()
-      console.log(db.get('users').find(ent).value())
-      process.nextTick(function(){
-        return done(null, profile)
-      })
-  }));
-
 app.post('/submit', function(request, response) {
-  console.log(request.body, "here")
   let dataString = ''
   let flag = 0;
   request.on( 'data', function( data ) {
@@ -163,7 +95,15 @@ app.post('/submit', function(request, response) {
        myEnt["Professor"] = prof
        myEnt["Room"] = room
        console.log(myEnt)
-       db.get('classes').push(myEnt).write()
+       const client = new MongoClient(uri, { useNewUrlParser: true });
+       client.connect(err => {
+         const collection = client.db("db").collection("classes");
+         collection.insertOne(myEnt, function(err, res) {
+          if (err) throw err;
+          console.log("1 document inserted");
+         })
+         client.close();
+       });
      }
      else if(action.includes('m')){
       sendjson['action'] = "m"
@@ -174,7 +114,12 @@ app.post('/submit', function(request, response) {
           secObj = {};
       catObj[cat] = catTwo;
       secObj[cat] = inputVal;
-      console.log(db.get('classes').find(catObj).assign(secObj).value())
+      const client = new MongoClient(uri, { useNewUrlParser: true });
+      client.connect(err => {
+        const collection = client.db("db").collection("classes");
+        collection.update(catObj, {$set: secObj});
+        client.close();
+      });
      }
      else{
       sendjson['action'] = "d"    
@@ -185,18 +130,57 @@ app.post('/submit', function(request, response) {
        let updateObj = {}
        updateObj[cat] = null;
        console.log(catObj)
-       console.log(db.get('classes').find(catObj).value());
-       db.get('classes').remove(catObj).write()
+       const client = new MongoClient(uri, { useNewUrlParser: true });
+       client.connect(err => {
+         const collection = client.db("db").collection("classes");
+         collection.deleteOne(catObj);
+         client.close();
+       });
      }
        response.writeHead( 200, "OK", {'Content-Type': 'application/json', 'charset':'UTF-8'});
-       sendjson["classes"] = db.get('classes').value()
-       response.end(JSON.stringify(sendjson));
+       const client = new MongoClient(uri, { useNewUrlParser: true });
+       client.connect(err => {
+         const collection = client.db("db").collection("classes");
+         collection.find().toArray((err, items) => {
+          console.log("inside")
+          sendjson["classes"] = items;
+          response.end(JSON.stringify(sendjson));
+        })
+         client.close();
+       });
     })
 });
 
 app.listen(port || 3000)
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
-}
+
+// [
+//   { "Department" : "CS1101",
+//   "Professor"  : "bob",
+//   "Room" : "AK116"
+// },
+// { "Department"  : "ME1800",
+//   "Professor"  : "Jill",
+//   "Room" : "SL115"
+// },
+// { "Department"  : "CS2303",
+//   "Professor"  : "Andres",
+//   "Room" : "OH107"
+// },
+// { "Department"  : "PSY1401",
+//   "Professor"  : "Brian",
+//   "Room" : "SL315"
+// },
+// { "Department"  : "RBE1001",
+//   "Professor"  : "Megan",
+//   "Room" : "Flupper"
+// },
+// { "Department"  : "ECE2049",
+//   "Professor"  : "Sam",
+//   "Room" : "Flower"
+// },
+// { "Department"  : "CS4801",
+//   "Professor"  : "Emily",
+//   "Room" : "AK232"
+// }
+// ]
