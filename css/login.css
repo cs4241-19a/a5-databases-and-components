@@ -1,0 +1,11 @@
+body{
+    text-align: center
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 10%;
+}
