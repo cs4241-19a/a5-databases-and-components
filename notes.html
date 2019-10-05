@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 5 - Main page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel='stylesheet' href="css/notes.css"/>
+    <script src="js/scripts.js"></script>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <h1 class="text-center">Note Keeper</h1>
+
+    <br><br>
+    <h5 class="text-center">Welcome! Use this web app to save the title and body of a note unique to your account!</h5>
+    <br><br>
+
+    <form>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+        Note title: <input id="noteTitle" type="text"> <br><br> 
+      </div>
+      <div class="col-sm">
+        Note body:<br> <textarea id="noteBody" rows = "6" cols="60"></textarea><br><br>
+      </div>
+      </div>
+      <div class="row justify-content-center">
+      <div class="col-sm-1">
+        <button id="saveButton" class="btn btn-primary">Save</button>
+      </div>
+      <div class="col-sm-1">
+        <button id="loadButton" class= "btn btn-secondary">Load</button>
+      </div>
+      <div class="col-sm-1">
+        <button id="deleteButton" class= "btn btn-danger">Delete</button>
+      </div>
+      <div class="col-sm-2">
+        <button id="resultsButton" class= "btn-dark">All Results</button>
+        </div>
+      </div>
+      </div>
+    </form><br><br><br>
+    <h3 class="Results">Results:</h3>
+    <table border="1" class="Results" id = "ResultsTable">
+        <tr>
+          <th>Username</th>
+          <th>Note Title</th>
+          <th>Note Body</th>
+        </tr>
+      </table>
+  </body>
+
+</html>
