@@ -1,0 +1,41 @@
+{
+  "users": [],
+  "cookies": [],
+  "classes": [
+    {
+      "Department": "CS1101",
+      "Professor": "bob",
+      "Room": "AK116"
+    },
+    {
+      "Department": "ME1800",
+      "Professor": "Jill",
+      "Room": "SL115"
+    },
+    {
+      "Department": "CS2303",
+      "Professor": "Andres",
+      "Room": "OH107"
+    },
+    {
+      "Department": "PSY1401",
+      "Professor": "Brian",
+      "Room": "SL315"
+    },
+    {
+      "Department": "RBE1001",
+      "Professor": "Megan",
+      "Room": "Flupper"
+    },
+    {
+      "Department": "ECE2049",
+      "Professor": "Sam",
+      "Room": "Flower"
+    },
+    {
+      "Department": "CS4801",
+      "Professor": "Emily",
+      "Room": "AK232"
+    }
+  ]
+}
