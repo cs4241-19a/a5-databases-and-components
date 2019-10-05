@@ -106,7 +106,9 @@ app.post('/remove', function(req, res) {
   res.send({images: imageOrders, orders: orders, kind: kind});
 })
 app.post('/submit', function(req, res) {
-  collection.updateOne({name:'entries'}, {$push: {'entries': req.body.entry}})
+  if(colection !== null){
+    collection.updateOne({name:'entries'}, {$push: {'entries': req.body.entry}})
+  }
 })
 app.post('/spendSpeed', function(req, res) {
   speed = req.body.speed;
