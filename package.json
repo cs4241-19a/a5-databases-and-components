@@ -1,0 +1,28 @@
+{
+    "name": "a5-percyjiang",
+    "version": "",
+    "description": "",
+    "author": "",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "body-parser": "latest",
+        "bootstrap": "^4.3.1",
+        "connect-ensure-login": "^0.1.1",
+        "cookie-parser": "^1.4.4",
+        "express": "^4.17.1",
+        "express-flash": "0.0.2",
+        "express-session": "^1.16.2",
+        "jquery": "^3.4.1",
+        "mime": "^2.4.4",
+        "mongodb": "^3.3.2",
+        "morgan": "^1.9.1",
+        "node-statsd": "^0.1.1",
+        "passport": "^0.4.0",
+        "passport-local": "^1.0.0",
+        "popper.js": "^1.15.0",
+        "response-time": "^2.3.2",
+        "serve-favicon": "^2.5.0"
+    }
+}
