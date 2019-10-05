@@ -31,7 +31,7 @@
             note.innerHTML = createInnerHTML(item, id)
             note = setClassName(note, item, id)
             id++
-            container.insertAdjacentElement('beforeend', note)
+            document.getElementById("notesContainer").insertAdjacentElement('beforeend', note)
         })
     }
 
@@ -51,8 +51,8 @@
             " due: " + item.Date +
             " days: " + item.Days +
             "</p>" +
-            "<button class='btn btn-success mr-1' onClick='editItem(" + id + "," + itemId + ")'>edit</button>" +
-            "<button class='btn btn-danger' onClick='deleteItem(" + itemId + ")'>delete</button>"
+            "<button class='btn btn-success mr-1' on:click={editItem(" + id + "," + itemId + ")}>edit</button>" +
+            "<button class='btn btn-danger' on:click={deleteItem(" + itemId + ")}>delete</button>"
     }
 
     function editItem(id, itemId) {
