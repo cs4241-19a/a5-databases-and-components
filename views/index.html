@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="style.css" />
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8" />
+    <script src="/client.js" defer></script>
+  </head>
+  <body>
+    <h1>Power Usage Database</h1>
+    <div id="grid">
+      <div id="column1">
+        <h2>Add a reading</h2>
+        <form action="">
+          <input type="text" id="addU" placeholder="Username" /><br />
+          <input type="text" id="addP" placeholder="Password" /><br />
+          <input type="text" id="addD" placeholder="Date? (MM/DD/YY)" /><br />
+          <input type="text" id="addT" placeholder="Time? (HH:MM)" /><br />
+          <input type="text" id="addV" placeholder="Voltage reading?" /><br />
+          <input type="text" id="addI" placeholder="Current reading?" /><br />
+
+          <button id="addButton">Add</button>
+        </form>
+      </div>
+
+      <div id="column2">
+        <h2 id="modHead">Modfy a reading</h2>
+        <form action="">
+          <input type="text" id="modId" placeholder="Reading ID?" /><br />
+          <input type="text" id="newD" placeholder="New date?" /><br />
+          <input type="text" id="newT" placeholder="New time?" /><br />
+          <input type="text" id="newV" placeholder="New voltage?" /><br />
+          <input type="text" id="newI" placeholder="New current?" /><br />
+          <button id="modButton">Modify</button><br /><br />
+        </form>
+      </div>
+
+      <div id="column3">
+        <h2>Remove a reading</h2>
+        <form action="">
+          <input type="text" id="delId" placeholder="Reading ID?" /><br />
+          <button id="delButton">Delete</button>
+        </form>
+        <h2>Response from the server:</h2>
+        <p id="serverResponse"><br /></p>
+      </div>
+      
+    </div>
+    <h2>Retrieve Data from Server</h2>
+    <form action="">
+      <input type="text" id="getU" placeholder="Username" /><br />
+      <input type="text" id="getP" placeholder="Password" /><br />
+      <button id="getButton">Retrieve Data</button>
+    </form>
+    <br />
+    <table id="dataTable"></table>
+  </body>
+</html>
