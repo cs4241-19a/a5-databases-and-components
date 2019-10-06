@@ -1236,8 +1236,30 @@ function monthToHTML(month) {
 ///////REACT TABLE COMPONET SETUP FUNCTIONS////////////////////////
 function reactTable() {
   console.log("TESTING BUTTON");
-  ReactDOM.render(
-    React.createElement("table", { id: "viewAll" }, null),
-    document.getElementById("Container")
-  );
+  fetch("/allData", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" }
+  })
+    .then(function(res) {
+      return res.json();
+    })
+    .then(function(fin) {
+      ReactDOM.render(
+        React.createElement("table", { id: "viewAll"}, null),
+        document.getElementById("Container")
+      );
+    ReactDOM.render(
+    React.createElement("tr", null, null), document.getElementById("viewAll"))
+    });
 }
+
+
+/*
+  html += "<td>" + single.fName + "</td>"
+         html += "<td>" + single.lName + "</td>"
+         html += "<td>" + single.month + "</td>"
+         html += "<td>" + single.day + "</td>"
+         html += "<td>" + single.sign + "</td>"
+         html += "<td>" + single.user + "</td>" 
+  
+  */
