@@ -1,6 +1,8 @@
 const mime = require( 'mime' ),
       firebase = require('firebase'),
       
+      //MONGO DB
+      mongodb = require('mongodb'),
       
       
       //EXPRESS consts
@@ -100,6 +102,20 @@ passport.deserializeUser((username, done) => {
   })
   
 })
+
+
+
+///////////////////////////////////////////////////////////////////
+/////////////////  MONGO  /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+const uri = "mongodb+srv://test:<password>@a5-nbloniarz-t6b6e.gcp.mongodb.net/admin?retryWrites=true&w=majority";
+const client = new mongodb.MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
 
 ///////////////////////////////////////////////////////////////
 ////////     GET/POST     /////////////////////////////////////
