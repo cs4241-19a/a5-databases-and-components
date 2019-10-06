@@ -1,5 +1,3 @@
-var dataArray = []
-
 ////////////// Toggle Visibility ///////////////////
 //Toggles hide/show of log in form
 function toggleLogin() {
@@ -40,6 +38,8 @@ function toggleGiven(elementID) {
   }
 }
 
+var ReactDOM = require('react-dom')
+
 //Creates the element based on the given ID
 function createGiven(elementID) {
   switch (elementID) {
@@ -54,10 +54,8 @@ function createGiven(elementID) {
         })
         .then(function(fin) {
           emptyBody();
-          console.log("IN CREATE")
-          dataArray = fin;
-          ReactDOM.render(new Table, document.getElementById('root'))
-          /*var html = '<table id="viewAll">';
+          let dataArray = fin;
+          var html = '<table id="viewAll">';
           html +=
             "<tr><th>First Name</th><th>Last Name</th><th>Month</th><th>Day</th><th>Sign</th><th>User</th></tr>";
           dataArray.forEach(function(single) {
@@ -73,7 +71,7 @@ function createGiven(elementID) {
           html += "</table>";
           var tableDiv = document.createElement("div");
           tableDiv.innerHTML = html;
-          document.body.appendChild(tableDiv);*/
+          document.body.appendChild(tableDiv);
         });
       break;
     case "viewDataForUser":
@@ -1237,40 +1235,6 @@ function monthToHTML(month) {
   }
 }
 
-
-class Table extends Component {
-  constructor(props) {
-    super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
-    this.state = {
-      //state is by default an object
-      data: dataArray
-    };
-  }
-
-  renderTableData() {
-    return this.state.data.map((entry, index) => {
-      const { fName, lName, month, day, sign, user } = entry; //destructuring
-      return (
-        <tr>
-          <td>{fName}</td>
-          <td>{lName}</td>
-          <td>{month}</td>
-          <td>{day}</td>
-          <td>{sign}</td>
-          <td>{user}</td>
-        </tr>
-      );
-    });
-  }
-
-  render() {
-    console.log("IN RENDER")
-    return (
-      <div>
-        <table id="viewAll">
-          <tbody>{this.renderTableData()}</tbody>
-        </table>
-      </div>
-    );
-  }
+function sessionTimer(){
+  const element = (<div><p></p></div>)
 }
