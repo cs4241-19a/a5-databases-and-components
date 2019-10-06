@@ -1,0 +1,21 @@
+{
+  "name": "cs-4241-2nd-assignment",
+  "version": "0.1.0",
+  "description": "WPI CS 4241 second assignment",
+  "author": "Rui Huang",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "express": "~4.16.1",
+    "express-session": "~1.16.2",
+    "serve-favicon": "~2.5.0",
+    "http-errors": "~1.6.3",
+    "mongodb": "~3.3.2",
+    "morgan": "~1.9.1",
+    "passport": "~0.4.0",
+    "passport-local": "~1.0.0",
+    "dotenv": "~8.1.0"
+  }
+}
