@@ -10,15 +10,20 @@ class LikeButton extends React.Component {
   }
 
   render() {
-    if (this.state.timer < 15) {
+    if (this.state.timer < 20) {
       const par = "Session Timer: " + this.state.timer + "";
-      return par;
+      return [par, e('button', {onClick: this.resetTimer.bind(this)}, 'Reset Timer')]
     } else {
       timeOut();
       return null;
     }
   }
-
+  
+  resetTimer(){
+    this.state.timer = -1
+  }
+  
+  
   tick() {
     setInterval(() => this.setState({ timer: this.state.timer + 1 }), 1000);
   }

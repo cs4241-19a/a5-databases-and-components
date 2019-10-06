@@ -49,7 +49,8 @@ footer {
 
 #reactContainer{
   display: flex;
-  align-self: flex-end;
+  align-items: flex-end;
+  justify-content: space-around; 
 }
 
 
