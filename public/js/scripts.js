@@ -52,24 +52,26 @@ function createGiven(elementID) {
         })
         .then(function(fin) {
           emptyBody();
-          reactTable();
-          let dataArray = fin
-       var html = "<table id=\"viewAll\">"
-       html += "<tr><th>First Name</th><th>Last Name</th><th>Month</th><th>Day</th><th>Sign</th><th>User</th></tr>"
-       dataArray.forEach(function (single){
-         html += "<tr>"
-         html += "<td>" + single.fName + "</td>"
-         html += "<td>" + single.lName + "</td>"
-         html += "<td>" + single.month + "</td>"
-         html += "<td>" + single.day + "</td>"
-         html += "<td>" + single.sign + "</td>"
-         html += "<td>" + single.user + "</td>"
-         html += "</tr>"
-       })
-       html += "</table>"
-       var tableDiv = document.createElement('div')
-       tableDiv.innerHTML = html
-       document.body.appendChild(tableDiv)
+          
+          let dataArray = fin;
+        ReactDOM.render()
+          /*var html = '<table id="viewAll">';
+          html +=
+            "<tr><th>First Name</th><th>Last Name</th><th>Month</th><th>Day</th><th>Sign</th><th>User</th></tr>";
+          dataArray.forEach(function(single) {
+            html += "<tr>";
+            html += "<td>" + single.fName + "</td>";
+            html += "<td>" + single.lName + "</td>";
+            html += "<td>" + single.month + "</td>";
+            html += "<td>" + single.day + "</td>";
+            html += "<td>" + single.sign + "</td>";
+            html += "<td>" + single.user + "</td>";
+            html += "</tr>";
+          });
+          html += "</table>";
+          var tableDiv = document.createElement("div");
+          tableDiv.innerHTML = html;
+          document.body.appendChild(tableDiv);*/
         });
       break;
     case "viewDataForUser":
@@ -1230,5 +1232,42 @@ function monthToHTML(month) {
       html +=
         '<option selected="selected" value="December">December</option></select><br>';
       return html;
+  }
+}
+
+import React, { Component } from "react";
+class Table extends Component {
+  constructor(props) {
+    super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
+    this.state = {
+      //state is by default an object
+      data: props
+    };
+  }
+
+  renderTableData() {
+    return this.state.data.map((entry, index) => {
+      const { fName, lName, month, day, sign, user } = entry; //destructuring
+      return (
+        <tr>
+          <td>{fName}</td>
+          <td>{lName}</td>
+          <td>{month}</td>
+          <td>{day}</td>
+          <td>{sign}</td>
+          <td>{user}</td>
+        </tr>
+      );
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <table id="viewAll">
+          <tbody>{this.renderTableData()}</tbody>
+        </table>
+      </div>
+    );
   }
 }
