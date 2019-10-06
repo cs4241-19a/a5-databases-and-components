@@ -1,0 +1,28 @@
+{
+  "name": "Assignment_3",
+  "version": "",
+  "description": "Simple login and todo application",
+  "author": "Brandon Navarro",
+  "scripts": {
+    "start": "node server.improved.js",
+    "dev": "nodemon server.improved.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "ejs": "^2.7.1",
+    "bcrypt": "^3.0.6",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "express-session": "^1.16.1",
+    "express-flash": "^0.0.2",
+    "dotenv": "^8.1.0",
+    "morgan": "^1.9.1",
+    "helmet": "^3.21.1",
+    "express-ejs-layouts": "^2.5.0",
+    "mongoose": "^5.7.3",
+    "connect-flash": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}

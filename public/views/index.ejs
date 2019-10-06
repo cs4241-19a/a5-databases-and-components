@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+     <link rel = "stylesheet"
+           type = "text/css"
+           href = "css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">  </head>
+  <body>
+    <h1 class="title">Todo List Application</h1>
+    <div class="all-tasks">
+      <h2 class="task-list-title">Please enter the details of your event!</h2>
+      <div>
+	          <div>
+	            <table class="results" align="center">
+	              <thead>
+	                <tr><th>Name</th><th>Task</th><th>Priority</th></tr>
+	              </thead>    
+	              <tbody id="all-tasks">
+	              </tbody>
+	            </table>
+	          </div>
+      </div>
+      <form action="/addTask" method="post">
+        <label for="name">Name:</label>
+        <input 
+               type="text"
+               class="new list"
+               id="name"
+               placeholder="----"
+        />
+        <label for="task">Task:</label>
+        <input 
+               type="text"
+               class="new list"
+               id="task"
+               placeholder="----"
+        />
+        <label for="task">Priority:</label>
+        <input 
+               type="text"
+               class="new list"
+               id="priority"
+               placeholder="----"
+        />
+        <input
+               type="submit"
+               value="+"
+               id="submit-btn"
+               class="btn"
+        />
+      </form>
+      <form action='/logout' method='POST'>
+        <button type="submit">LogOut</button>
+      </form>
+    </div>
+    <script type="text/javascript" src="js/app.js"></script>
+  </body>
+</html>
