@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "username": "carla",
+      "password": "1234",
+      "orders": [
+        {
+          "name": "Carla",
+          "dream": "I want to fly",
+          "amountOfPork": 3,
+          "garlic": 1,
+          "price": 14
+        },
+        {
+          "name": "Carla",
+          "dream": "I want to eat ramen",
+          "amountOfPork": 5,
+          "garlic": 1,
+          "price": 18
+        }
+      ]
+    }
+  ]
+}
