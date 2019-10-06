@@ -53,8 +53,17 @@ app.use(
 ////////////     PASSPORT     /////////////////////////////////
 ///////////////////////////////////////////////////////////////
 const myStrategy = function(username, password, done) {
-  collection.getCollection('users')
-    .then()
+  let user = collection.users.find(__user => __user.username === username);
+  if (user === undefined) {
+        console.log("NOT IN DB"); //not in database
+        return done(null, false, { message: "user not found" });
+      } else if (user.password === password) {
+        //found and correct
+        return done(null, { username, password });
+      } else {
+        console.log("!PASSWORD");
+        return done(null, false, { message: "incorrect password" });
+      }
   /*db.ref("/users/")
     .once("value")
     .then(function(snapshot) {
@@ -106,7 +115,7 @@ passport.deserializeUser((username, done) => {
 /////////////////  MONGO  /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 
-const uri ="mongodb+srv://test:user@/";
+const uri ='mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB
 const client = new mongodb.MongoClient(uri, { useNewUrlParser: true });
 let collection = null;
 client
@@ -127,6 +136,7 @@ client
 app.get( '/', (req,res) => {
   if( collection !== null ) {
     // get array and pass to res.json
+    console.log("TEST: " + collection);
     collection.find({ }).toArray().then( result => res.json( result ) )
   }
 })
@@ -208,6 +218,8 @@ app.post("/login", passport.authenticate("local"), function(req, res) {
 });
 
 app.post("/addUser", function(req, res) {
+   var dataToAdd = req.body
+   collection.users.insertOne(dataToAdd).then(result => res.json(result))
   /*db.ref('/users/').once('value')
   .then(function(snapshot){
     const data = []
@@ -230,6 +242,9 @@ app.post("/addUser", function(req, res) {
 });
 
 app.post("/addData", function(req, res) {
+  var dataToAdd = req.body
+  dataToAdd.sign = starSign(req.body)
+  collection.data.insertOne(dataToAdd).then(result => res.json(result))
   /*db.ref('/data/').once('value')
   .then(function(snapshot){
     const data = []
