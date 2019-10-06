@@ -1,0 +1,195 @@
+{
+  "users": [
+    {
+      "username": "user",
+      "id": "91d86b2f-f165-4a3a-bfd8-1aeccdf86a80",
+      "password": "$2a$10$3dV0t7/V4jVoX6BDmdU7auY1GuyxeP31TeqITT4LrCnieveZECuV6",
+      "songs": "x, y, z"
+    },
+    {
+      "username": "billy",
+      "id": "43da214e-47da-4f56-94e9-23d10ad63703",
+      "password": "$2a$10$hm7ELou9eQvhgXVkvztk9.QXYTq2IFmJbcHU2PQ8N2uCBK0rKSmlK",
+      "songs": [
+        "Yellow Submarine"
+      ]
+    },
+    {
+      "username": "alex",
+      "id": "7fdf4cd4-bb42-40ca-be2c-705971ba6003",
+      "password": "$2a$10$I32C/P5SLzAufqEV8AH/4OJPfWsWgzL9hRJ3pQ9i3DWMN8Qk3wOd.",
+      "songs": []
+    },
+    {
+      "username": "bob",
+      "id": "37af96ea-7ee2-49e2-8f90-fbdf28ba4911",
+      "password": "$2a$10$xjSkM7/DyHrcJlhNACo1zuRGQmXUW8/xAIwZxaa7c3oCu08nUNT7K",
+      "songs": [
+        "No Songs yet ... ",
+        "Boom Boom Boom"
+      ]
+    },
+    {
+      "username": "jerry",
+      "id": "f245ab37-59ab-43fd-89f0-5d9db55b443b",
+      "password": "$2a$10$IGKwwEfpqhyQeEKz9q6Gi.J5A/3LecBZA63SJcyvDIUhy0Fmv46au",
+      "songs": [
+        "No Songs yet ... "
+      ]
+    },
+    {
+      "username": "bobby",
+      "id": "334e7965-d448-48d3-ad63-5fb8b4f922f0",
+      "password": "$2a$10$j0GXGCvlGeanGhHhiYAxn.JHDGWZWqBi1yuUzmOyuT721g2XfukGC",
+      "songs": [
+        "No Songs yet ... "
+      ]
+    },
+    {
+      "username": "john",
+      "id": "49a7b3a4-c22a-48d2-9e03-c798e7239bcd",
+      "password": "$2a$10$zA469lfsKHGBB/omRKsMuuphpxannu4B/3C1bVOsOBvByGbrRL1jK",
+      "songs": [
+        "No Songs yet ... "
+      ]
+    },
+    {
+      "username": "user1",
+      "id": "051a55ad-6744-4fc7-b430-72332ce0fdec",
+      "password": "$2a$10$3of5Jt6NJ3/JfhGVAQYKgu4zRrHn.nXCFdFcWxk2zseRHUMb7aalq",
+      "songs": [
+        "No Songs yet ... "
+      ]
+    },
+    {
+      "username": "user2",
+      "id": "deae6ae5-7f5d-4e2b-83cd-74d5f98ea7c0",
+      "password": "$2a$10$C1VJO/pUoxyRogE2OJDfE.pzq28jFgZozBk31eM1U3l3knFMnjePC",
+      "songs": [
+        "No Songs yet ... "
+      ]
+    },
+    {
+      "username": "user3",
+      "id": "db595edc-713d-4c52-9d4e-8461b5ccdaee",
+      "password": "$2a$10$o3A/5X2Q/DBZvOKR1z.uReT7Hs76tRE4hXsCoZxY9k3D8kY/OHFJK",
+      "songs": []
+    }
+  ],
+  "songs": [
+    {
+      "title": "Yellow Submarine",
+      "id": "35f22ef1-d5b3-4c8f-b7ec-614c8c2367dd",
+      "author_id": "The Beatles"
+    },
+    {
+      "title": "Boom Boom Boom",
+      "id": "5eea6384-fae8-40f9-8a1b-30c08a415c8b",
+      "author_id": "Black Eyed Peas"
+    }
+  ],
+  "authors": [
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": "Bob Dylan"
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": "f"
+    },
+    {
+      "author_id": "tree"
+    },
+    {
+      "author_id": "beatles"
+    },
+    {
+      "author_id": "tea"
+    },
+    {
+      "author_id": "beach boys"
+    },
+    {
+      "author_id": "beach boys"
+    },
+    {
+      "author_id": "Katy Perry"
+    },
+    {
+      "author_id": "a"
+    },
+    {
+      "author_id": "b"
+    },
+    {
+      "author_id": "c"
+    },
+    {
+      "author_id": "a"
+    },
+    {
+      "author_id": "blah"
+    },
+    {
+      "author_id": "lauv"
+    },
+    {
+      "author_id": ""
+    },
+    {
+      "author_id": "new"
+    },
+    {
+      "author_id": "Black Eyed Peas"
+    },
+    {
+      "author_id": "Flo Rida"
+    }
+  ]
+}
