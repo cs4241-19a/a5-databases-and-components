@@ -1,0 +1,56 @@
+/*Navigation Bar Styling */
+nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+nav ul{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+nav ul li{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+nav ul li button{
+  display: flex;
+  align-items: center;
+  border-radius:15px;
+}
+
+h1{
+  text-align: center;
+}
+
+#viewAll table{
+  width: 100%;
+  border: 0px;
+  table-layout: fixed;
+  cell-spacing: 0px;
+  cell-padding: 0px;
+}
+
+#buttonDiv{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around; 
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+#reactContainer{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around; 
+}
+
+

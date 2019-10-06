@@ -1,0 +1,770 @@
+
+passport.use(new local(function(username, password, done) {
+  console.log("IN AUTHENTICATION") 
+  var user = db.get('users').find({username: username}).value()
+  if(!user){
+    console.log("NOT A USER")
+    return done(null, false, {message: "INVALID USERNAME & PASSWORD"})
+  }
+  else{
+    if(user.password === password){
+      console.log("VALID")
+      return done(null, user)
+    }
+    else{
+      console.log("INVALID")
+      return done(null, false, {message: "INVALID USERNAME & PASSWORD"})
+    }
+  }
+  
+  
+}))
+
+.///////////////////////
+///////////////////////
+//////////////
+
+server.improved.json
+const http = require( 'http' ),
+      fs   = require( 'fs' ),
+      mime = require( 'mime' ),
+      firebase = require('firebase'),
+      low = require('lowdb'),
+      FileSync = require('lowdb/adapters/FileSync'),
+      adapter = new FileSync('db.json'),
+      db = low(adapter),
+      express = require('express'),
+      passport = require('passport'),
+      local = require('passport-local').Strategy,
+      path = require('path'),
+      router = express.Router(),
+      dir  = 'public/',
+      port = 3000,
+      app = express(),
+      bodyparser = require('body-parser'),
+      downcase = require('express-uncapitalize'),
+      cookieSession = require('cookie-session'),
+      cookieParser = require('cookie-parser'),
+      mimeExp = {'Content-Type': 'application/json'},
+      mimeMes = {'Content-Type': 'text/plain'},
+      //FIREBASE CONFIG
+      firebaseConfig = {
+        apiKey: "AIzaSyAuOGEGSNJLe2fxv0iHQwigSY8nIj2pb30",
+        authDomain: "a2-nbloniarz.firebaseapp.com",
+        databaseURL: "https://a2-nbloniarz.firebaseio.com",
+        projectId: "a2-nbloniarz",
+        storageBucket: "a2-nbloniarz.appspot.com",
+        messagingSenderId: "337634055490",
+        appId: "1:337634055490:web:821a136e7f93eff009e4db"
+      }
+
+  
+passport.use(new local(function(username, password, done) {
+  console.log("IN AUTHENTICATION") 
+  var user = db.get('users').find({username: username}).value()
+  if(!user){
+    console.log("NOT A USER")
+    return done(null, false, {message: "INVALID USERNAME & PASSWORD"})
+  }
+  else{
+    if(user.password === password){
+      console.log("VALID")
+      return done(null, user)
+    }
+    else{
+      console.log("INVALID")
+      return done(null, false, {message: "INVALID USERNAME & PASSWORD"})
+    }
+  }
+  
+  
+}))
+
+// Configure Passport authenticated session persistence.
+//
+// In order to restore authentication state across HTTP requests, Passport needs
+// to serialize users into and deserialize users out of the session.  The
+// typical implementation of this is as simple as supplying the user ID when
+// serializing, and querying the user record by ID from the database when
+// deserializing.
+passport.serializeUser(function(user, cb) {
+  cb(null, user.username);
+});
+
+passport.deserializeUser(function(id, cb) {
+  var user = db.get('users').find({username: id}).value() 
+  if(!user){
+    cb({message: "INVALID CREDENTIALS"}, null)
+  }
+  else{
+    cb(null, {username: user.username})
+  }
+  
+})
+
+
+db.defaults({ users:[
+  {username: "a", password:'a'},
+  {username: "b", password:'b'},
+  {username: "c", password:'c'}
+] }).write()
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var adb = firebase.database()
+
+
+//LOCAL DATA TO BE REMOVED
+var appdata = [
+  { 'fName': 'Bob', 'lName': 'Smith', 'month':'August', 'day': 23, 'sign':"Leo"},
+  { 'fName': 'Suzy', 'lName': 'Ng', 'month':'September','day': 30 , 'sign':"Libra"},
+  { 'fName': 'Jim', 'lName': 'Hopper', 'month': 'July','day': 14, 'sign':"Cancer"} 
+]
+
+const horoscopes = [
+  {'horoscope': "You will have a 258 star day today. You will have a impertinent situation with your syringe. Your junkyard will tell you how knotted and stuckup you are and this will hurt your meatballs. Breathe and let it go. Take care of yourself today, Take time for yourself. Go staining or advancing. Take a bath with restless greenly seagulls. Relax. Your lucky number is 334. Today is a knotted day to use this number by betting on canteens."},
+  {'horoscope': "You will have a 111 star day today. You will have a huge situation with your robot. Your tummy will tell you how thrifty and indescribable you are and this will hurt your cowbells. Breathe and let it go.Take care of yourself today, Take time for yourself. Go calming or inspecting. Take a bath with Turkish sloppily ballerinas. Relax.Your lucky number is 1097. Today is a charismatic day to use this number by betting on sodas."},
+  {'horoscope': "You will have a 14 star day today. You will have a vascular situation with your belt. Your fig will tell you how chipper and radiant you are and this will hurt your inhalers. Breathe and let it go. Take care of yourself today, Take time for yourself. Go zipping or romancing. Take a bath with important prematurely puppies. Relax. Your lucky number is 377. Today is a vascular day to use this number by betting on globs."}
+]
+
+//CONFIGURATION FOR EXPRESS MIDDLEWARE (1-5)
+app.use(express.static('public')) //Serves static pages
+app.use(bodyparser.json())//Parses HTTP request body into JSON
+//app.use(downcase)//Forces downcasing of entire url after /
+app.use(cookieSession({ //Creates a cookie for the session
+  name: 'session',
+  secret: 'Sauce'
+}))
+app.use(cookieParser('Sauce'))//Parses the cookie for the session
+app.use(passport.initialize())
+app.use(passport.session())
+//app.use('/', router)
+
+//WORK ON COOKIE INTEGRATION
+
+//EXPRESS SERVER FUNCTIONS
+//GET REQUESTS
+app.get('/', function(request, response){
+  response.sendFile(path.join(__dirname + '/index.html'))
+})
+
+app.get('/getData', function(request, response){
+  var temp = []
+  adb.ref('/').once('value', function(snapShot){
+    snapShot.forEach(function(child){
+      temp.push(child.val())
+    })  
+  }).then(function(){
+    response.writeHead(200, "OK", mimeExp)
+    response.end(JSON.stringify(temp))
+  })
+})
+
+app.get('/loadLoginPage', function(request, response){
+  response.redirect("/login")
+})
+
+app.get('/admin', function(request, response){
+  response.redirect('/admin')
+})
+
+//POST REQUESTS
+app.post('/submit', bodyparser.json(), function(request, response){
+  var temp = []
+  temp.push(request.body)
+  response.writeHead(200, "OK", mimeExp)
+  response.end(JSON.stringify(temp))  
+})
+
+app.post('/modify', bodyparser.json(), function(request, response){
+  response.writeHead(200, "OK", mimeExp)
+  response.end(JSON.stringify(db.ref()))
+})
+
+app.post('/delete', bodyparser.json(), function(request, response){
+  response.writeHead(200, "OK", mimeExp)
+  response.end(JSON.stringify(appdata))
+})
+
+app.post('/addUser', bodyparser.json(), function(request, response){
+  db.get('users').push({username: request.body.username, password: request.body.password}).write()
+})
+
+app.post('/doLogin', passport.authenticate('local', {failureRedirect: "/"}), function(req, res){
+  console.log("SUCCESS?")
+  res.end("SUCCESS")
+})
+
+app.listen( process.env.PORT || port )
+
+
+
+
+
+/* NO EXPRESS OLD ASSIGNMENT 2
+
+
+const handleGet = function( request, response ) {
+  else if(request.url === '/getHoro'){
+    response.writeHeader(200, "OK", {'Content-Type': 'plain/text'})
+    response.write(JSON.stringify(horoscopes))
+    response.end()
+  }
+}
+
+const handlePost = function( request, response ) {
+  let dataString = ''
+
+  request.on( 'data', function( data ) {
+      dataString += data 
+  })
+
+  request.on( 'end', function() {
+    const reqURL = request.url.slice(1)
+    switch(reqURL){
+      /*Submit Case*/
+/*      case "submit":
+        const convertedData = JSON.parse(dataString)
+        convertedData.sign = starSign(convertedData)
+        if(noDuplicates(convertedData)){
+          appdata.push(convertedData)
+          let json = JSON.stringify(appdata)
+          response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+          response.write(json)
+          response.end()
+        }
+        else{
+          let json = JSON.stringify(appdata)
+          response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+          response.write("Duplicate Information, Not Added!")
+          response.end()
+        }       
+        break
+        /*Modify  Case MAXIMUM EFFICENCY*/
+/*      case "modify":
+        const Data = JSON.parse(dataString)
+        modData(Data)
+        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+        response.write(JSON.stringify(appdata))
+        response.end()
+        break
+      case "delete":
+        const removalData = JSON.parse(dataString)
+        removeGiven(removalData)
+        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+        response.write(JSON.stringify(appdata))
+        response.end()
+        break
+      default:
+        console.log(reqURL)
+    }
+    
+    
+  })
+}
+
+const sendFile = function( response, filename ) {
+   const type = mime.getType( filename ) 
+
+   fs.readFile( filename, function( err, content ) {
+
+     // if the error = null, then we've loaded the file successfully
+     if( err === null ) {
+
+       // status code: https://httpstatuses.com
+       response.writeHeader( 200, { 'Content-Type': type })
+       response.end( content )
+
+     }else{
+
+       // file not found, error code 404
+       response.writeHeader( 404 )
+       response.end( '404 Error: File Not Found' )
+
+     }
+   })
+}
+
+server.listen( process.env.PORT || port )
+
+//Checks if given input os already in database
+function noDuplicates(dataToAdd){
+  for(let i = 0; i< Object.keys(appdata).length; i++){
+    if((dataToAdd.fName === appdata[i].fName) && (dataToAdd.lName === appdata[i].lName)){
+      if((dataToAdd.day === appdata[i].day) && (dataToAdd.month === appdata[i].month)){
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+//Calculates star sign for given information
+function starSign(personalInfo){
+  switch(personalInfo.month){
+    case "January":
+      if(personalInfo.day < 21){
+        return "Capricorn"
+      }
+      else{
+        return "Aquarius"
+      }
+      break;
+    case "February":
+      if(personalInfo.day < 19){
+        return "Aquarius"
+      }
+      else{
+        return "Pisces"
+      }
+      break;
+    case "March":
+      if(personalInfo.day < 21){
+        return "Pisces"
+      }
+      else{
+        return "Aries"
+      }
+      break;
+    case "April":
+      if(personalInfo.day < 21){
+        return "Aries"
+      }
+      else{
+        return "Tarus"
+      }
+      break;
+    case "May":
+      if(personalInfo.day < 22){
+        return "Tarus"
+      }
+      else{
+        return "Gemini"
+      }
+      break;
+    case "June":
+      if(personalInfo.day < 22){
+        return "Gemini"
+      }
+      else{
+        return "Cancer"
+      }
+      break;
+    case "July":
+      if(personalInfo.day < 23){
+        return "Cancer"
+      }
+      else{
+        return "Leo"
+      }
+      break;
+    case "August":
+      if(personalInfo.day < 24){
+        return "Leo"
+      }
+      else{
+        return "Virgo"
+      }
+      break;
+    case "September":
+      if(personalInfo.day < 23){
+        return "Virgo"
+      }
+      else{
+        return "Libra"
+      }
+      break;
+    case "October":
+      if(personalInfo.day < 24){
+        return "Libra"
+      }
+      else{
+        return "Scorpio"
+      }
+      break;
+    case "November":
+      if(personalInfo.day < 24){
+        return "Scorpio"
+      }
+      else{
+        return "Sagatarius"
+      }
+      break;
+    case "December":
+      if(personalInfo.day < 22){
+        return "Sagittarius"
+      }
+      else{
+        return "Capricorn"
+      }
+      break;
+    default:
+      return "Error"
+  }
+}
+
+function removeGiven(original){
+  console.log(original)
+  var index = -1
+  for(let i = 0; i< Object.keys(appdata).length; i++){
+    if((original.fName === appdata[i].fName) && (original.lName === appdata[i].lName)){
+      if((original.day === appdata[i].day) && (original.month === appdata[i].month)){
+        index = i
+        console.log("Match")
+      }
+    }
+  }
+  if(index > -1){
+    appdata.splice(index, 1)
+  }
+  console.log(appdata)
+}
+
+function modData(toChange){
+  let original = toChange.originalArr
+  let replace = toChange.newInput
+  for(let i = 0; i < appdata.length; i++){
+    if((original[0] === appdata[i].fName) && (original[1] === appdata[i].lName) && (original[2] === appdata[i].month) && (original[3] === appdata[i].day)){
+      appdata[i].fName = replace[0];
+      appdata[i].lName = replace[1];
+      appdata[i].month = replace[2];
+      appdata[i].day = replace[3];
+      appdata[i].sign = starSign(appdata[i])
+    }
+  }
+}
+
+
+
+
+*/
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
+Index.html
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
+    <script src="js/scripts.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <nav>
+      <h1>Horoscope Generator</h1>
+      <ul>
+        <!--<li><button onclick="displayNewForm()">Add New</button></li>-->
+        <!--<li><button onclick="displayModForm()">Modify Existing</button></li>-->
+        <li><button onclick="displayData()">View Data</button></li>
+        <li><button onclick="generateHoroscope()">Generate Horoscope</button></li>
+        <li><button onclick="loadLogin()">Login</button></li>
+      </ul>
+    </nav>
+    <div id="newForm" style="display: none">
+      <form action="" class="NEW" id="NEW">
+        <legend>Add New Entry</legend>
+        <label for="fName">First Name</label>
+        <input type="text" class="fName" value="your name here"><br>
+        <label for="lName">Last Name</label>
+        <input type="text" class="lName" value="your name here"><br>
+        <label for="month">Month of Birth</label>
+        <select name="month" class="month">
+          <option value="January">January</option>
+          <option value="February">February</option>
+          <option value="March">March</option>
+          <option value="April">April</option>
+          <option value="May">May</option>
+          <option value="June">June</option>
+          <option value="July">July</option>
+          <option value="August">August</option>
+          <option value="September">September</option>
+          <option value="October">October</option>
+          <option value="November">November</option>
+          <option value="December">December</option>
+        </select>
+        <br>
+        <label for="days">Day of Birth</label>
+        <select name="days" class="days">  
+        </select>
+        <br>
+        <button id="subButton">SUBMIT</button>
+      </form>
+    </div>
+    <div id="modForm" style="display: none">
+      <form action="">
+        <legend>MODIFY AN EXISTING ENTRY</legend>
+        <label for="modList">Select a line to modify</label>
+        <select name="modList" class="modList">
+        </select>
+        <br>
+        <div class="Buttons">
+        </div>
+    </form>
+    </div>
+    <div id="horo" style="display: none">
+      <form action="">
+        <legend>Select a user</legend>
+        <label for="horoList">Select a user</label>
+        <select name="horoList" class="horoList">
+        </select>
+        <p id="horoResult"> </p>
+        <button id="GenerateHoro">Generate!</button>
+    </form>
+    </div>
+    <div id="Container"></div>
+    <div id="Wrapper">
+      <div id="ZodiacCarousel" class="carousel slide" data-rise="carousel">
+      <!--Indicators-->
+      <ol class="carousel-indicators" style="display:none;">
+        <li data-target="#ZodiacCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#ZodiacCarousel" data-slide-to="1"></li>
+        <li data-target="#ZodiacCarousel" data-slide-to="2"></li>
+        <li data-target="#ZodiacCarousel" data-slide-to="3"></li>
+        <li data-target="#ZodiacCarousel" data-slide-to="4"></li>
+        <li data-target="#ZodiacCarousel" data-slide-to="5"></li>
+        <li data-target="#ZodiacCarousel" data-slide-to="6"></li>
+        <li data-target="#ZodiacCarousel" data-slide-to="7"></li>
+        <li data-target="#ZodiacCarousel" data-slide-to="8"></li>
+        <li data-target="#ZodiacCarousel" data-slide-to="9"></li>
+        <li data-target="#ZodiacCarousel" data-slide-to="10"></li>
+        <li data-target="#ZodiacCarousel" data-slide-to="11"></li>
+      </ol>
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="https://cdn.glitch.com/de12d0f3-3352-44ef-b62c-3acd45afc445%2FAries.svg?v=1567965712892" alt="Aries" style="width: 35%; margin-left:auto; margin-right:auto;">
+          <div class="carousel-caption">
+            <h3 style="-webkit-text-stroke-width: 1px;   -webkit-text-stroke-color: black;">Aries</h3>
+            <p style="-webkit-text-stroke-width: .5px;   -webkit-text-stroke-color: black;">The Ram</p>
+          </div>
+        </div>
+        <div class="item">
+          <img src="https://cdn.glitch.com/de12d0f3-3352-44ef-b62c-3acd45afc445%2FTaurus.svg?v=1567965713442" alt="Taurus" style="width:35%; margin-left:auto; margin-right:auto;">
+          <div class="carousel-caption">
+            <h3 style="-webkit-text-stroke-width: 1px;   -webkit-text-stroke-color: black; align-self:flex-end">Taurus</h3>
+            <p style="-webkit-text-stroke-width: .5px;   -webkit-text-stroke-color: black; align-self:flex-end">The Bull</p>
+          </div>
+        </div>
+        <div class="item">
+         <img src="https://cdn.glitch.com/de12d0f3-3352-44ef-b62c-3acd45afc445%2FGemini.svg?v=1567965712921" alt="Gemini" style="width:35%; margin-left:auto; margin-right:auto;">
+          <div class="carousel-caption">
+            <h3 style="-webkit-text-stroke-width: 1px;   -webkit-text-stroke-color: black; align-self:flex-end">Gemini</h3>
+            <p style="-webkit-text-stroke-width: .5px;   -webkit-text-stroke-color: black; align-self:flex-end">The Twins</p>
+          </div>
+        </div>
+        <div class="item">
+         <img src="https://cdn.glitch.com/de12d0f3-3352-44ef-b62c-3acd45afc445%2FCancer.svg?v=1567965712850" alt="Cancer" style="width:35%; margin-left:auto; margin-right:auto;">
+          <div class="carousel-caption">
+            <h3 style="-webkit-text-stroke-width: 1px;   -webkit-text-stroke-color: black; align-self:flex-end">Cancer</h3>
+            <p style="-webkit-text-stroke-width: .5px;   -webkit-text-stroke-color: black; align-self:flex-end">The Crab</p>
+          </div>
+        </div>
+        <div class="item">
+         <img src="https://cdn.glitch.com/de12d0f3-3352-44ef-b62c-3acd45afc445%2FLeo.svg?v=1567965713061" alt="Leo" style="width:35%; margin-left:auto; margin-right:auto;">
+          <div class="carousel-caption">
+            <h3 style="-webkit-text-stroke-width: 1px;   -webkit-text-stroke-color: black; align-self:flex-end">Leo</h3>
+            <p style="-webkit-text-stroke-width: .5px;   -webkit-text-stroke-color: black; align-self:flex-end">The Lion</p>
+          </div>
+        </div>
+        <div class="item">
+         <img src="https://cdn.glitch.com/de12d0f3-3352-44ef-b62c-3acd45afc445%2FVirgo.svg?v=1567965713478" alt="Virgo" style="width:35%; margin-left:auto; margin-right:auto;">
+          <div class="carousel-caption">
+            <h3 style="-webkit-text-stroke-width: 1px;   -webkit-text-stroke-color: black; align-self:flex-end">Virgo</h3>
+            <p style="-webkit-text-stroke-width: .5px;   -webkit-text-stroke-color: black; align-self:flex-end">The Maiden</p>
+          </div>
+        </div>
+        <div class="item">
+         <img src="https://cdn.glitch.com/de12d0f3-3352-44ef-b62c-3acd45afc445%2FLibra.svg?v=1567965713150" alt="Libra" style="width:35%; margin-left:auto; margin-right:auto;">
+          <div class="carousel-caption">
+            <h3 style="-webkit-text-stroke-width: 1px;   -webkit-text-stroke-color: black; align-self:flex-end">Libra</h3>
+            <p style="-webkit-text-stroke-width: .5px;   -webkit-text-stroke-color: black; align-self:flex-end">The Scales</p>
+          </div>
+        </div>
+        <div class="item">
+         <img src="https://cdn.glitch.com/de12d0f3-3352-44ef-b62c-3acd45afc445%2FScorpio.svg?v=1567965713399" alt="Scorpio" style="width:35%; margin-left:auto; margin-right:auto;">
+          <div class="carousel-caption">
+            <h3 style="-webkit-text-stroke-width: 1px;   -webkit-text-stroke-color: black; align-self:flex-end">Scorpio</h3>
+            <p style="-webkit-text-stroke-width: .5px;   -webkit-text-stroke-color: black; align-self:flex-end">The Scorpion</p>
+          </div>
+        </div>
+        <div class="item">
+         <img src="https://cdn.glitch.com/de12d0f3-3352-44ef-b62c-3acd45afc445%2FSagittarius.svg?v=1567965713247" alt="Sagittarius" style="width:35%; margin-left:auto; margin-right:auto;">
+          <div class="carousel-caption">
+            <h3 style="-webkit-text-stroke-width: 1px;   -webkit-text-stroke-color: black; align-self:flex-end">Sagittarius</h3>
+            <p style="-webkit-text-stroke-width: .5px;   -webkit-text-stroke-color: black; align-self:flex-end">The Archer</p>
+          </div>
+        </div>
+        <div class="item">
+         <img src="https://cdn.glitch.com/de12d0f3-3352-44ef-b62c-3acd45afc445%2FCapricorn.svg?v=1567965712954" alt="Capricorn" style="width:35%; margin-left:auto; margin-right:auto;">
+          <div class="carousel-caption">
+            <h3 style="-webkit-text-stroke-width: 1px;   -webkit-text-stroke-color: black; align-self:flex-end">Capricorn</h3>
+            <p style="-webkit-text-stroke-width: .5px;   -webkit-text-stroke-color: black; align-self:flex-end">The Goat-Fish Hybrid</p>
+          </div>
+        </div>
+        <div class="item">
+         <img src="https://cdn.glitch.com/de12d0f3-3352-44ef-b62c-3acd45afc445%2FAquarius.svg?v=1567965713506" alt="Aquarius" style="width:35%; margin-left:auto; margin-right:auto;">
+          <div class="carousel-caption">
+            <h3 style="-webkit-text-stroke-width: 1px;   -webkit-text-stroke-color: black; align-self:flex-end">Aquarius</h3>
+            <p style="-webkit-text-stroke-width: .5px;   -webkit-text-stroke-color: black; align-self:flex-end">The Water-Bearer</p>
+          </div>
+        </div>
+        <div class="item">
+         <img src="https://cdn.glitch.com/de12d0f3-3352-44ef-b62c-3acd45afc445%2FPisces.svg?v=1567965713107" alt="Pisces" style="width:35%; margin-left:auto; margin-right:auto;">
+          <div class="carousel-caption">
+            <h4 style="-webkit-text-stroke-width: 1px;   -webkit-text-stroke-color: black; align-self:flex-end">Pisces</h4>
+            <p style="-webkit-text-stroke-width: .5px;   -webkit-text-stroke-color: black; align-self:flex-end">The Fishes</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Left and right controls -->
+      <a class="left carousel-control" href="#ZodiacCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#ZodiacCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+    </div>
+    
+  </body>
+  <script>
+    const submit = function( e ) {
+    // prevent default form action from being carried out
+      e.preventDefault()
+      let valInput = []
+      valInput.push(document.querySelector( '.fName' ).value)
+      valInput.push(document.querySelector( '.lName' ).value)
+      valInput.push(document.querySelector( '.month' ).value)
+      valInput.push(document.querySelector( '.days' ).value)
+      const json = { fName: valInput[0], lName: valInput[1], month: valInput[2], day: valInput[3] },
+            body = JSON.stringify( json )
+
+      fetch( '/submit', {
+        method:'POST',
+        headers: {'Content-Type': 'application/json'},
+        body
+      })
+      .then( function( response) {
+      // do something with the reponse
+      //display horoscope on screen
+         response.text()
+        .then(function(message){
+         console.log(message)
+         displayNewForm()
+     })
+      
+    })
+    return false
+  }
+  
+  //Changes information in database to given
+  const submitChanges = function(e){
+    e.preventDefault()
+    let originalData = document.getElementById('modHolder').innerHTML
+    originalData = JSON.parse(originalData)
+    let newInput = []
+    newInput.push(document.querySelector( '.fNameE' ).value)
+    newInput.push(document.querySelector( '.lNameE' ).value)
+    newInput.push(document.querySelector( '.monthE' ).value)
+    newInput.push(document.querySelector( '.daysE' ).value)
+    let originalArr = []
+    originalArr.push(originalData.fName)
+    originalArr.push(originalData.lName)
+    originalArr.push(originalData.month)
+    originalArr.push(originalData.day)
+    let body = {originalArr, newInput}
+    body = JSON.stringify(body)
+    console.log(body)
+    fetch( '/modify', {
+      method:'POST',
+      headers: {'Content-Type': 'application/json'},
+      body
+    }) 
+    .then( function( response) {
+      // do something with the reponse
+      //display horoscope on screen
+     response.text()
+      .then(function(message){
+       console.log(message)
+       displayModForm()
+     })
+      
+    })
+    
+  }
+
+  //Deletes value from database
+  const remove = function(e){
+    e.preventDefault()
+    let originalData = document.getElementById('modHolder').innerHTML
+    originalData = JSON.parse(originalData)
+    const body = JSON.stringify(originalData)
+    fetch( '/delete', {
+      method:'POST',
+      headers: {'Content-Type': 'application/json'},     
+      body
+    })
+    .then( function( response) {
+      // do something with the reponse
+      //display horoscope on screen
+     response.text()
+      .then(function(message){
+       console.log(message)
+       displayModForm()
+     })
+      
+    })
+    return false
+  }
+  
+  const doGenerate = function(e){
+  e.preventDefault()
+console.log("ADD")
+  fetch( '/getHoro', {
+    method:'GET',
+    headers: {'Content-Type': 'application/json'},
+
+  })
+  .then( function( response ) {
+    console.log(response)
+    response.text()
+    .then(function(message){
+      let allData = JSON.parse(message)
+      console.log(allData)
+      var randHoro = Math.floor(Math.random() * (Object.keys(allData).length))
+      console.log(randHoro)
+      document.getElementById("horoResult").innerHTML = allData[randHoro].horoscope
+    })
+  })
+  return false
+}
+  
+  function loadLogin(){
+    fetch( '/loadLoginPage', {
+        method:'GET',
+      }).then(function(response){
+      console.log(response)
+      window.location = response.url
+    })
+  }
+  
+    //Assign Button Functions On Load
+    window.onload = function() {
+      const subButton = document.querySelector( '#subButton' )
+      subButton.onclick = submit
+      const genButton = document.querySelector('#GenerateHoro')
+      genButton.onclick = doGenerate
+    }  
+  </script>
+</html>
