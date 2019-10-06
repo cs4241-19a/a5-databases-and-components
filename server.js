@@ -1,9 +1,5 @@
 /*
 Created by Elie Hess.
-
-If you're seeing this, do me a favor and watch this video before proceeding with whatever else you were doing.
-
-https://www.youtube.com/watch?v=CQ85sUNBK7w
 */
 const low = require('lowdb'),
     express = require('express'),
@@ -50,13 +46,10 @@ client.connect()
         // blank query returns all documents
         return users.find({}).toArray()
     })
-    .then(console.log)
+    .then()
 
 passport.use(new Local(function (username, password, done) {
     users.findOne({username: username}).then((response) => {
-        console.log("r: " + response)
-        console.log(response.password)
-        console.log(response.username)
         if (!response) {
             console.log("user not found")
             return done(null, false, {
@@ -115,30 +108,13 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 
-/*app.get('/getdata', function (req, res) {
-    const type = mime.getType(db.get('members').value());
-    res.writeHeader(200, {
-        "Content-Type": type
-    });
-    res.write(JSON.stringify({
-        data: db.get('members').value()
-    }));
-    res.flush();
-    res.end();
-});*/
-
 app.get('/getdata', (req, res) => {
     if (users !== null) {
         users.find({}).toArray().then(result => {
-            /*res.writeHeader(200, {
-                "Content-Type": type
-            });*/
-            res.write(JSON.stringify({
+            res.send(JSON.stringify({
                 data: result
             }));
-            console.log("get: " + result)
-            /*res.flush();
-            res.end();*/
+            //console.log("get: " + result)
         })
     }
 })
@@ -151,12 +127,6 @@ app.post('/update', function (req, res) {
         "password": req.body.password,
         _id: makeid(req.body.username)
     };
-
-    /*db.get('members').remove({
-        username: updatedEntry.username
-    }).write();
-
-    db.get('members').push(updatedEntry).write();*/
 
     users.deleteOne({_id: mongodb.ObjectID(updatedEntry._id)})
     users.insertOne(updatedEntry).then(() => {
@@ -186,13 +156,6 @@ app.post('/submit', function (req, res) {
 })
 
 app.post('/delete', function (req, res) {
-    /*db.get('members').remove({
-        username: req.body.username
-    }).write();
-    res.writeHead(200, "OK", {
-        "Content-Type": "text/plain"
-    });
-    res.end();*/
     users.deleteOne({_id: mongodb.ObjectID(req.body._id)})
         .then(result => res.json(result))
 });
