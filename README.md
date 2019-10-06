@@ -1,6 +1,6 @@
 Personal Shopping Assistant
 ===
-http://a5-eos7l.glitch.me
+https://a5-eos7l.herokuapp.com/
 
 This is a proof-of-concept shopping assistance web application that help consumers to find the best deals and best retailer to purchase with. 
 
