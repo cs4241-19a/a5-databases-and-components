@@ -20,16 +20,15 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 passport.use(new Strategy(
     function (username, password, cb) {
-        db.checkPass(username, password, function (err, user) {
-            if (err) {
-                return cb(err);
-            }
-            if (!user) {
+        db.checkPass(username, password).then((user, error) => {
+            if (error)
+                return cb(error);
+            if (!user)
                 return cb(null, false);
-            }
             return cb(null, user);
-        });
-    }));
+        })
+    }
+));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -39,9 +38,8 @@ passport.serializeUser(function (user, cb) {
 });
 
 passport.deserializeUser(function (username, cb) {
-    db.getUser(username, function (err, user) {
-        if (err)
-            return cb(err);
+    db.getUser(username).then((user, error) => {
+        if (error) return cb(error);
         cb(null, user);
     });
 });
@@ -108,5 +106,10 @@ app.get('/profile',
         res.render('profile', {user: req.user, content: content, readonly: false});
     });
 
+// db.getUser('evan').then(user => {
+//         console.log("Got user for evan: ", user);
+//         if (user === null)
+//     }
+// );
 db.CreateUser('evan', 'Evan Goldstein', 'pass');
 app.listen(3000);
