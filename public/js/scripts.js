@@ -1,4 +1,4 @@
-/*////////////// Toggle Visibility ///////////////////
+////////////// Toggle Visibility ///////////////////
 //Toggles hide/show of log in form
 function toggleLogin() {
   var loginForm = document.getElementById("loginForm");
@@ -53,7 +53,7 @@ function createGiven(elementID) {
         .then(function(fin) {
           emptyBody();
           reactTable();
-          /*let dataArray = fin
+          let dataArray = fin
        var html = "<table id=\"viewAll\">"
        html += "<tr><th>First Name</th><th>Last Name</th><th>Month</th><th>Day</th><th>Sign</th><th>User</th></tr>"
        dataArray.forEach(function (single){
@@ -69,8 +69,8 @@ function createGiven(elementID) {
        html += "</table>"
        var tableDiv = document.createElement('div')
        tableDiv.innerHTML = html
-       document.body.appendChild(tableDiv)*/
-/*        });
+       document.body.appendChild(tableDiv)
+        });
       break;
     case "viewDataForUser":
       fetch("/allDataForUser", {
@@ -1230,43 +1230,5 @@ function monthToHTML(month) {
       html +=
         '<option selected="selected" value="December">December</option></select><br>';
       return html;
-  }
-}*/
-
-///////REACT TABLE COMPONET SETUP FUNCTIONS////////////////////////
-function reactTable() {
-  console.log("TESTING BUTTON");
-  fetch("/allData", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" }
-  })
-    .then(function(res) {
-      return res.json();
-    })
-    .then(function(fin) {
-      ReactDOM.render(
-        React.createElement("table", { id: "viewAll" }, null),
-        document.getElementById("Container")
-      );
-      ReactDOM.render(
-        React.createElement("th", null, null),
-        document.getElementById("viewAll")
-      );
-    });
-}
-
-import React from 'react';
-
-class CustomTable extends React.Component{
-  render(){
-    return(
-      <table>
-        <th>Entire Database</th>
-        <tr>
-          <td></td>
-        </tr>
-      </table>
-    
-    )
   }
 }
