@@ -38,8 +38,6 @@ function toggleGiven(elementID) {
   }
 }
 
-var ReactDOM = require('react-dom')
-
 //Creates the element based on the given ID
 function createGiven(elementID) {
   switch (elementID) {
@@ -1233,8 +1231,4 @@ function monthToHTML(month) {
         '<option selected="selected" value="December">December</option></select><br>';
       return html;
   }
-}
-
-function sessionTimer(){
-  const element = (<div><p></p></div>)
 }

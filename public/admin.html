@@ -19,6 +19,8 @@
     <script src="https://unpkg.com/react@16.4.1/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16.4.1/umd/react-dom.production.min.js"></script>
     <script src="js/scripts.js"></script>
+    <!--<script type="text/jsx" src="js/react.js"></script>-->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script src="https://unpkg.com/react@16.4.1/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16.4.1/umd/react-dom.production.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -45,4 +47,15 @@
       </ul>
     </nav>
   </body>
+  <script type="text/babel">
+    function sessionTimer() {
+      const element = (
+        <div>
+          <p>Current Time: {new Date().toLocaleTimeString()}</p>
+        </div>
+      );
+      ReactDOM.render(element, document.getElementById("root"));
+    }
+    setInterval(sessionTimer(), 1000);
+  </script>
 </html>
