@@ -9,7 +9,7 @@ Each user can have their own shopping list by creating their own account which a
 
 - These existing credentials should already have some products in their own respective lists.
 
-- The changes I added to assignment 3 was implementing MongoDB instead of lowDB and removing passport. MongoDB was used to store the users' accounts, passwords,and shopping list. 
+- The changes I added to assignment 3 was implementing MongoDB instead of lowDB and removing passport. MongoDB was used to store the users' accounts, passwords, and shopping list. 
 This change improved the development experience because it made me have much less code than I previously had with lowDB. Once I understood how to work with MongoDB, it was much 
 easier to implement and use compared to lowDB. The users would probably prefer mongoDB also as it is probably more secure and has more space than lowDB.
 
