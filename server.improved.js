@@ -203,13 +203,27 @@ const handlePost = function( request, response ) {
   })
   
   request.on( 'end', async function() {
-    
-    productList.insertOne({
-                      accountID: currentID,
-                      productName: inputData.productName,
-                      numProducts: inputData.numProducts,
-                      price: inputData.price
-                      })
+    if(currentID === undefined){
+      await createUserData();
+      let newUserID = userData.slice(-1)[0].id //gets the newly created userID
+      currentID = newUserID
+      //console.log("post request: "+currentID)
+      productList.insertOne({
+                        accountID: currentID,
+                        productName: inputData.productName,
+                        numProducts: inputData.numProducts,
+                        price: inputData.price
+                        })
+    }
+    else{
+      productList.insertOne({
+                        accountID: currentID,
+                        productName: inputData.productName,
+                        numProducts: inputData.numProducts,
+                        price: inputData.price
+                        })
+      //console.log("post request using currentID: "+currentID)
+    }
   })
   response.send(JSON.stringify(inputData) )
 }
@@ -228,6 +242,8 @@ const handleGetRequest = async function( request, response ) {
       let newUserID = userData.slice(-1)[0].id //gets the newly created userID
       currentID = newUserID 
       let newProductList = productData.filter(x => x.accountID===currentID)
+      //console.log(currentID)
+      //console.log(newProductList)
       response.send(newProductList)
       //console.log('New userID was created for the new registering Account')
        }
@@ -235,6 +251,7 @@ const handleGetRequest = async function( request, response ) {
       let currentProductList = productData.filter(x => x.accountID===currentID)
       //console.log(currentID)
       //console.log('An existing userID was used')
+      //console.log(currentProductList)
       response.send(currentProductList)
        } 
   })
@@ -266,7 +283,7 @@ const handleDelete = async function( request, response ) {
     if(numProd > inputNumProd){ 
       numProd = numProd - inputNumProd
       objectID = exactProduct[0].id
-      console.log(objectID)
+      //console.log(objectID)
       await updateProductData(objectID,numProd);
       
        }
