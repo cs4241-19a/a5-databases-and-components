@@ -53,7 +53,9 @@ app.use(
 ////////////     PASSPORT     /////////////////////////////////
 ///////////////////////////////////////////////////////////////
 const myStrategy = function(username, password, done) {
-  db.ref("/users/")
+  collection.getCollection('users')
+    .then()
+  /*db.ref("/users/")
     .once("value")
     .then(function(snapshot) {
       const users = [];
@@ -71,7 +73,7 @@ const myStrategy = function(username, password, done) {
         console.log("!PASSwORD");
         return done(null, false, { message: "incorrect password" });
       }
-    });
+    });*/
 };
 
 passport.use(new LocalStrategy(myStrategy));
@@ -83,7 +85,7 @@ app.use(passport.session()); //persistant login session
 passport.serializeUser((user, done) => done(null, user.username));
 
 passport.deserializeUser((username, done) => {
-  db.ref("/users/")
+  /*db.ref("/users/")
     .once("value")
     .then(function(snapshot) {
       const users = [];
@@ -97,15 +99,14 @@ passport.deserializeUser((username, done) => {
       } else {
         done(null, false, { message: "user not found; session not restored" });
       }
-    });
+    });*/
 });
 
 ///////////////////////////////////////////////////////////////////
 /////////////////  MONGO  /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 
-const uri =
-  "mongodb+srv://test:<password>@a5-nbloniarz-t6b6e.gcp.mongodb.net/admin?retryWrites=true&w=majority";
+const uri ="mongodb+srv://test:user@/";
 const client = new mongodb.MongoClient(uri, { useNewUrlParser: true });
 let collection = null;
 client
