@@ -38,13 +38,17 @@ UsersCollection = function () {
 
 exports.getAllContent = function () {
     return new Promise(resolve => {
-        resolve(ContentCollection().then(collection => collection.find()));
+        ContentCollection().then(collection => {
+            collection.find().sort({type: 1}).toArray().then(data => resolve(data));
+        });
     })
 };
 
 exports.getContentForUser = function (user) {
     return new Promise(resolve => {
-        ContentCollection().then(collection => collection.find({username: user.username}).sort('type'));
+        ContentCollection().then(collection => {
+            collection.find({username: user.username}).sort({type: 1}).toArray().then(data => resolve(data));
+        });
     })
 };
 
@@ -70,12 +74,11 @@ exports.deleteContent = function (user, contentID) {
 
 exports.checkPass = function (username, password) {
     return new Promise((resolve, reject) => {
-        UsersCollection().then(collection => collection.findOne({username: username}).then(user => {
-                console.log("CHECK PASS: Got user document for " + username + ": " + user);
-                if (user !== undefined && crypto.compareString(user.password, password)) resolve(user);
-                else reject();
-            })
-        );
+        this.getUser(username).then(user => {
+            console.log("CHECK PASS: Got user document for " + username + ": " + user);
+            if (user !== null && crypto.compareString(user.password, password)) resolve(user);
+            else reject();
+        }).catch(() => reject());
     });
 };
 
@@ -84,27 +87,30 @@ exports.getUser = function (username) {
         UsersCollection().then(collection =>
             collection.findOne({username: username}).then(user => {
                 console.log("GET USER: Got user document for " + username + ": " + user);
-                resolve(user)
+                resolve(user);
+                if (user === null) reject("User not found!");
             }).catch(error => reject(error))
         );
     })
 };
 
-/**
- * @return {boolean}
- */
 exports.CreateUser = function (username, displayName, password) {
-    UsersCollection().then(collection => {
-        if (collection.findOne({username: username}) === null) {
-            console.log("Creating User: ", username, " with password: ", password);
-            let passHash = crypto.encrypt(password);
-            collection.insertOne({
-                username: username,
-                displayName: displayName,
-                password: passHash
-            });
-            return true;
-        }
-        return false;
+    return new Promise((resolve, reject) => {
+        UsersCollection().then(collection => {
+            collection.findOne({username: username}).then(data => {
+                    if (data === null) {
+                        console.log("Creating User: ", username, " with password: ", password);
+                        let passHash = crypto.encrypt(password);
+                        collection.insertOne({
+                            username: username,
+                            displayName: displayName,
+                            password: passHash
+                        }).catch(error => reject(error));
+                        resolve("Account created successfully.");
+                    }
+                    reject("Username is taken.");
+                }
+            )
+        });
     });
 };

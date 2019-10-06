@@ -20,13 +20,12 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 passport.use(new Strategy(
     function (username, password, cb) {
-        db.checkPass(username, password).then((user, error) => {
-            if (error)
-                return cb(error);
-            if (!user)
-                return cb(null, false);
+        db.checkPass(username, password).then((user) => {
             return cb(null, user);
-        })
+        }).catch(error => {
+                return cb(error)
+            }
+        );
     }
 ));
 
@@ -51,8 +50,8 @@ passport.deserializeUser(function (username, cb) {
 
 app.get('/',
     function (req, res) {
-        let content = db.getAllContent();
-        res.render('index', {user: req.user, content: content, readonly: true});
+        db.getAllContent().then(content =>
+            res.render('index', {user: req.user, content: content, readonly: true}))
     });
 
 app.get('/login',
@@ -68,14 +67,19 @@ app.post('/login',
 
 app.get('/signup',
     function (req, res) {
-        res.render('signup');
+        res.render('signup', {message: "", username: "", displayName: "", password: ""});
     });
 
 app.post('/signup',
-    // passport.authenticate('local', {failureRedirect: '/signup'}),
     function (req, res) {
-        if (db.CreateUser(req.body.username, req.body.displayName, req.body.password))
-            res.render('login', {message: "Account created successfully."});
+        db.CreateUser(req.body.username, req.body.displayName, req.body.password)
+            .then(message => res.render('login', {message: message}))
+            .catch(message => res.render('signup', {
+                message: message,
+                username: req.body.username,
+                displayName: req.body.displayName,
+                password: req.body.password
+            }))
     });
 
 app.post('/submit',
@@ -102,8 +106,10 @@ app.get('/logout',
 app.get('/profile',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res) {
-        let content = db.getContentForUser(req.user);
-        res.render('profile', {user: req.user, content: content, readonly: false});
+        db.getContentForUser(req.user).then(content => {
+            console.log("Got content: ", content);
+            res.render('profile', {user: req.user, content: content, readonly: false})
+        })
     });
 
 // db.getUser('evan').then(user => {
@@ -111,5 +117,5 @@ app.get('/profile',
 //         if (user === null)
 //     }
 // );
-db.CreateUser('evan', 'Evan Goldstein', 'pass');
+// db.CreateUser('evan', 'Evan Goldstein', 'pass');
 app.listen(3000);
