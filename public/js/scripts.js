@@ -52,7 +52,7 @@ function createGiven(elementID){
        return res.json()
      }).then(function(fin){
        emptyBody()
-       let dataArray = fin
+       /*let dataArray = fin
        var html = "<table id=\"viewAll\">"
        html += "<tr><th>First Name</th><th>Last Name</th><th>Month</th><th>Day</th><th>Sign</th><th>User</th></tr>"
        dataArray.forEach(function (single){
@@ -68,7 +68,7 @@ function createGiven(elementID){
        html += "</table>"
        var tableDiv = document.createElement('div')
        tableDiv.innerHTML = html
-       document.body.appendChild(tableDiv)
+       document.body.appendChild(tableDiv)*/
      })
      break
    case "viewDataForUser":
@@ -811,3 +811,7 @@ function monthToHTML(month){
       return html;
   }
 }
+
+
+///////REACT TABLE COMPONET SETUP FUNCTIONS////////////////////////
+import Table from
