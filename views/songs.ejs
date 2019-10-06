@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+
+
+    <div class="jumbotron">
+        <h1 class="display-4">My Music!</h1>
+        <p class="lead">These are the songs that are in my collection to my collection</p>
+        <ul style="font-size: 20px">
+          <% userID %>
+            <% for(var i=0; i<userID.songs.length; i++) { %>
+                <li>
+                    <%= userID.songs[i] %>
+                </li>
+            <% } %>
+        </ul>
+      </div>
+
+    <p>
+        <a class="btn btn-secondary btn-lg btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          New Song
+        </a>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <div class="jumbotron">
+                <h1 class="display-4">New Song!</h1>
+                <p class="lead">To add a new song to your list, simply enter the song name and artist name, then click "submit"</p>
+                <hr class="my-4">
+                <form action="/createSong" method="post">
+                  <div class="form-group">
+                    <label for="title">Song Name</label>
+                    <input type="text" class="form-control" name="title" id="title">
+                  </div>
+                  <div class="form-group">
+                    <label for="title">Artist</label>
+                    <input type="text" class="form-control" name="author_id" id=author>
+                  </div>
+                  <input type="submit" class="btn btn-primary">
+                </form>
+              </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+    <p>
+        <a class="btn btn-primary btn-lg btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Delete Song
+        </a>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <div class="jumbotron">
+                <h1 class="display-4">Delete Song!</h1>
+                <p class="lead">If you wish to remove a song from your list, simply enter the song name, and click submit</p>
+                <hr class="my-4">
+                <form action="/I_am_trying" method="post">
+                  <div class="form-group">
+                    <label class="lead" for="title">Song Name</label>
+                    <input type="text" class="form-control" name="title" id="title">
+                  </div>
+                  <input type="submit" class="btn btn-primary">
+                </form>
+              </div>
+        </div>
+      </div>
+
+
+
+
+
+
+    <p>
+      <a class="btn btn-success btn-lg btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Mddify Song
+      </a>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+          <div class="jumbotron">
+              <h1 class="display-4">Modify Song!</h1>
+              <p class="lead">If there is a song that you would like to modify, you simply enter in the current name of the song, the new name you would like, and the new artist name</p>
+              <hr class="my-4">
+              <form action="/I_cry_tears_of_pain" method="post">
+                <div class="form-group">
+                  <label class="lead" for="title">Original Song Name</label>
+                  <input type="text" class="form-control" name="title" id="title">
+                </div>
+                <div class="form-group">
+                    <label class="lead" for="title">New Song Name</label>
+                    <input type="text" class="form-control" name="new_song" id="title">
+                </div>
+                <div class="form-group">
+                      <label class="lead" for="title">New Artist</label>
+                      <input type="text" class="form-control" name="new_artist" id="title">
+                </div>
+                <input type="submit" class="btn btn-primary">
+              </form>
+            </div>
+      </div>
+    </div>
+    <p>
+      <a class="btn btn-info btn-lg btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        View All Music
+      </a>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+          <div class="jumbotron">
+              <h1 class="display-4">All Music!</h1>
+              <p class="lead">These are the songs that have been added to the Database by all users. Click a song to learn more!</p>
+              <hr class="my-4">
+              <ul style="font-size: 20px">
+                  <% songs.forEach(function(song) { %>
+                    <li><a href="/songs/<%= song.id %>"><%= song.title %></a></li>
+                  <% }) %>
+                </ul>
+            </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+
