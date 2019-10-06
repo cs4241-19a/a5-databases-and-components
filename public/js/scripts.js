@@ -1,3 +1,7 @@
+import React, { Component } from "react";
+import ReactDOM from 'react-dom';
+var dataArray = []
+
 ////////////// Toggle Visibility ///////////////////
 //Toggles hide/show of log in form
 function toggleLogin() {
@@ -52,9 +56,9 @@ function createGiven(elementID) {
         })
         .then(function(fin) {
           emptyBody();
-          
-          let dataArray = fin;
-        ReactDOM.render()
+          console.log("IN CREATE")
+          dataArray = fin;
+          ReactDOM.render(<Table />, document.getElementById('root'))
           /*var html = '<table id="viewAll">';
           html +=
             "<tr><th>First Name</th><th>Last Name</th><th>Month</th><th>Day</th><th>Sign</th><th>User</th></tr>";
@@ -1235,13 +1239,13 @@ function monthToHTML(month) {
   }
 }
 
-import React, { Component } from "react";
+
 class Table extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
       //state is by default an object
-      data: props
+      data: dataArray
     };
   }
 
@@ -1262,6 +1266,7 @@ class Table extends Component {
   }
 
   render() {
+    console.log("IN RENDER")
     return (
       <div>
         <table id="viewAll">
