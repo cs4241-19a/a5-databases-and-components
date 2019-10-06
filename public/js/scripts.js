@@ -1,4 +1,4 @@
-////////////// Toggle Visibility ///////////////////
+/*////////////// Toggle Visibility ///////////////////
 //Toggles hide/show of log in form
 function toggleLogin() {
   var loginForm = document.getElementById("loginForm");
@@ -70,7 +70,7 @@ function createGiven(elementID) {
        var tableDiv = document.createElement('div')
        tableDiv.innerHTML = html
        document.body.appendChild(tableDiv)*/
-        });
+/*        });
       break;
     case "viewDataForUser":
       fetch("/allDataForUser", {
@@ -1231,7 +1231,7 @@ function monthToHTML(month) {
         '<option selected="selected" value="December">December</option></select><br>';
       return html;
   }
-}
+}*/
 
 ///////REACT TABLE COMPONET SETUP FUNCTIONS////////////////////////
 function reactTable() {
@@ -1245,21 +1245,28 @@ function reactTable() {
     })
     .then(function(fin) {
       ReactDOM.render(
-        React.createElement("table", { id: "viewAll"}, null),
+        React.createElement("table", { id: "viewAll" }, null),
         document.getElementById("Container")
       );
-    ReactDOM.render(
-    React.createElement("tr", null, null), document.getElementById("viewAll"))
+      ReactDOM.render(
+        React.createElement("th", null, null),
+        document.getElementById("viewAll")
+      );
     });
 }
 
+import React from 'react';
 
-/*
-  html += "<td>" + single.fName + "</td>"
-         html += "<td>" + single.lName + "</td>"
-         html += "<td>" + single.month + "</td>"
-         html += "<td>" + single.day + "</td>"
-         html += "<td>" + single.sign + "</td>"
-         html += "<td>" + single.user + "</td>" 
-  
-  */
+class CustomTable extends React.Component{
+  render(){
+    return(
+      <table>
+        <th>Entire Database</th>
+        <tr>
+          <td></td>
+        </tr>
+      </table>
+    
+    )
+  }
+}
