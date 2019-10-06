@@ -44,8 +44,9 @@ submitPallet = function(e){
             console.log(err);
         }).then(data => {
             palletList = data;
+            console.log(data);
             palletList.forEach(entry => {
-                palletListSelect.options[palletListSelect.options.length] = new Option(entry, entry);
+                palletListSelect.options[palletListSelect.options.length] = new Option(entry.palletName, entry.palletName);
             });
         })
     });
@@ -77,6 +78,7 @@ getPallet = function(e){
             headers: {'Content-Type': 'application/json'}
         }).then(response => {
             response.json().then(data => {
+                console.log(data);
                 palletName.value = data.palletName;
                 designer.value = data.designer;
                 colorNumber.value = data.colorNumber;
@@ -135,7 +137,7 @@ deletePallet = function(e) {
           }
           console.log(palletListSelect);
           palletList.forEach(entry => {
-              palletListSelect.options[palletListSelect.options.length] = new Option(entry, entry);
+              palletListSelect.options[palletListSelect.options.length] = new Option(entry.palletName, entry.palletName);
           });
           console.log(palletListSelect);
       });
@@ -167,7 +169,7 @@ window.onload = function() {
             console.log(err);
         }).then(palletList => {
             palletList.forEach(entry => {
-                palletListSelect.options[palletListSelect.options.length] = new Option(entry, entry);
+                palletListSelect.options[palletListSelect.options.length] = new Option(entry.palletName, entry.palletName);
             });
         });
     });

@@ -1,31 +1,43 @@
 const express = require('express'),
-    pouchdb = require('pouchdb'),
     passport = require('passport'),
+    mongodb = require('mongodb'),
     bodyParser = require('body-parser'),
     sessions = require('express-session'),
     LocalStrategy = require('passport-local').Strategy,
     flash = require('connect-flash'),
     favicon = require('express-favicon');
 
-pouchdb.plugin(require('pouchdb-upsert'));
-
-const db = new pouchdb('my_db');
 const app = express();
 let User = [];
 
-db.get('users').catch(function (err) {
-    if (err.name === 'not_found') {
-        return {
-            _id: 'users',
-            users: []
-        };
-    } else { // hm, some other error
-        throw err;
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://nkalish:mcirsh1220@cluster0-71ivp.mongodb.net/admin?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+let collection = null;
+
+client.connect()
+    .then( () => {
+        // will only create collection if it doesn't exist
+        return client.db( 'test' ).createCollection( 'todos' )
+    })
+    .then( __collection => {
+        // store reference to collection
+        collection = __collection;
+        // blank query returns all documents
+        collection.find({id: 'users'}).toArray(function(err, result) {
+            if (err) throw err;
+            User = JSON.parse(result[1].users);
+        });
+        return collection.find({ }).toArray()
+    })
+    .then(console.log);
+
+app.use( (req,res,next) => {
+    if( collection !== null ) {
+        next()
+    }else{
+        res.status( 503 ).send()
     }
-}).then(function (doc) {
-   User = doc.users;
-}).catch(err => {
-    console.log(err);
 });
 
 app.use(express.static('public'));
@@ -46,62 +58,45 @@ app.get('/index', function (request, response) {
 });
 
 app.post('/palletList', function (req, res) {
-    req.session.palletList = [];
-    db.get(req.session.passport.user).catch(err => {
-        console.log(err);
-    }).then(doc => {
-        let palletList;
-        if (doc.palletList) {
-            palletList = doc.palletList;
+    let user = req.session.passport.user;
+    let doc;
+    collection.find({id: user}).toArray(function (err, result) {
+        if (err) throw err;
+        doc = result[0];
+        if (!doc) {
+            doc = {
+              id: req.session.passport.user,
+              palletList: []
+            };
+            collection.insertOne(doc);
+            res.send([]);
         } else {
-            palletList = [];
+            res.send(doc.palletList);
         }
-        palletList.forEach(entry => {
-            req.session.palletList.push(entry.palletName);
-        });
-        res.status(200).send(req.session.palletList);
-    }).catch(err => {
-        console.log(err);
     });
 });
 
 app.post('/submitPallet', function (req, res) {
    const body = req.body;
-   const session = req.session;
    let palletList = [];
-   db.get(session.passport.user).catch(err => {
-       console.log(err);
-   }).then(doc => {
-       palletList = doc.palletList || [];
-       if (session.palletList) {
-           const pallet = session.palletList.find(pallet => pallet === body.palletName);
-           if (!pallet) {
-               palletList.push(body);
-               session.palletList.push(body.palletName);
-               db.upsert(session.passport.user, function(doc) {
-                   doc.palletList = palletList;
-                   return doc;
-               }).catch(err => {
-                   console.log(err);
-               })
-           } else {
-               palletList.forEach((entry, index) => {
-                   if (entry.palletName === body.palletName) {
-                       palletList[index] = body;
-                   }});
-               db.upsert(session.passport.user, function(doc) {
-                   doc.counter = doc.counter || 0;
-                   doc.counter++;
-                   doc.palletList = palletList;
-                   return doc;
-               }).catch(err => {
-                   console.log(err);
-               })
-           }
+   let doc;
+   collection.find({id: req.session.passport.user}).toArray(function (err, result) {
+       if (err) throw err;
+       doc = result[0];
+       palletList = JSON.parse(doc.palletList);
+       const pallet = palletList.find(pallet => pallet.palletName === body.palletName);
+       if (!pallet) {
+           palletList.push(body);
+           collection.updateOne( {_id:mongodb.ObjectID( doc._id ) }, { $set:{ palletList:JSON.stringify(palletList) } })
+       } else {
+           palletList.forEach((entry, index) => {
+               if (entry.palletName === body.palletName) {
+                   palletList[index] = body;
+               }
+               collection.updateOne( {_id:mongodb.ObjectID( doc._id ) }, { $set:{ palletList:JSON.stringify(palletList) } });
+           });
        }
-       res.status(200).send(req.session.palletList);
-   }).catch(err => {
-       console.log(err);
+       res.send(JSON.stringify(palletList));
    });
 });
 
@@ -114,17 +109,9 @@ app.post('/createUser', function (req, res) {
             password: newUser.newPassword,
         };
         User.push(newUser);
-        let userDoc = {
-            _id: 'users',
-            users: User
-        };
-        db.upsert('users', function (doc) {
-            doc.counter = doc.counter || 0;
-            doc.counter++;
-            doc.users = User;
-            return doc;
-        }).catch(err => {
-            console.log(err);
+        let users;
+        collection.updateOne({_id:mongodb.ObjectID( '5d9a4d717d6a623dccfffed5' )}, { $set:{ users: JSON.stringify(User) } }).then(result => {
+            console.log(result);
         });
     }
     res.sendFile(__dirname + '/public/html/login.html');
@@ -133,40 +120,35 @@ app.post('/createUser', function (req, res) {
 app.post('/getPallet', function (req, res) {
    let data = req.body;
    let session = req.session;
-   db.get(session.passport.user).then(doc => {
-      let pallet = doc.palletList.find(pallet => pallet.palletName === data.palletName);
-      if(pallet) {
-          res.status(200).send(pallet);
-      }
-   }).catch(err => {
-       console.log(err);
+   let doc;
+   console.log(data);
+   collection.find({id: req.session.passport.user}).toArray(function (err, result) {
+       if (err) throw err;
+       doc = result[0];
+       console.log(doc);
+       res.send(JSON.parse(doc.palletList).find(pallet => pallet.palletName === data.palletName));
    });
 });
 
 app.post('/deletePallet', function (req, res) {
-   let session = req.session;
    let data = req.body;
-
-   db.get(session.passport.user).then(doc => {
-       let newList = doc.palletList.filter(function(value, index, arr){
+   let doc;
+   let palletList;
+   collection.find({id: req.session.passport.user}).toArray(function (err, result) {
+       if (err) throw err;
+       doc = result[0];
+       console.log('this is data', data);
+       palletList = JSON.parse(doc.palletList);
+       let newList = palletList.filter(function(value, index, arr){
            return value.palletName !== data.palletName;
        });
-       session.palletList = [];
+       doc.palletList = [];
        newList.forEach(entry => {
-           session.palletList.push(entry.palletName);
+           doc.palletList.push(entry.palletName);
        });
-       db.upsert(session.passport.user, function(doc) {
-           doc.counter = doc.counter || 0;
-           doc.counter++;
-           doc.palletList = newList;
-           return doc;
-       }).catch(err => {
-           console.log(err);
-       });
-       res.status(200).send(session.palletList);
-   }).catch(err => {
-       console.log(err);
-   })
+       res.send(doc.palletList);
+       collection.updateOne( {_id:mongodb.ObjectID( doc._id ) }, { $set:{ palletList:doc.palletList } });
+   });
 });
 
 app.post('/login',
