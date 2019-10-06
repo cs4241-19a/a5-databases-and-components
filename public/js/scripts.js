@@ -1,5 +1,3 @@
-import React, { Component } from "react";
-import ReactDOM from 'react-dom';
 var dataArray = []
 
 ////////////// Toggle Visibility ///////////////////
@@ -58,7 +56,7 @@ function createGiven(elementID) {
           emptyBody();
           console.log("IN CREATE")
           dataArray = fin;
-          ReactDOM.render(<Table />, document.getElementById('root'))
+          ReactDOM.render(new Table, document.getElementById('root'))
           /*var html = '<table id="viewAll">';
           html +=
             "<tr><th>First Name</th><th>Last Name</th><th>Month</th><th>Day</th><th>Sign</th><th>User</th></tr>";
