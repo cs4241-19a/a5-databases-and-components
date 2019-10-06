@@ -52,7 +52,7 @@ function createGiven(elementID) {
         })
         .then(function(fin) {
           emptyBody();
-        reactTable()
+          reactTable();
           /*let dataArray = fin
        var html = "<table id=\"viewAll\">"
        html += "<tr><th>First Name</th><th>Last Name</th><th>Month</th><th>Day</th><th>Sign</th><th>User</th></tr>"
@@ -1234,4 +1234,10 @@ function monthToHTML(month) {
 }
 
 ///////REACT TABLE COMPONET SETUP FUNCTIONS////////////////////////
-
+function reactTable() {
+  console.log("TESTING BUTTON");
+  ReactDOM.render(
+    React.createElement("table", { id: "viewAll" }, null),
+    document.getElementById("Container")
+  );
+}
