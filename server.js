@@ -79,8 +79,6 @@ app.post('/submitPallet', function (req, res) {
                palletList.push(body);
                session.palletList.push(body.palletName);
                db.upsert(session.passport.user, function(doc) {
-                   doc.counter = doc.counter || 0;
-                   doc.counter++;
                    doc.palletList = palletList;
                    return doc;
                }).catch(err => {
