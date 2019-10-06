@@ -1,0 +1,117 @@
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .title-section {
+        /* The image used */
+        background-color: white;
+    
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .button {
+        margin: 10px;
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+    }
+
+    .white {
+        color: white;
+    }
+
+    .form-style {
+        margin-left: 10px;
+    }
+
+    .submit-style {
+        border-width: 5px;
+        border-color: black;
+        height: 40px;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .auto-style {
+        height: 30px;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .no-padding {
+        padding: 0px;
+    }
+
+    .columns-style {
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .column-style {
+        background-color: #8D8D8D;
+        color: white;
+        border-radius: 20px;
+    }
+
+    .progress-style {
+        background-color: #8D8D8D;
+    }
+    
+    .sticky-bar {
+        position:sticky;
+        background-color: black;
+        height: 15px;
+    }
+
+    .divider {
+        border-width: 5px;
+        border-color: black;
+        background-color: white;
+        width: 20%;
+        height:30px;
+        border-radius: 20px;
+    }
+
+    .bars {
+        justify-self: flex-end;
+        justify-content: flex-end;
+    }
+
+    .some-margin {
+        margin: 20px;
+    }
+
+    .big-margin {
+        margin: 80px;
+    }
+
+    .rounded {
+        border-radius: 20px;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    h2 {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 20px;
+        color: black;
+        font-weight: bold;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
