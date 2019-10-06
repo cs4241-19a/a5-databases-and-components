@@ -123,8 +123,8 @@ const modifyCar = function( e ) {
 const infoAlert = function(){
   swal("How To Use", 
   ">Add: Select models and enter year and mpg.\n"+
-  ">Delete: Select models and enter its ID. All models with same ID will be removed\n"+
-  ">Modify: Select models enter its ID, year, and mpg. First model with the given ID will be removed")
+  ">Delete: Delete all cars created under the current user name\n"+
+  ">Modify: Enter its ID, model, year, and mpg. First model with the given ID will be removed")
 }
 
 const addButton = document.getElementById('add');

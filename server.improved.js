@@ -61,6 +61,7 @@ app.use(responseTime(function (req, res, time) {
 
 // - - - - - - PASSPORT - - - - - - 
 const myLocalStrategy = function( username, password, done ) {
+  getAllData()
   user = dataAll.find( __user => __user.username === username )
   // user =  db.get('posts').find( __user => __user.username === username )
   if( user === undefined ) {
@@ -82,6 +83,7 @@ passport.initialize()
 
 passport.serializeUser( ( user, done ) => done( null, user.username ) )
 passport.deserializeUser( ( username, done ) => {
+  getAllData()
   const user = dataAll.find( u => u.username === username )
   if( user !== undefined ) {
     done( null, user )
@@ -143,7 +145,7 @@ app.use( (req,res,next) => {
 
 const getAllData = function() {
   if( collection !== null ) {
-    collection.find({}).toArray().then(result => {
+    collection.find({}).toArray().then( result => {
       dataAll = result
     })
   }
@@ -155,12 +157,13 @@ const getAllData = function() {
 app.post('/register', (request, response) => {
   console.log("BODY: " + JSON.stringify(request.body))
   console.log('Cookies: ', request.cookies)
+  getAllData()
   let check = dataAll.find( __user => __user.username === request.body.username )
   if(check === undefined){
     collection.insertOne(request.body).then(result => {
-      response.json(result)
+      // response.json(result)
     })
-    getAllData();
+    // getAllData();
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
     response.end();
   }else{
@@ -176,8 +179,8 @@ app.get('/', (request, response) => {
 });
 
 app.get('/getAll', (request, response) => {
-  console.log('get getall: ' + dataAll);
   getAllData()
+  console.log('get getall: ' + dataAll);
   response.send(dataAll);
 });
 
@@ -192,7 +195,7 @@ app.post('/add', (request, response) => {
   // assumes only one object to insert
   collection.insertOne( request.body )
   // .then( result => response.json( result ) )
-  getAllData();
+  // getAllData();
   response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
   response.end();
 });
@@ -203,7 +206,7 @@ app.post('/modify', (request, response) => {
   let weight = ( request.body.year*1 === 0 ||  request.body.mpg*1 === 0) ? 0 : 1;
   request.body.value = ( request.body.mpg*1000 - (2019- request.body.year)*100) *  weight;
   collection
-  .updateOne({ _id: mongodb.ObjectID( auth._id ) }, {
+  .updateOne({ id: request.body.id }, {
       $set: {
         id: request.body.id,
         model: request.body.model,
@@ -215,7 +218,7 @@ app.post('/modify', (request, response) => {
   // .then(result => {
   //     response.json(result)
   // })
-  getAllData();
+  // getAllData();
   response.writeHead(200, { 'Content-Type': 'application/json' });
   response.end();
 });
@@ -231,7 +234,7 @@ app.post('/delete', (request, response) => {
         username: auth.username
       }
     )
-  getAllData()
+  // getAllData()
   response.writeHead(200, { 'Content-Type': 'application/json' });
   response.end();
 });
