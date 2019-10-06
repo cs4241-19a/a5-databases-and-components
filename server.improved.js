@@ -129,28 +129,26 @@ db.once('open', function () {
 
   // POST request for the table information
   app.post('/submit', function (req, res) {
-    if (credential != '') {
-      let j = req.body
-      // Increment the count for the id field (mongo already has an ID but this is how I did it before)
-      Count.updateOne({ count: { $gt: -1 } }, { $inc: { count: 1 } }, function (err) {
-        if(err) console.error(err)
-        j.username = credential
-        // Get the new count
-        Count.findOne({ count: { $gt: -1 } }, function (err, temp) {
-          if(err) console.error(err)
-          j.id = temp.count
-          // Create the post to be added
-          var newPost = new Post(j)
-          // Save the post to the database
-          newPost.save(function (err) {
-            console.log("Document added.")
-            if(err) console.error(err)
-            res.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
-            res.end()
-          })
+    let j = req.body
+    // Increment the count for the id field (mongo already has an ID but this is how I did it before)
+    Count.updateOne({ count: { $gt: -1 } }, { $inc: { count: 1 } }, function (err) {
+      if (err) console.error(err)
+      j.username = credential
+      // Get the new count
+      Count.findOne({ count: { $gt: -1 } }, function (err, temp) {
+        if (err) console.error(err)
+        j.id = temp.count
+        // Create the post to be added
+        var newPost = new Post(j)
+        // Save the post to the database
+        newPost.save(function (err) {
+          console.log("Document added.")
+          if (err) console.error(err)
+          res.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
+          res.end()
         })
       })
-    }
+    })
   })
 
   app.post('/login', passport.authenticate('local', {
