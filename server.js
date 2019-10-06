@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const db = require('./dbManager');
+const db = require('./dbManager.mongodb');
 const passport = require("passport");
 const Strategy = require('passport-local').Strategy;
 
@@ -16,7 +16,6 @@ app.use(require('express-session')({secret: 'r2xyZ6bqBgmufbS', resave: false, sa
 const favicon = require('serve-favicon');
 const path = require('path');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
 
 
 passport.use(new Strategy(

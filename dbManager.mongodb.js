@@ -1,20 +1,23 @@
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
-const adapter = new FileSync('db.json');
-const db = low(adapter);
+const crypto = require('crypto');
+const MongoClient = require('mongodb').MongoClient;
+const url = "mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@faviconmap-j8xwi.mongodb.net/FaviconMap?retryWrites=true&w=majority&authSource=admin";
 
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
-// Set some defaults (required if your JSON file is empty)
-db.defaults({users: [], content: [], id: 0})
-    .write();
+const client = new MongoClient(url, {useNewUrlParser: true, useUnifiedTopology: true});
+let ContentCollection;
+let UsersCollection;
+client.connect().then(() => {
+    client.db('Entertainer').createCollection('content');
+    client.db('Entertainer').createCollection('users');
+}).then(() => {
+    ContentCollection = client.db('Entertainer').collection('content');
+    UsersCollection = client.db('Entertainer').collection('users');
+});
 
 exports.getAllContent = function () {
-    return db.get('content')
-        .sortBy('type')
-        .value();
-}
+    return new Promise(resolve => {
+        resolve(ContentCollection.find());
+    })
+};
 
 exports.getContentForUser = function (user) {
     return db.get('content')
@@ -48,7 +51,6 @@ exports.deleteContent = function (user, contentID) {
         .remove({id: contentID})
         .write()
 }
-
 exports.checkPass = function (username, password, cb) {
     process.nextTick(function () {
             let user = db.get('users')
@@ -56,7 +58,7 @@ exports.checkPass = function (username, password, cb) {
                 .value();
 
             if (user !== undefined)
-                if (bcrypt.compareSync(password, user.password))
+                if (crypto.compareString(user.password, password))
                     return cb(null, user);
             return cb(null, null);
         }
@@ -83,7 +85,7 @@ exports.getUser = function (username, cb) {
 exports.CreateUser = function (username, displayName, password) {
     if (db.get('users').find({username: username}).value() === undefined) {
         console.log("Creating User: ", username);
-        let passHash = bcrypt.hashSync(password, saltRounds);
+        let passHash = crypto.encrypt(password);
         db.get('users')
             .push({username: username, displayName: displayName, password: passHash})
             .write();
