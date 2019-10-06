@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Online Shopping Calculator</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+  </head>
+  <body>
+    <h1 id="main_heading"> Online Shopping Calculator</h1>
+    
+    <main id = "mainContent">
+    <form class = "form1">
+      <fieldset>
+        <legend id="legend1">
+          <h2 id ="subheading1" name = "Add a Product"> Add a Product</h2>
+        </legend>
+        
+      <label for= "productName"> Product Name:</label><br>
+      <input type="text" name= "productName" id="productName">
+        
+        <br><br><label for= "numProducts"> Number of Products:</label><br>
+      <input type="text" name="numProducts" id="numProducts">
+      
+        <br><br><label for= "price">Price:</label><br>
+        <input type="text" name="price" id="price">
+        <br><br>
+        
+      <button id = "addProductBtn" class = "button">Add Product</button>
+        </fieldset>
+    </form>
+    <br><br>
+    
+    <form class ="form2">
+      <fieldset>
+        <legend id="legend2">
+          <h2 id= "subheading2" name="Remove a Product">
+            Remove a Product</h2>
+        </legend>
+        
+        <label for= "productName2">Product Name: </label><br>
+      <input type="text" name= "productName2" id="productName2">
+        
+      <br><br>
+        <label for= "numProducts2">Number of Products to Remove:</label>
+        <br>
+      <input type="text" name="numProducts2" id="numProducts2">
+        <br><br><br><br><br><br><br>
+        
+        <button id = "removeBtn" class = "button">Remove Product</button>
+      </fieldset>
+    </form>
+    </main>
+    <br>
+    <button id = "viewBtn" class = "button button-outline"><a href ="index3.html">View Shopping List</a></button>
+    <br>
+    <button id = "signOutBtn" class = "button button-outline"><a href ="index.html">Sign Out</a></button>
+  
+  </body>
+  <script src = "./js/scripts2.js" type="text/javascript">
+    
+  </script>
+</html>

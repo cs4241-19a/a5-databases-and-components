@@ -1,0 +1,16 @@
+{
+  "name": "",
+  "version": "",
+  "description": "",
+  "author": "",
+  "scripts": {
+    "start": "node server.improved.js"
+  },
+  "dependencies": {
+    "mime": "^2.4.3",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "body-parser": "^1.19.0",
+    "mongodb": "^3.3.2"
+  }
+}
