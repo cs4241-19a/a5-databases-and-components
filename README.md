@@ -7,13 +7,25 @@ Author: Rui Huang
 
 ### Run locally
 
-The`.env` contains personal DB info so local app is not provided
+Install `npm` and `Node.js`, then run:
+
+`
+$ npm install
+`
+
+`
+$ npm start
+`
+
+And go to `localhost:3000/login.html`
 
 ### Online application
 
-You can use the online application here:
+Or you can also view the online application here:
 
 Link to the web app: http://a5-ryc1x.glitch.me/login.html
+
+(Glitch got some wired errors when connecting to MongoDB, so Glitch may not work)
 
 ### Authentications
 
