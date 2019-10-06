@@ -122,7 +122,8 @@ client
   .connect()
   .then(() => {
     // will only create collection if it doesn't exist
-    return client.db("test").createCollection("todos");
+    console.log("NO EXIST")
+    return client.db( 'test' ).createCollection( 'todos' )
   })
   .then(__collection => {
     // store reference to collection
