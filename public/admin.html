@@ -19,10 +19,6 @@
     <script src="https://unpkg.com/react@16.4.1/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16.4.1/umd/react-dom.production.min.js"></script>
     <script src="js/scripts.js"></script>
-    <!--<script type="text/jsx" src="js/react.js"></script>-->
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script src="https://unpkg.com/react@16.4.1/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@16.4.1/umd/react-dom.production.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -47,15 +43,19 @@
       </ul>
     </nav>
   </body>
-  <script type="text/babel">
-    function sessionTimer() {
-      const element = (
-        <div>
-          <p>Current Time: {new Date().toLocaleTimeString()}</p>
-        </div>
-      );
-      ReactDOM.render(element, document.getElementById("root"));
-    }
-    setInterval(sessionTimer(), 1000);
-  </script>
+  <footer>
+    <div id="reactContainer">
+      <script
+        src="https://unpkg.com/react@16/umd/react.development.js"
+        crossorigin
+      ></script>
+      <script
+        src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+        crossorigin
+      ></script>
+
+      <!-- Load our React component. -->
+      <script src="js/react.js"></script>
+    </div>
+  </footer>
 </html>

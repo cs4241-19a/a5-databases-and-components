@@ -41,6 +41,15 @@ h1{
   justify-content: space-around; 
 }
 
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
 
+#reactContainer{
+  display: flex;
+  align-self: flex-end;
+}
 
 
