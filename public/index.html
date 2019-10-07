@@ -132,9 +132,8 @@
         body: stringdata,
         headers: { "Content-Type": "application/json" }
       })
-        .then((info = res => res.json()))
-        .then(console.log);
-      checklogged();
+        .then(result => console.log(result))
+        .then(() => checklogged());
     }
 
     //continuation of login()
