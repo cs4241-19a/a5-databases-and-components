@@ -113,5 +113,17 @@ app.listen( 3000 )
       )
       .then( result => res.json( result ) )
   })
+
+
+  app.get('/data', 
+      function(req,res){
+          if( collection !== null ) {
+          // get array and pass to res.json
+          const getMovies = async function(){
+            await collection.find({ }).toArray().then( result => res.json( result ) )
+          }
+           res.sendFile('views/home.html', {root: __dirname});
+        }
+  })
   
 
