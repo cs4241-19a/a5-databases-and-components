@@ -30,14 +30,15 @@ db.once('open', function(){
   
   var PostTable = mongoose.model('Post', movieSchema)
   
-  // route to get all data
-  app.get( '/', (req,res) => {
-    PostTable.find({users:'movies'}, function(data){
-      res.send(JSON.stringify(data))
-    })
+  
+  
   
   });
-  
+// route to get all data
+  app.get( '/', (req,res) => {
+    db.PostTable.find({users:'movies'}, function(data){
+      res.send(JSON.stringify(data))
+    })
     /*if( collection !== null ) {
       // get array and pass to res.json
       //collection.sendFile(res, '/home.html')
