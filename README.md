@@ -1,38 +1,39 @@
 Assignment 5 - Databases and/or Components
 ===
 
-Due: October 7th, by 11:59 AM.
-
-For this assignment you will complete one of the following tasks, based on your prior experience with the various technologies involved.
-
-1. Rework the server component from Assignment #3 to use MongoDB or some other NoSQL database (like CouchDB). You can remove Passport authentication if you choose, although this might be as much work as simply changing your Passport calls to use MongoDB.
-2. Rework the client component from Assignment #3 to use Svelte in some capacity.
-3. Rework the client component from Assignmeent #3 to use React in some capacity.
-
-For 2 and 3, make sure to look at [the notes from lecture 10](https://github.com/cs4241-19a/materials/blob/master/lecture10.markdown).
-
-This is really a chance for you to experiment with some additional web technologies that the prior assignments haven't covered yet: non-flatfile databases and web component frameworks.
-
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku etc.), however, you must include all files in your GitHub repo so that the course staff can view them; these files are not available for viewing in many hosting systems.
-
 Deliverables
 ---
+1) Implemented MongoDB - https://a5-arundelain-kroyer.glitch.me
+2) Implemented React - https://arund-react-tic.glitch.me
+3) Implemented Svelte - https://arund-quilt-svelte.glitch.me
+5) A creative aspect with Processing - https://triangles-circles.glitch.me
+4) All of these implementations can be access through the initial project (1) above.
 
-Do the following to complete this assignment:
+In the gateway project a5-arundelain-kroyer.glitch.me I implemented a mongoDB database that does the following:
+  -Takes in username and password data in the first two input slots. 
+  -This data can be added to the database with the Add Data button.
+  -The data is revealed on the page with the Show Data List button.
+  
+  -You can find the unique Id key in the Show Data List and use it 
+    with the Delete Data button to delete a record from the data base.
+  -You can use the same Id key to Update Data from the list - add the 
+    updated data in the of Interest input slots then select the Update Data List
+  -Remove Data clears the list from the page but not from the database.
+  
+  The links above the database slots take you to a Svelte implementation that
+    is the beginning of a grammar based application for instructing quilters how to code - (Final Project)
+  The React Tic Tac Toe implementation is also going to be part of the final project.
+    The tic tac toe game was produced and fully commented by taking a tutorial. I will use this
+    for people to create quilts. At this point it just outputs Xs and Os in the final project
+    it will show the seam selection and grammar rules associated with a particular quilt block
+  The Processing app is gravy...a fun little fidget.
 
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a5-yourname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a5-gitname-firstname-lastname`.
+All of the above was created in Glitch
 
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
+Technical Achievements
 ---
-
-## Your Web Application Title
-
-your hosting link e.g. http://a5-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+- Full Database access.
+- Processing app included in glitch
+- Webpack and Webpack Bootstrap
+- Implementing "build" and "test" scripts in the React app in package.json
+- Implementing "build" webpack and "start" and npm run build && node server.js in package.json
