@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= "View All Records"
+  ul
+    for val in allResults
+      li= "username: " + val.username + " | seat: " + val.seat + " | time: " + val.time + " | email: " + val.email + " | auth ID: " + val.userID + " | DB ID: " + val.id
+  small= "This view is for debugging and grading only. Normally, this page would not see production."

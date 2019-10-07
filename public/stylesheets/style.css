@@ -1,0 +1,24 @@
+#dimmer
+{
+  z-index: 1;
+  display: none;
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(119, 245, 119, 0.705);
+}
+
+#dimmer p {
+  text-align: center;
+  margin-top: 20%;
+  font-size: 500%;
+  color: rgb(48, 48, 48);
+}
+
+#alert p {
+  text-align: center;
+}
