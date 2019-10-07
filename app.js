@@ -6,15 +6,21 @@ const express = require("express"),
   Local = require("passport-local").Strategy,
   bodyParser = require("body-parser"),
   cors = require("cors"),
-  mongodb = require("mongodb");
-bcrypt = require("bcrypt");
+  mongodb = require("mongodb"),
+  bcrypt = require("bcrypt");
 const port = 3000;
+
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 //mongodb
 let collUsers = null;
 let collSites = null;
 const uri =
-  "mongodb+srv://AndrewLevy395:Nernerboy1997@cluster0-ikdc7.mongodb.net/test?retryWrites=true&w=majority";
+  "mongodb+srv://AndrewLevy395:" +
+  process.env.PASS +
+  "@cluster0-ikdc7.mongodb.net/test?retryWrites=true&w=majority";
 const client = new mongodb.MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
   collSites = client.db("a5").collection("sites");
