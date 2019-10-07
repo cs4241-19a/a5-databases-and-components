@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <title>Login Page</title>
+
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
+        
+            <link href="https://unpkg.com/cirrus-ui" type="text/css" rel="stylesheet" />
+        
+            <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script src="/public/js/login.js" defer></script>
+  </head>
+
+    <body bgcolor="b0b0b0">
+        <div class="content">
+            <div class="row">
+                <h1 class="title level-item offset-center">Login</h1>
+            </div>
+          <div class="row ignore-screen level">
+            <div class="col-3 ignore-screen level-item">
+              <p class="u-no-margin">Username:</p>
+            </div>
+            <div class="col-9 ignore-screen level-item">
+              <input id="username" type="name" oninput="updateButton()">
+            </div>
+            <div class="col-3 ignore-screen level-item">
+              <p class="u-no-margin">Password:</p>
+            </div>
+            <div class="col-9 ignore-screen level-item">
+              <input id="password" type="name" oninput="updateButton()">
+            </div>
+            <div class="col-12">
+              <br>
+              <div class="btn-group btn-group-fill">
+                <button id="submit" class="btn-primary" disabled>
+                  Submit
+                </button>
+                <button id="register" class="btn-primary">
+                  Register
+                </button>
+              </div>
+<!--               <input id="submit" type="submit" class="btn-primary offset-center" disabled>
+              <input id="register" type="submit" class="btn-primary offset-center"> -->
+            </div>
+          </div>
+        </div>
+    </body>
+</html>
