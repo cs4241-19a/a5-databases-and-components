@@ -1,0 +1,57 @@
+/* Code inspired by https://airform.io/ */
+
+.Header {
+    background: linear-gradient(90deg, #FC5C7D, #6A82FB) fixed;
+    color: white;
+    left: 0;
+    height: 6.2rem;
+    max-width: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 2
+}
+
+.Header .Logo {
+    float: left
+}
+
+.Header .Navigation {
+    position: absolute;
+    right: 1rem;
+    top: 35%
+}
+
+.container1 {
+    margin: 0 auto;
+    max-width: 108rem;
+    padding: 0 2rem;
+    position: relative;
+    width: 100%
+}
+
+.clearfix1:after {
+    clear: both;
+    content: " ";
+    display: table
+}
+
+.Section {
+    display: block;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+img {
+    max-width: 100%;
+}
+
+.Navigation {
+    font-size: 1.4rem;
+    position: relative
+}
+
+.Navigation>* {
+    padding: 1rem
+}

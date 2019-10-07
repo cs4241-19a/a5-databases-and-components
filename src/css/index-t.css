@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* maybe use https://codepen.io/elmahdim/pen/EzOLvN? */
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-feature-settings: "liga", "kern";
+            font-feature-settings: "liga", "kern";
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100%;
+    background: linear-gradient(90deg, #FC5C7D, #6A82FB) fixed;
+}
+
+body {
+    overflow: hidden;
+    height: 100%;
+}
+
+button {
+    border: 0;
+    letter-spacing: 0rem;
+    min-width: 82.25px;
+    max-width: 82.25px;
+    margin-right: 1rem;
+    background: linear-gradient(90deg, #FC5C7D, #6A82FB) center center fixed;
+}
+
+#tb-div {
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#tb-div-inner {
+    justify-content: space-between;
+}
+
+td:first-child, th:first-child {
+    padding-left: 1.5rem;
+}
