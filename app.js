@@ -52,21 +52,25 @@ passport.serializeUser(function(user, done){
  })
 
 passport.deserializeUser(function(user, done){
-  done(null, db_utils.fetch_user(user));
+  db_utils.fetch_user(user).then(result => {
+    done(null, result);
+  })
 })
 
 passport.use(new LocalStrategy(
   function(username, password, done){
-    const user = db_utils.fetch_user(username);
-    let salt = user.get("salt").value();
-    // Turn the salt into a string for pwd
-    salt = salt === undefined ? "" : salt;
-    pwd.hash(password, salt)
-    .then(() => {
-      return done(null, user.get('username').value());
-    }).catch(() => {
-      return done(null, false, {message: "Invalid username or password"});
-    })
+    db_utils.fetch_user(username)
+    .then(result => {
+      let salt = result.salt;
+      // Turn the salt into a string for pwd
+      salt = salt === undefined ? "" : salt;
+      pwd.hash(password, salt)
+      .then(() => {
+        return done(null, result.username);
+      }).catch(() => {
+        return done(null, false, {message: "Invalid username or password"});
+      })
+    });
   }
 ))
 
@@ -85,8 +89,8 @@ nunjucks.configure('views', {
 
 const status = function(request, response) {
   response.render('status.html', {
-    clocks: request.user.get('clocks').value(),
-    user: request.user.get('username').value(),
+    clocks: request.user.clocks,
+    user: request.user.username,
   });
 };
 
@@ -105,12 +109,12 @@ const addClockView = function(request, response){
 const addClock = function(request, response){
   if(request.body.time_setting === "now"){
     db_utils.add_clock(
-      request.user.get('username').value(),
+      request.user.username,
       request.body.title
     );
   }else{
     db_utils.add_clock(
-      request.user.get('username').value(),
+      request.user.username,
       request.body.title,
       moment(request.body.start_date + request.body.start_time, "YYYY-MM-DDHH:mm")
     );
