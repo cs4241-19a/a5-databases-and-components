@@ -73,6 +73,7 @@
     }
 
     function edit(id) {
+        console.log("Editing ", id);
         document.getElementById('contentInput').innerHTML = document.getElementById('contentText' + id).innerHTML
         let type = document.getElementById('contentType' + id).innerHTML
         document.getElementById(type.toLowerCase() + 'Option').checked = true;
@@ -80,7 +81,7 @@
         document.getElementById('EditorTitle').innerHTML = "Edit content";
         document.getElementById('EditCancel').hidden = false;
     }
-    
+
     function cancelEdit() {
         document.getElementById('contentInput').innerHTML = "";
         document.getElementById('jokeOption').checked = true;
@@ -90,12 +91,6 @@
     }
 
     function deleteContent(id) {
-        // let formData = new FormData();
-        // formData.append("contentID", id);
-        //
-        // let request = new XMLHttpRequest();
-        // request.open("POST", "/delete");
-        // request.send(formData);
         console.log("deleting " + id)
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "/delete", true);

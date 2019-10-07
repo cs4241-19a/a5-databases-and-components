@@ -1,8 +1,8 @@
 const crypto = require('./crypto');
-const MongoClient = require('mongodb').MongoClient;
+const MongoDB = require('mongodb');
 const url = "mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@entertainer-uatlz.mongodb.net/admin?retryWrites=true&w=majority";
 
-const client = new MongoClient(url, {useNewUrlParser: true, useUnifiedTopology: true});
+const client = new MongoDB.MongoClient(url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 connectClient = function () {
     return new Promise(resolve => {
@@ -53,23 +53,30 @@ exports.getContentForUser = function (user) {
 };
 
 exports.addOrUpdateContent = function (user, type, text, id) {
-    if (id === undefined || id === '') {
-        console.log("Adding ", type, " for ", user.username, ": ", text);
-        ContentCollection().then(collection => collection.insertOne({
-            id: id,
-            username: user.username,
-            type: type,
-            text: text
-        }));
-    } else {
-        console.log('Updating content ', id);
-        ContentCollection().then(collection => collection.updateOne({id: id}, {$set: {status: "D"}}));
-    }
+    return new Promise(resolve => {
+        if (id === undefined || id === '') {
+            console.log("Adding ", type, " for ", user.username, ": ", text);
+            ContentCollection().then(collection => collection.insertOne({
+                username: user.username,
+                type: type,
+                text: text
+            })).then(result => resolve(result));
+        } else {
+            console.log('Updating content ', id);
+            ContentCollection().then(collection => collection.updateOne({_id: MongoDB.ObjectID(id)}, {
+                $set: {
+                    type: type,
+                    text: text
+                }
+            })).then(result => resolve(result));
+        }
+    })
 };
 
 exports.deleteContent = function (user, contentID) {
-    console.log("Delete: ", contentID);
-    ContentCollection().then(collection => collection.delete({id: contentID}));
+    return new Promise(resolve =>
+        ContentCollection().then(collection => collection.deleteOne({_id: MongoDB.ObjectID(contentID)})
+            .then(result => resolve(result))))
 };
 
 exports.checkPass = function (username, password) {

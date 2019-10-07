@@ -3,7 +3,7 @@ const app = express();
 const db = require('./dbManager.mongodb');
 const passport = require("passport");
 const Strategy = require('passport-local').Strategy;
-
+const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 // const isProduction = process.env.NODE_ENV === 'production';
 
 app.set('views', __dirname + '/views');
@@ -54,10 +54,9 @@ app.get('/',
             res.render('index', {user: req.user, content: content, readonly: true}))
     });
 
-app.get('/login',
-    function (req, res) {
-        res.render('login', {message: ""});
-    });
+app.get('/login', function (req, res) {
+    res.render('login', {message: ""});
+});
 
 app.post('/login',
     passport.authenticate('local', {failureRedirect: '/login'}),
@@ -82,20 +81,16 @@ app.post('/signup',
             }))
     });
 
-app.post('/submit',
-    require('connect-ensure-login').ensureLoggedIn(),
+app.post('/submit', ensureLoggedIn(),
     function (req, res) {
         console.log("Body: ", req.body);
-        db.addOrUpdateContent(req.user, req.body.contentType, req.body.contentInput, req.body.contentID);
-        res.redirect('profile');
+        db.addOrUpdateContent(req.user, req.body.contentType, req.body.contentInput, req.body.contentID).then(() => res.redirect('profile'));
+
     });
 
-app.post('/delete',
-    require('connect-ensure-login').ensureLoggedIn(),
-    function (req, res) {
-        db.deleteContent(req.user, req.body.contentID);
-        res.redirect('profile');
-    });
+app.post('/delete', ensureLoggedIn(), function (req, res) {
+    db.deleteContent(req.user, req.body.contentID).then(() => res.redirect('profile'));
+});
 
 app.get('/logout',
     function (req, res) {
@@ -104,10 +99,9 @@ app.get('/logout',
     });
 
 app.get('/profile',
-    require('connect-ensure-login').ensureLoggedIn(),
+    ensureLoggedIn(),
     function (req, res) {
         db.getContentForUser(req.user).then(content => {
-            console.log("Got content: ", content);
             res.render('profile', {user: req.user, content: content, readonly: false})
         })
     });
