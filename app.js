@@ -52,6 +52,14 @@ app.use(express.json()); // 4
 app.use(logger('dev')); // 5
 
 // routes
+
+
+//app.use(express.static(__dirname +'./index')); //serves the index.html
+/*
+app.get('/', function(req, res, next) {
+  res.render('index');
+});
+*/
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);
 app.use('/login', loginRouter);
