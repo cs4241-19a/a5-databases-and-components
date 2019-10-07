@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "username": "amanda",
+      "password": "helloworld",
+      "orders": [
+        {
+          "fstname": "Amanda",
+          "lstname": "Ezeobiejesi",
+          "ordername": "Crispy Bacon",
+          "typeOfGrain": 1,
+          "typeOfProtein": 1,
+          "price": 11
+        },
+        {
+          "fstname": "Christina",
+          "lstname": "Zymaris",
+          "ordername": "Treasure Island",
+          "typeOfGrain": 0,
+          "typeOfProtein": 2,
+          "price": 11
+        }
+      ]
+    }
+  ]
+}
