@@ -7,7 +7,7 @@ const express = require( 'express' ),
       path = require('path'),
       timeout = require('connect-timeout'),
       helmet = require('helmet'),
-      port = 1234;
+      port = 3000;
 
 app.use( express.static(__dirname + '/public' ) );
 app.use( bodyParser.json() );
