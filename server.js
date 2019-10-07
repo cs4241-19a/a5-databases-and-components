@@ -1,5 +1,6 @@
 const express = require( 'express' ),
       mongodb = require( 'mongodb' ),
+      mongoose = require('mongoose'),
       path    = require( 'path'    ),
       app = express()
 
@@ -11,11 +12,19 @@ app.use( express.json() )
 //app.use(express.static(path.join(__dirname, 'public')));
 app.engine('html', require('ejs').renderFile);
 
-const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB
+//const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB
 
-const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
-let collection = null
+//const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
+mongoose.connect("mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB
+', {useNewUrlParser: true});
+//let collection = null
 
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '));
+db.once('open', function(){
+  
+});
+/*
 client.connect()
   .then( () => {
     // will only create collection if it doesn't exist
@@ -28,7 +37,7 @@ client.connect()
     return collection.find({ }).toArray()
   })
   .then( console.log )
-  
+  */
 // route to get all docs
 app.get( '/', (req,res) => {
   if( collection !== null ) {
