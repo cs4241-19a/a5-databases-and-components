@@ -42,6 +42,23 @@ app.use((req, res, next) =>{
 //app.use(passport.initialize())
 app.use( require('express-session')({ secret:'cats cats cats', resave:false, saveUninitialized:false }));
 
+
+  app.use( (req,res,next) => {
+    if( collection !== null ) {
+      next()
+    }else{
+      res.status( 503 ).send()
+    }
+  })
+
+// route to get all docs
+app.get( '/', (req,res) => {
+  if( collection !== null ) {
+    // get array and pass to res.json
+    collection.find({ }).toArray().then( result => res.json( result ) )
+    res.render('home.html')
+  }
+})
 /*
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
@@ -59,27 +76,19 @@ db.once('open', function(){
   });
   */
 // route to get all data
-  app.get( '/', (req,res) => {
-  //   db.PostTable.find({name:'users'}, function(data){
-  //     res.send(JSON.stringify(data))
-  //   })
-    if( collection !== null ) {
-      // get array and pass to res.json
-      //collection.sendFile(res, '/home.html')
-      collection.find({ }).toArray().then( result => res.json( result ) )
-      res.render('home.html')
-    }
-  })
-
-  app.listen( 3000 )
-
-  app.use( (req,res,next) => {
-    if( collection !== null ) {
-      next()
-    }else{
-      res.status( 503 ).send()
-    }
-  })
+  // app.get( '/', (req,res) => {
+  // //   db.PostTable.find({name:'users'}, function(data){
+  // //     res.send(JSON.stringify(data))
+  // //   })
+  //   if( collection !== null ) {
+  //     // get array and pass to res.json
+  //     //collection.sendFile(res, '/home.html')
+  //     await collection.find({ }).toArray().then( result => res.json( result ) )
+  //     res.render('home.html')
+  //   }
+  // })
+  
+app.listen( 3000 )
 
   app.post( '/add', (req,res) => {
     // assumes only one object to insert
