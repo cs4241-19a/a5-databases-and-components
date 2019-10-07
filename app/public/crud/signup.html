@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="signup.css" rel="stylesheet">
+  </head>
+<body>
+    <h1>Sign Up to Keep Track of Your Stats!</h1>
+    <form action="">
+      <div>
+      <h2>Username: </h2>
+      <label for="username" class="sr-only">Username:</label><input id="username" placeholder="Username" type="text">
+      </div>
+      <div>
+      <h2>Password: </h2>
+      <label for="password" class="sr-only">Password:</label><input id="password" placeholder="Password" type="text">    
+      </div>
+      <br>
+      <h2>Name: </h2>
+      <label for="name" class="sr-only">Name:</label><input id="name" placeholder="Name" type="text">
+      <br>
+      <h2>Age: </h2>
+      <label id="ageLabel" for="age" class="sr-only">Age:</label><input id="age" placeholder="Age" type="text">
+      <br>
+      <br>
+      <div>
+      <fieldset>
+      <h2>Gender: </h2>
+      <legend class="sr-only">
+        Choose your gender:
+      </legend>
+      <label for="gender" >Male<input type="radio" name="gender" value="Male"></label> 
+      <label for="gender" >Female<input type="radio" name="gender" value="Female"></label> 
+      </fieldset>
+      </div>
+      <br>
+      <h2>Goals: </h2>
+      <label id="goalLabel" for="goals" class="sr-only">Goals:</label><input id="goals" placeholder="Goals" type="text">
+      <br>
+      <h2>Shots: </h2>
+      <label id="shotLabel" for="shots" class="sr-only">Shots:</label><input id="shots" placeholder="Shots" type="text">
+    </form>
+    <br>
+    <button id="createUser">Submit</button>
+    <button id="cancel">Cancel</button>
+    <br>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="signup.js"></script>
+
+</html>

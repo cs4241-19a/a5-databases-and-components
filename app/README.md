@@ -5,7 +5,7 @@ glitch link: https://a5-gccromwell.glitch.me/
 The goal of the application is to provide a place for soccer teams or soccer families to keep track of their own statistics and be able to compare them with their teammates, friends, and favorite star players. Each user can edit their stats once logged in, see the rest of the player's stats, or sign up.
 
 ### What Changed for A5
-- **I switched out Lowdb for MongoDB. I personally felt like MongoDB was really easy to use once implemented. It was very user-friendly. The new technology definitely helped the development process and improved my application.
+- **I switched out Lowdb for MongoDB. I personally felt like MongoDB was really easy to use once implemented. It was very user-friendly.
 
 Below is leftover from my README for A3.
 

@@ -1,0 +1,55 @@
+body {
+    background-color: #CEACD7
+}
+
+h1 {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 50px;
+    color: #black;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    text-align: center;
+}
+
+h2 {
+    font-family: Verdana, Geneva, sans-serif;
+    display: inline;
+    align-items: center;
+    color: #black;
+    text-align: center;
+}
+
+form {
+    align-items: center;
+    text-align: center;
+    font-size: 15px;
+}
+
+input {
+    height: 20px;
+    text-align: center
+}
+
+#createUser {
+    background-color: silver;
+    color: black;
+    border: 2px solid black;
+    font-size: 16px;
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    right: 25%;
+    margin-right: -25px;
+}
+
+#cancel {
+    background-color: silver;
+    color: black;
+    border: 2px solid black;
+    font-size: 16px;
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    left: 25%;
+    margin-left: -25px;
+}

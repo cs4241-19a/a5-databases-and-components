@@ -1,0 +1,67 @@
+{
+  "userlist": [
+    {
+      "username": "admin",
+      "password": "admin",
+      "name": "Rapinoe",
+      "age": 33,
+      "gender": "Female",
+      "goals": 589,
+      "shots": 700
+    },
+    {
+      "username": "mine2",
+      "password": "mine2",
+      "name": "Mia",
+      "age": 50,
+      "gender": "Female",
+      "goals": 500,
+      "shots": 667
+    },
+    {
+      "username": "idk",
+      "password": "idk",
+      "name": "Ronaldo",
+      "age": 3000,
+      "gender": "Male",
+      "goals": 0,
+      "shots": 1
+    },
+    {
+      "username": "testMe",
+      "password": "testMe",
+      "name": "BestPlayer",
+      "age": 20,
+      "gender": "Female",
+      "goals": 9,
+      "shots": 9
+    },
+    {
+      "username": "testing6",
+      "password": "testing6",
+      "name": "BadPlayer",
+      "age": 333,
+      "gender": "Female",
+      "goals": 4,
+      "shots": 6
+    },
+    {
+      "username": "testtt",
+      "password": "testtt",
+      "name": "Morris",
+      "age": 34,
+      "gender": "Male",
+      "goals": 35,
+      "shots": 45
+    },
+    {
+      "username": "test",
+      "password": "testword",
+      "name": "test",
+      "age": 25,
+      "gender": "Male",
+      "goals": 22,
+      "shots": 42
+    }
+  ]
+}
