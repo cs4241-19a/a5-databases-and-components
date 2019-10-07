@@ -1,38 +1,65 @@
-Assignment 5 - Databases and/or Components
-===
+Assignment 5
+=================
 
-Due: October 7th, by 11:59 AM.
+I attempted to use mongoDB, but was not successful. The code tried was commeted out in the server.js file
+Below is the readme for A3 on how to use this project.
 
-For this assignment you will complete one of the following tasks, based on your prior experience with the various technologies involved.
+https://a5-andrewhand.glitch.me/
 
-1. Rework the server component from Assignment #3 to use MongoDB or some other NoSQL database (like CouchDB). You can remove Passport authentication if you choose, although this might be as much work as simply changing your Passport calls to use MongoDB.
-2. Rework the client component from Assignment #3 to use Svelte in some capacity.
-3. Rework the client component from Assignmeent #3 to use React in some capacity.
+This is a simple application designed for a user to log in and edit there own deck list for the card game Magic the Gathering.
+The site requires you to log in before use.
 
-For 2 and 3, make sure to look at [the notes from lecture 10](https://github.com/cs4241-19a/materials/blob/master/lecture10.markdown).
+One of the biggest challenges for me when completing this assignment was understanding the documentation for the variety of express middlewares.
+I felt as if I constantly choose to read different sources/examples other than the docuemntation provided to full grasp the scope of the middleware
+because many of them are simply constructers that work behind the scenes. Stepping though those interactions played out with the help of a debugger
+was also of great help.
 
-This is really a chance for you to experiment with some additional web technologies that the prior assignments haven't covered yet: non-flatfile databases and web component frameworks.
+For the authentication middleware, I choose to use passport.js seeing as it was covered in class and I did not feel I had the time to learn another
+service on my own.
 
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku etc.), however, you must include all files in your GitHub repo so that the course staff can view them; these files are not available for viewing in many hosting systems.
+The middlewares I choose:
+- *express-session* - Used in class this was a easy solution to session based web servicing.
+- *cookie-parser* - Required for passport as authentication is sent via cookies.
+- *body-parser* - Simplfied request parsing for incoming JSON strings 
+- *helmet* - 2 lines, extra security, enough said. Protect your site and protect your users.
+- *passport* - Authentication service covered in class, again a simple solution to a complex problem
+- *SQLite* - I need a database that would support read/writes from multiple users at the same time. This was the easiest solution.
+- *lowdb* - I needed something to store (Username, Password) combinations and I wanted to try it out and see if it was easier than SQLite.
 
-Deliverables
----
+For this assignment, I choose to use Bootstrap as my CSS framework because I have used it for other websites and feel confident in its application. 
+I also appreciate Bootstraps simple designs, where as other frameworks are too focused on adding in addtion elements that are not needed for the page
+to be function AND elegant.
 
-Do the following to complete this assignment:
+To Use:
+------------
+- Click `Add` to add the information from the `Quantity` `Card Name` and `Set Name` Fields.
+- Click `Update` to change the information in the `Quantity` field for a given `Card Name` and `Set Name`. <br />
+  **NOTE:** The `Card Name` and `Set Name` fields may not change for this.
+- Click `Update` then `Delete` to delete the a entry entirely.
+- Click `Login` in the nav bar to log into your account.
 
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a5-yourname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a5-gitname-firstname-lastname`.
+Currently the only user is: <br />
+**Username:** *Andrew* <br />
+**Password:** *Password*
 
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
+To create a new user: <br />
+- Click the `Sign Up` button. <br />
+- Enter a new `(username, password)`. <br />
+- Then click `Sign In` and you should be directed to the Login page.
 
-## Your Web Application Title
+To log out of your account:
+- Click `Sign Out`
 
-your hosting link e.g. http://a5-charlieroberts.glitch.me
 
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
+Design Achievements
+------------
 
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+- Use of Bootstrap in place of traditonal CSS styling to simplify the design of the website.
+
+
+Technical Achievements
+-------------------
+- Use of a enviromental variables to create a secure session secret.
+- Implementation of SQLite to store persistent data to be displayed in the deck list table. 
+- Use of automatic redirects for the sign in/out pages that vary for success and failure cases.
+- Users decklist will only appear for that user, and no other user.
