@@ -10,9 +10,9 @@ const express   = require( 'express' ),
       helmet = require('helmet'),
       compression = require('compression'),
 
-      // neo4j = require('neo4j-driver').v1,
-      // driver = neo4j.driver(uri, neo4j.auth.basic(user, password)),
-      // session = driver.session(),
+      neo4j = require('neo4j-driver').v1,
+      driver = neo4j.driver('https://10-0-1-249-34886.neo4jsandbox.com/browser/', neo4j.auth.basic('neo4j','shipment-instruments-pails')),
+      session = driver.session(),
 
       //killing this for neo4j
       low       = require('lowdb'),
