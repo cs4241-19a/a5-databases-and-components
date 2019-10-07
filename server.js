@@ -2,8 +2,12 @@ const express = require( 'express' ),
       mongodb = require( 'mongodb' ),
       app = express()
 
-app.use( express.static('public') )
+app.use( express.static('public/home.html') )
 app.use( express.json() )
+
+//view engine?
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB
 
@@ -28,6 +32,7 @@ app.get( '/', (req,res) => {
   if( collection !== null ) {
     // get array and pass to res.json
     collection.find({ }).toArray().then( result => res.json( result ) )
+    res.render('home')
   }
 })
 
