@@ -20,9 +20,9 @@ mongoose.connect('mongodb+srv://test:fantastic@cluster0-qa3kc.mongodb.net/hi?ret
 // schemas
 var orderSchema = new mongoose.Schema({
   yourname: String,
-  phone: Number,
+  phone: String,
   potato: String,
-  seasioning: String,
+  seasoning: String,
   size: String,
   ordernum: Number
 })
@@ -134,70 +134,100 @@ db.once('open', function () {
 
   // POST update
   app.post('/update', function (request, response) {
-    let row = request.body
+    dataString = ''
 
-    var yourname = (row.yourname)
-    var phone = (row.phone)
-    var potato = (row.potato)
-    var seasoning = (row.seasoning)
-    var size = (row.size)
-    var ordernum = (row.ordernum)
+    request.on('data', function (data) {
+      dataString += data
+    })
 
-    var modifiedrow = { yourname: yourname, phone: phone, potato: potato, seasoning: seasoning, size: size, ordernum: ordernum }
+    request.on('end', function () {
 
-    Order.updateOne({ ordernum: ordernum }, modifiedrow, function (err, result) {
-      if (err) console.error(err)
-      response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
-      response.end()
+      var updatedata = JSON.parse(dataString)
+      var yourname = (updatedata.yourname)
+      var phone = (updatedata.phone)
+      var potato = (updatedata.potato)
+      var seasoning = (updatedata.seasoning)
+      var size = (updatedata.size)
+      var ordernum = (updatedata.ordernum)
+
+      var modifiedrow = { yourname: yourname, phone: phone, potato: potato, seasoning: seasoning, size: size, ordernum: ordernum }
+
+      Order.updateOne({ ordernum: ordernum }, modifiedrow, function (err, result) {
+        if (err) console.error(err)
+        response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
+        response.end()
+      })
     })
   })
 
   // POST remove
   app.post('/remove', function (request, response) {
+    dataString = ''
 
-    let deleteatordernum = request.body.ordernum
+    request.on('data', function (data) {
+      dataString += data
+    })
 
-    console.log('removing ' + index)
+    request.on('end', function () {
+      var removedata = JSON.parse(dataString)
+      var ordernum = (removedata.ordernum)
 
-    // deletes index
-    Order.deleteOne({ ordernum: deleteatordernum }, function (err) {
-      if (err) return console.error(err);
-      response.writeHead(200, "OK", { 'Content-Type': 'application/json' })
-      response.end()
+      // deletes index
+      Order.deleteOne({ ordernum: ordernum }, function (err) {
+        if (err) return console.error(err);
+        response.writeHead(200, "OK", { 'Content-Type': 'application/json' })
+        response.end()
+      })
     })
   })
 
   // POST submit
   app.post('/submit', function (request, response) {
+    dataString = ''
 
-    let data = request.body
-    console.log(data)
-    var yourname = (data.yourname)
-    var phone = (data.phone)
-    var potato = (data.potato)
-    var seasoning = (data.seasoning)
-    var size = (data.size)
-    var ordernum
+    request.on('data', function (data) {
+      dataString += data
+    })
 
-    console.log(phone)
+    request.on('end', function () {
 
-    // get current ordercount
-    OrderCount.findOne({ ordercount: { $gt: -1 } }, function (err, num) {
-      if (err) console.error(err)
-      ordernum = num.ordercount
+      var order = JSON.parse(dataString)
+      var yourname = (order.yourname)
+      var phone = (order.phone)
+      var potato = (order.potato)
+      var seasoning = (order.seasoning)
+      var size = (order.size)
+      var ordernum
+      /*   
+request.on('end')
+let data = request.body
+console.log(data)
+var yourname = (data.yourname)
+var phone = (data.phone)
+var potato = (data.potato)
+var seasoning = (data.seasoning)
+var size = (data.size)
+var ordernum
+*/
 
-      // create order object
-      var order = new Order({ yourname: yourname, phone: phone, potato: potato, seasoning: seasoning, size: size, ordernum: ordernum })
-
-      // increment ordercount by 1
-      OrderCount.updateOne({ ordercount: { $gt: -1 } }, { $inc: { ordercount: 1 } }, function (err) {
+      // get current ordercount
+      OrderCount.findOne({ ordercount: { $gt: -1 } }, function (err, num) {
         if (err) console.error(err)
-        // save order to Mongo
-        order.save(function (err) {
-          console.log("order added")
-          if (err) return console.error(err);
-          response.writeHead(200, "OK", { 'Content-Type': 'application/json' })
-          response.end()
+        ordernum = num.ordercount
+
+        // create order object
+        var order = new Order({ yourname: yourname, phone: phone, potato: potato, seasoning: seasoning, size: size, ordernum: ordernum })
+
+        // increment ordercount by 1
+        OrderCount.updateOne({ ordercount: { $gt: -1 } }, { $inc: { ordercount: 1 } }, function (err) {
+          if (err) console.error(err)
+          // save order to Mongo
+          order.save(function (err) {
+            console.log("order added")
+            if (err) return console.error(err);
+            response.writeHead(200, "OK", { 'Content-Type': 'application/json' })
+            response.end()
+          })
         })
       })
     })
