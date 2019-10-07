@@ -36,7 +36,7 @@ db.once('open', function(){
   });
 // route to get all data
   app.get( '/', (req,res) => {
-    db.PostTable.find({users:'movies'}, function(data){
+    db.PostTable.find({name:'movies'}, function(data){
       res.send(JSON.stringify(data))
     })
     /*if( collection !== null ) {
