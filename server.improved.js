@@ -70,7 +70,8 @@ passport.use(new Local (
     }
 ));
 
-passport.serializeUser( ( user, done ) => done( null, user.username ) );
+passport.serializeUser( ( user, done ) => 
+  done( null, user.username ) );
 
 passport.deserializeUser( ( username, done ) => {
   userData.findOne({
