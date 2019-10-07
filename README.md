@@ -15,6 +15,7 @@ While my website loads, it does not show the data:
 ![alt text](https://github.com/AlejandraGarza42/a5-databases-and-components/blob/master/screenshots/no%20movies.PNG)
 
 Which is meant to be this: 
+
 ![alt text](https://github.com/AlejandraGarza42/a5-databases-and-components/blob/master/screenshots/database.PNG)
 
 I kept getting the following error. 
