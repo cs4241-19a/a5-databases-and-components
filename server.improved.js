@@ -23,26 +23,26 @@ app.use( compression() );
 client.connect()
   .then( () => {
     // will only create collection if it doesn't exist
-    return client.db( 'RiceBowls' ).createCollection( 'orders' )
-  })
-  .then( __collection => {
-    // store reference to collection
-    orderData = __collection
-    // blank query returns all documents
-    return orderData.find({ }).toArray()
-  })
-  .then( console.log )
-
-client.connect()
-  .then( () => {
-    // will only create collection if it doesn't exist
     return client.db( 'RiceBowls' ).createCollection( 'users' )
   })
   .then( __collection => {
     // store reference to collection
     userData = __collection
     // blank query returns all documents
-    return orderData.find({ }).toArray()
+    return userData.find({}).toArray()
+  })
+  .then( console.log )
+
+client.connect()
+  .then( () => {
+    // will only create collection if it doesn't exist
+    return client.db( 'RiceBowls' ).createCollection( 'orders' )
+  })
+  .then( __collection => {
+    // store reference to collection
+    orderData = __collection
+    // blank query returns all documents
+    return orderData.find({}).toArray()
   })
   .then( console.log )
 
