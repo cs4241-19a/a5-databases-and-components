@@ -1,38 +1,30 @@
-Assignment 5 - Databases and/or Components
-===
+## Updated Soccer Star Stats
 
-Due: October 7th, by 11:59 AM.
+glitch link: https://a5-gccromwell.glitch.me/
 
-For this assignment you will complete one of the following tasks, based on your prior experience with the various technologies involved.
+The goal of the application is to provide a place for soccer teams or soccer families to keep track of their own statistics and be able to compare them with their teammates, friends, and favorite star players. Each user can edit their stats once logged in, see the rest of the player's stats, or sign up.
 
-1. Rework the server component from Assignment #3 to use MongoDB or some other NoSQL database (like CouchDB). You can remove Passport authentication if you choose, although this might be as much work as simply changing your Passport calls to use MongoDB.
-2. Rework the client component from Assignment #3 to use Svelte in some capacity.
-3. Rework the client component from Assignmeent #3 to use React in some capacity.
+### What Changed for A5
+- **I switched out Lowdb for MongoDB. I personally felt like MongoDB was really easy to use once implemented. It was very user-friendly. The new technology definitely helped the development process and improved my application.
 
-For 2 and 3, make sure to look at [the notes from lecture 10](https://github.com/cs4241-19a/materials/blob/master/lecture10.markdown).
+Below is leftover from my README for A3.
 
-This is really a chance for you to experiment with some additional web technologies that the prior assignments haven't covered yet: non-flatfile databases and web component frameworks.
+I faced challenges starting the project. For some reason I had difficulty running code from in-class lectures so starting to include Passport and LowDB was difficult. I played around with using MongoDB but was unable to get it to work. Once I was able to figure out Passport and LowDB, the rest of the application came easier. I ended up using LowDB and the local strategy of Passport because it ended up being easier to implement. I used Bootstrap because it is one of the most popular and provided some great templates for sign-in screens. I had difficulty seeing it work as well with my other pages, so I have individual css pages for my sign-up page, home page, and edit page.
 
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku etc.), however, you must include all files in your GitHub repo so that the course staff can view them; these files are not available for viewing in many hosting systems.
+Express Middleware:
+-body-parser: Parses HTTP request bodies for json
+-cookie-parser: Parses cookie header and populate request cookies
+-morgan: formats HTTP request logs
+-response-time: records the HTTP response time
+-passport: local strategy authentication
+-session: establishes server-based sessions
 
-Deliverables
----
+## Technical Achievements
+- **Added alerts for incorrect login credentials and for when you delete an account so the user understands what is going on.
 
-Do the following to complete this assignment:
+### Design/Evaluation Achievements
+- **Tested my website with the Wave web accessibility evaluation tool and added form labels and a fieldset/legend to significantly reduce the number of errors and make my website more accessible.
 
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a5-yourname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a5-gitname-firstname-lastname`.
+![alt text](https://cdn.glitch.com/7dab8346-8dfa-4d88-ba66-2bad66b668b0%2Ftest%20screen%20reading%20a3.PNG?v=1568899938330)
 
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your hosting link e.g. http://a5-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+- **Added my own CSS sheets for some of my pages
