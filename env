@@ -1,0 +1,4 @@
+USER=jfgerulskis@wpi.edu
+PASS=J1a2c3k4
+HOST="cluster0-xxxxxxxx.mongodb.net"
+DB="xxxx?retryWrites=true&w=majority"
