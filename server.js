@@ -1,12 +1,15 @@
 const express = require( 'express' ),
       mongodb = require( 'mongodb' ),
+      path    = require( 'path'    ),
       app = express()
 
 app.use( express.static('home') )
 app.use( express.json() )
 
 //view engine?
-app.set('view engine', 'ejs');
+//app.set('view engine', 'ejs');
+//app.use(express.static(path.join(__dirname, 'public')));
+app.engine('html', require('ejs').renderFile);
 
 const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB
 
@@ -30,6 +33,7 @@ client.connect()
 app.get( '/', (req,res) => {
   if( collection !== null ) {
     // get array and pass to res.json
+    //collection.sendFile(res, '/home.html')
     collection.find({ }).toArray().then( result => res.json( result ) )
     res.render('home.html')
   }
@@ -48,6 +52,7 @@ app.use( (req,res,next) => {
 app.post( '/add', (req,res) => {
   // assumes only one object to insert
   collection.insertOne( req.body ).then( result => res.json( result ) )
+  
 })
 
 // assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.

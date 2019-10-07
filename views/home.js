@@ -1,6 +1,6 @@
 var table; 
 window.onload = function(){
-  console.log("home was called");  
+  //console.log("home was called");  
   //display table
     table = document.createElement("table")
 
