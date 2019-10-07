@@ -1,0 +1,708 @@
+{
+  "plays": [
+    {
+      "odk": "offense",
+      "down": "1",
+      "distance": "10",
+      "playType": "run",
+      "result": "5",
+      "yardsToFirst": 5
+    },
+    {
+      "odk": "offense",
+      "down": "2",
+      "distance": "5",
+      "playType": "run",
+      "result": "3",
+      "yardsToFirst": 2
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "Offense",
+      "down": "1",
+      "distance": "10",
+      "playType": "Run",
+      "result": "5",
+      "yardsToFirst": 5
+    },
+    {
+      "odk": "Offense",
+      "down": "1",
+      "distance": "10",
+      "playType": "Run",
+      "result": "5",
+      "yardsToFirst": 5
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "",
+      "down": "",
+      "distance": "",
+      "playType": "",
+      "result": "",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "kick",
+      "down": "4",
+      "distance": "30",
+      "playType": "pass",
+      "result": "20",
+      "yardsToFirst": 10
+    },
+    {
+      "odk": "kick",
+      "down": "4",
+      "distance": "30",
+      "playType": "pass",
+      "result": "20",
+      "yardsToFirst": 10
+    },
+    {
+      "odk": "kick",
+      "down": "4",
+      "distance": "30",
+      "playType": "pass",
+      "result": "20",
+      "yardsToFirst": 10
+    },
+    {
+      "odk": "kick",
+      "down": "4",
+      "distance": "30",
+      "playType": "pass",
+      "result": "20",
+      "yardsToFirst": 10
+    },
+    {
+      "odk": "kick",
+      "down": "4",
+      "distance": "30",
+      "playType": "pass",
+      "result": "20",
+      "yardsToFirst": 10
+    },
+    {
+      "odk": "kick",
+      "down": "4",
+      "distance": "30",
+      "playType": "pass",
+      "result": "20",
+      "yardsToFirst": 10
+    },
+    {
+      "odk": "kick",
+      "down": "4",
+      "distance": "30",
+      "playType": "pass",
+      "result": "20",
+      "yardsToFirst": 10
+    },
+    {
+      "odk": "kick",
+      "down": "4",
+      "distance": "30",
+      "playType": "pass",
+      "result": "20",
+      "yardsToFirst": 10
+    },
+    {
+      "odk": "offense",
+      "down": "3",
+      "distance": "3",
+      "playType": "run",
+      "result": "3",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "asd",
+      "down": "1",
+      "distance": "1",
+      "playType": "asd",
+      "result": "1",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "asd",
+      "down": "1",
+      "distance": "1",
+      "playType": "Run",
+      "result": "1",
+      "yardsToFirst": 0
+    },
+    {
+      "odk": "asd",
+      "down": "1",
+      "distance": "1",
+      "playType": "asd",
+      "result": "1",
+      "yardsToFirst": 0
+    }
+  ]
+}
