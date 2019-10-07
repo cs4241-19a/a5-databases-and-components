@@ -7,14 +7,14 @@ const express = require( 'express' ),
     serveStatic = require('serve-static'),
     compression = require('compression'),
     mongodb = require('mongodb'),
-    helmet = require('helmet'),
+    //helmet = require('helmet'),
     port = 3000;
 
 
 const uri = 'mongodb+srv://amandaeze97:12345@cluster0-teapc.mongodb.net/admin?retryWrites=true&w=majority';
 const client = new mongodb.MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true});
-let orderdata = null;
-let userdata = null;
+let orderData = null;
+let userData = null;
 
 app.use( serveStatic( 'public' ) );
 app.use( bodyParser.json() );
@@ -27,9 +27,9 @@ client.connect()
   })
   .then( __collection => {
     // store reference to collection
-    orderdata = __collection
+    orderData = __collection
     // blank query returns all documents
-    return orderdata.find({ }).toArray()
+    return orderData.find({ }).toArray()
   })
   .then( console.log )
 
@@ -40,21 +40,21 @@ client.connect()
   })
   .then( __collection => {
     // store reference to collection
-    orderdata = __collection
+    orderData = __collection
     // blank query returns all documents
-    return orderdata.find({ }).toArray()
+    return orderData.find({ }).toArray()
   })
   .then( console.log )
 
 app.use( session({ secret:'hello world 1234', resave: false, saveUninitialized: false }) );
 app.use( passport.initialize() );
 app.use( passport.session() );
-app.use( helmet() );
+//app.use( helmet() );
 
 //////////// PASSPORT CONFIGURATION ////////////
 passport.use(new Local (
     function(username, password, done) {
-      userdata.findOne({
+      userData.findOne({
         username: username
       }).then(user => {
         if (!user) {
@@ -73,7 +73,7 @@ passport.use(new Local (
 passport.serializeUser( ( user, done ) => done( null, user.username ) );
 
 passport.deserializeUser( ( username, done ) => {
-  userdata.findOne({
+  userData.findOne({
     username: username
   }).then(user => {
     if( user !== undefined ) {
@@ -102,7 +102,7 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/orders', function (request, response) {
-  orderdata.find({
+  orderData.find({
     user: request.session.passport.user
   }).toArray().then(orders => {
     if (orders === undefined) {
@@ -114,11 +114,11 @@ app.get('/orders', function (request, response) {
 });
 
 app.post('/createAccount', function (request, response) {
-  userdata.findOne({
+  userData.findOne({
     username: request.body.username
   }).then(result => {
     if (result === null) {
-      userdata.insertOne({
+      userData.insertOne({
         username: request.body.username,
         password: request.body.password
       });
@@ -144,7 +144,7 @@ app.post('/submit', function (request, response) {
         'price': price
     };
 
-    orderdata.insertOne(newOrder).then(result => console.log(result));
+    orderData.insertOne(newOrder).then(result => console.log(result));
 
     response.writeHead( 200, "OK", {'Content-Type': 'application/json' });
     response.end();
@@ -165,7 +165,7 @@ app.post('/update', function (request, response) {
     //     'typeOfProtein': parseInt(orderToUpdate.typeOfProtein),
     //     'price': newPrice
     // };
-       orderdata.updateOne({_id:mongodb.ObjectDB(orderToUpdate.index)}, {
+       orderData.updateOne({_id:mongodb.ObjectDB(orderToUpdate.index)}, {
          $set: {
            fstname: orderToUpdate.fstname,
            lstname: orderToUpdate.lstname,
@@ -185,7 +185,7 @@ app.post('/delete', function (request, response) {
 
     console.log(request.body);
 
-    orderdata.deleteOne({
+    orderData.deleteOne({
       _id: mongodb.ObjectID(orderNumber)
     }).then(result => console.log(orderNumber));
 
