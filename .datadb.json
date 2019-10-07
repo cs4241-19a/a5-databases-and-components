@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin"
+    }
+  ],
+  "data": [
+    {
+      "user": "",
+      "bookName": "",
+      "authorName": "",
+      "comments": "",
+      "rating": "",
+      "status": ""
+    }
+  ]
+}

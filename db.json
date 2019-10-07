@@ -1,0 +1,106 @@
+{
+  "data": [
+    {
+      "user": "admin",
+      "bookName": "In Cold Blood",
+      "authorName": "Truman Capote",
+      "comments": "This is one of my favorite books! Its a mystery but also a real story",
+      "rating": "4",
+      "status": "good"
+    },
+    {
+      "user": "admin",
+      "bookName": "Romeo and Juliet",
+      "authorName": "William Shakespeare",
+      "comments": "Was not a huge fan, this really dragged on",
+      "rating": "2",
+      "status": "bad"
+    },
+    {
+      "user": "Katherine",
+      "bookName": "The Secret Chapter",
+      "authorName": "G. Coleman",
+      "comments": "Coming out soon",
+      "rating": "3",
+      "status": "good"
+    },
+    {
+      "user": "Katherine",
+      "bookName": "q",
+      "authorName": "q",
+      "comments": "q",
+      "rating": "2",
+      "status": "good"
+    },
+    {
+      "bookName": "AdminTest",
+      "authorName": "admin",
+      "comments": "Another Test",
+      "rating": "3",
+      "status": "good",
+      "user": "admin"
+    },
+    {
+      "bookName": "KathTest",
+      "authorName": "Katherine",
+      "comments": "Another Test",
+      "rating": "4",
+      "status": "good",
+      "user": "Katherine"
+    },
+    {
+      "bookName": "AllyTest",
+      "authorName": "Me",
+      "comments": "s",
+      "rating": "4",
+      "status": "good",
+      "user": "Ally"
+    },
+    {
+      "bookName": "lame of thrones",
+      "authorName": "jrr fartin",
+      "comments": "haha dude lame",
+      "rating": "1",
+      "status": "bad",
+      "user": "Joe ;)"
+    },
+    {
+      "bookName": "How to WORK The Backend: An Intro To C++",
+      "authorName": "me",
+      "comments": "helpful",
+      "rating": "5",
+      "status": "good",
+      "user": "Joe ;)"
+    },
+    {
+      "bookName": "How To Get Destroyed in Tetris",
+      "authorName": "Katherine Thompson",
+      "comments": "great read!",
+      "rating": "5",
+      "status": "good",
+      "user": "Joe ;)"
+    },
+    {
+      "bookName": "qwsd",
+      "authorName": "qawd",
+      "comments": "qwsd",
+      "rating": "1",
+      "status": "bad",
+      "user": "1"
+    },
+    {
+      "bookName": "20,000 Leagues Under the Sea",
+      "authorName": "Verne",
+      "comments": "meh",
+      "rating": "3",
+      "status": "bad",
+      "user": "ta"
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin"
+    }
+  ]
+}
