@@ -1,0 +1,33 @@
+{
+  "name": "ha3-javiermarcos",
+  "version": "1.0.0",
+  "description": "A simple Node app built on Express, instantly up and running.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "cookie-parser": "^1.4.4",
+    "morgan": "^1.9.1",
+    "helmet": "^3.21.1",
+    "body-parser": "^1.19.0",
+    "bcrypt": "^3.0.6",
+    "express-session": "^1.16.1",
+    "mongodb": "^3.3.2"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/join/e8a09b89-b528-4855-bc72-d6f1aab0127d"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}
