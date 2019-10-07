@@ -24,7 +24,7 @@ I kept getting the following error.
 
 And it looks like the issue was that my home.html file was having issues reaching my home.js file, but no matter how many times I changes the link and/or the position of home.js, nothing fixed it.
 
-![alt text](https://github.com/AlejandraGarza42/a5-databases-and-components/blob/master/screenshots/inspector%20error.PNG)
+![alt text](https://github.com/AlejandraGarza42/a5-databases-and-components/blob/master/screenshots/homejs.PNG)
 
 I even tried getting rid of home.js and just adding it as a <script> in home.html, but my displayTable function was giving me issues with that. 
   I spent a really long time on this and was unable to make it to office hours throughout the week, but it was definitely an interesting experience.
