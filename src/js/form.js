@@ -1,8 +1,19 @@
 import React from "react";
 
-export default function formLogin(props) {
+class formLogin extends React.Component {
+  constructor( props ) {
+    super( props )
+    this.load()
+  }
 
-  const submit = function (e) {
+  load() {
+    const button = document.getElementById('continueBtn')
+    button.onclick = this.submit
+
+    const button1 = document.getElementById('resBtn')
+    button1.onclick = this.res
+  }
+  submit (e) {
     // prevent default form action from being carried out
     e.preventDefault()
 
@@ -88,21 +99,14 @@ export default function formLogin(props) {
     return true
   }
 
-  const res = function (e) {
+  res (e) {
     e.preventDefault()
     window.location = '/results.html'
     return true
   }
 
-  window.onload = function () {
-    const button = document.getElementById('continueBtn')
-    button.onclick = submit
-
-    const button1 = document.getElementById('resBtn')
-    button1.onclick = res
-  }
-
-  return (
+  render () {
+    return (
       <React.Fragment>
         <script src="js/materialize.js"></script>
         <script src="js/form.js"></script>
@@ -269,7 +273,7 @@ export default function formLogin(props) {
               </div>
               <div data-aos="zoom-in" className="bten">
                 <button id="continueBtn" className="button btn waves-effect waves-light btn-large"><i
-                    className="material-icons right">send</i>Continue
+                  className="material-icons right">send</i>Continue
                 </button>
               </div>
             </form>
@@ -280,5 +284,8 @@ export default function formLogin(props) {
           <button id="resBtn" className="button btn waves-effect waves-light">Database</button>
         </div>
       </React.Fragment>
-  )
+    )
+  }
 }
+
+export default formLogin
