@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin"
+    },
+    {
+      "username": "Katherine",
+      "password": "kt"
+    },
+    {
+      "username": "test",
+      "password": "test1"
+    },
+    {
+      "username": "Ally",
+      "password": "al"
+    },
+    {
+      "username": "hello",
+      "password": "123"
+    },
+    {
+      "username": "Joe ;)",
+      "password": "a"
+    },
+    {
+      "username": "ghnjm,",
+      "password": "gbhjnm"
+    },
+    {
+      "username": "1",
+      "password": "1"
+    },
+    {
+      "username": "1",
+      "password": "1"
+    },
+    {
+      "username": "ta",
+      "password": "test"
+    }
+  ]
+}

@@ -1,38 +1,31 @@
 Assignment 5 - Databases and/or Components
 ===
 
-Due: October 7th, by 11:59 AM.
+Book Tracker 3.0
 
-For this assignment you will complete one of the following tasks, based on your prior experience with the various technologies involved.
+hosting link: https://a5-ktrose1.glitch.me/
 
+--------------------------
+Logins:
+
+uname: admin
+pword: admin
+
+uname: Katherine
+pword: kt
+
+^the above two accounts already have book data in mongo that you can view right away but anyone can make their own account and start adding books
+
+--------------------------
+I love to read but I often find myself forgetting the book suggestions that people tell me, or vice versa not being able to provide suggestions on the spot. This project is an organizational tool to keep track of all the books you have read and you want to read, showing not only the name of the books and authors but also a comments section and ratings which furthermore sort the books into sections based on if you did or didn't like them. I've personally already started using the website, transitioning over from keeping my "To Read" list in my Notes on my phone, which was hard to visualize unlike my website. While this is a personal organizational tool at this time, in the future I could envision it as a forum for book lovers to share their best/worst book picks.
+
+Note: Almost all the time, clicking the buttons will automatically update the tables (I have my loadData function for the tables called in all of the onclick functions) but sometimes you may need to refresh the page if a button was pressed but the tables aren't automatically updating.
+
+--------------------------
+For my addition to a3 I decided to add in MongoDB
 1. Rework the server component from Assignment #3 to use MongoDB or some other NoSQL database (like CouchDB). You can remove Passport authentication if you choose, although this might be as much work as simply changing your Passport calls to use MongoDB.
-2. Rework the client component from Assignment #3 to use Svelte in some capacity.
-3. Rework the client component from Assignmeent #3 to use React in some capacity.
 
-For 2 and 3, make sure to look at [the notes from lecture 10](https://github.com/cs4241-19a/materials/blob/master/lecture10.markdown).
-
-This is really a chance for you to experiment with some additional web technologies that the prior assignments haven't covered yet: non-flatfile databases and web component frameworks.
-
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku etc.), however, you must include all files in your GitHub repo so that the course staff can view them; these files are not available for viewing in many hosting systems.
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a5-yourname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a5-gitname-firstname-lastname`.
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your hosting link e.g. http://a5-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+I really enjoyed learning more about mongo and other database options. Implementing this project was hard at first when I was still going through documentation
+and it took a while for me to connect to mongo, but once I did the actual calls to the database were pretty easy and straighforward. There's a lot of good documentation
+online about mongo and using it definitely improved my development experience. This was great experience especially because I know a lot of companies actually use 
+mongo. A couple of technical points: I kept passport, have my passwords stored in the .env file, and you the book info that displays is still user specific depending on who is logged in.
