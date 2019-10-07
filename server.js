@@ -21,10 +21,23 @@ mongoose.connect("mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+proc
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function(){
+  var movieSchema = new mongoose.Schema({
+    ID: Number,
+    Title: String,
+    Genre: String,
+    Rating: Number,
+  })
   
-  // route to get all docs
+  var PostTable = mongoose.model('Post', movieSchema)
+  
+  // route to get all data
   app.get( '/', (req,res) => {
-    res.send(JSON.stringify())
+    PostTable.find({users:'movies'}, function(data){
+      res.send(JSON.stringify(data))
+    })
+  
+  });
+  
     /*if( collection !== null ) {
       // get array and pass to res.json
       //collection.sendFile(res, '/home.html')
@@ -34,7 +47,7 @@ db.once('open', function(){
   })
 
   app.listen( 3000 )
-
+/*
   app.use( (req,res,next) => {
     if( collection !== null ) {
       next()
@@ -64,7 +77,7 @@ db.once('open', function(){
       )
       .then( result => res.json( result ) )
   })
-});
+  */
 /*
 client.connect()
   .then( () => {
