@@ -1,38 +1,30 @@
-Assignment 5 - Databases and/or Components
-===
 
-Due: October 7th, by 11:59 AM.
+## Movie Tracker!
 
-For this assignment you will complete one of the following tasks, based on your prior experience with the various technologies involved.
+https://a5-alejandra-garza.glitch.me/
 
-1. Rework the server component from Assignment #3 to use MongoDB or some other NoSQL database (like CouchDB). You can remove Passport authentication if you choose, although this might be as much work as simply changing your Passport calls to use MongoDB.
-2. Rework the client component from Assignment #3 to use Svelte in some capacity.
-3. Rework the client component from Assignmeent #3 to use React in some capacity.
+ 
+Unfortunately I originally had an extremely hard time with a3 (if it wasn't for the extension I have no idea what I would have done) and editing this project was a nightmare. I tried everything for this assignment: MongoDB, Mongoose, React, and Svelte, but unfortunately I was unable to get any of them to work right. This submission is the MongoDB version, but if you want to get a glimpse at my other attempts they are all random projects in my Glitch profile.
 
-For 2 and 3, make sure to look at [the notes from lecture 10](https://github.com/cs4241-19a/materials/blob/master/lecture10.markdown).
+ Overall this technology did not improve the development experience at all, in fact it made it much more stressfull. I think the primary issue was that a3 was really complex (for my standards since I have no web development experience) and it was really hard for me to change it. I feel that if I had started the project from scratch (specially with React since it was really interesting but I had a hard time chaning my original project) it would be a much more enjoyable experience.
 
-This is really a chance for you to experiment with some additional web technologies that the prior assignments haven't covered yet: non-flatfile databases and web component frameworks.
+**Below is a brief summary of the main issue I faced**
 
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku etc.), however, you must include all files in your GitHub repo so that the course staff can view them; these files are not available for viewing in many hosting systems.
+While my website loads, it does not show the data: 
 
-Deliverables
----
+![alt text](https://github.com/AlejandraGarza42/a5-databases-and-components/blob/master/screenshots/no%20movies.PNG)
 
-Do the following to complete this assignment:
+Which is meant to be this: 
 
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a5-yourname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a5-gitname-firstname-lastname`.
+![alt text](https://github.com/AlejandraGarza42/a5-databases-and-components/blob/master/screenshots/database2.PNG)
 
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
+I kept getting the following error. 
 
-## Your Web Application Title
+![alt text](https://github.com/AlejandraGarza42/a5-databases-and-components/blob/master/screenshots/inspector%20error.PNG)
 
-your hosting link e.g. http://a5-charlieroberts.glitch.me
+And it looks like the issue was that my home.html file was having issues reaching my home.js file, but no matter how many times I changes the link and/or the position of home.js, nothing fixed it.
 
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
+![alt text](https://github.com/AlejandraGarza42/a5-databases-and-components/blob/master/screenshots/homejs.PNG)
 
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+I even tried getting rid of home.js and just adding it as a <script> in home.html, but my displayTable function was giving me issues with that. 
+  I spent a really long time on this and was unable to make it to office hours throughout the week, but it was definitely an interesting experience.
