@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Football Stats Tracker</title>
+    <meta name="description" content="Track football statistics">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="public\style.cc">
+    
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/client.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>
+        Football Stats Tracker
+      </h1>
+    </header>
+
+    <main>
+      <div id="main">
+        <div id="left">
+          <p class="bold">Enter Play Statistics</p>
+
+          <p>Fill in each provided field:</p>
+
+          <form>
+            <input id="odk" type="text" placeholder="Offense/Defense/Kick">
+            <input id="down" type="number" placeholder="Down">
+            <input id="dist" type="number" placeholder="Distance to First">
+            <input id="playType" type="text" placeholder="Run/Pass/Kick">
+            <input id="result" type="number" placeholder="+/- Yards">
+            <button type="submit" id="submit-play">Submit Play</button>
+          </form>
+          
+          <p>
+            <img src = "http://cdn.onlinewebfonts.com/svg/img_531796.svg" height="300px" alt="Football Helmet">
+          </p>
+        </div>
+
+        <div id="right">
+          <p class="bold">Logged Plays</p>
+          <section class="Plays">
+            <ul id="plays"></ul>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
