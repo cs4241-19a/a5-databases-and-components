@@ -19,6 +19,8 @@ $ npm start
 
 And go to `localhost:3000/login.html`
 
+For this assignment, local app needs `.env` file to load DB credentials. If `.env` file is not here, please use online app instead.
+
 ### Online application
 
 Or you can also view the online application here:

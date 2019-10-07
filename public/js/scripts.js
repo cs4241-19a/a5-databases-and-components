@@ -42,9 +42,8 @@ const handleSubmitPerson = function (e) {
         body: body
     }).then(function (response) {
         console.log(response)
+        updateTableContent();
     })
-
-    updateTableContent();
 }
 
 /**
@@ -57,9 +56,8 @@ const handleDeletePerson = function (idx) {
         method: 'DELETE'
     }).then(function (response) {
         console.log(response)
+        updateTableContent();
     })
-
-    updateTableContent();
 }
 
 const sendModifyInfo = function (idx) {
@@ -74,12 +72,12 @@ const sendModifyInfo = function (idx) {
     form.find('#select-major').val(major)
 
     $('#form-title').text('Modify a person in the table')
-    $('#modify-id').text(idx+1)
+    $('#modify-id').text(idx + 1)
     $('#add-row-btn').css('display', 'none')
     $('#modify-group').css('display', 'block')
 }
 
-const cancelModify = function (e){
+const cancelModify = function (e) {
     e.preventDefault()
 
     const form = $('#add-form')
@@ -95,11 +93,11 @@ const cancelModify = function (e){
 /**
  * send POST request to modify person info
  */
-const handleModifyPerson = function(e) {
+const handleModifyPerson = function (e) {
     e.preventDefault()
 
-    let path = 'person/' + ($('#modify-id').text()-1);
-    
+    let path = 'person/' + ($('#modify-id').text() - 1);
+
     const form = $('#add-form')
     const name = form.find('#input-name').val()
     const birthday = form.find('#input-birthday').val()
@@ -121,9 +119,8 @@ const handleModifyPerson = function(e) {
         body: body
     }).then(function (response) {
         console.log(response)
+        updateTableContent();
     })
-
-    updateTableContent();
 }
 
 
@@ -183,7 +180,7 @@ const updateTableContent = function () {
             );
         })
         return data
-    }).catch(function (err){
+    }).catch(function (err) {
         console.log(err)
     })
 }
