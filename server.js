@@ -18,6 +18,20 @@ const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnified
 //mongoose.connect("mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB", {useNewUrlParser: true});
 let collection = null
 
+client.connect()
+  .then( () => {
+    // will only create collection if it doesn't exist
+    return client.db( 'users' ).createCollection( 'movies' )
+  })
+  .then( __collection => {
+    // store reference to collection
+    collection = __collection
+    // blank query returns all documents
+    return collection.find({ }).toArray()
+  })
+  .then( console.log )
+
+/*
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function(){
@@ -32,21 +46,22 @@ db.once('open', function(){
 
   
   });
+  */
 // route to get all data
   app.get( '/', (req,res) => {
-    db.PostTable.find({name:'users'}, function(data){
-      res.send(JSON.stringify(data))
-    })
-    /*if( collection !== null ) {
+  //   db.PostTable.find({name:'users'}, function(data){
+  //     res.send(JSON.stringify(data))
+  //   })
+    if( collection !== null ) {
       // get array and pass to res.json
       //collection.sendFile(res, '/home.html')
       collection.find({ }).toArray().then( result => res.json( result ) )
       res.render('home.html')
-    }*/
+    }
   })
 
   app.listen( 3000 )
-/*
+
   app.use( (req,res,next) => {
     if( collection !== null ) {
       next()
@@ -76,18 +91,5 @@ db.once('open', function(){
       )
       .then( result => res.json( result ) )
   })
-  */
-/*
-client.connect()
-  .then( () => {
-    // will only create collection if it doesn't exist
-    return client.db( 'users' ).createCollection( 'movies' )
-  })
-  .then( __collection => {
-    // store reference to collection
-    collection = __collection
-    // blank query returns all documents
-    return collection.find({ }).toArray()
-  })
-  .then( console.log )
-  */
+  
+
