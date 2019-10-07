@@ -55,20 +55,13 @@ const signupFunk = function () {
     }
 
     const username = document.querySelector('#username'),
-          password = document.querySelector('#password'),
-          json = {
-            'username': username.value,
-            'password': password.value,
-          },
-        body = JSON.stringify(json)
-
-    username.value = ""
-    password.value = ""
+          password = document.querySelector('#password')
 
     fetch('/signup', {
         method: 'POST',
         credentials: 'include',
-        body
+        body: JSON.stringify({ username:username.value, password:password.value }),
+        headers: { 'Content-Type': 'application/json' }
     })
         .then(function (response) {
             // do something with the reponse 

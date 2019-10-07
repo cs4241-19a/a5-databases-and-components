@@ -91,8 +91,10 @@ getTableData()
 // when a row is deleted, delete it from the server
 function deleteRow(cell) {
     var row = cell.getRow()
+    console.log(row)
     var index = row._row.data.index
-    var json = {id: index}
+    console.log(index)
+    var json = {index: index}
     var body = JSON.stringify( json )
 
     console.log("deleting row at index " + index + " from server...")
