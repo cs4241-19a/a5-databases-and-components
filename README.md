@@ -1,11 +1,11 @@
 Readme
 ---
 Justin Cheng
-https://a5-justincheng.glitch.me/
+https://a5-jchengz.glitch.me/
 
 ## Inspira - A Web App for Storing Quotes!
 
-Link: https://a5-justincheng.glitch.me/
+Link: https://a5-jchengz.glitch.me/
 
 
 **This is a rework of my A3 application to use MongoDB for the server to store the quotes.** Implementing MongoDB on the backend definitely made the development experience more interesting. This implementation improved the overall quality and robustness of the application, as it provides a better platform for handling changes and managing entries. This means that if the application was scaled upwards, the infrastructure for data storage and management would already exist. For the purposes of a small scale assignment, such an infrastructure is not really needed other than for proof of concept.
