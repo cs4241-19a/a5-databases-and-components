@@ -1,12 +1,29 @@
 var express = require('express');
 var router = express.Router();
+const dotenv = require('dotenv');
+dotenv.config();
 
-function dbUpdate(username, seat, date, time, id) {
-    const Database = require('better-sqlite3');
-    const db = new Database('bookings.db', {readonly: false});
-  
-    const stmt = db.prepare('UPDATE reservations SET username=?, seat=?, date=?, time=? WHERE id=?');
-    stmt.run(username, seat, date, time, id);
+const Mongo = require('mongodb')
+const MongoClient = require('mongodb').MongoClient;
+const uri = process.env.MONGODB_URL;
+const client = new MongoClient(uri, { useNewUrlParser: true });
+
+function dbUpdate(username, seat, date, time, id, res) {
+  client.connect(err => {
+    const collection = client.db("reservations").collection("bookings");
+      
+    const querySelector = { _id: new Mongo.ObjectID(id) }
+    const entry = { $set: { username: username, seat: seat, date: date, time: time } };
+
+    collection.updateOne(querySelector, entry, function(err, obj) {
+      if (err) throw err;
+      console.log("Updated " + id);
+      res.redirect("/?alert=Booking+updated");
+      client.close();
+    });
+    
+    client.close();
+    });
 }
 
 router.post('/', function (req, res) {
@@ -16,8 +33,7 @@ router.post('/', function (req, res) {
     const time = req.body.time;
     const id = req.body.id;
 
-    dbUpdate(username, seat, date, time, id);
-    res.redirect("/?alert=Booking+updated");
+    dbUpdate(username, seat, date, time, id, res);
   })
   
 module.exports = router;

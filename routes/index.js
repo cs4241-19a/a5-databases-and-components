@@ -37,12 +37,20 @@ router.use(passport.initialize());
 router.use(passport.session());
 // END AUTHENTICATION
 
-function dbGet(userID) {
-  const Database = require('better-sqlite3');
-  const db = new Database('bookings.db', {readonly: false});
+const MongoClient = require('mongodb').MongoClient;
+const uri = process.env.MONGODB_URL;
+const client = new MongoClient(uri, { useNewUrlParser: true });
 
-  const stmt = db.prepare('SELECT * FROM reservations WHERE userID=?');
-  return stmt.all(userID);
+function dbGet(userID, currentDate, username, alert, res) {
+  MongoClient.connect(uri, function(err, db) {
+    if (err) throw err;
+  var dbo = db.db("reservations");
+  dbo.collection("bookings").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    res.render('index', { title: 'Booker', results: result, currentDate: currentDate, userID: userID, username: username, alert: alert });
+    db.close();
+  });
+  });
 }
 
 router.get('/callback',
@@ -80,8 +88,10 @@ router.get('/', function(req, res) {
     alert = req.query.alert;
   }
   let currentDate = new Date();
-  currentDate = currentDate.toISOString().split('T')[0]
-  res.render('index', { title: 'Booker', results: dbGet(userID), currentDate: currentDate, userID: userID, username: username, alert: alert });
+  currentDate = currentDate.toISOString().split('T')[0];
+
+  dbGet(userID, currentDate, username, alert, res);
+  
 });
 
 module.exports = router;

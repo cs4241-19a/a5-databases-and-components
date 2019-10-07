@@ -30,20 +30,20 @@ block content
     tbody.text-center
       for val in results
         tr
-          td(contenteditable='true' id='rsvp-seat-write-' + val.id oninput="document.getElementById('rsvp-seat-" + val.id +"').value = document.getElementById('rsvp-seat-write-" + val.id +"').innerText; document.getElementById('rsvp-update-" + val.id +"').style.display = 'inline-block';")= val.seat
-          td(contenteditable='true' id='rsvp-date-write-' + val.id oninput="document.getElementById('rsvp-date-" + val.id +"').value = document.getElementById('rsvp-date-write-" + val.id +"').innerText; document.getElementById('rsvp-update-" + val.id +"').style.display = 'inline-block';")= val.date
-          td(contenteditable='true' id='rsvp-time-write-' + val.id oninput="document.getElementById('rsvp-time-" + val.id +"').value = document.getElementById('rsvp-time-write-" + val.id +"').innerText; document.getElementById('rsvp-update-" + val.id +"').style.display = 'inline-block';")= val.time
+          td(contenteditable='true' id='rsvp-seat-write-' + val._id oninput="document.getElementById('rsvp-seat-" + val._id +"').value = document.getElementById('rsvp-seat-write-" + val._id +"').innerText; document.getElementById('rsvp-update-" + val._id +"').style.display = 'inline-block';")= val.seat
+          td(contenteditable='true' id='rsvp-date-write-' + val._id oninput="document.getElementById('rsvp-date-" + val._id +"').value = document.getElementById('rsvp-date-write-" + val._id +"').innerText; document.getElementById('rsvp-update-" + val._id +"').style.display = 'inline-block';")= val.date
+          td(contenteditable='true' id='rsvp-time-write-' + val._id oninput="document.getElementById('rsvp-time-" + val._id +"').value = document.getElementById('rsvp-time-write-" + val._id +"').innerText; document.getElementById('rsvp-update-" + val._id +"').style.display = 'inline-block';")= val.time
           td.tooltip(data-tooltip= val.username + "@gmail.com")= val.username
           td
             form.form-horizontal(method='POST' action='/api/booking/update')
-              input.form-input(type='hidden' name='seat' value=val.seat id='rsvp-seat-' + val.id)
+              input.form-input(type='hidden' name='seat' value=val.seat id='rsvp-seat-' + val._id)
               input.form-input(type='hidden' name='username' value=val.username)
-              input.form-input(type='hidden' name='date' value=val.date id='rsvp-date-' + val.id)
-              input.form-input(type='hidden' name='time' value=val.time id='rsvp-time-' + val.id)
-              input.form-input(type='hidden' name='id' value=val.id)
-              button.btn.btn-primary(style='display: none;' type='submit' id='rsvp-update-' + val.id) Revise
+              input.form-input(type='hidden' name='date' value=val.date id='rsvp-date-' + val._id)
+              input.form-input(type='hidden' name='time' value=val.time id='rsvp-time-' + val._id)
+              input.form-input(type='hidden' name='id' value=val._id)
+              button.btn.btn-primary(style='display: none;' type='submit' id='rsvp-update-' + val._id) Revise
             form(method='POST' action='/api/booking/delete')
-              input(type='hidden' name='id' value=val.id)
+              input(type='hidden' name='id' value=val._id)
               button.btn.btn-primary(type='submit') Delete
   div.modal#book
     a.modal-overlay(href='#close' aria-label='Close' onclick="document.getElementById('book').classList.remove('active');")

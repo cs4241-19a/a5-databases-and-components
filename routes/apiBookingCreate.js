@@ -1,25 +1,28 @@
 var express = require('express');
 var router = express.Router();
+const dotenv = require('dotenv');
+dotenv.config();
+
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = process.env.MONGODB_URL;
+const client = new MongoClient(uri, { useNewUrlParser: true });
+
+
 
 function dbInsert(username, seat, date, time, userID, email) {
-    const Database = require('better-sqlite3');
-    const db = new Database('bookings.db', {readonly: false});
-  
-    const stmt = db.prepare('INSERT INTO reservations (username, seat, date, time, userID, email) VALUES (?, ?, ?, ?, ?, ?)');
-    stmt.run(username, seat, date, time, userID, email);
-}
-
-function dbIsAvailable(seat, date, time) {
-  const Database = require('better-sqlite3');
-  const db = new Database('bookings.db', {readonly: false});
-
-  const stmt = db.prepare('SELECT * FROM reservations WHERE seat=? AND date=? AND time=?');
-  if (stmt.all(seat, date, time).length) {
-    return false;
-  }
-  else {
-    return true;
-  }
+    client.connect(err => {
+      const collection = client.db("reservations").collection("bookings");
+      
+      const entry = { username: username, seat: seat, date: date, time: time, userID: userID, email: email };
+      collection.insertOne(entry, function(err, res) {
+        if (err) throw err;
+        console.log("1 record inserted");
+        client.close();
+      });
+    
+      client.close();
+    });
 }
 
 router.post('/', function (req, res) {
@@ -29,14 +32,8 @@ router.post('/', function (req, res) {
     const time = req.body.time;
     const userID = req.body.userid;
     const email = req.body.username + "@wpi.edu";
-    
-    if (dbIsAvailable(seat, date, time)) {
-      dbInsert(username, seat, date, time, userID, email);
-    }
-    else {
-      console.log("Collision!");
-      res.redirect("/?alert=Sorry+that+seat+is+booked+for+that+time.+Try+a+new+seat.");
-    }
+
+    dbInsert(username, seat, date, time, userID, email);
 
     res.redirect("/?alert=Saved");
   })
