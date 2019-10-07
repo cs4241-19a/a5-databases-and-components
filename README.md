@@ -1,4 +1,4 @@
-<h1>Nyankotracker</h1>
+<h1>Nyankotracker, MondoDB Edition</h1>
 <em>https://a5-javiermarcos.glitch.me/</em>
 <p>
 The application has been redesigned in order to use MongoDB for its database, rather than lowdb. All of the functions previously present have been successfully translated, including authentication and data manipulation. The only exception to this is the function meant to show all of the information stored in the database; doing so became quite more cumbersome than just sending a JSON file stored in the server and is not something you would usually consider to develop.
