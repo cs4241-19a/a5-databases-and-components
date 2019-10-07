@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "..\\src\\App.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n\tlet boatName\n\tlet meters\n\tlet time\n\tlet rows =[]\n\n\tfunction addRow(){\n\t{\n\t\t\tconsole.log(\"hi\")\n\t    var rows= document.getElementById(\"rows\")\n\t    var newRow = rows.insertRow()\n\t    var boat = newRow.insertCell(0)\n\t    var distance = newRow.insertCell(1)\n\t    var sec = newRow.insertCell(2)\n\t    var split = newRow.insertCell(3)\n\t    var edit = newRow.insertCell(4)\n\t    var del = newRow.insertCell(5)\n\t\t\tconsole.log(boatName)\n\t    boat.innerHTML = boatName\n\t    distance.innerHTML = meters\n\t    sec.innerHTML = time\n\t    split.innerHTML= time*(meters/500)\n\t  }\n\t}\n\n</script>\n\n<style>\nbody{\n  background-color: #B3DAF9\n}\n\nh1{\n  text-align: center\n}\n\nh2{\n  text-align: center\n}\n\na{\n  margin-left:28px\n}\ntable {\n  border: 2px solid black\n}\n\nth, td {\n  border: 1px solid black\n}\n\n#mode{\n  text-align:center\n}\n\n#boatForm {\n  text-align:center\n}\n\n#sumbitMode{\n  display:\"block\"\n}\n\n#results{\n  display:\"none\"\n}\n\n#error{\n  text-align: center\n}\n\n#success{\n  text-align: center\n}\n\n</style>\n\n<h2>Enter Boatname:</h2>\n<input type=\"string\" bind:value={boatName}>\n<h2>Enter Meters Traveled:</h2>\n<input type=\"number\" bind:value={meters}>\n<h2>Enter Time in Seconds:</h2>\n<input type=\"number\" bind:value={time}>\n\n<button on:click={addRow}>Add Row</button>\n\n<div id=\"results\">\n      <table id=\"rows\">\n        <tr style=\"font-weight:bold;\">\n          <th>Boat Name</th>\n          <th>Meters Travelled (m)</th>\n          <th>Time Elapsed (sec)</th>\n          <th>Split Per 500m (sec/m)</th>\n        </tr>\n      </table>\n    </div>\n"
+  ],
+  "names": [],
+  "mappings": "AAoCA,gBAAE,CAAC,AACD,UAAU,CAAE,MAAM;AACpB,CAAC,AAKD,KAAK,cAAC,CAAC,AACL,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,KAAK;AACzB,CAAC,AAED,EAAE,cAAK,CAAC,AACN,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,KAAK;AACzB,CAAC,AAcD,sBAAQ,CAAC,AACP,QAAQ,MAAM;AAChB,CAAC"
+}
