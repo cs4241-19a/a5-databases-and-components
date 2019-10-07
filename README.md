@@ -15,24 +15,22 @@ This is really a chance for you to experiment with some additional web technolog
 
 This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku etc.), however, you must include all files in your GitHub repo so that the course staff can view them; these files are not available for viewing in many hosting systems.
 
-Deliverables
 ---
 
-Do the following to complete this assignment:
+## Hotel Casa Anagha
 
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a5-yourname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a5-gitname-firstname-lastname`.
+https://a5-anaghalate.glitch.me/
 
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
+Hello! This website is one that would be used to book a room at a hotel. You can create a new booking, view past reservations, and also have the ability to modify and delete them. 
 
-## Your Web Application Title
+The credentials are as following, no new users can be added to this site :
 
-your hosting link e.g. http://a5-charlieroberts.glitch.me
+username: username
 
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
+password: password
 
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+(really secure right?)
+
+Previously, I had a lowDB server however for this assignment, I chose to replace it with a MongoDB server. I really struggled with setting up and authenticating MongoDB but had little to no trouble incorporating it my actual code. I believe this was due to the minimal Mongo documentation provided. The one part I really struggled with was the actual creation of the credentials in the Collections tab of their website.
+
+However besides my struggles, the main thing I really like about MongoDB is how it only allows certain admins to read, write, or both - thus, keeping information incredibly safe. 
