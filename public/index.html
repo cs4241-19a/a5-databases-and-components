@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3 - Kiosk</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          type="text/css"
+          href="css/style.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="title">
+      <div class="center">
+        <img src="css/logo.png" class="img-fluid" alt="Fantastic Fries Logo">
+      </div>
+    </div>
+    <div class="subtitle">
+      <h3>In-Store Kiosk</h3>
+    </div>
+
+    <button id="loginFixed" type="button" class="btn btn-primary" onclick="window.location.href = '/login.html';">Login</button>
+    <div class="container"> 
+      <div class="instructions">
+        <p>Welcome to Fantastic Fries! Create your fantastic fries order on the left, and then see your order, and everybody else's, on the right. Once your order is done, we'll call you up to the register to pay and pick up your order.</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="columns">
+
+        <div class="order">
+
+          <h2>Information</h2>
+
+          <h4>Name</h4>
+          <form action="">
+            <input type='text' id='name' value="John Doe" style="text-align:right;">
+          </form>
+
+          <h4>Phone Number</h4>
+          <form action="">
+            <input type='tel' id='phone' pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" style="text-align:right;" value="123-456-7890">
+          </form>
+
+          <h2>Fries</h2>
+
+          <h4>Potato</h4>
+          <form action="">
+            <select name="potato" id='potato' dir="rtl">
+              <option value="yellow">Yellow Potato | $3</option>
+              <option value="red">Red Potato | $4</option>
+              <option value="idaho">Idaho Potato | $5</option>
+              <option value="sweet">Sweet Potato | $6</option>
+            </select>
+          </form>
+
+          <h4>Seasoning</h4>
+          <form action="">
+            <select name="seasoning" id='seasoning' dir="rtl">
+              <option value="none">None +$0</option>
+              <option value="salt">Just Salt +$1</option>
+              <option value="pepper">Just Pepper +$1</option>
+              <option value="snp">Salt and Pepper +$2</option>
+              <option value="cajun">Cajun +$3</option>
+              <option value="guys">Seven Guys Style +$3</option>
+              <option value="original">Original Recipie +$3</option>
+            </select>
+          </form>
+
+          <h4>Size</h4>
+          <form action="">
+            <select name="size" id='size' dir="rtl">
+              <option value="small">Small x1</option>
+              <option value="medium">Medium x1.5</option>
+              <option value="large">Large x2</option>
+            </select>
+          </form>
+
+          <div class="submit">
+            <div class="right">
+              <button id="submitBtn" type="button" class="btn btn-primary">Place Your Fantastic Order</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="space"> </div>
+
+        <div class="queue">
+          <h2>Queue</h2>
+          <table class= "table fixed_header" id='tableData'>
+            <tbody>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Fries</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Order #</th>
+              </tr>
+            </tbody>
+          </table>
+          <button id="refresh" type="button" class="btn btn-primary" onclick="refresh()">Refresh</button>
+        </div>
+
+      </div> 
+
+    </div>
+    <div class="center">
+
+    </div>
+
+
+    <script src="js/kioskscripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+  </body>
+
+</html>

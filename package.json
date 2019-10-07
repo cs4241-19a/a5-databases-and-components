@@ -1,0 +1,24 @@
+{
+  "name": "a3-jhyuen",
+  "version": "0.1.0",
+  "description": "",
+  "author": "Joseph Yuen",
+  "scripts": {
+    "start": "node expressserver.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.3.1",
+    "connect-image-optimus": "^0.1.3",
+    "dat.gui": "^0.7.6",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "helmet": "^3.21.0",
+    "lowdb": "^1.0.0",
+    "mime": "^2.4.4",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "response-time": "^2.3.2",
+    "serve-favicon": "^2.5.0"
+  }
+}
