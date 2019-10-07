@@ -9,104 +9,136 @@ var size = document.getElementById('size')
 refreshTable();
 
 // attach submit button object/function to submit button
-window.onload = function() {
-  const button = document.querySelector( '#submitBtn' )
+window.onload = function () {
+  const button = document.querySelector('#submitBtn')
   button.onclick = submit
 }
 
 // add order to server queue table
-const submit = function( e ) {
+const submit = function (e) {
 
-    // prevent default form action from being carried out
-    e.preventDefault()
-    const yourname = document.querySelector( '#name' ),
-          phone = document.querySelector( '#phone' ),
-          potato = document.querySelector( '#potato' ),
-          seasoning = document.querySelector( '#seasoning' ),
-          size = document.querySelector( '#size' )
+  // prevent default form action from being carried out
+  e.preventDefault()
+  const yourname = document.querySelector('#name'),
+    phone = document.querySelector('#phone'),
+    potato = document.querySelector('#potato'),
+    seasoning = document.querySelector('#seasoning'),
+    size = document.querySelector('#size')
 
-   var phonepattern = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  var phonepattern = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
-   if ((yourname.value.length > 20 || !phone.value.match(phonepattern))) {
-      invalidOrder();
-      return;
-    }
+  if ((yourname.value.length > 20 || !phone.value.match(phonepattern))) {
+    invalidOrder();
+    return;
+  }
 
-    const json = { yourname: yourname.value, phone: phone.value, potato: potato.value, seasoning: seasoning.value, size: size.value},
-          body = JSON.stringify( json )
+  const json = { yourname: yourname.value, phone: phone.value, potato: potato.value, seasoning: seasoning.value, size: size.value },
+        body = JSON.stringify(json)
 
-    // order sent to server
-    fetch( '/submit', {
-        method:'POST',
-        body
-    })
+    console.log(body)
 
-    .then( function( response ) {
-      console.log( response )
+  // order sent to server
+  fetch('/submit', {
+    method: 'POST',
+    body
+  })
+
+    .then(function (response) {
+      console.log(response)
 
       // load data into queue table
       refreshTable();
     })
 
-    resetForm();
+  resetForm();
 
-    return false
+  return false
 }
 
 function refreshTable() {
 
   // fetch data
   let data
-    fetch('/orders')
+  fetch('/orders')
     .then(response => response.json())
     .then(data => {
-        console.log("Data from server: ")
-        console.log(data)
+      console.log("Data from server: ")
+      console.log(data)
 
-        // form table and calculate cost
-        createTable(data)
+      // form table and calculate cost
+      createTable(data)
 
     })
     .catch(err => {
-        console.log(err)
+      console.log(err)
     })
+}
+
+// call only first time
+function addAdmin() {
+
+  // fetch data
+  let data
+  fetch('/addUser', {
+    method: 'POST'
+  })
+    .catch(err => {
+      console.log(err)
+    })
+
+    console.log("added admin")
+}
+
+// call only first time
+function addOrder() {
+
+  // fetch data
+  let data
+  fetch('/establishorder', {
+    method: 'POST'
+  })
+    .catch(err => {
+      console.log(err)
+    })
+
+    console.log("establishedorder")
 }
 
 // calculates cost and then adds it to the table
 function createTable(data) {
 
-    var table = document.getElementById('tableData');
-    var cost = 0;
+  var table = document.getElementById('tableData');
+  var cost = 0;
 
-    // clear old table entries except for the first
-    for (var i=table.rows.length-1; i>0; i--) {
-      table.deleteRow(i);
-    }
+  // clear old table entries except for the first
+  for (var i = table.rows.length - 1; i > 0; i--) {
+    table.deleteRow(i);
+  }
 
-    // loop through data, store variables, and calculate cost
-    for (var x=0; x<data.length; x++) {
-        var yourname = (data[x].yourname)
-        var potato = (data[x].potato)
-        var seasoning = (data[x].seasoning)
-        var size = (data[x].size)
-        var ordernum = (data[x].ordernum)
+  // loop through data, store variables, and calculate cost
+  for (var x = 0; x < data.length; x++) {
+    var yourname = (data[x].yourname)
+    var potato = (data[x].potato)
+    var seasoning = (data[x].seasoning)
+    var size = (data[x].size)
+    var ordernum = (data[x].ordernum)
 
-        var cost = calculateCost(potato,seasoning, size);
+    var cost = calculateCost(potato, seasoning, size);
 
-        var food = size + " | " + potato + " | " + seasoning;
+    var food = size + " | " + potato + " | " + seasoning;
 
-        // load data into table
-        var row = table.insertRow(1);
-        var cell0 = row.insertCell(0);
-        var cell1 = row.insertCell(1);
-        var cell2 = row.insertCell(2);
-        var cell3 = row.insertCell(3);
+    // load data into table
+    var row = table.insertRow(1);
+    var cell0 = row.insertCell(0);
+    var cell1 = row.insertCell(1);
+    var cell2 = row.insertCell(2);
+    var cell3 = row.insertCell(3);
 
-        cell0.innerHTML = yourname;
-        cell1.innerHTML = food;
-        cell2.innerHTML = "$" + cost;
-        cell3.innerHTML = ordernum;
-    }
+    cell0.innerHTML = yourname;
+    cell1.innerHTML = food;
+    cell2.innerHTML = "$" + cost;
+    cell3.innerHTML = ordernum;
+  }
 }
 
 // resets form fields
@@ -124,7 +156,7 @@ function calculateCost(potato, seasoning, size) {
   var cost = 0;
 
   // potato keys
-  switch(potato) {
+  switch (potato) {
     case "yellow":
       cost += 3;
       break;
@@ -142,7 +174,7 @@ function calculateCost(potato, seasoning, size) {
   }
 
   // seasoning keys
-  switch(seasoning) {
+  switch (seasoning) {
     case "none":
       cost += 0;
       break;
@@ -169,15 +201,15 @@ function calculateCost(potato, seasoning, size) {
   }
 
   // size keys
-  switch(size) {
+  switch (size) {
     case "small":
-      cost = cost*1;
+      cost = cost * 1;
       break;
     case "medium":
-      cost = cost*1.5;
+      cost = cost * 1.5;
       break;
     case "large":
-      cost = cost*2;
+      cost = cost * 2;
       break;
     default:
       console.log("Size Error");
@@ -195,5 +227,5 @@ function refresh() {
   refreshTable();
 }
 
-console.log("a3-jhyuen-kiosk")
+console.log("a5-jhyuen-kiosk")
 console.log("Welcome to Fantastic Fries!")

@@ -15,7 +15,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // Mongoose
-mongoose.connect('mongodb+srv://user:xuhku7-qecVuk-duksam@cluster0-qa3kc.mongodb.net/admin?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://test:fantastic@cluster0-qa3kc.mongodb.net/hi?retryWrites=true&w=majority', { useNewUrlParser: true });
 
 // schemas
 var orderSchema = new mongoose.Schema({
@@ -171,45 +171,62 @@ db.once('open', function () {
   app.post('/submit', function (request, response) {
 
     let data = request.body
-
+    console.log(data)
     var yourname = (data.yourname)
     var phone = (data.phone)
     var potato = (data.potato)
     var seasoning = (data.seasoning)
     var size = (data.size)
-    var ordernum = -1;
+    var ordernum
+
+    console.log(phone)
 
     // get current ordercount
-    OrderCount.findOne({ count: { $gt: -1 } }, function (err, num) {
+    OrderCount.findOne({ ordercount: { $gt: -1 } }, function (err, num) {
       if (err) console.error(err)
       ordernum = num.ordercount
+
+      // create order object
+      var order = new Order({ yourname: yourname, phone: phone, potato: potato, seasoning: seasoning, size: size, ordernum: ordernum })
+
+      // increment ordercount by 1
+      OrderCount.updateOne({ ordercount: { $gt: -1 } }, { $inc: { ordercount: 1 } }, function (err) {
+        if (err) console.error(err)
+        // save order to Mongo
+        order.save(function (err) {
+          console.log("order added")
+          if (err) return console.error(err);
+          response.writeHead(200, "OK", { 'Content-Type': 'application/json' })
+          response.end()
+        })
+      })
     })
+  })
 
-    // create order object
-    var order = new Order({ yourname: yourname, phone: phone, potato: potato, seasoning: seasoning, size: size, ordernum: ordernum })
+  // POST add admin
+  app.post('/addUser', function (request, response) {
 
-    // increment ordercount by 1
-    OrderCount.updateOne({ ordercount: { $gt: -1 } }, { $inc: { ordercount: 1 } }, function (err) {
-      if (err) console.error(err)
-    })
-
-    // save order to Mongo
-    order.save(function (err) {
-      console.log("order added")
+    // add admin user temporarily
+    var adminUser = new User({ username: 'admin', password: 'fantastic' })
+    adminUser.save(function (err, user) {
       if (err) return console.error(err);
-      response.writeHead(200, "OK", { 'Content-Type': 'application/json' })
+      response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
       response.end()
     })
   })
 
-  // add admin user temporarily
-  var adminUser = new User({ username: admin, password: fantastic })
-  adminUser.save(function (err, user) {
-    if (err) return console.error(err);
-    res.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
-    res.end()
+  app.post('/establishorder', function (request, response) {
+
+    // add admin user temporarily
+    var order = new OrderCount({ ordercount: 1 })
+    order.save(function (err, order) {
+      if (err) return console.error(err);
+      response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
+      response.end()
+    })
   })
-  console.log("added admin user")
+
+
 
 
 
