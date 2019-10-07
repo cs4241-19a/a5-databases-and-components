@@ -1,23 +1,17 @@
 /*
 Created by Elie Hess.
 */
-const low = require('lowdb'),
-    express = require('express'),
+const express = require('express'),
     compression = require('compression'),
     session = require('express-session'),
     passport = require('passport'),
     Local = require('passport-local').Strategy,
-    //FileSync = require('lowdb/adapters/FileSync'),
-    mime = require("mime"),
     helmet = require("helmet"),
     bodyParser = require('body-parser'),
     responseTime = require('response-time'),
     morgan = require('morgan'),
     mongodb = require('mongodb'),
-    //adapter = new FileSync('db.json'),
-    //db = low(adapter),
     app = express(),
-    dir = "public/",
     port = 3000;
 
 app.use(express.static('public'));
@@ -34,35 +28,34 @@ app.use(function (err, req, res, next) {
 const MongoClient = mongodb.MongoClient;
 const uri = "mongodb+srv://admin:admin@a5-eliehess-98hnm.mongodb.net/admin?retryWrites=true&w=majority";
 const client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true});
-let users = null
+let users = null;
 
 client.connect()
     .then(() => {
         return client.db('MTG').createCollection('users')
     })
     .then(__collection => {
-        // store reference to collection
         users = __collection
-        // blank query returns all documents
+        //client.db('MTG').dropDatabase()
         return users.find({}).toArray()
     })
-    .then()
+    .then();
 
 passport.use(new Local(function (username, password, done) {
     users.findOne({username: username}).then((response) => {
         if (!response) {
-            console.log("user not found")
+            console.log("user not found");
             return done(null, false, {
                 message: "user not found"
             });
         } else if (response.password === password) {
-            console.log("user found")
+            console.log("user found");
             return done(null, {
                 username,
                 password
             })
         } else {
-            console.log("incorrect password")
+            console.log("incorrect password");
             return done(null, false, {
                 message: "incorrect password"
             });
@@ -72,7 +65,7 @@ passport.use(new Local(function (username, password, done) {
 
 passport.initialize();
 
-passport.serializeUser((user, done) => done(null, user.username))
+passport.serializeUser((user, done) => done(null, user.username));
 
 passport.deserializeUser((username, done) => {
     users.findOne({
@@ -98,7 +91,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.post('/login', passport.authenticate('local'), function (req, res) {
-    console.log('user: ', req.user)
+    console.log('user: ', req.user);
     res.json({
         status: true
     })
@@ -114,22 +107,20 @@ app.get('/getdata', (req, res) => {
             res.send(JSON.stringify({
                 data: result
             }));
-            //console.log("get: " + result)
         })
     }
-})
+});
 
 app.post('/update', function (req, res) {
     const updatedEntry = {
         "firstname": req.body.firstname,
         "lastname": req.body.lastname,
         "username": req.body.username,
-        "password": req.body.password,
-        _id: makeid(req.body.username)
+        "password": req.body.password
     };
 
-    users.deleteOne({_id: mongodb.ObjectID(updatedEntry._id)})
-    users.insertOne(updatedEntry).then(() => {
+    users.updateOne({username: req.body.username},
+        {$set: updatedEntry}).then(() => {
         res.writeHead(200, "OK", {
             "Content-Type": "text/plain"
         });
@@ -142,33 +133,26 @@ app.post('/submit', function (req, res) {
         "firstname": req.body.firstname,
         "lastname": req.body.lastname,
         "username": req.body.username,
-        "password": req.body.password,
-        _id: makeid(req.body.username)
+        "password": req.body.password
     };
 
-    //db.get('members').push(newMember).write();
     users.insertOne(newMember).then(() => {
         res.writeHead(200, "OK", {
             "Content-Type": "text/plain"
         });
         res.end();
     })
-})
+});
 
 app.post('/delete', function (req, res) {
-    users.deleteOne({_id: mongodb.ObjectID(req.body._id)})
-        .then(result => res.json(result))
+    console.log("delete " + req.body.username)
+    users.deleteOne({username: req.body.username})
+        .then(result => {
+            res.json(result)
+        })
 });
 
 app.listen(process.env.PORT || port, function () {
     console.log("Server running on port " + port);
     console.log("Press Ctrl + C to stop");
 });
-
-const makeid = function (str) {
-    let fin = 0
-    str.split('').forEach(function (c) {
-        fin += c.charCodeAt(0)
-    });
-    return fin
-}

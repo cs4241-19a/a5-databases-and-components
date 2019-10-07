@@ -13,7 +13,7 @@
 <h3 id="loggedin"></h3>
 
 <main>
-    <button id="backtologinButton">Log in</button>
+    <button id="backtologinButton">Back to login</button>
     <button id="logoutButton">Log Out</button>
     <button id="switchModeButton">View Members</button>
 
@@ -126,6 +126,8 @@
 </body>
 
 <script>
+    let currentUsername = null;
+
     const addMember = async function (e) {
         e.preventDefault();
 
@@ -264,18 +266,41 @@
         for (let i = 0; i < memberList.length; i++) {
             const member = memberList[i];
             const str = JSON.stringify(memberList[i]);
-            table.innerHTML += "<tr>\n" +
-                `<td> ${member.firstname} </td>\n` +
-                `<td> ${member.lastname} </td>\n` +
-                `<td> ${member.username} </td>\n` +
-                `<td> ${member.password} </td>\n` +
-                `<td> <button id="updateMemberButton-${i}" style="font-size: 1vw"` +
-                ` onclick="showUpdate(${i})" data-string=` +
-                encodeURIComponent(str) + `>Update</button> </td>\n` +
-                `<td> <button id="deleteMemberButton-${i}" style="font-size: 1vw"` +
-                ` onclick="deleteMember(${i})" data-string=` +
-                encodeURIComponent(str) + `>Delete</button> </td>\n` +
-                "</tr>";
+            if (member.username === "admin") {
+                table.innerHTML += "<tr>\n" +
+                    `<td> ${member.firstname} </td>\n` +
+                    `<td> ${member.lastname} </td>\n` +
+                    `<td> ${member.username} </td>\n` +
+                    `<td> ${member.password} </td>\n` +
+                    `<td> <button id="updateMemberButton-${i}" style="font-size: 1vw"` +
+                    ` onclick="showUpdate(${i})" data-string=` +
+                    encodeURIComponent(str) + `>Update</button> </td>\n` +
+                    `<td></td>\n` +
+                    "</tr>";
+            } else if (currentUsername === "admin" || currentUsername === member.username) {
+                table.innerHTML += "<tr>\n" +
+                    `<td> ${member.firstname} </td>\n` +
+                    `<td> ${member.lastname} </td>\n` +
+                    `<td> ${member.username} </td>\n` +
+                    `<td> ${member.password} </td>\n` +
+                    `<td> <button id="updateMemberButton-${i}" style="font-size: 1vw"` +
+                    ` onclick="showUpdate(${i})" data-string=` +
+                    encodeURIComponent(str) + `>Update</button> </td>\n` +
+                    `<td> <button id="deleteMemberButton-${i}" style="font-size: 1vw"` +
+                    ` onclick="deleteMember(${i})" data-string=` +
+                    encodeURIComponent(str) + `>Delete</button> </td>\n` +
+                    "</tr>";
+            } else {
+                table.innerHTML += "<tr>\n" +
+                    `<td> ${member.firstname} </td>\n` +
+                    `<td> ${member.lastname} </td>\n` +
+                    `<td> ${member.username} </td>\n` +
+                    `<td> **** </td>\n` +
+                    `<td> </td>\n` +
+                    `<td> </td>\n` +
+                    "</tr>";
+            }
+
         }
         return false;
     };
@@ -286,8 +311,8 @@
         const eBox = document.getElementById("loginErrorBox");
 
         if (username === "" || password === "") {
-            eBox.innerHTML = "Please enter both a username and a password"
-            eBox.style.display = "block"
+            eBox.innerHTML = "Please enter both a username and a password";
+            eBox.style.display = "block";
             return;
         } else {
             eBox.style.display = "none"
@@ -296,8 +321,8 @@
         let loginData = {
             username: username,
             password: password
-        }
-        body = JSON.stringify(loginData)
+        };
+        let body = JSON.stringify(loginData);
 
         fetch('/login', {
             method: 'POST',
@@ -307,8 +332,8 @@
             }
         }).then(function (response) {
             if (response.status === 401) {
-                eBox.style.display = "block"
-                eBox.innerHTML = "Incorrect username or password"
+                eBox.style.display = "block";
+                eBox.innerHTML = "Incorrect username or password";
             } else if (response.status === 200) {
                 success(username);
             } else {
@@ -321,9 +346,10 @@
         document.getElementById("loggedin").innerHTML = "Logged in as " + username;
         document.getElementById("usernameLogin").innerHTML = "";
         document.getElementById("passwordLogin").innerHTML = "";
+        currentUsername = username;
         hideAll();
         showApplication();
-    }
+    };
 
     const hideAll = function () {
         document.getElementById("loginScreen").style.display = "none";
@@ -354,6 +380,7 @@
     };
 
     const showLogin = function () {
+        currentUsername = null;
         hideAll();
         clear();
         document.getElementById("loginScreen").style.display = "block";
@@ -372,7 +399,7 @@
         hideAll();
         document.getElementById("application").style.display = "block";
         document.getElementById("backtologinButton").style.display = "block";
-    }
+    };
 
     const showApplication = function () {
         document.getElementById("errorBox").style.display = "none";
