@@ -55,8 +55,10 @@ app.use( require('express-session')({ secret:'cats cats cats', resave:false, sav
 app.get( '/', (req,res) => {
   if( collection !== null ) {
     // get array and pass to res.json
-    collection.find({ }).toArray().then( result => res.json( result ) )
-    res.render('home.html')
+    const getMovies = async function(){
+      await collection.find({ }).toArray().then( result => res.json( result ) )
+    }
+     res.sendFile('views/home.html', {root: __dirname});
   }
 })
 /*
