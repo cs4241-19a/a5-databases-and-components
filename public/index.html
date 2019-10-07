@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3 - Persistence</title>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="stylesheets/style.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <h1 id="home">
+      Travel Destinations
+    </h1>
+    <div id="homeButtons">
+      <button type="button" id="viewButton1" class="showButton">
+        View Destinations
+      </button>
+      <button type="button" id="addButton1" class="showButton">
+        Add Destinations
+      </button>
+    </div>
+    <div class="image" id="vaca"></div>
+    <button type="button" id="loginButton">Login/Create</button>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>Log In</div>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            Username: <input type="text" id="username" /><br /><br />
+            Password: <input type="text" id="password" /><br /><br />
+          </form>
+          <button type="button" id="usersubmit">
+            Log In</button
+          ><button type="button" id="useradd">
+            Add User
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    //did user login yet
+    success = 0;
+
+    //check if user has logged in
+    checklogged();
+
+    //active when user clicks add destination
+    $("#addButton1").click(function() {
+      window.location.href = "sites.html";
+    });
+    //active when user clicks view destinations
+    $("#viewButton1").click(function() {
+      window.location.href = "view.html";
+    });
+
+    //create span and modal variables
+    let span = document.getElementsByClassName("close")[0];
+    let modal = document.getElementById("myModal");
+
+    //active when user clicks login/create
+    $(document).on("click", "#loginButton", function() {
+      modal.style.display = "block";
+      username.value = "";
+      password.value = "";
+    });
+
+    //active when user clicks on span
+    span.onclick = function() {
+      modal.style.display = "none";
+    };
+
+    //active when user clicks off modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+
+    //active when user clicks login on modal
+    $(document).on("click", "#usersubmit", function() {
+      userdata = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value
+      };
+
+      stringdata = JSON.stringify(userdata);
+      login();
+    });
+
+    //active when user clicks add user on modal
+    $(document).on("click", "#useradd", function() {
+      userdata = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value
+      };
+
+      stringdata = JSON.stringify(userdata);
+      fetch("/add", {
+        method: "POST",
+        body: stringdata,
+        headers: { "Content-Type": "application/json" }
+      })
+        .then((info = res => res.json()))
+        .then(console.log());
+    });
+
+    //logs user in by checking db for credentials
+    function login() {
+      fetch("/login", {
+        method: "POST",
+        body: stringdata,
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(result => console.log(result))
+        .then(() => checklogged());
+    }
+
+    //continuation of login()
+    function checklogged() {
+      fetch("/usernamechange", {
+        method: "GET"
+      })
+        .then(function(response) {
+          return response.text();
+        })
+        .then(text => changeUN(text))
+        .then((success = 1));
+    }
+
+    //changes username on bottom of screen
+    function changeUN(text) {
+      if (success === 1 && text.length < 50) {
+        let buttonuser = document.getElementById("loginButton");
+        textShow = text.split(" ");
+        buttonuser.innerHTML = textShow;
+        modal.style.display = "none";
+      }
+    }
+
+    //cookie
+    fetch("/test", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(console.log)
+      .catch(err => console.error);
+  </script>
+</html>

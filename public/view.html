@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3 - Persistence</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="stylesheets/style.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+
+  <body id="viewBody">
+    <h1>
+      Travel Destinations
+    </h1>
+    <div id="homeButtons">
+      <button type="button" id="homePage" class="showButton">
+        Home Page
+      </button>
+      <button type="button" id="addButton1" class="showButton">
+        Add Destinations
+      </button>
+    </div>
+    <div id="vacabg" class="image"></div>
+    <div id="viewPage"></div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>Update Destination Information</div>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form action="" id="clearform">
+            <br />Rating:
+            <input
+              type="number"
+              id="ctrate"
+              max="5"
+              min="1"
+              value="1"
+            /><br /><br />
+            <textarea
+              placeholder="Description:"
+              type="text"
+              id="desc"
+            ></textarea
+            ><br /><br />
+          </form>
+          <button type="button" id="usersubmit">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    //active when user clicks add destination
+    $("#addButton1").click(function() {
+      window.location.href = "sites.html";
+    });
+
+    //active when user clicks home page
+    $("#homePage").click(function() {
+      window.location.href = "index.html";
+    });
+
+    //gets info from database and displays it
+    fetch("/view", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(function(response) {
+        return response.text();
+      })
+      .then(text => showDest(text));
+
+    function showDest(text) {
+      let data = JSON.parse(text);
+      let currentDiv = document.getElementById("viewPage");
+      for (let i = 0; i < data.length; i++) {
+        let city = data[i].city;
+        let state_ = data[i].state_;
+        let desc = data[i].desc;
+        let rating = data[i].rating;
+        let user_ = data[i].user_;
+        let uid = data[i].uid;
+
+        let space = document.createTextNode("<br/>");
+        let newDiv = document.createElement("div");
+
+        let newcityDiv = document.createElement("div");
+        let newdescDiv = document.createElement("div");
+        let newrateDiv = document.createElement("div");
+
+        let removeButton = document.createElement("button");
+        let modifyButton = document.createElement("button");
+
+        newDiv.setAttribute("class", "viewer");
+        newDiv.setAttribute("class", "flex-container");
+
+        removeButton.setAttribute("id", uid);
+        removeButton.setAttribute("class", "removeButton");
+        modifyButton.setAttribute("id", "modify" + uid);
+        modifyButton.setAttribute("class", "modifyButton");
+
+        newcityDiv.innerHTML = "<p>" + city + ", " + state_ + "</p>";
+        newdescDiv.innerHTML = "<p>" + desc + "</p>";
+        newrateDiv.innerHTML =
+          "<p>" + "Rated " + rating + "/5 by " + user_ + "</p>" + "<br/>";
+        removeButton.innerHTML = "<p>" + "Remove" + "</p>";
+        modifyButton.innerHTML = "<p>" + "Modify" + "</p>";
+        newDiv.appendChild(newcityDiv);
+        newDiv.appendChild(newdescDiv);
+        newDiv.appendChild(newrateDiv);
+
+        fetch("/usernameget", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" }
+        })
+          .then(function(response) {
+            return response.text();
+          })
+          .then(text => removeadd(text));
+
+        function removeadd(text) {
+          let dataparsed = JSON.parse(text);
+          currentusername = dataparsed[0].username;
+          if (currentusername == user_ || currentusername == "admin") {
+            newDiv.appendChild(modifyButton);
+            newDiv.appendChild(removeButton);
+          }
+        }
+
+        insertAfter(newDiv, currentDiv);
+        currentDiv = newDiv;
+      }
+    }
+
+    //function that inserts nodes after another node
+    function insertAfter(el, referenceNode) {
+      referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+    }
+
+    //active when user clicks a remove button
+    $(document).on("click", ".removeButton", function() {
+      data = {
+        uid: this.id
+      };
+
+      fetch("/remLoc", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(console.log)
+        .catch(err => console.error);
+
+      parent = document.getElementById("viewBody");
+      child = document.getElementById(this.id).parentNode;
+      parent.removeChild(child);
+    });
+
+    let span = document.getElementsByClassName("close")[0];
+    let modal = document.getElementById("myModal");
+    let blockid = "";
+
+    //active when user clicks a modify button
+    $(document).on("click", ".modifyButton", function() {
+      modal.style.display = "block";
+      blockid = this.id;
+    });
+
+    //active when user clicks span on modify modal
+    span.onclick = function() {
+      modal.style.display = "none";
+      blockid = "";
+    };
+
+    //active when user clicks window off modify modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+        blockid = "";
+      }
+    };
+
+    //active when user clicks submit on modify modal
+    $(document).on("click", "#usersubmit", function() {
+      subuid = blockid.substring("modify".length);
+      moddata = {
+        rating: document.getElementById("ctrate").value,
+        desc: document.getElementById("desc").value,
+        uid: subuid
+      };
+      blockid = "";
+      fetch("/modLoc", {
+        method: "POST",
+        body: JSON.stringify(moddata),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(console.log)
+        .catch(err => console.error);
+      modal.style.display = "none";
+      location.reload();
+    });
+  </script>
+</html>
