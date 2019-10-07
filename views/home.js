@@ -90,8 +90,8 @@ const deleteEntry = function(e){
 
 //function to make table appear 
 const displayTable = function( json ) {
-    console.log( json )
-
+    //console.log( json )
+   console.log( "display table was called")
     var col = [];
     for (var i = 0; i < json.length; i++) {
       for (var key in json[i]) {
