@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>CS4241 Assignment 2</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <script src="client.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="style.css">  
+    <script>
+    </script>
+    <meta charset="utf-8">
+</head>
+<body onload="showAll()">
+    <div id="background">
+        <h1>
+            Fake Sushi Website!
+        </h1>
+        <div id="foreground">
+
+            <div class="navbar">
+                <!--NavBar-->
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        Menu
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a id="nav-order" onclick="window.location='/'">Order</a>
+                        <a id="all-order" onclick="window.location='/viewOrders'">All Orders</a>
+                         <!--<a id="login" onclick="window.location='/login'">Login</a>-->
+                        <a id="logout" onclick="window.location='/logout'">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <!--NavBar-->
+            <!-- Show Order Screen -->
+            <div id="showAllOrder">
+                <table id="ticketboard" border="1" style="width:100%">
+                    <caption>Your Order</caption>
+                    <tr>
+                        <th>Fish</th>
+                        <th>Style</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </div>
+
+
+            <div id="modOrderForm">
+                <form action="/modify" method="POST">
+                    <div class="form-input" style="margin-right:20px;">
+
+                        <!-- Customer Info-->
+                        <label for="yourname" class="form-label">Name</label>
+                        <input class="text" type="text" name="name" id="yourname" required>
+                    </div>
+
+                    <div class="form-input" style="float:left;">
+                        <label for="yourphone" class="form-label">Phone Number</label>
+                        <input class="text" type="number" name="phone" id="phone" required>
+                    </div>
+
+                    <!-- Sushi Order -->
+                    <div class="form-input" role="radiogroup" aria-label="fish-type">
+                        <p class="form-label" id="fish-label">What fish would you like?</p>
+                        <input type="radio" checked id="salmon" name="fish" value="salmon">
+                        <label class="radio" for="salmon">Salmon</label>
+                        <input type="radio" id="tuna" name="fish" value="tuna">
+                        <label for="tuna">Tuna</label>
+                    </div>
+
+                    <div class="form-input" role="radiogroup" aria-label="fish-type">
+                        <p class="form-label" id="dish-label">How do you want it?</p>
+                        <input type="radio" checked id="sashimi" name="style" value="sashimi">
+                        <label for="sashimi">Sashimi</label>
+                        <input type="radio" id="sushi" name="style" value="sushi">
+                        <label for="sushi">Sushi</label>
+                    </div>
+
+                    <div class="form-input">
+                        <label for="number-order" class="form-label">How many orders?</label>
+                        <input class="text" type="number" name="amount" id="number-order" required>
+                    </div>
+                <div class="form-input"  style = "display:none">
+                    <label for="number-order" class="form-label">Order ID</label>
+                    <input class="text" type="text" id="orderID" name="orderID" readonly="readonly">
+                </div>
+                
+                  <input type="submit" value="Modify">
+                </form>
+
+
+
+            </div>
+
+
+        </div><!--forground-->
+
+    </div><!--background-->
+</body>
+
+</html>

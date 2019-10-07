@@ -1,0 +1,127 @@
+{
+  "tickets": [
+    {
+      "username": "jimmy",
+      "name": "First Customer",
+      "phone": 5088315000,
+      "fish": "salmon",
+      "style": "sashimi",
+      "amount": 5,
+      "price": 74,
+      "orderID": 1
+    },
+    {
+      "username": "tester",
+      "name": "Second Cust",
+      "phone": 5088315000,
+      "fish": "salmon",
+      "style": "sashimi",
+      "amount": 5,
+      "price": 69,
+      "orderID": 0
+    },
+    {
+      "name": "hi",
+      "phone": 324,
+      "fish": "salmon",
+      "style": "sashimi",
+      "amount": 3,
+      "price": 9,
+      "orderID": 3
+    },
+    {
+      "name": "Hello",
+      "phone": 3215,
+      "fish": "salmon",
+      "style": "sashimi",
+      "amount": 124,
+      "price": 372,
+      "orderID": 4
+    },
+    {
+      "name": "deafeaf",
+      "phone": 932,
+      "fish": "salmon",
+      "style": "sashimi",
+      "amount": 33,
+      "price": 99,
+      "orderID": 5
+    },
+    {
+      "username": "Jimmy",
+      "name": "hii",
+      "phone": 3232,
+      "fish": "salmon",
+      "style": "sashimi",
+      "amount": 3242,
+      "price": 9726,
+      "orderID": 6
+    },
+    {
+      "username": "Jimmy",
+      "name": "hghe",
+      "phone": 832,
+      "fish": "salmon",
+      "style": "sashimi",
+      "amount": 235,
+      "price": 705,
+      "orderID": 7
+    },
+    {
+      "username": "Jimmy",
+      "name": "fd",
+      "phone": 23,
+      "fish": "tuna",
+      "style": "sashimi",
+      "amount": 66,
+      "price": 330,
+      "orderID": 8
+    },
+    {
+      "username": "ta",
+      "name": "ta",
+      "phone": 5555555,
+      "fish": "salmon",
+      "style": "sashimi",
+      "amount": 5,
+      "price": 15,
+      "orderID": 9
+    }
+  ],
+  "users": [
+    {
+      "username": "Jimmy",
+      "password": "jimmy"
+    },
+    {
+      "username": "tester",
+      "password": "test"
+    },
+    {
+      "username": "Again",
+      "password": "nope"
+    },
+    {
+      "username": "jimmy",
+      "password": "lol"
+    },
+    {
+      "username": "bcrypttest"
+    },
+    {
+      "username": "bcrypttest2"
+    },
+    {
+      "password": "$2b$10$RF.49D0dFKWgpZOl.yikEuQuG6tO.D4qBAaDD06TWM4yU0Uz7jsDC"
+    },
+    {
+      "username": "bcrypttest4",
+      "password": "$2b$10$39CvsJbq1zaLSxHPdhm2feOAbED0Ka1.VOkzbtno173p981BCm9zm"
+    },
+    {
+      "username": "ta",
+      "password": "$2b$10$gpXSBPfJkZ036eYi.FlqjOV3gmGf44RWUiOYuCzdrfpM3dPaivqcy"
+    }
+  ],
+  "count": 10
+}

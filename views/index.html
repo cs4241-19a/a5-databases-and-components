@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>CS4241 Assignment 2</title>
+    <!--<link href="style.css" rel="stylesheet" type="text/css">-->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+   <link rel="stylesheet" href="style.css">  
+  <script src="client.js" type="text/javascript"></script>
+
+    <meta charset="utf-8">
+</head>
+<body>
+
+    <div id="background">
+        <h1>
+            Fake Sushi Website!
+        </h1>
+        <div id="foreground">
+
+            <div class="navbar">
+                <!--NavBar-->
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        Menu
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a id="nav-order" onclick="window.location='/'">Order</a>
+                        <a id="all-order" onclick="window.location='/viewOrders'">All Orders</a>
+                         <!--<a id="login" onclick="window.location='/login'">Login</a>-->
+                      <a id="logout" onclick="window.location='/logout'">Logout</a>
+                        
+                    </div>
+                </div>
+            </div>
+            <!--NavBar-->
+
+            <div id="content">
+
+
+
+                <!-- Order DIV -->
+                <div id="orderForm">
+                    <form action="/submit" method="POST">
+                        <div class="form-input" style="margin-right:20px;">
+
+                            <!-- Customer Info-->
+                            <label for="yourname" class="form-label">Name</label>
+                            <input class="text" type="text" name="name" id="yourname" required>
+                        </div>
+
+                        <div class="form-input" style="float:left;">
+                            <label for="yourphone" class="form-label">Phone Number</label>
+                            <input class="text" type="number" name="phone" id="phone" required>
+                        </div>
+
+                        <!-- Sushi Order -->
+                        <div class="form-input" role="radiogroup" aria-label="fish-type">
+                            <p class="form-label" id="fish-label">What fish would you like?</p>
+                            <input type="radio" checked id="salmon" name="fish" value="salmon">
+                            <label class="radio" for="salmon">Salmon</label>
+                            <input type="radio" id="tuna" name="fish" value="tuna">
+                            <label for="tuna">Tuna</label>
+                        </div>
+
+                        <div class="form-input" role="radiogroup" aria-label="fish-type">
+                            <p class="form-label" id="dish-label">How do you want it?</p>
+                            <input type="radio" checked id="sashimi" name="style" value="sashimi">
+                            <label for="sashimi">Sashimi</label>
+                            <input type="radio" id="sushi" name="style" value="sushi">
+                            <label for="sushi">Sushi</label>
+                        </div>
+
+                        <div class="form-input">
+                            <label for="number-order" class="form-label">How many orders?</label>
+                            <input class="text" type="number" name="amount" id="number-order" required>
+                        </div>
+                      <input type="submit" value="Submit">  
+                    </form>
+
+                </div>
+
+
+                <!-- Find Order by ID -->
+                <div id="findOrderForm">
+                    <div class="form-input">
+                        <label for="order-number" class="form-label">Enter your Order Number!</label>
+                        <input class="text" type="number" id="order-number" required>
+                    </div>
+                    <button type="button" class="findorder">Find Order</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--
+    <form action="">
+      <input type="text" id="yourname" value="your name here">
+      <button>submit</button>
+    </form>
+    -->
+</body>
+
+</html>
