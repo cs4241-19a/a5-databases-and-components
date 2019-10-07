@@ -1,0 +1,94 @@
+{
+  "appdata": [
+    {
+      "user": "admin",
+      "itemName": "undefined",
+      "category": "undefined",
+      "list": "undefined",
+      "oneRetailerOnly": "undefined",
+      "URL": "undefined"
+    },
+    {
+      "user": "admin",
+      "itemName": "Lenovo Legion Y740",
+      "category": "Electronics & Computers",
+      "list": "want",
+      "oneRetailerOnly": "No",
+      "URL": "https://lnv.gy/2lRz8a3"
+    },
+    {
+      "user": "admin",
+      "itemName": "Alienware Aurora R8 Desktop",
+      "category": "Electronics & Computers",
+      "list": "need",
+      "oneRetailerOnly": "Yes",
+      "URL": "https://dell.to/2mgSaHc"
+    },
+    {
+      "user": "123456",
+      "itemName": "fefe",
+      "category": "Home & Kitchen",
+      "list": "need",
+      "oneRetailerOnly": "yes",
+      "URL": "3232dw"
+    },
+    {
+      "user": "123456",
+      "itemName": "",
+      "category": "",
+      "list": "need",
+      "oneRetailerOnly": "yes",
+      "URL": ""
+    },
+    {
+      "user": "123456",
+      "itemName": "",
+      "category": "",
+      "list": "need",
+      "oneRetailerOnly": "yes",
+      "URL": ""
+    },
+    {
+      "user": "eos7l",
+      "itemName": "0",
+      "category": "",
+      "list": "need",
+      "oneRetailerOnly": "yes",
+      "URL": ""
+    },
+    {
+      "user": "",
+      "itemName": "",
+      "category": "",
+      "list": "need",
+      "oneRetailerOnly": "yes",
+      "URL": ""
+    }
+  ],
+  "users": [
+    {
+      "username": "swain",
+      "password": "cain"
+    },
+    {
+      "username": "eos7l",
+      "password": "swdw"
+    },
+    {
+      "username": "admin",
+      "password": "CS4241"
+    },
+    {
+      "username": "1234",
+      "password": "1234"
+    },
+    {
+      "username": "123456",
+      "password": "987"
+    },
+    {
+      "username": "sas",
+      "password": "sqsq"
+    }
+  ]
+}

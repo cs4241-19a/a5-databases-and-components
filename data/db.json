@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "username": "swain",
+      "password": "cain"
+    },
+    {
+      "username": "eos7l",
+      "password": "swdw"
+    }
+  ],
+  "appdata": [
+    {
+      "itemName": "undefined",
+      "category": "undefined",
+      "list": "undefined",
+      "URL": "cs",
+      "specifiedRetailerOnly": "undefined"
+    },
+    {
+      "itemName": "xs",
+      "category": "HK",
+      "list": "need",
+      "URL": "xs"
+    },
+    {
+      "itemName": "xs",
+      "category": "HK",
+      "list": "need",
+      "URL": "xs"
+    },
+    {
+      "itemName": "xs",
+      "category": "HK",
+      "list": "need",
+      "URL": "xs"
+    }
+  ]
+}

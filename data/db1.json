@@ -1,0 +1,30 @@
+{
+  "appdata": [
+    {
+      "user": "admin",
+      "itemName": "Givenchy Small GV3 Leather Shoulder Bag",
+      "category": "Clothes & Handbags",
+      "list": "want",
+      "oneRetailerOnly": "No",
+      "URL": "http://bit.ly/2md33JW"
+    },
+    {
+      "user": "admin",
+      "itemName": "vwvr",
+      "category": "Health & Beauty",
+      "list": "need",
+      "oneRetailerOnly": "yes"
+    }
+  ],
+  "users": [
+    {
+      "username": "swain",
+      "password": "cain"
+    },
+    {
+      "username": "eos7l",
+      "password": "swdw"
+    },
+    null
+  ]
+}
