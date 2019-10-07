@@ -1,38 +1,12 @@
-Assignment 5 - Databases and/or Components
-===
+## Triage v2.0
 
-Due: October 7th, by 11:59 AM.
+Try it out at https://a5-jcharante.glitch.me
 
-For this assignment you will complete one of the following tasks, based on your prior experience with the various technologies involved.
 
-1. Rework the server component from Assignment #3 to use MongoDB or some other NoSQL database (like CouchDB). You can remove Passport authentication if you choose, although this might be as much work as simply changing your Passport calls to use MongoDB.
-2. Rework the client component from Assignment #3 to use Svelte in some capacity.
-3. Rework the client component from Assignmeent #3 to use React in some capacity.
+Web App Source Code: https://github.com/JCharante/triage-spa-v2
 
-For 2 and 3, make sure to look at [the notes from lecture 10](https://github.com/cs4241-19a/materials/blob/master/lecture10.markdown).
+API Server Source Code: https://github.com/JCharante/triage-server-v2
 
-This is really a chance for you to experiment with some additional web technologies that the prior assignments haven't covered yet: non-flatfile databases and web component frameworks.
+Triage helps you keep track of tasks you have to do. It has support for recommended deadlines, and hard deadlines, as for many classes they have recommend doing certain problems after lecture but may only collect homework once a week. There's support for multiple levels of importance and for difficulty. It uses all of the just mentioned filed to calculate a priority score, which is displayed on the web app and is used to sort the list of tasks. This differentiates itself from other existing options.
 
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku etc.), however, you must include all files in your GitHub repo so that the course staff can view them; these files are not available for viewing in many hosting systems.
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a5-yourname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a5-gitname-firstname-lastname`.
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your hosting link e.g. http://a5-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+I went for #1. I already used MongoDB for assignment 3, so I made the necessary modifications to use another NoSQL Database. I chose to use DocumentDB. Forunately, DocumentDB is API compatible with MongoDB, so it did not require any changes other than changing an environmental variable with the new URI. Unfortunately, DocumentDB is also very expensive, so please grade this quickly. Since it is API compatible with MongoDB, this new technology literally made no difference, actually, the set up was a pain because it's annoying to disable TLS because I don't want to deal with setting up a certificate. I did not edit the print statements in the console, because I don't want to change them back once the assignment is over, I suppose that future work could involve clarifying that we `connected to a MongoDB compatible cluster`.
