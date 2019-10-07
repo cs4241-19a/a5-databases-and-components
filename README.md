@@ -11,4 +11,4 @@ Due: October 7th, by 11:59 AM.
 
 your hosting link e.g. http://a5-cmcourville.glitch.me
 
-Personalized library of books. Modified with the requirements of mongodb, Svelte, and React. The technology kinda hindered the dev experience but its ok lol. 
+Personalized library of books. Modified with the requirements of mongodb, Svelte, and React. The application has a login view, client view and an admin view. You can see books added, edit the books, and add users. The technology kinda hindered the develement experience but its ok. 
