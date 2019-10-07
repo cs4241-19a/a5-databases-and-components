@@ -125,7 +125,6 @@ app.post( '/add', (req,res) => {
 
 /////////////////////////////////////////////////////////////////////////////
 let userData = null;
-//let orderData = null;
 
 client.connect()
   .then(()=>{
@@ -213,7 +212,7 @@ app.post('/update', function (request, response) {
         shots: parseInt(playerToUpdate.shots),
         goals: parseInt(playerToUpdate.goals),
       }}
-    ).then(result => console.log(thisUser.username));//orderToUpdate.index));
+    ).then(result => console.log(thisUser.username));
 
     response.writeHead( 200, "OK", {'Content-Type': 'application/json' });
     response.end();
