@@ -15,6 +15,9 @@ This data is organized in a table where customers can modify or delete their ord
 this functionality. MongoDB was much easier to use that lowdb, which I used in my previous assignment. The process
 seemed more straightforward and gave me less of a headache to implement.
 
+The functionality that works using MongoDB is that you can create an account and see that new account information 
+in the console.
+
 Login Credentials:
 Username: amanda,
 Password: helloworld
