@@ -1,0 +1,45 @@
+{
+  "name": "a5-databases-and-components",
+  "description": "assignment 5 databases and components",
+  "author": "Hunter Caouette",
+  "scripts": {
+    "start": "npm-run-all browserify startserver",
+    "browserify": "browserify -r ./public/js/cart.js:Cart -r ./public/js/scripts.js:loadScript -o ./bundle.js",
+    "startserver": "node index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.4",
+    "cookie-session": "^1.3.3",
+    "dat.gui": "^0.7.6",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "helmet": "^3.21.1",
+    "lowdb": "^1.0.0",
+    "mime": "^2.4.4",
+    "morgan": "^1.9.1",
+    "neo4j-driver": "^1.7.6",
+    "npm-run-all": "^4.1.5",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "passport-oauth": "^1.0.0",
+    "serve-favicon": "^2.5.0",
+    "ytdl-core": "^0.29.7"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "browserify": "^16.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hcaouette/a3-persistence.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hcaouette/a3-persistence/issues"
+  },
+  "homepage": "https://github.com/hcaouette/a3-persistence#readme"
+}
