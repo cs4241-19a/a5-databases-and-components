@@ -1,0 +1,45 @@
+
+
+body {
+  padding: 20px;
+  font-family: 'Menlo';
+  font-weight: bold;
+  color: black;
+  font-size: 16px;
+  text-align: center;
+}
+/* Requirement: Horizontally Centered element */
+h1 {
+  color: black;
+  text-align: center;
+  font-family: 'Menlo';
+  font-size: 50px;
+	  
+}
+
+/* The sidebar menu */
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 350px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: gray; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
+p {
+	font-size: 16px;
+	
+}
+
+.playingCards {
+	margin-left: 350px; /* Same as the width of the sidebar */
+	padding: 0px 10px;
+	
+}
+
+
+
