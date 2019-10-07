@@ -2,9 +2,6 @@ Assignment 5 - Databases and/or Components
 
 ## Football Stats Tracker
 
-https://a5-sdandeneau10.glitch.me
+https://sdandeneau10-a5-databases-and-components.glitch.me
 
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+My project is a simple app to track football stats over the course of a game. I changed a3 to incorporate MongoDB. I did not notice a difference in the development experience using this technology. I am still indifferent towards lowdb/MongoDB and do not have a preference between the two.
