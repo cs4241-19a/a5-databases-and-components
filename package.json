@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "node server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "helmet": "^3.21.0",
     "logger": "0.0.1",
     "lowdb": "^1.0.0",
+    "mongodb": "^3.3.2",
     "morgan": "^1.9.1",
     "npm": "^6.11.3",
     "passport": "^0.4.0",

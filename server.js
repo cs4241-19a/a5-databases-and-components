@@ -13,7 +13,7 @@ let collection = null
 client.connect()
   .then( () => {
     // will only create collection if it doesn't exist
-    return client.db( 'test' ).createCollection( 'todos' )
+    return client.db( 'users' ).createCollection( 'movies' )
   })
   .then( __collection => {
     // store reference to collection
