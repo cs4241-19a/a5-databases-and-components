@@ -15,6 +15,7 @@
 <main>
     <button id="backtologinButton">Back to login</button>
     <button id="logoutButton">Log Out</button>
+    <br>
     <button id="switchModeButton">View Members</button>
 
     <div id="application">
@@ -348,7 +349,8 @@
         document.getElementById("passwordLogin").innerHTML = "";
         currentUsername = username;
         hideAll();
-        showApplication();
+        //showApplication();
+        showMemberTable()
     };
 
     const hideAll = function () {
