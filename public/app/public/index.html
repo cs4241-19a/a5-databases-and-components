@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Secure Note</title>
+    <meta charset="utf-8" />
+    <link href="./css/style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="title">
+          <h1>Welcome to Secure Note!</h1>
+        </div>
+      </header>
+      <main>
+        <div id="login">
+          <h2>Login to gain access</h2>
+          <form action="">
+            <div class="input">
+              <label for="login-username" class="label">Username:</label>
+              <input type="text" id="login-username" required />
+            </div>
+
+            <div class="input">
+              <label for="password" class="label">Password:</label>
+              <input type="text" id="password" required />
+            </div>
+
+            <div id="login-button">
+              <button>Login</button>
+            </div>
+          </form>
+        </div>
+        <div class="navPane">
+          <nav class="link">
+            <a id="new-note-link" aria-label="Create a New Note"> </a>
+            <a id="current-notes-link" aria-label="See all of your notes here">
+              Click here to see all of your notes
+            </a>
+          </nav>
+        </div>
+        <div id="form">
+          <h2>Create your secret note!</h2>
+          <form action="">
+            <div class="input">
+              <label for="username" class="label">Name:</label>
+              <input type="text" id="username" required />
+            </div>
+            <div class="input">
+              <label for="noteEntry" class="label">Note:</label>
+              <input type="text" id="noteEntry" required />
+            </div>
+            <div class="input">
+              <label for="date" class="label">Date:</label>
+              <input type="text" id="date" />
+            </div>
+            <div id="submit-button">
+              <button>Submit Note</button>
+            </div>
+          </form>
+        </div>
+        <div id="update-form">
+          <h2>Edit your past notes</h2>
+          <form action="">
+            <div class="input">
+              <label for="update-username" class="label">Name:</label>
+              <input type="text" id="update-username" required />
+            </div>
+            <div class="input">
+              <label for="update-noteEntry" class="label">Note:</label>
+              <input type="text" id="update-noteEntry" required />
+            </div>
+            <div class="input">
+              <label for="update-date" class="label">Date:</label>
+              <input type="text" id="update-date" />
+            </div>
+            <div class="id">
+              <label for="update-id" class="label"></label>
+              <input type="text" id="update-id" />
+            </div>
+            <div id="update-buttons">
+              <button id="cancel-button">Cancel</button>
+              <button id="update-button">Update Note</button>
+            </div>
+          </form>
+        </div>
+        <div id="table">
+          <h2>Your Notes</h2>
+          <table id="notes"></table>
+        </div>
+        <div id="note-entered">
+          <button id="view-notes-button">View your notes!</button>
+        </div>
+        <div class="currentUser">
+          <label for="current-username" class="label"></label>
+          <input type="text" id="current-username" />
+        </div>
+      </main>
+    </div>
+  </body>
+
+  <script src="./js/scripts.js"></script>
+</html>
