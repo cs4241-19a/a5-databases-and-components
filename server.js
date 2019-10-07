@@ -15,14 +15,55 @@ app.engine('html', require('ejs').renderFile);
 //const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB
 
 //const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
-mongoose.connect("mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB
-', {useNewUrlParser: true});
+mongoose.connect("mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/'+process.env.DB", {useNewUrlParser: true});
 //let collection = null
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function(){
   
+  // route to get all docs
+  app.get( '/', (req,res) => {
+    res.send(JSON.stringify())
+    /*if( collection !== null ) {
+      // get array and pass to res.json
+      //collection.sendFile(res, '/home.html')
+      collection.find({ }).toArray().then( result => res.json( result ) )
+      res.render('home.html')
+    }*/
+  })
+
+  app.listen( 3000 )
+
+  app.use( (req,res,next) => {
+    if( collection !== null ) {
+      next()
+    }else{
+      res.status( 503 ).send()
+    }
+  })
+
+  app.post( '/add', (req,res) => {
+    // assumes only one object to insert
+    collection.insertOne( req.body ).then( result => res.json( result ) )
+
+  })
+
+  // assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.
+  app.post( '/remove', (req,res) => {
+    collection
+      .deleteOne({ _id:mongodb.ObjectID( req.body._id ) })
+      .then( result => res.json( result ) )
+  })
+
+  app.post( '/update', (req,res) => {
+    collection
+      .updateOne(
+        { _id:mongodb.ObjectID( req.body._id ) },
+        { $set:{ name:req.body.name } }
+      )
+      .then( result => res.json( result ) )
+  })
 });
 /*
 client.connect()
@@ -38,44 +79,3 @@ client.connect()
   })
   .then( console.log )
   */
-// route to get all docs
-app.get( '/', (req,res) => {
-  if( collection !== null ) {
-    // get array and pass to res.json
-    //collection.sendFile(res, '/home.html')
-    collection.find({ }).toArray().then( result => res.json( result ) )
-    res.render('home.html')
-  }
-})
-
-app.listen( 3000 )
-
-app.use( (req,res,next) => {
-  if( collection !== null ) {
-    next()
-  }else{
-    res.status( 503 ).send()
-  }
-})
-
-app.post( '/add', (req,res) => {
-  // assumes only one object to insert
-  collection.insertOne( req.body ).then( result => res.json( result ) )
-  
-})
-
-// assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.
-app.post( '/remove', (req,res) => {
-  collection
-    .deleteOne({ _id:mongodb.ObjectID( req.body._id ) })
-    .then( result => res.json( result ) )
-})
-
-app.post( '/update', (req,res) => {
-  collection
-    .updateOne(
-      { _id:mongodb.ObjectID( req.body._id ) },
-      { $set:{ name:req.body.name } }
-    )
-    .then( result => res.json( result ) )
-})
