@@ -3,7 +3,7 @@
 		{"name": "ChatBot", "content": "Yo what is up!", "time": new Date()},
 		{"name": "ChatBot", "content": "I fully remade PermChat using just Svelte.", "time": new Date()},
 		{"name": "ChatBot", "content": "Except I totally cheated and I didn't actually add the 'perm' part...", "time": new Date()},
-		{"name": "ChatBot", "content": "Enjoy your stay and check out my README.md on github!", "time": new Date()},
+		{"name": "ChatBot", "content": "Enjoy your stay and check out my README.md on github!\nhttps://github.com/thearst3rd/a5-databases-and-components", "time": new Date()},
 	]
 	
 	let username = ""
@@ -48,22 +48,28 @@
 	  padding: 15px;
 		width: 100%;
 	}
+  
+  main {
+    max-width: 1460px;
+    margin: auto;
+    padding: 20px;
+  }
 </style>
 
-<h1>ChatSvelte</h1>
+<main>
+  <h1>ChatSvelte</h1>
 
-<table id="chat-contents">
-	{#each chats as chat}
-		<tr>
-			<th class="chat-username">{chat.name}</th>
-			<th class="chat-contents">{chat.content}</th>
-			<th class="chat-timestamp">{chat.time.toLocaleDateString()} <br/> {chat.time.toLocaleTimeString()}</th>
-		</tr>
-	{/each}
-</table>
+  <table id="chat-contents">
+    {#each chats as chat}
+      <tr>
+        <th class="chat-username">{chat.name}</th>
+        <th class="chat-contents">{chat.content}</th>
+        <th class="chat-timestamp">{chat.time.toLocaleDateString()} <br/> {chat.time.toLocaleTimeString()}</th>
+      </tr>
+    {/each}
+  </table>
 
-<div>
-	<input bind:value={username} maxlength="100" placeholder="Username"/>
-	<input bind:value={contents} maxlength="100" placeholder="Chat contents"/>
-	<button on:click={addNewChat}>Send</button>
-</div>
+  <input bind:value={username} maxlength="100" placeholder="Username"/>
+  <input bind:value={contents} maxlength="100" placeholder="Chat contents"/>
+  <button on:click={addNewChat}>Send</button>
+</main>

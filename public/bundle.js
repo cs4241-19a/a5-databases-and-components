@@ -315,7 +315,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (56:1) {#each chats as chat}
+    // (63:4) {#each chats as chat}
     function create_each_block(ctx) {
     	var tr, th0, t0_value = ctx.chat.name + "", t0, t1, th1, t2_value = ctx.chat.content + "", t2, t3, th2, t4_value = ctx.chat.time.toLocaleDateString() + "", t4, t5, br, t6, t7_value = ctx.chat.time.toLocaleTimeString() + "", t7, t8;
 
@@ -335,14 +335,14 @@ var app = (function () {
     			t6 = space();
     			t7 = text(t7_value);
     			t8 = space();
-    			attr_dev(th0, "class", "chat-username svelte-1yl7e62");
-    			add_location(th0, file, 57, 3, 1152);
-    			attr_dev(th1, "class", "chat-contents svelte-1yl7e62");
-    			add_location(th1, file, 58, 3, 1198);
-    			add_location(br, file, 59, 63, 1307);
-    			attr_dev(th2, "class", "chat-timestamp svelte-1yl7e62");
-    			add_location(th2, file, 59, 3, 1247);
-    			add_location(tr, file, 56, 2, 1144);
+    			attr_dev(th0, "class", "chat-username svelte-1ggwyi6");
+    			add_location(th0, file, 64, 8, 1310);
+    			attr_dev(th1, "class", "chat-contents svelte-1ggwyi6");
+    			add_location(th1, file, 65, 8, 1361);
+    			add_location(br, file, 66, 68, 1475);
+    			attr_dev(th2, "class", "chat-timestamp svelte-1ggwyi6");
+    			add_location(th2, file, 66, 8, 1415);
+    			add_location(tr, file, 63, 6, 1297);
     		},
 
     		m: function mount(target, anchor) {
@@ -386,12 +386,12 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(56:1) {#each chats as chat}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(63:4) {#each chats as chat}", ctx });
     	return block;
     }
 
     function create_fragment(ctx) {
-    	var h1, t1, table, t2, div, input0, t3, input1, t4, button, dispose;
+    	var main, h1, t1, table, t2, input0, t3, input1, t4, button, dispose;
 
     	let each_value = ctx.chats;
 
@@ -403,6 +403,7 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			main = element("main");
     			h1 = element("h1");
     			h1.textContent = "ChatSvelte";
     			t1 = space();
@@ -413,26 +414,26 @@ var app = (function () {
     			}
 
     			t2 = space();
-    			div = element("div");
     			input0 = element("input");
     			t3 = space();
     			input1 = element("input");
     			t4 = space();
     			button = element("button");
     			button.textContent = "Send";
-    			attr_dev(h1, "class", "svelte-1yl7e62");
-    			add_location(h1, file, 52, 0, 1071);
+    			attr_dev(h1, "class", "svelte-1ggwyi6");
+    			add_location(h1, file, 59, 2, 1215);
     			attr_dev(table, "id", "chat-contents");
-    			attr_dev(table, "class", "svelte-1yl7e62");
-    			add_location(table, file, 54, 0, 1092);
+    			attr_dev(table, "class", "svelte-1ggwyi6");
+    			add_location(table, file, 61, 2, 1238);
     			attr_dev(input0, "maxlength", "100");
     			attr_dev(input0, "placeholder", "Username");
-    			add_location(input0, file, 65, 1, 1385);
+    			add_location(input0, file, 71, 2, 1557);
     			attr_dev(input1, "maxlength", "100");
     			attr_dev(input1, "placeholder", "Chat contents");
-    			add_location(input1, file, 66, 1, 1456);
-    			add_location(button, file, 67, 1, 1532);
-    			add_location(div, file, 64, 0, 1378);
+    			add_location(input1, file, 72, 2, 1629);
+    			add_location(button, file, 73, 2, 1706);
+    			attr_dev(main, "class", "svelte-1ggwyi6");
+    			add_location(main, file, 58, 0, 1206);
 
     			dispose = [
     				listen_dev(input0, "input", ctx.input0_input_handler),
@@ -446,27 +447,27 @@ var app = (function () {
     		},
 
     		m: function mount(target, anchor) {
-    			insert_dev(target, h1, anchor);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, table, anchor);
+    			insert_dev(target, main, anchor);
+    			append_dev(main, h1);
+    			append_dev(main, t1);
+    			append_dev(main, table);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(table, null);
     			}
 
-    			insert_dev(target, t2, anchor);
-    			insert_dev(target, div, anchor);
-    			append_dev(div, input0);
+    			append_dev(main, t2);
+    			append_dev(main, input0);
 
     			set_input_value(input0, ctx.username);
 
-    			append_dev(div, t3);
-    			append_dev(div, input1);
+    			append_dev(main, t3);
+    			append_dev(main, input1);
 
     			set_input_value(input1, ctx.contents);
 
-    			append_dev(div, t4);
-    			append_dev(div, button);
+    			append_dev(main, t4);
+    			append_dev(main, button);
     		},
 
     		p: function update(changed, ctx) {
@@ -501,17 +502,10 @@ var app = (function () {
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach_dev(h1);
-    				detach_dev(t1);
-    				detach_dev(table);
+    				detach_dev(main);
     			}
 
     			destroy_each(each_blocks, detaching);
-
-    			if (detaching) {
-    				detach_dev(t2);
-    				detach_dev(div);
-    			}
 
     			run_all(dispose);
     		}
@@ -525,7 +519,7 @@ var app = (function () {
     		{"name": "ChatBot", "content": "Yo what is up!", "time": new Date()},
     		{"name": "ChatBot", "content": "I fully remade PermChat using just Svelte.", "time": new Date()},
     		{"name": "ChatBot", "content": "Except I totally cheated and I didn't actually add the 'perm' part...", "time": new Date()},
-    		{"name": "ChatBot", "content": "Enjoy your stay and check out my README.md on github!", "time": new Date()},
+    		{"name": "ChatBot", "content": "Enjoy your stay and check out my README.md on github!\nhttps://github.com/thearst3rd/a5-databases-and-components", "time": new Date()},
     	];
     	
     	let username = "";
