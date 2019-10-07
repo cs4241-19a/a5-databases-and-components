@@ -1,0 +1,28 @@
+{
+  "users" : [
+    {
+      "suedoenym@website.com": {
+        "username": "suedoenym@website.com",
+        "password": "Password",
+        "name": "John Doe",
+        "shipping address": "123 Fakeaddress st, Worcester, MA",
+        "cart": {
+          "items": [],
+          "total": 0
+        }
+      }
+    },
+    {
+      "bigbeardedfellow@website.com": {
+        "username": "bigbeardedfellow@website.com",
+        "password": "naughtyornice",
+        "name": "Santa Claus",
+        "shipping address": "325 S. Santa Claus Lane, North Pole, Alaska",
+        "cart": {
+          "items": [],
+          "total": 0
+        }
+      }
+    }
+  ]
+}
