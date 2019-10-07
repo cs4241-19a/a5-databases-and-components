@@ -135,7 +135,8 @@ app.post('/submit', function (request, response) {
     })
 })
 
-app.post('/refresh', function (request, response) {
+app.get('/refresh', function (request, response) {
+    console.log("inside refresh")
     new Promise(function (resolve, reject) {
         mongo.connect(url, {
             useNewUrlParser: true,
@@ -151,6 +152,7 @@ app.post('/refresh', function (request, response) {
             })
         })
     }).then(function (result) {
+        console.log(result)
         response.send(JSON.stringify(result))
     })
 })

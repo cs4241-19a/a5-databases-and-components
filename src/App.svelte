@@ -23,64 +23,33 @@
         })()
     }
 
-    function handleData(data) {
-        let container = document.getElementById("notesContainer").innerHTML="";
-        let id = 1
-        data.forEach(function (item, index, array) {
-            let note = document.createElement("li")
-            note.innerHTML = createInnerHTML(item, id)
-            note = setClassName(note, item, id)
-            id++
-            document.getElementById("notesContainer").insertAdjacentElement('beforeend', note)
+    const getAssignments = function(){
+        const p = fetch( '/refresh', {
+            method:'GET'
         })
+            .then( response => response.json() )
+            .then( json => {
+                return json
+            })
     }
-
-    function setClassName(note, item, id) {
-        if (item.Days <= 5) {
-            note.className = "list-group-item d-flex list-group-item-danger item-" + id + " justify-content-between"
-        } else {
-            note.className = "list-group-item d-flex list-group-item-success item-" + id + " justify-content-between"
-        }
-        return note
-    }
-
-    function createInnerHTML(item, id) {
-        let itemId = "\"" + item._id + "\""
-        return "<p class='p-0 m-0 flex-grow-1' id='item-" + id + "'>" +
-            item.Note +
-            " due: " + item.Date +
-            " days: " + item.Days +
-            "</p>" +
-            "<button class='btn btn-success mr-1' on:click={editItem(" + id + "," + itemId + ")}>edit</button>" +
-            "<button class='btn btn-danger' on:click={deleteItem(" + itemId + ")}>delete</button>"
-    }
-
-    function editItem(id, itemId) {
+    function editItem(id) {
         let elems = document.getElementsByTagName('*'), i
         for (i in elems) {
             if ((' ' + elems[i].className + ' ').indexOf(' ' + "item-" + id + ' ')
                 > -1) {
-                elems[i].innerHTML = createInnerEditHTML(id, itemId)
+                elems[i].innerHTML = createInnerEditHTML(id)
             }
         }
     }
 
-    function createInnerEditHTML(id, itemId) {
-        itemId = "\"" + itemId + "\""
-        return "<input type='text' class='form-control col-4' id='newAssignment-" + id + "' value='" + getOldAssignmnet(id) + "'>" +
+    function createInnerEditHTML(id) {
+        return "<input type='text' class='form-control col-4' id='newAssignment-" + id + "' value='" + getOldAssignment(id) + "'>" +
             "<input type='date' class='form-control col-4' id='newDate-" + id + "' >" +
-            "<button class='btn btn-success col-2' onClick='saveItem(" + id + "," + itemId + ")'>save</button>" +
+            "<button class='btn btn-success col-2' on:click='{saveItem(" + id + "," + itemId + ")}'>save</button>" +
             "</div"
     }
 
-    function saveItem(id, itemId) {
-        const newAssignment = document.getElementById('newAssignment-' + id).value
-        const newDate = document.getElementById('newDate-' + id).value
-        const json = {Id: itemId, Note: newAssignment, Date: newDate}
-        postData(json, 'update')
-    }
-
-    function getOldAssignmnet(id) {
+    function getOldAssignment(id) {
         let innerHTML = document.getElementById('item-' + id).html()
         console.log(innerHTML)
         return innerHTML.split("due:", 1)
@@ -96,7 +65,8 @@
         let dateArray = date.split('-')
         return new Date(dateArray[0], dateArray[1] - 1, dateArray[2]).toLocaleDateString("en-US", options)
     }
-    document.onload = postData({}, 'refresh')
+
+    let assignments = getAssignments()
 </script>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -156,5 +126,23 @@
     </form>
 </div>
 <div class="container">
-    <ul class="list-group mt-3" id="notesContainer"></ul>
+    {#await assignments then assignment}
+    <ul class="list-group mt-3" id="notesContainer">
+        {#each assignment as a}
+            {#if a.Days <=5}
+                <li class="list-group-item d-flex list-group-item-danger item-{a.id} justify-content-between">
+                    <p class="p-0 m-0 flex-grow-1 id=item-{id}">{a.Note} due {a.Date} {a.Days}</p>
+                    <button class='btn btn-success mr-1' on:click={editItem(a.id)}>edit</button>
+                    <button class='btn btn-danger' on:click={deleteItem(a.id)}>delete</button>
+                </li>
+            {:else}
+                <li class="list-group-item d-flex list-group-item-success item-{a.id} justify-content-between">
+                    <p class="p-0 m-0 flex-grow-1 id=item-{id}">{a.Note} due {a.Date} {a.Days}</p>
+                    <button class='btn btn-success mr-1' on:click={editItem(a.id)}>edit</button>
+                    <button class='btn btn-danger' on:click={deleteItem(a.id)}>delete</button>
+                </li>
+            {/if}
+        {/each}
+    </ul>
+    {/await}
 </div>
