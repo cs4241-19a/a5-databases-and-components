@@ -1,22 +1,18 @@
 {
-  "name": "a3-eliehess",
-  "version": "1.0",
+  "name": "a5-eliehess",
+  "version": "0.1.0",
   "description": "CS 4241 Assignment 5",
   "author": "Elie Hess",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
     "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "helmet": "^3.21.1",
-    "lowdb": "^1.0.0",
-    "mime": "^2.4.4",
-    "mime-types": "^2.1.24",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
