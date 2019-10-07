@@ -4,7 +4,9 @@
   "description": "",
   "author": "",
   "scripts": {
-    "start": "node server.improved.js"
+    "clean": "rm -rf dist",
+    "start": "parcel public/index.html",
+    "build-prod": "parcel build public/index.html"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.24",
