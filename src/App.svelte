@@ -131,13 +131,13 @@
         {#each assignment as a}
             {#if a.Days <=5}
                 <li class="list-group-item d-flex list-group-item-danger item-{a.id} justify-content-between">
-                    <p class="p-0 m-0 flex-grow-1 id=item-{id}">{a.Note} due {a.Date} {a.Days}</p>
+                    <p class="p-0 m-0 flex-grow-1 id=item-{a.id}">{a.Note} due {a.Date} {a.Days}</p>
                     <button class='btn btn-success mr-1' on:click={editItem(a.id)}>edit</button>
                     <button class='btn btn-danger' on:click={deleteItem(a.id)}>delete</button>
                 </li>
             {:else}
                 <li class="list-group-item d-flex list-group-item-success item-{a.id} justify-content-between">
-                    <p class="p-0 m-0 flex-grow-1 id=item-{id}">{a.Note} due {a.Date} {a.Days}</p>
+                    <p class="p-0 m-0 flex-grow-1 id=item-{a.id}">{a.Note} due {a.Date} {a.Days}</p>
                     <button class='btn btn-success mr-1' on:click={editItem(a.id)}>edit</button>
                     <button class='btn btn-danger' on:click={deleteItem(a.id)}>delete</button>
                 </li>
