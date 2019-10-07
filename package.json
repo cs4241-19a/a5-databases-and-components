@@ -4,17 +4,13 @@
   "description": "",
   "author": "",
   "scripts": {
-    "clean": "rm -rf dist",
-    "start": "parcel public/index.html",
-    "build-prod": "parcel build public/index.html"
+    "start": "node server.improved.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.24",
     "aos": "^2.3.4",
-    "babelify": "^10.0.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
-    "browserify": "^16.5.0",
     "connect-flash": "^0.1.1",
     "connect-timeout": "^1.9.0",
     "ejs": "^2.7.1",
@@ -24,7 +20,6 @@
     "firebase-admin": "^8.5.0",
     "flash": "^1.1.0",
     "helmet": "^3.21.0",
-    "jquery": "^3.4.1",
     "material-icons": "^0.3.1",
     "materialize-css": "^1.0.0-rc.2",
     "mime": "^2.4.4",
@@ -35,17 +30,7 @@
     "passport-oauth": "^1.0.0",
     "passport-session": "^1.0.2",
     "path": "^0.12.7",
-    "popper.js": "^1.15.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
     "serve-favicon": "^2.5.0",
-    "show-toast": "^1.1.4",
-    "standard": "^14.3.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
-    "@babel/preset-react": "^7.0.0",
-    "parcel-bundler": "^1.12.4"
+    "show-toast": "^1.1.4"
   }
 }
