@@ -1,0 +1,15 @@
+section {
+    padding: 3rem 0;
+}
+
+p {
+    white-space: pre-line;
+}
+
+.fa {
+    color: grey;
+}
+
+.fa:hover {
+    color: #F06000;
+}
