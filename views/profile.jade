@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    script(src="/javascripts/table.js")
+    h1 Hello #{user}
+    p(id="table")
+    p(id="alert")
+    div(id="formDiv")
+        form(id='form' action="")
+            label(for="title") Title
+            input(type='text' id='title' value="" required)
+            br
+            label(for="author") Author
+            input(type='text' id='author' value="" required)
+            br
+            label(for='genre') Genre
+            input(type='text' id='genre' value="" required)
+            br
+            button(id='saveButton') Save  
+            button(id="cancelButton") Cancel
+            button(id="deleteButton") Delete Entry
+    div    
+        button(id="editButton") Edit Entry
+        button(id="addButton") New Entry
