@@ -1,223 +1,221 @@
-const express   = require( 'express' ),
-      app       = express(),
-      session   = require( 'express-session' ),
-      passport  = require( 'passport' ),
-      Local     = require( 'passport-local' ).Strategy,
-      bodyParser= require( 'body-parser' ),
-      helmet = require('helmet')
-      favicon = require('serve-favicon')
-      path = require('path')
-      optimus = require('connect-image-optimus')
+const express = require('express'),
+  mongoose = require('mongoose'),
+  app = express(),
+  session = require('express-session'),
+  passport = require('passport'),
+  Local = require('passport-local').Strategy,
+  bodyParser = require('body-parser'),
+  helmet = require('helmet'),
+  favicon = require('serve-favicon'),
+  path = require('path'),
+  optimus = require('connect-image-optimus')
 
-// automatically deliver all files in the public folder
-// with the correct headers / MIME type.
-app.use( express.static( 'public' ) )
+app.use(session({ secret: 'cats cats cats', resave: false, saveUninitialized: false }))
+app.use(passport.initialize())
+app.use(passport.session())
 
-// get json when appropriate - middleware
-app.use( bodyParser.json() )
+// Mongoose
+mongoose.connect('mongodb+srv://user:xuhku7-qecVuk-duksam@cluster0-qa3kc.mongodb.net/admin?retryWrites=true&w=majority', { useNewUrlParser: true });
 
-// connect-image-optimus - middleware
-var staticPath = __dirname + '/static/'
-app.use(optimus(staticPath))
-
-// favicon - middleware
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
-
-// helmet - middleware
-app.use(helmet())
-
-// domain views index.html
-app.get('/', function(request, response) {
-  response.sendFile( __dirname + '/views/index.html' )
-  response.send('hello, world!')
+// schemas
+var orderSchema = new mongoose.Schema({
+  yourname: String,
+  phone: Number,
+  potato: String,
+  seasioning: String,
+  size: String,
+  ordernum: Number
+})
+var userSchema = new mongoose.Schema({
+  username: String,
+  password: String
+})
+var orderCountSchema = new mongoose.Schema({
+  ordercount: Number
 })
 
-app.use( session({ secret:'cats cats cats', resave:false, saveUninitialized:false }) )
-app.use( passport.initialize() )
-app.use( passport.session() )
+// model creation
+var Order = mongoose.model('Order', orderSchema)
+var User = mongoose.model('User', userSchema)
+var OrderCount = mongoose.model('OrderCount', orderCountSchema)
 
-app.post('/test', function( req, res ) {
-  console.log( 'authenticate with cookie?', req.user )
-  res.json({ status:'success' })
-})
+// checks if mongoose properly connects
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
 
+  console.log('connection successful')
 
-// AUTHENTICATION
-const myLocalStrategy = function( username, password, done ) {
+  // AUTHENTICATION
+  const myLocalStrategy = function (username, password, done) {
 
-  const user = db.get('users').find({username: username}).value()
-  
-  // if user is undefined, then there was no match for the submitted username
-  if( user === undefined ) { 
-    return done( null, false, { message:'user not found' })
-  }else if( user.password === password ) {
-    return done( null, { username, password })
-  }else{
-    return done( null, false, { message: 'incorrect password' })
+    User.findOne({ username: username }, function (err, user) {
+      if (!user) {
+        return done(null, false, { message: 'user not found' });
+      }
+
+      if (user === undefined) {
+        return done(null, false, { message: 'user not found' })
+      } else if (user.password === password) {
+        return done(null, { username, password })
+      } else {
+        return done(null, false, { message: 'incorrect password' })
+      }
+    })
   }
-}
 
-// passport - middleware
-passport.use( new Local( myLocalStrategy ) )
-passport.initialize()
 
-app.post( 
-  '/login',
-  passport.authenticate( 'local', { successRedirect: '/admin.html', failureRedirect: '/login.html'}),
-  function( req, res ) {
-    res.json({ status:true })
-  }
-)
+  // automatically deliver all files in the public folder
+  // with the correct headers / MIME type.
+  app.use(express.static('public'))
 
-passport.serializeUser( ( user, done ) => {
-  console.log( 'serializing:', user.username)
-  done( null, user.username ) 
+  // get json when appropriate - middleware
+  app.use(bodyParser.json())
+
+  // connect-image-optimus - middleware
+  var staticPath = __dirname + '/static/'
+  app.use(optimus(staticPath))
+
+  // favicon - middleware
+  app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+
+  // helmet - middleware
+  app.use(helmet())
+
+  // domain views index.html
+  app.get('/', function (request, response) {
+    response.sendFile(__dirname + '/views/index.html')
+    response.send('hello, world!')
+  })
+
+  app.post('/test', function (req, res) {
+    console.log('authenticate with cookie?', req.user)
+    res.json({ status: 'success' })
+  })
+
+  // passport - middleware
+  passport.use(new Local(myLocalStrategy))
+  passport.initialize()
+
+  app.post(
+    '/login',
+    passport.authenticate('local', { successRedirect: '/admin.html', failureRedirect: '/login.html' }),
+    function (req, res) {
+      res.json({ status: true })
+    }
+  )
+
+  passport.serializeUser((user, done) => {
+    console.log('serializing:', user.username)
+    done(null, user.username)
+  })
+
+  passport.deserializeUser((username, done) => {
+    User.findOne({ username: username }, function (err, user) {
+      console.log('deserializing:', username)
+
+      if (user !== undefined) {
+        done(null, user)
+      } else {
+        done(null, false, { message: 'user not found; session not restored' })
+      }
+    })
+  })
+
+
+  // ORDERS
+  // GET orders
+  app.get('/orders', function (req, res) {
+    Order.find({}, function (err, orders) {
+      if (err) return console.error(err)
+      res.send(JSON.stringify(orders))
+    })
+  })
+
+  // POST update
+  app.post('/update', function (request, response) {
+    let row = request.body
+
+    var yourname = (row.yourname)
+    var phone = (row.phone)
+    var potato = (row.potato)
+    var seasoning = (row.seasoning)
+    var size = (row.size)
+    var ordernum = (row.ordernum)
+
+    var modifiedrow = { yourname: yourname, phone: phone, potato: potato, seasoning: seasoning, size: size, ordernum: ordernum }
+
+    Order.updateOne({ ordernum: ordernum }, modifiedrow, function (err, result) {
+      if (err) console.error(err)
+      response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
+      response.end()
+    })
+  })
+
+  // POST remove
+  app.post('/remove', function (request, response) {
+
+    let deleteatordernum = request.body.ordernum
+
+    console.log('removing ' + index)
+
+    // deletes index
+    Order.deleteOne({ ordernum: deleteatordernum }, function (err) {
+      if (err) return console.error(err);
+      response.writeHead(200, "OK", { 'Content-Type': 'application/json' })
+      response.end()
+    })
+  })
+
+  // POST submit
+  app.post('/submit', function (request, response) {
+
+    let data = request.body
+
+    var yourname = (data.yourname)
+    var phone = (data.phone)
+    var potato = (data.potato)
+    var seasoning = (data.seasoning)
+    var size = (data.size)
+    var ordernum = -1;
+
+    // get current ordercount
+    OrderCount.findOne({ count: { $gt: -1 } }, function (err, num) {
+      if (err) console.error(err)
+      ordernum = num.ordercount
+    })
+
+    // create order object
+    var order = new Order({ yourname: yourname, phone: phone, potato: potato, seasoning: seasoning, size: size, ordernum: ordernum })
+
+    // increment ordercount by 1
+    OrderCount.updateOne({ ordercount: { $gt: -1 } }, { $inc: { ordercount: 1 } }, function (err) {
+      if (err) console.error(err)
+    })
+
+    // save order to Mongo
+    order.save(function (err) {
+      console.log("order added")
+      if (err) return console.error(err);
+      response.writeHead(200, "OK", { 'Content-Type': 'application/json' })
+      response.end()
+    })
+  })
+
+  // add admin user temporarily
+  var adminUser = new User({ username: admin, password: fantastic })
+  adminUser.save(function (err, user) {
+    if (err) return console.error(err);
+    res.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
+    res.end()
+  })
+  console.log("added admin user")
+
+
+
+
+  app.listen(process.env.PORT || 3000)
+
+
+
 })
-
-passport.deserializeUser( ( username, done ) => {
-  const user = db.find( u => u.username === username )
-  console.log( 'deserializing:', username )
-  
-  if( user !== undefined ) {
-    done( null, user )
-  }else{
-    done( null, false, { message:'user not found; session not restored' })
-  }
-})
-
-
-
-// ORDERS
-// GET orders
-app.get('/orders', (req, res) => res.send(db.get('orders').values()))
-
-// POST update
-app.post( '/update', function( request, response ) {
-  dataString = ''
-  
-  request.on( 'data', function( data ) {
-    dataString += data
-  })
-
-  request.on( 'end', function() {
-
-    var updatedata = JSON.parse(dataString)
-    var yourname = (updatedata.yourname)
-    var phone = (updatedata.phone)
-    var potato = (updatedata.potato)
-    var seasoning = (updatedata.seasoning)
-    var size = (updatedata.size)
-    var currentordernum = (updatedata.currentordernum)
-
-    //obj = { yourname: yourname, phone: phone, potato: potato, seasoning: seasoning, size: size, ordernum: currentordernum}
-
-    db.get('orders')
-      .find({ordernum: currentordernum})
-      .assign({ yourname: yourname, phone: phone, potato: potato, seasoning: seasoning, size: size, ordernum: currentordernum}) 
-      .value()
-
-    response.writeHead( 200, "OK", {'Content-Type': 'application/json' })
-    response.end()
-  })
-})
-
-// POST remove
-app.post( '/remove', function( request, response ) {
-  dataString = ''
-  
-  request.on( 'data', function( data ) {
-    dataString += data
-  })
-
-  request.on( 'end', function() {
-
-    var removedata = JSON.parse(dataString)
-    var index = (removedata.number)
-
-    db.get('orders')
-      .pullAt(index)
-      .write()
-
-    response.writeHead( 200, "OK", {'Content-Type': 'application/json' })
-    response.end()
-  })
-})
-
-// POST submit
-app.post( '/submit', function( request, response ) {
-  dataString = ''
-
-  request.on( 'data', function( data ) {
-    dataString += data
-  })
-
-  request.on( 'end', function() {
-
-    var order = JSON.parse( dataString )
-    var yourname = (order.yourname)
-    var phone = (order.phone)
-    var potato = (order.potato)
-    var seasoning = (order.seasoning)
-    var size = (order.size)
-    var ordernum = db.get('ordercount')
-                     .value()
-
-    obj = { yourname: yourname, phone: phone, potato: potato, seasoning: seasoning, size: size, ordernum: ordernum}
-    console.log(obj)
-
-    // add new order to orders part of database
-    db.get('orders')
-      .push(obj)  
-      .write()
-
-    // increment ordercount
-    db.update('ordercount', n => n + 1)
-      .write()
-
-    response.writeHead( 200, "OK", {'Content-Type': 'application/json' })
-    response.end()
-  })
-})
-
-app.listen( process.env.PORT || 3000 )
-
-
-
-// DATABASE
-// low db set up
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
-
-const adapter = new FileSync('db.json')
-const db = low( adapter )
-
-// set defaults (required if your JSON file is empty)
-db.defaults({ orders: [], users: [], ordercount: 0 })
-  .write()
-
-/*
-// add an order
-db.get('orders')
-  .push({ yourname: 'Joe', phone: '122-343-2334', potato: 'sweet', seasoning: 'salt', size: 'small', ordernum: 1234})
-  .write() 
-*/
-
-/*
-// add a user
-db.get('users')
-  .push({ username:'test', password:'grader' })
-  .write()
-*/
-  
-/*
-// increment ordercount
-db.update('ordercount', n => n + 1)
-  .write()
-*/
-
-/*
-// filter users by age
-const seniors = db.get( 'users' )
-  .filter( user => user.age > 70 )
-  .value()
-*/
