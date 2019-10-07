@@ -71,7 +71,7 @@ passport.use('local-login', new LocalStrategy(
 )
 
 app.get("/home", function (req, res) {
-    res.sendFile(__dirname + "/public/home.html")
+    res.sendFile(__dirname + "/public/index.html")
 })
 
 app.get("/register", function (req, res) {
