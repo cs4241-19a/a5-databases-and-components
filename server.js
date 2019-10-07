@@ -4,7 +4,7 @@ const express = require( 'express' ),
       path    = require( 'path'    ),
       app = express()
 
-app.use( express.static('home.js') )
+app.use( express.static('views') )
 app.use( express.json() )
 
 //view engine?
