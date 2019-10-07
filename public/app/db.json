@@ -1,0 +1,32 @@
+{
+  "notes": [
+    {
+      "username": "Kaitlin",
+      "noteEntry": "hi",
+      "date": "9/18"
+    }
+  ],
+  "users": [
+    {
+      "username": "kljlk",
+      "password": "ds"
+    },
+    {
+      "username": "kaitlin",
+      "password": "k"
+    },
+    {
+      "username": "SD",
+      "password": "sds"
+    },
+    {
+      "username": "sean",
+      "password": "sean"
+    },
+    {
+      "username": "this",
+      "password": "this"
+    }
+  ],
+  "orders": []
+}

@@ -1,0 +1,144 @@
+body {
+  height: 800px;
+  background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%);
+  background-repeat: no-repeat;
+}
+
+label {
+  font-family: "Raleway", sans-serif;
+  font-size: 20px;
+  padding: 20px;
+  align-items: center;
+}
+
+button {
+  display: center;
+  justify-content: center;
+  align-items: center;
+
+  height: 55px;
+  width: 150px;
+
+  background: #fa4141;
+
+  border-radius: 30px;
+
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+
+  text-transform: capitalize;
+}
+
+h2 {
+  font-family: "Raleway", sans-serif;
+  text-transform: uppercase;
+
+  padding: 20px;
+  margin: 0;
+  color: #2a3747;
+}
+
+h3 {
+  font-family: "Raleway", sans-serif;
+  text-transform: uppercase;
+
+  padding: 10px;
+  margin: 0;
+  font-size: 10px;
+  color: #2a3747;
+}
+
+#table {
+  font-family: "Raleway", sans-serif;
+  font-size: 20px;
+  display: none;
+  width: 100%;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#update-form {
+  display: none;
+  width: 100%;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+#update-id {
+  display: none;
+}
+
+#new-note-link {
+  display: none;
+}
+
+#current-notes-link {
+  display: none;
+}
+
+#current-username {
+  display: none;
+}
+
+#note-entered {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  font-family: "Raleway", sans-serif;
+  text-transform: uppercase;
+
+  padding: 0;
+  margin: 0;
+  font-size: 40px;
+  color: #2a3747;
+}
+
+nav {
+  display: center;
+  font-family: "Raleway", sans-serif;
+
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+  color: #2a3747;
+}
+
+form {
+  float: left;
+  width: 100%;
+  justify-content: center;
+}
+
+#form {
+  position: relative;
+  display: none;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  flex-direction: column;
+}
+
+#login {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  flex-direction: column;
+}
