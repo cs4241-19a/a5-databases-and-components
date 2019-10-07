@@ -2,6 +2,9 @@
 
 https://a5-tvpatterson.glitch.me
 
+username:admin
+password:admin
+
 - The goal of this application was to create a blog-type app in which you could create, delete, and modify posts on your account.
 - Since assignment 3, I implemented mongoDB as my database as opposed to lowDB which was used previously. It was very easy to manipulate the database using mongoDB
 and the setup of it was very straightforward as opposed to lowDB. Also, the automatic including of an id field when putting things into the database made it much simpler
