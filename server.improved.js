@@ -61,7 +61,7 @@ app.use(responseTime(function (req, res, time) {
 
 // - - - - - - PASSPORT - - - - - - 
 const myLocalStrategy = function( username, password, done ) {
-  getAllData()
+  // getAllData()
   user = dataAll.find( __user => __user.username === username )
   // user =  db.get('posts').find( __user => __user.username === username )
   if( user === undefined ) {
@@ -83,7 +83,7 @@ passport.initialize()
 
 passport.serializeUser( ( user, done ) => done( null, user.username ) )
 passport.deserializeUser( ( username, done ) => {
-  getAllData()
+  // getAllData()
   const user = dataAll.find( u => u.username === username )
   if( user !== undefined ) {
     done( null, user )
@@ -157,18 +157,20 @@ const getAllData = function() {
 app.post('/register', (request, response) => {
   console.log("BODY: " + JSON.stringify(request.body))
   console.log('Cookies: ', request.cookies)
-  getAllData()
+  // getAllData()
   let check = dataAll.find( __user => __user.username === request.body.username )
   if(check === undefined){
-    collection.insertOne(request.body).then(result => {
-      // response.json(result)
+    collection
+    .insertOne(request.body)
+    .then(result => {
+      getAllData()
+      response.json( result ) 
     })
     // getAllData();
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
-    response.end();
+    // response.end();
   }else{
-    response.writeHead( 405, "Duplicate User", {'Content-Type': 'text/plain' });
-    response.end();
+    // response.writeHead( 405, "Duplicate User", {'Content-Type': 'text/plain' });
+    // response.end();
   }
 });
 
@@ -179,7 +181,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/getAll', (request, response) => {
-  getAllData()
+  // getAllData()
   console.log('get getall: ' + dataAll);
   response.send(dataAll);
 });
@@ -194,10 +196,13 @@ app.post('/add', (request, response) => {
   request.body.value = ( request.body.mpg*1000 - (2019- request.body.year)*100) *  weight;
   // assumes only one object to insert
   collection.insertOne( request.body )
-  // .then( result => response.json( result ) )
-  // getAllData();
-  response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
-  response.end();
+  .then( 
+    result => {
+      getAllData()
+      response.json( result ) 
+    })
+  // response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+  // response.end();
 });
 
 app.post('/modify', (request, response) => {
@@ -215,12 +220,13 @@ app.post('/modify', (request, response) => {
         value: request.body.value
       }
   })
-  // .then(result => {
-  //     response.json(result)
-  // })
+  .then(result => {
+    getAllData()
+    response.json( result ) 
+  })
   // getAllData();
-  response.writeHead(200, { 'Content-Type': 'application/json' });
-  response.end();
+  // response.writeHead(200, { 'Content-Type': 'application/json' });
+  // response.end();
 });
 
 app.post('/delete', (request, response) => {
@@ -233,10 +239,13 @@ app.post('/delete', (request, response) => {
       {
         username: auth.username
       }
-    )
+    ).then(  result => {
+      getAllData()
+      response.json( result ) 
+    })
   // getAllData()
-  response.writeHead(200, { 'Content-Type': 'application/json' });
-  response.end();
+  // response.writeHead(200, { 'Content-Type': 'application/json' });
+  // response.end();
 });
 
 
