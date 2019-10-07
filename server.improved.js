@@ -40,7 +40,7 @@ client.connect()
   })
   .then( __collection => {
     // store reference to collection
-    orderData = __collection
+    userData = __collection
     // blank query returns all documents
     return orderData.find({ }).toArray()
   })
