@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>A5-dkaravoussianis</title>
+    <link rel="stylesheet" type="text/css" href="/css/cards.css" media="screen" />
+
+    <link rel="stylesheet" type="text/css" href="/css/cards-ie.css" media="screen" />
+
+    <link rel="stylesheet" type="text/css" href="/css/cards-ie9.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
+</head>
+<body>
+
+<div class="sidenav">
+	<h1> Welcome! <h1>
+	<p id = "currentBalance"> Your current balance is: </p>
+	  <h2>Bet for Current Game:<br> </h2>
+	
+	 <input bind:value={amountBet} placeholder="Place a Bet">
+	 <!-- <form id = "betInput">
+
+	  
+	   <input type="number" name="amountBet" id = "amountBet" value = 100 required>
+	  <button type='button' onclick = "OnBet();">Bet!</button> 
+	</form> -->
+	
+	
+	<p id = "log"> Here is how you have performed in the past: </p>
+	<div id="actionLog"></div>
+	<button id= "clearLog" onclick = "ClearLog();" > Clear Performance History </button> 
+	
+	
+	  
+</div>
+
+
+
+
+<div class="playingCards">
+    <h1>Card Guessing Game</h1>
+   
+    <h2>Guess the answer to the question by selecting an option below. </h2>
+	<p>click the card to turn it over and see if your guess is correct. If your guess is incorrect, you will be returned to the first question again with a new random card. As a first time player, you have $100 to bet. The betting is seperate for each card you turn. </p>
+    <h3>Red or Black?</h3>
+	
+	<div id = "card1">
+		<div class="card back" id = "c1" onclick = "CheckCard(1)">
+			<span id = "span11" ></span>
+			<span id = "span12"></span>
+		</div>
+		<p> This card will be: <br> </p>
+		<input type="radio" name="r1" value="0"> Black<br>
+		<input type="radio" name="r1" value="1"> Red<br>
+		
+	</div>
+	
+	<div id = "card2" >
+	
+		<h3>Higher or Lower</h3>
+		<div class="card back" id = "c2" onclick = "CheckCard(2)">
+			<span id = "span21" class="rank"></span>
+			<span id = "span22" class="suit"></span>
+		</div>
+		<p> This card will be: <br> </p>
+		<label class="container">Higher
+		  <input type="radio" value = "0" name="r2">
+		  <span class="checkmark"></span>
+		</label>
+		<label class="container">Lower
+		  <input type="radio" value = "1" name="r2">
+		  <span class="checkmark"></span>
+		</label>
+		 <p> than the previous card <br> </p>
+	</div>
+	
+	<div id = "card3" >
+	
+		<h3>In Between or Outside</h3>
+		<div class="card back" id = "c3" onclick = "CheckCard(3)">
+			<span id = "span31" class="rank"></span>
+			<span id = "span32" class="suit"></span>
+		</div>
+		<p> This card will be: <br> </p>
+		<label class="container">In Between
+		  <input type="radio" value = "0" name="r3">
+		  <span class="checkmark"></span>
+		</label>
+		<label class="container">Outside
+		  <input type="radio" value = "1" name="r3">
+		  <span class="checkmark"></span>
+		</label>
+		 <p> the previous two cards <br> </p>
+   
+	</div>
+	
+	<div id = "card4" >
+		<h3>Pick a Suit</h3>
+		<div class="card back" id = "c4" onclick = "CheckCard(4)">
+			<span id = "span41" class="rank"></span>
+			<span id = "span42" class="suit"></span>
+		</div>
+		<p> This card will be a: <br> </p>
+		<label class="container">Clubs
+		  <input type="radio" value = "clubs" name="r4">
+		  <span class="checkmark"></span>
+		</label>
+		<label class="container">Spades
+		  <input type="radio" value = "spades" name="r4">
+		  <span class="checkmark"></span>
+		</label>
+		<label class="container">Hearts
+		  <input type="radio" value = "hearts" name="r4">
+		  <span class="checkmark"></span>
+		</label>
+		<label class="container">Diamonds
+		  <input type="radio" value = "diams" name="r4">
+		  <span class="checkmark"></span>
+		</label>
+	
+	</div>
+	
+    <div class="clear"></div>
+ 
+</div>
+</body>
+
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+ <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+<script src="/js/scripts.js"></script>
+	  
+  
+</html>
