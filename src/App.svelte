@@ -3,7 +3,7 @@
 		{"name": "ChatBot", "content": "Yo what is up!", "time": new Date()},
 		{"name": "ChatBot", "content": "I fully remade PermChat using just Svelte.", "time": new Date()},
 		{"name": "ChatBot", "content": "Except I totally cheated and I didn't actually add the 'perm' part...", "time": new Date()},
-		{"name": "ChatBot", "content": "Enjoy your stay and check out my README.md on github!\nhttps://github.com/thearst3rd/a5-databases-and-components", "time": new Date()},
+		{"name": "ChatBot", "content": "Enjoy your stay and check out my README.md on github! https://github.com/thearst3rd/a5-databases-and-components", "time": new Date()},
 	]
 	
 	let username = ""
@@ -53,6 +53,7 @@
     max-width: 1460px;
     margin: auto;
     padding: 20px;
+    background-color: #EEEEEE;
   }
 </style>
 

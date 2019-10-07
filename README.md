@@ -29,10 +29,13 @@ Do the following to complete this assignment:
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
+ChatSvelte
+===
 
-your hosting link e.g. http://a5-charlieroberts.glitch.me
+https://a5-thearst3rd.glitch.me
 
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
+Using the svelte-template, I recreated a slimmed down version of my assignment 3 (PermChat). Unfortunately, the svelte-template does not really include server code, and I was too intimidated by the rollup.config script and different package.json startup scripts that I decided to just leave those alone and make a client-side application and let the template serve out the files as needed. I also did this so that I could have it detect differences in the .svelte files and automatically generate the output properly when I was working on it.
 
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+The new technology DEFINITELY improved the development experience. I followed along with the Svelte tutorial (https://svelte.dev/tutorial) which was incredibly helpful and informative. Using information that I gathered from that tutorial, I was able to incredibly rapidly reimplement the client-side functionality from assignment 3 in an incredibly short amount of time. It is incredibly refreshing to not need to maually keep track of DOM elements and use `getElememtById("blahblah").contents` or anything along those lines.
+
+That being said, I had a hard time figuring out how to integrate it with an existing application. They advertise on the website that this is easy to do, but all I could figure out was that there was magic behind the template application and not how to use the svelte compiler in the command line. I feel like it is probably easy, just an invoation of a `svelte` command, but I also feel like it could get much more complicated. Whatever, 

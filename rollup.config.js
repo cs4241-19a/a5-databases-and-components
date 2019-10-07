@@ -4,7 +4,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 
-const production = !process.env.ROLLUP_WATCH;
+const production = true//!process.env.ROLLUP_WATCH;
 
 export default {
 	input: 'src/main.js',
