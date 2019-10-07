@@ -31,6 +31,17 @@ client.connect()
   })
   .then( console.log )
 
+app.use((req, res, next) =>{
+  if(collection !== null){
+    next()
+  }else{
+    res.status(503).send()
+  }
+});
+
+//app.use(passport.initialize())
+app.use( require('express-session')({ secret:'cats cats cats', resave:false, saveUninitialized:false }));
+
 /*
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
