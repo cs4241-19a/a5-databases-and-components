@@ -17,4 +17,4 @@ seemed more straightforward and gave me less of a headache to implement.
 
 Login Credentials:
 Username: amanda,
-Password: 12345
+Password: helloworld
