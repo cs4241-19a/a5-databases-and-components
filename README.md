@@ -1,38 +1,32 @@
-Assignment 5 - Databases and/or Components
-===
+## Grade Tabler, but with mongodb
 
-Due: October 7th, by 11:59 AM.
+https://a5-pjjankowski.glitch.me/
 
-For this assignment you will complete one of the following tasks, based on your prior experience with the various technologies involved.
+For a functional description of what my grade tabler application does, see the readme for the a3 submission.
 
-1. Rework the server component from Assignment #3 to use MongoDB or some other NoSQL database (like CouchDB). You can remove Passport authentication if you choose, although this might be as much work as simply changing your Passport calls to use MongoDB.
-2. Rework the client component from Assignment #3 to use Svelte in some capacity.
-3. Rework the client component from Assignmeent #3 to use React in some capacity.
+New Changes: I have replaced my sqlite3 database with mongodb, and removed passport, instead using a local authentication scheme
+with a cookie manually created once the user logs in. I then check the cookie in the header of requests when the user is logged in 
+to get the user's username, matching them with the student grades that they have entered. I also split some of my POST requests on the
+client and server, (see Ease of Use). Another change that I made was that I used bodyparser.urlencoded in order
+to receive requests with a body, where in a3 this was not necessary.
 
-For 2 and 3, make sure to look at [the notes from lecture 10](https://github.com/cs4241-19a/materials/blob/master/lecture10.markdown).
+Ease of Use: Using mongodb had some upsides and some downsides over sqlite3, in my opinion, and overall was more helpful than a hinderance
+once I started using it. I found it very easy to retrofit my server post handlers to use mongodb once I was able to get one to work,
+but I could not easily find a way to combine methods for modifying and creating new students, or signing up a new user.
+This required some client code refactoring to make multiple POST requests instead of one when signing up new users and when
+the user clicks the submit/modify button for entering a new student's grades, or modifying a student whose grades were already
+in the db.
 
-This is really a chance for you to experiment with some additional web technologies that the prior assignments haven't covered yet: non-flatfile databases and web component frameworks.
+Default Users:
+- Username: User1
+ Password: Password1
+ Students: John Doe, grade of 75
+- Username: charlie
+ Password: charliee
+ Students: John Doe, grade of 81, and Mary Sue, grade of 99.9
+ 
+http://a5-pjjankowski.glitch.me
 
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku etc.), however, you must include all files in your GitHub repo so that the course staff can view them; these files are not available for viewing in many hosting systems.
+An example table might be as follows:
 
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a5-yourname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a5-gitname-firstname-lastname`.
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your hosting link e.g. http://a5-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer hte folloiwn question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+![Image of Example Table](https://cdn.glitch.com/5cd46ecf-8f21-44d2-941d-1799ff06883e%2FGradeTable.PNG?v=1568587030243)
