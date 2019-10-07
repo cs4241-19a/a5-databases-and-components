@@ -1,0 +1,28 @@
+<div class="row mt-5">
+  <div class="col-md-4 m-auto" style="max-width: 12rem;">
+    <div class="card text-white bg-primary">
+      <div class="mt-1 mb-1 m-auto" id="mainLogo">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+        <script type="text/babel">
+        const e = React.createElement;
+        class Logo extends React.Component {
+          render() {
+            return e(
+              'img',
+              {src: 'https://cdn.glitch.com/024ed1c4-78f7-47b2-b885-216577de7e4f%2Ficonfinder_slice48_2835267.png?v=1570404826407',
+              width: '50rem'}
+            );
+          }
+        }
+
+        const domContainer = document.querySelector('#mainLogo');
+        ReactDOM.render(e(Logo), domContainer);
+        </script>
+      </div>
+      <a href="/users/login" class="btn btn-secondary">Login</a>
+      <a href="/users/signup" class="btn btn-secondary">Sign Up</a>
+    </div>
+  </div>
+</div>
