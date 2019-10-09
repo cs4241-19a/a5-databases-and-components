@@ -1,0 +1,81 @@
+<% include ../partials/header %>
+<br>
+<div class="container">
+  
+	<div class="row">
+    
+		<!-- Item info container -->
+		<div class="col-md-8">
+      <h3>
+      Enjoy Reading! :)
+    </h3>
+  <br>
+			<div class="thumbnail">
+        
+				<img class="img-responsive" src="<%= item.image %>">
+				<div class="caption-full">
+					<h4 class="names"><a><%= item.name %></a></h4>
+					<p><%= item.description %></p>
+					
+          <div>
+						<em>Posted By <strong><%= item.author.username %> </strong><%= moment(item.createdAt).fromNow() %></em>           
+				  </div>
+          
+					<!-- Check if user owns the item -->
+          <div class="text-right">
+            <a class="btn btn-default" href="/items/<%= item._id %>/comments/new">Comment</a>
+          
+					<% if(currentUser && item.author.id.equals(currentUser._id)) { %>
+						<!-- Edit and Delete buttons -->
+						<a class="btn btn-default" href="/items/<%= item._id %>/edit">Edit</a>
+						<form class="delete-form" action="/items/<%= item._id %>?_method=DELETE" method="POST">
+							<button class="btn btn-default">Delete</button>
+						</form>
+					<% } %>
+            </div>
+				</div>
+			</div>
+
+      <br><br>
+			<!-- Comments container -->
+			<div class="blog-comment">
+			
+				<h3>
+          <strong>Comments</strong>
+        </h3>
+				<hr/>
+<!--         <div class="media">
+              <div class="media-body">
+                  <h3 class="media-heading">%= comment.author.username %></h3>
+                      <span></span>
+                  <p></p>
+              </div>
+        </div> -->
+				<!-- Comments -->
+				<% item.comments.forEach((comment) => { %>
+					<div class="row">
+						<div class="col-md-12">
+							<strong><%= comment.author.username %>   </strong>
+							<span>  <em><%= moment(comment.createdAt).fromNow() %></em></span>
+              <!-- Check if user owns the comment -->
+							<% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
+								<!-- Edit and Delete buttons -->
+              <span class="pull-right">
+								<a class="btn btn-default"
+									 href="/items/<%=item._id %>/comments/<%= comment._id %>/edit">Edit</a>
+								<form class="delete-form" action="/items/<%=item._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+									<input type="submit" class="btn btn-default" value="Delete">
+								</form>
+              </span>
+							<% } %>
+							<p><%= comment.text %></p>
+							
+						</div>
+					</div>
+				<% }); %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+
+<div class="container">
+	<div class="row">
+		<h2 style="text-align: center;">Add New Comment</h2>
+
+		<div style="width: 30%; margin: 25px auto;">
+			<form action="/items/<%= item._id %>/comments" method="POST">
+				<div class="form-group">
+					<input class="form-control" type="text" name="comment[text]" placeholder="text">
+				</div>
+				<div class="center">
+					<button class="btn btn-dfault">Submit!</button>
+          <a href="/items" class="btn btn-default">Return</a>
+				</div>
+			</form>
+
+			
+		</div>
+
+	</div>
+</div>
+
+</body>
+</html>
