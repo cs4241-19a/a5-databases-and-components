@@ -3,6 +3,6 @@ Assignment 5 - Databases and/or Components
 
 Reflection Tool
 
-your hosting link e.g. 
+https://repimentel-a3-persistence-1.glitch.me/
 
 Implemented react and mongo db on project
