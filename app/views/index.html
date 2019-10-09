@@ -1,0 +1,140 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+
+<!-- You might want to try something fancier: -->
+<!-- html/nunjucks docs: https://mozilla.github.io/nunjucks/ -->
+<!-- pug: https://pugjs.org/ -->
+<!-- haml: http://haml.info/ -->
+<!-- hbs(handlebars): http://handlebarsjs.com/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>⚐︎♎︎♎︎ ♌︎●︎□︎♑︎(1.5)</title>
+    <meta name="description" content="A cool thing made with Glitch">
+    <link id="favicon" rel="icon" href="https://cdn.glitch.com/831da1ea-1e50-4148-9a1d-b5e53a712f89%2Ffavicon.ico?v=1568600857386" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/client.js" defer></script>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  </head>
+  <body class="w3-light-grey wingdinger">
+
+<div id = "fadeback" class="w3-content" style="max-width:1400px">
+
+<!-- Header -->
+<header class="w3-container w3-center w3-padding-32 header-style"> 
+  <div id = "langSwitch">
+    <input type="checkbox" data-toggle="toggle" data-on="🕈︎♓︎■︎♑︎♎︎♓︎■︎♑︎⬧︎" data-off="To English" style= "color: white" onchange = "switchLangs()">
+    <button class  = "logged-in" id = "new-post" type="button" onclick = "startNewPost()">+ Post</button>
+  </div>
+  <div>
+    <h1 class = "wingdinger"><b>Odd Blog V1.5</b></h1>
+    <div class = "wingdinger" style = "color: white">The World's First Wingding Message Board</div>
+    <input id = "searchBar" type = "text" onkeyup = "searchPosts(this)">
+  </div>
+  <div id = "top-btns">
+    <div class = "logged-in">
+      <img id= "profilePic">
+      <p id = "profileName"></p>
+      <button type = "button" onclick = "logout()" style = "background-color: pink">Logout</button>
+    </div>
+    <button id = "googleBtn" type = "button" onclick = "googleLogin()" style = "background-color: lightgreen">Sign in with Google</button>
+  </div>
+  
+</header>
+  
+<!-- Grid -->
+<div class="w3-row">
+
+<!-- Blog entries -->
+<div id = "post-list" class="w3-col l8 s12">
+  
+  <!-- Blog entry -->
+<!--   <div class="w3-card-4 w3-margin w3-white">  
+    <button type = "button" style= "float: right">X</button>
+    
+    <div class="w3-container">
+      <h3><b>BLOG ENTRY</b></h3>
+      <h5>April 2, 2014</h5>
+    </div>
+
+    <div class="w3-container">
+      <p class = "post-body">This is the post body</p>
+      <div class="w3-row">
+        <div class="comment-num m4 w3-hide-small">
+          <p><span class="w3-padding-large w3-right"><b>Comments: 3</b></span></p>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+ 
+  
+<!-- END BLOG ENTRIES -->
+</div>
+
+  <!-- Introduction menu -->
+<div class="w3-col l4">
+  
+  <!-- Posts -->
+<div class="w3-card w3-margin">
+    <div class="w3-container w3-padding">
+      <h4 class = "wingdinger">Your Posts</h4>
+    </div>
+    <ul id = "entry-section" class="w3-ul w3-hoverable w3-white"> 
+    </ul>
+  </div>
+  <hr> 
+<!-- END Introduction Menu -->
+</div>
+
+<!-- END GRID -->
+</div><br>
+
+<!-- END w3-content -->
+</div>
+
+    <form>
+      
+    </form>
+     
+  <div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content overlayer" style = "width: 80%; padding-top: 0">
+    <div class = "modal-top">  
+      <span class="close">&times;</span>
+      <div class = "post-title-holder"></div>
+    </div>
+    <div class = "post-body-holder"></div>
+  </div>
+</div>
+    
+    <div id="editModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content overlayer" style = "width: 80%; padding-top: 0">
+    <div class = "modal-top">  
+      <div class = "post-title-holder"></div>
+    </div>
+    <div class = "post-body-holder"></div>
+    <div>
+      <button class = "edit-close edit-btn" style = "float: left; background-color: pink">Cancel</button>
+      <button class = "edit-btn" onclick = "postPost()" style = "float: right; background-color: aquamarine">Post</button>
+    </div>
+  </div>
+</div>
+    
+</body>
+</html>
