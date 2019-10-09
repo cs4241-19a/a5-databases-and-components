@@ -1,0 +1,56 @@
+<% include ../partials/header %>
+
+<div class="container">
+<!-- 	<header class="jumbotron">
+		<div class="container">
+			<h1>Welcome To Marketplace Beta!</h1>
+			<p>If you can't get it here, you can't get it anywhere.</p>
+		</div>
+	</header> -->
+  
+  <!-- Home Section -->
+
+<section id="home" class="main-single-post parallax-section">
+     <div class="overlay"></div>
+     <div class="container">
+          <div class="row">
+
+               <div class="col-md-12 col-sm-12 just">
+                    <h1>Blogatron Beta</h1>
+                 <p>Stories scattered like a deck of cards..</p>
+               </div>
+
+          </div>
+     </div>
+</section>
+  <br><br><br>
+  <h3>
+    <em>See what's out there...</em>
+  </h3>
+  <br><br>
+	<div class="row text-center" style="display: flex; flex-wrap: wrap;">
+		<% items.forEach((item) => { %>
+			<div class="col-md-3 col-sm-6">
+        <div class="thumbnail">
+           
+					 <div class="caption">
+						 <h4 class='pull-left'><%= item.name %></h4>
+             <h6 class="pull-right"><em><%= item.author.username %></em></h6>
+					 </div>
+					 <p>
+						 <a href="/items/<%= item._id %>"><img src="<%= item.image %>"></a>
+					 </p>
+        </div>
+			</div>
+		<% }); %>
+	</div>
+</div>
+
+<!-- SCRIPTS -->
+
+<script src="jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="jquery.parallax.js"></script>
+<script src="main.js"></script>
+
+<% include ../partials/footer %>
