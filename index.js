@@ -15,14 +15,14 @@ express()
   .get('/cool', (req, res) => res.send(cool()))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-//const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://kandonie:password123456@cluster0-7w27d.mongodb.net/admin?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-// client.connect(err => {
-//  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-//  client.close();
-//});
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://kandonie:password123456@cluster0-7w27d.mongodb.net/admin?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+const collection = client.db("test").collection("devices");
+// perform actions on the collection object
+client.close();
+});
 
 app.get('/index', function(request, response) {
   response.sendFile(__dirname + '/views/pages/index.html');
