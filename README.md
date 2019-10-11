@@ -1,6 +1,6 @@
 ### A5 kandonie Kristen Andonie
 
-hosting link:	localhost:5000
+hosting link: https://a5-kandonie-kristen-andonie.herokuapp.com/
 
 modified index.js to use a mongodb database
 used heroku for the first time
