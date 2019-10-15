@@ -13,9 +13,11 @@ Triage helps you keep track of tasks you have to do. It has support for recommen
 
 For this assignment you will complete one of the following tasks, based on your prior experience with the various technologies involved.
 
-Rework the server component from Assignment #3 to use MongoDB or some other NoSQL database (like CouchDB). You can remove Passport authentication if you choose, although this might be as much work as simply changing your Passport calls to use MongoDB.
-Rework the client component from Assignment #3 to use Svelte in some capacity.
-Rework the client component from Assignmeent #3 to use React in some capacity.
+1. Rework the server component from Assignment #3 to use MongoDB or some other NoSQL database (like CouchDB). You can remove Passport authentication if you choose, although this might be as much work as simply changing your Passport calls to use MongoDB.
+
+2. Rework the client component from Assignment #3 to use Svelte in some capacity.
+
+3. Rework the client component from Assignmeent #3 to use React in some capacity.
 
 ---
 
