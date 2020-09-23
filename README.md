@@ -3,8 +3,7 @@ Assignment 5 - Databases and/or Components
 
 
 
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
+
 
 ## Class Height Converter
 
